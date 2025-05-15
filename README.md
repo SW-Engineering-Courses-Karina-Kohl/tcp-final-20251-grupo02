@@ -12,4 +12,4 @@
 
 ### Tarefas
 
-![alt text](Images/tarefas.png?raw=true)
+![tarefas](https://github.com/user-attachments/assets/20ea9525-c405-488d-90b8-e3761d221cc0)
