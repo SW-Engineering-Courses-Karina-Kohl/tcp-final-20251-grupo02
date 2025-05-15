@@ -9,3 +9,7 @@
     - Linux: java -cp lib/jaylib-5.5.0-2.jar:bin app.Main
     - Windows CMD: java -cp lib/jaylib-5.5.0-2.jar;bin app.Main
     - Windows VScode/Powershell: java -cp lib/jaylib-5.5.0-2.jar`;bin app.Main
+
+### Tarefas
+
+![alt text](Images/tarefas.png?raw=true)
