@@ -2,11 +2,10 @@
 ##**TCP-Final-20251**
 
 ## "Compilando" com Jaylib
-    - javac -cp jaylib-5.5.0-2.jar Main.java
+    - javac -cp lib/jaylib-5.5.0-2.jar -d bin src/app/Main.java
 
 ## Rodando com Jaylib
-    - Linux: java -cp jaylib-5.5.0-2.jar:. Main
-    - MacOS: java -XstartOnFirstThread -cp jaylib-5.5.0-2.jar:. Main
-    - Windows CMD: java -cp jaylib-5.5.0-2.jar;. Main
-    - Windows VScode/Powershell: java -cp "jaylib-5.5.0-2.jar;." Main
+    - Linux: java -cp lib/jaylib-5.5.0-2.jar:bin app.Main
+    - Windows CMD: java -cp lib/jaylib-5.5.0-2.jar;bin app.Main
+    - Windows VScode/Powershell: java -cp lib/jaylib-5.5.0-2.jar`;bin app.Main
 

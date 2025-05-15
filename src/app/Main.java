@@ -1,3 +1,4 @@
+package app;
 import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
 
