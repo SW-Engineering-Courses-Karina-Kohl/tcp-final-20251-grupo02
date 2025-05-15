@@ -3,6 +3,7 @@
 
 ## "Compilando" com Jaylib
     - javac -cp lib/jaylib-5.5.0-2.jar -d bin src/app/Main.java src/jogo/*.java src/jogo/*/*.java
+    - Windows: javac -cp lib/jaylib-5.5.0-2.jar -d bin (Get-ChildItem -Recurse -Filter *.java -Path src).FullName
 
 ## Rodando com Jaylib
     - Linux: java -cp lib/jaylib-5.5.0-2.jar:bin app.Main
