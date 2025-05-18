@@ -7,14 +7,14 @@ public class Tabuleiro {
 
     private static final int SIZE = 3;
 
-    Peca bispo = new Bispo();
-    Peca cavalo = new Cavalo();
-    Peca dama = new Dama();
-    Peca peao = new Peao();
-    Peca rei = new Rei();
-    Peca torre = new Torre();
+    Peca bispo = new Bispo(0,0);
+    Peca cavalo = new Cavalo(0,0);
+    Peca dama = new Dama(0,0);
+    Peca peao = new Peao(8,8);
+    Peca rei = new Rei(0,0);
+    Peca torre = new Torre(0,0);
 
-    private Peca[][] tabuleiro = 
+    private final Peca[][] tabuleiro = 
     {
         {bispo, cavalo, dama},
         {dama, peao, rei},
@@ -24,6 +24,7 @@ public class Tabuleiro {
     // da pra otimizar isso mas meu qi nao é suficiente
     public void GirarTabuleiro(){
         // inverte as linhas
+        
         for(int i = 1; i < ((SIZE-1)/2)+1; i++){
             Peca[] temp = tabuleiro[i-1];
             tabuleiro[i-1] = tabuleiro[SIZE-i];
@@ -38,11 +39,21 @@ public class Tabuleiro {
                 tabuleiro[i-1][SIZE-j] = temp2;
             }
         } 
+        /*
+        for (int i = 0; i < SIZE-1; i++) {
+            for (int j = 0; j < SIZE-1; j++) {
+                // espelha verticalmente e horizontalmente
+                invertida[linhas - 1 - i][colunas - 1 - j] = matriz[i][j];
+            }
+        }*/
+    
     };
 
-    void ChecarPosicao(){
-        // nao entendi oq esse metodo faz?
-
+    // checa se existe peça na posicao
+    boolean ChecarPosicao(int x, int y){
+        if (tabuleiro[x][y] != null)
+            return true;
+        return false;
     };
 
     void MudancaNoTabuleiro(/*Jogada j*/){
@@ -60,11 +71,21 @@ public class Tabuleiro {
         }
     }
     
+    
+
+
     public static void main(String[] args){
          
-        Tabuleiro tab = new Tabuleiro();
-        tab.GirarTabuleiro();
-        tab.print_tabuleiro();
+        //Tabuleiro tab = new Tabuleiro();
+        //tab.GirarTabuleiro();
+        //tab.print_tabuleiro();
+        //Peca peao2 = new Peao(7,7);
+        //peao2.MovimentosValidos();
+        //peao2.print_movimentos_validos();
+
+        Peca rei2 = new Rei(5,5);
+        rei2.MovimentosValidos();
+        rei2.print_movimentos_validos();
 
     }
 
