@@ -14,18 +14,17 @@ public class Bispo extends Peca {
     public ArrayList<Pair> MovimentosValidos(){
         
         for(int i = 1; i < 20; i++) {
-            // diagonal superior direita e esquerda
-            Pair a = this.grid_position.add(new Pair(+ i, - i));
-            Pair b = this.grid_position.add(new Pair(- i, - i));
+            // diagonais
+            Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.grid_position.add(new Pair(- i, - i));
 
-            // diagonal inferior direita e esquerda
-            Pair c = this.grid_position.add(new Pair(+ i, + i));
-            Pair d = this.grid_position.add(new Pair(- i, + i));
+            Pair inferior_direita = this.grid_position.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
            
-            mov.add(a);
-            mov.add(b);
-            mov.add(c);
-            mov.add(d);
+            mov.add(superior_direita);
+            mov.add(superior_esquerda);
+            mov.add(inferior_direita);
+            mov.add(inferior_esquerda);
         }
 
         return mov;

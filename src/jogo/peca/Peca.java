@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public abstract class Peca {
     
-    public class Pair{
+    public static class Pair{
         public int x;
         public int y;
         
