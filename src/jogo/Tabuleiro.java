@@ -118,10 +118,10 @@ public class Tabuleiro {
     };
 
     // checa se existe peça na posicao
-    public boolean ChecarPosicao(int x, int y){
+    Peca ChecarPosicao(int x, int y){
         if (this.tabuleiro[y][x] != null)
-            return true;
-        return false;
+            return this.tabuleiro[y][x];
+        return null;
     };
 
     // muda o tabuleiro de acordo com a jogada
@@ -158,19 +158,4 @@ public class Tabuleiro {
         }
     };
     
-
-    public static void main(String[] args){        
-        Tabuleiro tab = new Tabuleiro();
-        System.out.println("");
-        Peca.Pair movimento = new Peca.Pair(0, -1);
-        Jogada j = new Jogada(tab.tabuleiro[6][0], tab.tabuleiro[6][0], movimento);
-        
-        
-        tab.print_tabuleiro();
-        System.out.println("");
-        
-        System.out.print(tab.tabuleiro[6][1].MovimentosValidos());
-        
-    
-    }
 }

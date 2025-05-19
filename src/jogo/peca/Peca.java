@@ -43,4 +43,10 @@ public abstract class Peca {
            System.out.println(p);
         }
     }
+
+    @Override
+    public String toString() {
+        return this.identificador + " " + this.grid_position;
+    }
+
 }
