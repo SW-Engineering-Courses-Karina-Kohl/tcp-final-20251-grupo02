@@ -27,8 +27,7 @@ public class Cavalo extends Peca {
         mov.add(cima_direita);
         mov.add(cima_esquerda);
         mov.add(baixo_direita);
-        mov.add(baixo_esquerda
-);
+        mov.add(baixo_esquerda);
         mov.add(direita_cima);
         mov.add(direita_baixo);
         mov.add(esquerda_cima);

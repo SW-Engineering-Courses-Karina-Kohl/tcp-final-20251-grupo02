@@ -22,11 +22,9 @@ public abstract class Peca {
         }
     }
     
-    //Float posicao;
-    
+    public float posicao;
     public Pair grid_position;
     public String identificador;
-    
     
     public Peca(int x, int y, String id){
         this.grid_position = new Pair(x, y);

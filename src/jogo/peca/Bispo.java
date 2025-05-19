@@ -12,7 +12,6 @@ public class Bispo extends Peca {
 
     @Override
     public ArrayList<Pair> MovimentosValidos(){
-        
         for(int i = 1; i < 20; i++) {
             // diagonais
             Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));

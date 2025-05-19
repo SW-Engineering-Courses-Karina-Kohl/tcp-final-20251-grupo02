@@ -16,7 +16,7 @@ public class Jogada {
     boolean ValidarJogada(){
         this.peca_movida.grid_position.add(this.movimento);
         return true;
-    
+        
         
     
     }

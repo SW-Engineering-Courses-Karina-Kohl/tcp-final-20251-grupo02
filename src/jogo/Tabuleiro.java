@@ -2,87 +2,14 @@ package jogo;
 import jogo.peca.*;
 
 public class Tabuleiro {
-
     private int PecasNoTabuleiro = 32;
-
     private static final int SIZE = 8;
-
     
-
-    Peca peao = new Peao(7,7);
-    Peca peao2 = new Peao(7,6);
-   
-
+    // tabuleiro[y][x] = Peca(x, y)
     private final Peca[][] tabuleiro = new Peca[SIZE][SIZE];
-    
 
-    // da pra otimizar isso mas meu qi nao é suficiente
-    public void GirarTabuleiro(){
-        // inverte as linhas
-        for(int i = 1; i < ((SIZE-1)/2)+1; i++){
-            Peca[] temp = this.tabuleiro[i-1];
-            this.tabuleiro[i-1] = this.tabuleiro[SIZE-i];
-            this.tabuleiro[SIZE - i] = temp;
-        }
-    
-        // inverte as colunas
-        for(int i = 1 ; i < SIZE+1; i++){            
-            for(int j = 1; j < ((SIZE-1)/2) + 1; j++){
-                Peca temp2 = this.tabuleiro[i-1][j-1];
-                this.tabuleiro[i-1][j-1] = this.tabuleiro[i-1][SIZE-j];
-                this.tabuleiro[i-1][SIZE-j] = temp2;
-            }
-        } 
-        
-        /*
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                // espelha verticalmente e horizontalmente
-                Peca temp = this.tabuleiro[i][j];
-                this.tabuleiro[SIZE - 1 - i][SIZE - 1 - j] = this.tabuleiro[i][j];
-                this.tabuleiro[i][j] = temp; 
-            }
-        }*/
-    };
-
-    // checa se existe peça na posicao
-    boolean ChecarPosicao(int x, int y){
-        if (this.tabuleiro[x][y] != null)
-            return true;
-        return false;
-    };
-
-    void MudancaNoTabuleiro(Jogada jogada){
-        Peca.Pair nova_posicao_peca_movida = jogada.peca_movida.grid_position.add(jogada.movimento);
-        int i = nova_posicao_peca_movida.x;
-        int j = nova_posicao_peca_movida.y;
-        
-        this.tabuleiro[i][j] = jogada.peca_movida;
-
-        if (jogada.peca_capturada != null){
-            i = jogada.peca_capturada.grid_position.x;
-            j = jogada.peca_capturada.grid_position.y;
-            
-            this.tabuleiro[i][j] = null;
-        }
-    };
-
-    public void print_tabuleiro(){
-       
-        for(int i = 0; i < SIZE; i ++){
-            for(int j = 0; j < SIZE; j++)
-            {
-                if (this.tabuleiro[i][j] == null)
-                    System.out.printf("_ ", tabuleiro[i][j]);    
-                else
-                    System.out.printf("%s ", tabuleiro[i][j].identificador);
-            }
-            System.out.printf("\n");
-        }
-    }
-    
-    // inicializa o tabuleiro da visão das brancas
-    public void Inicializa(){
+    // cria o tabuleiro da visão das brancas
+    public Tabuleiro(){
         // pecas brancas
         Peca peao_branco1 = new Peao(0, 6);
         Peca peao_branco2 = new Peao(1, 6);       
@@ -171,42 +98,79 @@ public class Tabuleiro {
         this.tabuleiro[0][3] = rei_preto;
         this.tabuleiro[0][4] = dama_preto;
     }
+    
+    // da pra otimizar isso mas meu qi nao é suficiente
+    public void GirarTabuleiro(){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                int i_espelhado = SIZE - 1 - i;
+                int j_espelhado = SIZE - 1 - j;
+                
+                if (i < i_espelhado || (i == i_espelhado && j < j_espelhado)) {
+                    // espelha verticalmente e horizontalmente
+                    Peca temp = this.tabuleiro[i][j];
+                    this.tabuleiro[i][j] = this.tabuleiro[i_espelhado][j_espelhado];
+                    this.tabuleiro[i_espelhado][j_espelhado] = temp; 
+                }
+            }
+        }
+    
+    };
 
+    // checa se existe peça na posicao
+    public boolean ChecarPosicao(int x, int y){
+        if (this.tabuleiro[y][x] != null)
+            return true;
+        return false;
+    };
 
-
-    public static void main(String[] args){
-         
-        Tabuleiro tab = new Tabuleiro();
-        tab.Inicializa();
-        tab.print_tabuleiro();
-        System.out.println("");
-        //Peca peao = new Peao(7,7); // tab.tabuleiro[7][7];
-        //Peca peao2 = new Peao(7,6); //tab.tabuleiro[6][7];
+    // muda o tabuleiro de acordo com a jogada
+    public void MudancaNoTabuleiro(Jogada jogada){
+        Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
+        Peca.Pair pecaCapturada = jogada.peca_movida.grid_position;
+        Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
+        
+        // move peça e anula posição anterior
+        this.tabuleiro[pecaMovida_movimentada.y][pecaMovida_movimentada.x] = jogada.peca_movida;
+        this.tabuleiro[pecaMovida.y][pecaMovida.x] = null;
         
         
-        Peca.Pair movimento = new Peca.Pair(0, -1);
-        Jogada j = new Jogada(tab.tabuleiro[6][0], tab.tabuleiro[6][1], movimento);
-        
+        // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
+        // nao é necessario Jogada saber qual é a peca capturada.
+        boolean existe_peca_capturada = (jogada.peca_capturada != jogada.peca_movida);
 
-        tab.MudancaNoTabuleiro(j);
-        
-        
-        
-        
-        //tab.GirarTabuleiro();
-        tab.print_tabuleiro();
-        //Peca peao2 = new Peao(7,7);
-        //peao2.MovimentosValidos();
-        //peao2.print_movimentos_validos();
-
-        //Peca rei2 = new Dama(5,5);
-        //rei2.MovimentosValidos();
-        //rei2.print_movimentos_validos();
-
-
-
-    }
+        // anula peça capturada
+        if (existe_peca_capturada)
+            this.tabuleiro[pecaCapturada.y][pecaCapturada.x] = null;
+    };
 
     
+    public void print_tabuleiro(){
+       for(int i = 0; i < SIZE; i ++){
+            for(int j = 0; j < SIZE; j++)
+            {
+                if (this.tabuleiro[i][j] == null)
+                    System.out.printf("_ ", tabuleiro[i][j]);    
+                else
+                    System.out.printf("%s ", tabuleiro[i][j].identificador);
+            }
+            System.out.printf("\n");
+        }
+    };
+    
 
+    public static void main(String[] args){        
+        Tabuleiro tab = new Tabuleiro();
+        System.out.println("");
+        Peca.Pair movimento = new Peca.Pair(0, -1);
+        Jogada j = new Jogada(tab.tabuleiro[6][0], tab.tabuleiro[6][0], movimento);
+        
+        
+        tab.print_tabuleiro();
+        System.out.println("");
+        
+        System.out.print(tab.tabuleiro[6][1].MovimentosValidos());
+        
+    
+    }
 }
