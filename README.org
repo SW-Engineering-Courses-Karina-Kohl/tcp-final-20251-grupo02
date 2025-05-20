@@ -3,15 +3,15 @@
 #+STARTUP: indent
 #+TITLE: Tabuleiro de Combate de Peças (TCP)
 
-TCP is an open-source, objected-oriented implementation of traditional the Chess game maed for our final project to the "INF01120" course.
+TCP is an open-source, object-oriented implementation of the traditional Chess game, made for our final project for the "INF01120" course.
 
 #+begin_quote
 [!WARNING]
-TCP still under development, expect to find some bugs while testing/playing. Feel free to report or even send fixes!
+TCP is still under development, expect to find some bugs while testing/playing. Feel free to report or even send fixes!
 #+end_quote
 
 ** Getting started
-TCP intends to be an easy play and begginer-friendly chess game. You can clone this repository and build the game with the following commands:
+TCP intends to be an easy-to-play and beginner-friendly chess game. You can clone this repository and build the game with the following commands:
 
 *** Linux (terminal):
 #+begin_src
