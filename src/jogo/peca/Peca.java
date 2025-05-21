@@ -1,4 +1,5 @@
 package jogo.peca;
+import jogo.Jogada;
 import java.util.ArrayList;
 
 public abstract class Peca{
@@ -8,9 +9,9 @@ public abstract class Peca{
         public int x;
         public int y;
         
-        public Pair(int fst, int snd){
-            this.x = fst;
-            this.y = snd;
+        public Pair(int x, int y){
+            this.x = x;
+            this.y = y;
         }
     
         public Pair add(Pair other) {
@@ -27,6 +28,17 @@ public abstract class Peca{
             return ((this.x >= inf && this.y >= inf) &&
                     (this.x < sup && this.y < sup));
         }
+    
+        @Override
+        public boolean equals(Object obj){
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Peca.Pair other = (Peca.Pair) obj;
+            
+            return(this.x == other.x &&
+                    this.y == other.y);
+        }
+    
     }
     
     public final int SIZE = 8;
@@ -45,9 +57,8 @@ public abstract class Peca{
     // se movimentar, independente se a casa está ocupada ou não
     public abstract ArrayList<Pair> MovimentosValidos();
         
-    public void Mover(/*Jogada jogada*/){
-        
-
+    public void Mover(Jogada jogada){
+        this.grid_position = jogada.posicao_final;  
     };
     
     public void DestruirPeca(){

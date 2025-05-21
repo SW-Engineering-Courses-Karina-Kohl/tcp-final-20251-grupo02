@@ -1,5 +1,6 @@
 package jogo.peca;
 import java.util.ArrayList;
+import jogo.Jogada;
 
 public class Rei extends Peca{
     
@@ -44,4 +45,11 @@ public class Rei extends Peca{
   
         return mov;
     }
+
+    @Override
+    public void Mover(Jogada jogada){
+        super.Mover(jogada);
+        this.jaMovido = true;
+    }
+
 }

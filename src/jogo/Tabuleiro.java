@@ -1,5 +1,6 @@
 package jogo;
 import jogo.peca.*;
+import jogo.peca.Peca.Pair;
 
 public class Tabuleiro {
     
@@ -114,25 +115,23 @@ public class Tabuleiro {
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
         
-        if (!jogada.jogada_valida)
-            return;
-        
         Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
-        Peca.Pair pecaCapturada = jogada.peca_movida.grid_position;
-        Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
+        Peca.Pair posicaoFinal = jogada.posicao_final;
+        //Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
         
         // move peça e anula posição anterior
-        this.tabuleiro[pecaMovida_movimentada.y][pecaMovida_movimentada.x] = jogada.peca_movida;
+        this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.peca_movida;
         this.tabuleiro[pecaMovida.y][pecaMovida.x] = null;
         // jogada.peca_movida.DestruirPeca;
         
         // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
         // nao é necessario Jogada saber qual é a peca capturada.
-        boolean existe_peca_capturada = (jogada.posicao_final != jogada.peca_movida.grid_position);
+        //boolean existe_peca_capturada = (jogada.posicao_final != jogada.peca_movida.grid_position);
 
         // anula peça capturada
-        if (existe_peca_capturada)
-            this.tabuleiro[pecaCapturada.y][pecaCapturada.x] = null;
+        //if (existe_peca_capturada)
+        
+        //this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = null;
     };
 
     public void GirarTabuleiro(){
@@ -151,6 +150,7 @@ public class Tabuleiro {
         }
     };
     
+    /*
     public void print_tabuleiro(){
        for(int i = 0; i < SIZE; i ++){
             for(int j = 0; j < SIZE; j++)
@@ -162,15 +162,38 @@ public class Tabuleiro {
             }
             System.out.printf("\n");
         }
-    };
+    }; */
     
+    @Override
+    public String toString(){
+        
+        String string = "\n";
+        for(int i = 0; i < SIZE; i ++){
+            for(int j = 0; j < SIZE; j++)
+            {
+                if (this.tabuleiro[i][j] == null)
+                    string = string.concat("_ ");    
+                else
+                    string = string.concat(tabuleiro[i][j].identificador + " ");
+            }
+            string = string.concat("\n");
+        }
+    
+        return string;
+    }
+
+
     public static void main(String[] args) {
         Tabuleiro tab = new Tabuleiro();
-        Peca piece = tab.GetPecaNaPosicao(3, 0);
+        Jogada j = new Jogada(tab.GetPecaNaPosicao(0, 6), new Pair(1, 6));
+        j.ValidarJogada(tab);
+
+
+        //Peca piece = tab.GetPecaNaPosicao(3, 0);
         
         //piece.MovimentosValidos();
         //System.out.print(piece);
-        piece.print_movimentos_validos();   
+        //piece.print_movimentos_validos();   
         
     }
 
