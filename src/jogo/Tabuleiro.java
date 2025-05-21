@@ -26,13 +26,13 @@ public class Tabuleiro {
         Peca torre_branca2 = new Torre(7, 7, "T");
 
         Peca cavalo_branco1 = new Cavalo(1, 7, "C");
-        Peca cavalo_branco2 = new Cavalo(6, 7, "C");
+        //Peca cavalo_branco2 = new Cavalo(6, 7, "C");
 
         Peca bispo_branco1 = new Bispo(2, 7, "B");
-        Peca bispo_branco2 = new Bispo(5, 7, "B");
+        //Peca bispo_branco2 = new Bispo(5, 7, "B");
 
         Peca rei_branco = new Rei(3,7,"R");
-        Peca dama_branca = new Dama(4,7, "D");
+        //Peca dama_branca = new Dama(4,7, "D");
 
         // pecas pretas (id minúsculo)
         Peca peao_preto1 = new Peao(0, 1, "p");
@@ -70,13 +70,13 @@ public class Tabuleiro {
         this.tabuleiro[7][7] = torre_branca2;
 
         this.tabuleiro[7][1] = cavalo_branco1;
-        this.tabuleiro[7][6] = cavalo_branco2;
+        //this.tabuleiro[7][6] = cavalo_branco2;
 
         this.tabuleiro[7][2] = bispo_branco1;
-        this.tabuleiro[7][5] = bispo_branco2;
+        //this.tabuleiro[7][5] = bispo_branco2;
 
         this.tabuleiro[7][3] = rei_branco;
-        this.tabuleiro[7][4] = dama_branca;
+        //this.tabuleiro[7][4] = dama_branca;
 
         // atribuindo peças pretas ao tabuleiro
         this.tabuleiro[1][0] = peao_preto1;
@@ -185,16 +185,9 @@ public class Tabuleiro {
 
     public static void main(String[] args) {
         Tabuleiro tab = new Tabuleiro();
-        Jogada j = new Jogada(tab.GetPecaNaPosicao(0, 6), new Pair(1, 6));
-        j.ValidarJogada(tab);
-
-
-        //Peca piece = tab.GetPecaNaPosicao(3, 0);
         
-        //piece.MovimentosValidos();
-        //System.out.print(piece);
-        //piece.print_movimentos_validos();   
-        
+        Jogada j = new Jogada(tab.GetPecaNaPosicao(0, 7), new Pair(3, 7));
+        j.ValidarJogada(tab);        
     }
 
 }

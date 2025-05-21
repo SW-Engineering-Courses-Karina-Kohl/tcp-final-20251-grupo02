@@ -1,5 +1,5 @@
 package jogo;
-import jogo.peca.Peca;
+import jogo.peca.*;
 import jogo.peca.Peca.Pair;
 
 public class Jogada {
@@ -24,19 +24,40 @@ public class Jogada {
     public void ValidarJogada(Tabuleiro tabuleiro){
         
         // se a peca movida pode ir para a posição final
-        this.jogada_valida = peca_movida.MovimentosValidos().contains(this.posicao_final);
+        //this.jogada_valida = peca_movida.MovimentosValidos().contains(this.posicao_final);
+        // implementar logica de nao ter peça no caminho
+
+        // roque:
+        Peca pecaNaPosicaoFinal = tabuleiro.GetPecaNaPosicao(this.posicao_final.x, this.posicao_final.y);
+        if (
+            this.peca_movida instanceof Torre
+            && (this.peca_movida.grid_position.equals(new Pair(0, 7)) || this.peca_movida.grid_position.equals(new Pair(7, 7)))
+            && pecaNaPosicaoFinal instanceof Rei
+            && pecaNaPosicaoFinal.grid_position.equals(new Pair(3, 7)) &&
+            
+            (
+            (!tabuleiro.IsTherePecaNaPosicao(1, 7) && !tabuleiro.IsTherePecaNaPosicao(2, 7))
+            || !tabuleiro.IsTherePecaNaPosicao(4, 7) && !tabuleiro.IsTherePecaNaPosicao(5, 7) && !tabuleiro.IsTherePecaNaPosicao(6, 7))
+            
+            )
+            
+            jogada_valida = true;
         
+            
+
+
         if (this.jogada_valida)
             tabuleiro.MudancaNoTabuleiro(this);
-
-        /*
-        // se existe uma peça na posição final do tabuleiro
-        if((tabuleiro.IsTherePecaNaPosicao(posicao_final.x, posicao_final.y)))
-           
-
-        else
-            posicao_final = new Pair(-1, -1);
-        */
-        //return this.jogada_valida;
     }
+       
+    /* public boolean IsTherePecaInBetween(Tabuleiro tabuleiro){
+        for(Pair : peca_movida.MovimentosValidos()){
+
+        }
+
+
+
+    } */
+
+
 }

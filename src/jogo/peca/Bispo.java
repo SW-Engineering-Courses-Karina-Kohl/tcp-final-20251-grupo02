@@ -30,14 +30,5 @@ public class Bispo extends Peca {
 
         return mov;
     }
-
-    @Override
-    public void print_movimentos_validos(){
-        for (Pair p : mov) {
-           System.out.println(p);
-        }
-    }
-
-
-
+    
 }
