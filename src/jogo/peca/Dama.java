@@ -2,13 +2,15 @@ package jogo.peca;
 import java.util.ArrayList;
 
 public class Dama extends Peca {
-    public Dama(int x, int y){
-        super(x, y, "D");
+    
+    public Dama(int x, int y, String id){
+        super(x, y, id);
     }
 
     @Override
     public ArrayList<Pair> MovimentosValidos(){
-        for(int i = 1; i < 8; i++) {
+        
+        for(int i = 1; i < SIZE; i++) {
             Pair cima = this.grid_position.add(new Pair(0, - i));
             Pair baixo = this.grid_position.add(new Pair(0, + i));
             
@@ -16,24 +18,29 @@ public class Dama extends Peca {
             Pair esquerda = this.grid_position.add(new Pair(- i, 0));
             
             // diagonais
-            Pair superior_direita = this.grid_position.add(new Pair(+ i, + i));
-            Pair superior_esquerda = this.grid_position.add(new Pair(- i, + i));
+            Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.grid_position.add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.grid_position.add(new Pair(+ i, - i));
-            Pair inferior_esquerda = this.grid_position.add(new Pair(- i, - i));
+            Pair inferior_direita = this.grid_position.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
 
-            
-            mov.add(cima);
-            mov.add(baixo);
-            mov.add(direita);
-            mov.add(esquerda);
-            mov.add(superior_direita);
-            mov.add(superior_esquerda);
-            mov.add(inferior_direita);
-            mov.add(inferior_esquerda);
+            if(cima.IsPieceInsideBoard(0, SIZE))
+                mov.add(cima);
+            if(baixo.IsPieceInsideBoard(0, SIZE))
+                mov.add(baixo);
+            if(direita.IsPieceInsideBoard(0, SIZE))
+                mov.add(direita);
+            if(esquerda.IsPieceInsideBoard(0, SIZE))
+                mov.add(esquerda);
+            if(superior_direita.IsPieceInsideBoard(0, SIZE))
+                mov.add(superior_direita);
+            if(superior_esquerda.IsPieceInsideBoard(0, SIZE))
+                mov.add(superior_esquerda);
+            if(inferior_direita.IsPieceInsideBoard(0, SIZE))
+                mov.add(inferior_direita);
+            if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
+                mov.add(inferior_esquerda);
         }
-
-
 
         return mov;
     };

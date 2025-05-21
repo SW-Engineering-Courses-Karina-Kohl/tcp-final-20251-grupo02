@@ -5,12 +5,13 @@ public class Rei extends Peca{
     
     boolean jaMovido = false;
     
-    public Rei(int x, int y){
-        super(x, y, "R");
+    public Rei(int x, int y, String id){
+        super(x, y, id);
     }
 
     @Override
     public ArrayList<Pair> MovimentosValidos(){
+        
         Pair cima = this.grid_position.add(new Pair(0, - 1));
         Pair baixo = this.grid_position.add(new Pair(0, + 1));
         
@@ -24,15 +25,23 @@ public class Rei extends Peca{
         Pair inferior_direita = this.grid_position.add(new Pair(+ 1, + 1));
         Pair inferior_esquerda = this.grid_position.add(new Pair(- 1, + 1));
         
-        mov.add(cima);
-        mov.add(baixo);
-        mov.add(direita);
-        mov.add(esquerda);
-        mov.add(superior_direita);
-        mov.add(superior_esquerda);
-        mov.add(inferior_direita);
-        mov.add(inferior_esquerda);
-        
+        if(cima.IsPieceInsideBoard(0, SIZE))
+            mov.add(cima);
+        if(baixo.IsPieceInsideBoard(0, SIZE))
+            mov.add(baixo);
+        if(direita.IsPieceInsideBoard(0, SIZE))
+            mov.add(direita);
+        if(esquerda.IsPieceInsideBoard(0, SIZE))
+            mov.add(esquerda);
+        if(superior_direita.IsPieceInsideBoard(0, SIZE))
+            mov.add(superior_direita);
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE))
+            mov.add(superior_esquerda);
+        if(inferior_direita.IsPieceInsideBoard(0, SIZE))
+            mov.add(inferior_direita);
+        if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
+            mov.add(inferior_esquerda);
+  
         return mov;
     }
 }

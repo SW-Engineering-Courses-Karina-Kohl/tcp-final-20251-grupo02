@@ -2,12 +2,14 @@ package jogo.peca;
 import java.util.ArrayList;
 
 public class Cavalo extends Peca {
-    public Cavalo(int x, int y){
-        super(x, y, "C");
+   
+    public Cavalo(int x, int y, String id){
+        super(x, y, id);
     }
 
     @Override
     public ArrayList<Pair> MovimentosValidos(){
+        
         // L pra cima direita esquerda
         Pair cima_direita = this.grid_position.add(new Pair(+ 1, - 2));
         Pair cima_esquerda = this.grid_position.add(new Pair(- 1, - 2));
@@ -24,15 +26,23 @@ public class Cavalo extends Peca {
         Pair esquerda_cima = this.grid_position.add(new Pair(- 2, - 1));
         Pair esquerda_baixo = this.grid_position.add(new Pair(- 2, + 1));
         
-        mov.add(cima_direita);
-        mov.add(cima_esquerda);
-        mov.add(baixo_direita);
-        mov.add(baixo_esquerda);
-        mov.add(direita_cima);
-        mov.add(direita_baixo);
-        mov.add(esquerda_cima);
-        mov.add(esquerda_baixo);
-        
+        if(cima_direita.IsPieceInsideBoard(0, SIZE))
+            mov.add(cima_direita);
+        if(cima_esquerda.IsPieceInsideBoard(0, SIZE))
+            mov.add(cima_esquerda);
+        if(baixo_direita.IsPieceInsideBoard(0, SIZE))
+            mov.add(baixo_direita);
+        if(baixo_esquerda.IsPieceInsideBoard(0, SIZE))
+            mov.add(baixo_esquerda);
+        if(direita_cima.IsPieceInsideBoard(0, SIZE))
+            mov.add(direita_cima);
+        if(direita_baixo.IsPieceInsideBoard(0, SIZE))
+            mov.add(direita_baixo);
+        if(esquerda_cima.IsPieceInsideBoard(0, SIZE))
+            mov.add(esquerda_cima);
+        if(esquerda_baixo.IsPieceInsideBoard(0, SIZE))
+            mov.add(esquerda_baixo);
+    
         return mov;
     }
 

@@ -2,25 +2,31 @@ package jogo.peca;
 import java.util.ArrayList;
 
 public class Torre extends Peca {
+    
     boolean jaMovido = false;
     
-    public Torre(int x, int y){
-        super(x, y, "T");
+    public Torre(int x, int y, String id){
+        super(x, y, id);
     }
 
     @Override
     public ArrayList<Pair> MovimentosValidos(){
-        for(int i = 1; i < 20; i++) {
+        
+        for(int i = 1; i < SIZE; i++) {
             Pair cima = this.grid_position.add(new Pair(0, - i));
             Pair baixo = this.grid_position.add(new Pair(0, + i));
             
             Pair direita = this.grid_position.add(new Pair(+ i, 0));
             Pair esquerda = this.grid_position.add(new Pair(- i, 0));
             
-            mov.add(cima);
-            mov.add(baixo);
-            mov.add(direita);
-            mov.add(esquerda);
+            if(cima.IsPieceInsideBoard(0, SIZE))
+                mov.add(cima);
+            if(baixo.IsPieceInsideBoard(0, SIZE) )
+                mov.add(baixo);
+            if(direita.IsPieceInsideBoard(0, SIZE))
+                mov.add(direita);
+            if(esquerda.IsPieceInsideBoard(0, SIZE))
+                mov.add(esquerda);     
         }
         return mov;
     }

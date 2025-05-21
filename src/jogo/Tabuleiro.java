@@ -2,6 +2,7 @@ package jogo;
 import jogo.peca.*;
 
 public class Tabuleiro {
+    
     private int PecasNoTabuleiro = 32;
     private static final int SIZE = 8;
     
@@ -10,49 +11,49 @@ public class Tabuleiro {
 
     // cria o tabuleiro da visão das brancas
     public Tabuleiro(){
-        // pecas brancas
-        Peca peao_branco1 = new Peao(0, 6);
-        Peca peao_branco2 = new Peao(1, 6);       
-        Peca peao_branco3 = new Peao(2, 6);
-        Peca peao_branco4 = new Peao(3, 6);
-        Peca peao_branco5 = new Peao(4, 6);
-        Peca peao_branco6 = new Peao(5, 6);
-        Peca peao_branco7 = new Peao(6, 6);
-        Peca peao_branco8 = new Peao(7, 6);
+        // pecas brancas (id maiúsculo)
+        Peca peao_branco1 = new Peao(0, 6, "P");
+        Peca peao_branco2 = new Peao(1, 6, "P");       
+        Peca peao_branco3 = new Peao(2, 6, "P");
+        Peca peao_branco4 = new Peao(3, 6, "P");
+        Peca peao_branco5 = new Peao(4, 6, "P");
+        Peca peao_branco6 = new Peao(5, 6, "P");
+        Peca peao_branco7 = new Peao(6, 6, "P");
+        Peca peao_branco8 = new Peao(7, 6, "P");
 
-        Peca torre_branca1 = new Torre(0, 7);
-        Peca torre_branca2 = new Torre(7, 7);
+        Peca torre_branca1 = new Torre(0, 7, "T");
+        Peca torre_branca2 = new Torre(7, 7, "T");
 
-        Peca cavalo_branco1 = new Cavalo(1, 7);
-        Peca cavalo_branco2 = new Cavalo(6, 7);
+        Peca cavalo_branco1 = new Cavalo(1, 7, "C");
+        Peca cavalo_branco2 = new Cavalo(6, 7, "C");
 
-        Peca bispo_branco1 = new Bispo(2, 7);
-        Peca bispo_branco2 = new Bispo(5, 7);
+        Peca bispo_branco1 = new Bispo(2, 7, "B");
+        Peca bispo_branco2 = new Bispo(5, 7, "B");
 
-        Peca rei_branco = new Rei(3,7);
-        Peca dama_branca = new Dama(4,7);
+        Peca rei_branco = new Rei(3,7,"R");
+        Peca dama_branca = new Dama(4,7, "D");
 
-        // pecas pretas
-        Peca peao_preto1 = new Peao(0, 1);
-        Peca peao_preto2 = new Peao(1, 1);
-        Peca peao_preto3 = new Peao(2, 1);
-        Peca peao_preto4 = new Peao(3, 1);
-        Peca peao_preto5 = new Peao(4, 1);
-        Peca peao_preto6 = new Peao(5, 1);
-        Peca peao_preto7 = new Peao(6, 1);
-        Peca peao_preto8 = new Peao(7, 1);
+        // pecas pretas (id minúsculo)
+        Peca peao_preto1 = new Peao(0, 1, "p");
+        Peca peao_preto2 = new Peao(1, 1, "p");
+        Peca peao_preto3 = new Peao(2, 1, "p");
+        Peca peao_preto4 = new Peao(3, 1, "p");
+        Peca peao_preto5 = new Peao(4, 1, "p");
+        Peca peao_preto6 = new Peao(5, 1, "p");
+        Peca peao_preto7 = new Peao(6, 1, "p");
+        Peca peao_preto8 = new Peao(7, 1, "p");
 
-        Peca torre_preta1 = new Torre(0, 0);
-        Peca torre_preta2 = new Torre(7, 0);
+        Peca torre_preta1 = new Torre(0, 0, "t");
+        Peca torre_preta2 = new Torre(7, 0, "t");
 
-        Peca cavalo_preto1 = new Cavalo(1, 0);
-        Peca cavalo_preto2 = new Cavalo(6, 0);
+        Peca cavalo_preto1 = new Cavalo(1, 0, "c");
+        Peca cavalo_preto2 = new Cavalo(6, 0, "c");
 
-        Peca bispo_preto1 = new Bispo(2, 0);
-        Peca bispo_preto2 = new Bispo(5, 0);
+        Peca bispo_preto1 = new Bispo(2, 0, "b");
+        Peca bispo_preto2 = new Bispo(5, 0, "b");
 
-        Peca rei_preto = new Rei(3, 0);
-        Peca dama_preto = new Dama(4, 0);
+        Peca rei_preto = new Rei(3, 0, "r");
+        Peca dama_preto = new Dama(4, 0, "d");
 
         // atribuindo peças brancas ao tabuleiro
         this.tabuleiro[6][0] = peao_branco1;
@@ -99,7 +100,41 @@ public class Tabuleiro {
         this.tabuleiro[0][4] = dama_preto;
     }
     
-    // da pra otimizar isso mas meu qi nao é suficiente
+    // checa qual peça está na posicao (x,y)
+    Peca GetPecaNaPosicao(int x, int y){
+        return this.tabuleiro[y][x];
+    };
+
+    boolean IsTherePecaNaPosicao(int x, int y){   
+        if (this.tabuleiro[y][x] != null) 
+            return true;
+        return false;
+    };
+
+    // muda o tabuleiro de acordo com a jogada
+    public void MudancaNoTabuleiro(Jogada jogada){
+        
+        if (!jogada.jogada_valida)
+            return;
+        
+        Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
+        Peca.Pair pecaCapturada = jogada.peca_movida.grid_position;
+        Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
+        
+        // move peça e anula posição anterior
+        this.tabuleiro[pecaMovida_movimentada.y][pecaMovida_movimentada.x] = jogada.peca_movida;
+        this.tabuleiro[pecaMovida.y][pecaMovida.x] = null;
+        // jogada.peca_movida.DestruirPeca;
+        
+        // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
+        // nao é necessario Jogada saber qual é a peca capturada.
+        boolean existe_peca_capturada = (jogada.posicao_final != jogada.peca_movida.grid_position);
+
+        // anula peça capturada
+        if (existe_peca_capturada)
+            this.tabuleiro[pecaCapturada.y][pecaCapturada.x] = null;
+    };
+
     public void GirarTabuleiro(){
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -114,36 +149,7 @@ public class Tabuleiro {
                 }
             }
         }
-    
     };
-
-    // checa se existe peça na posicao
-    Peca ChecarPosicao(int x, int y){
-        if (this.tabuleiro[y][x] != null)
-            return this.tabuleiro[y][x];
-        return null;
-    };
-
-    // muda o tabuleiro de acordo com a jogada
-    public void MudancaNoTabuleiro(Jogada jogada){
-        Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
-        Peca.Pair pecaCapturada = jogada.peca_movida.grid_position;
-        Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
-        
-        // move peça e anula posição anterior
-        this.tabuleiro[pecaMovida_movimentada.y][pecaMovida_movimentada.x] = jogada.peca_movida;
-        this.tabuleiro[pecaMovida.y][pecaMovida.x] = null;
-        
-        
-        // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
-        // nao é necessario Jogada saber qual é a peca capturada.
-        boolean existe_peca_capturada = (jogada.peca_capturada != jogada.peca_movida);
-
-        // anula peça capturada
-        if (existe_peca_capturada)
-            this.tabuleiro[pecaCapturada.y][pecaCapturada.x] = null;
-    };
-
     
     public void print_tabuleiro(){
        for(int i = 0; i < SIZE; i ++){
@@ -158,4 +164,14 @@ public class Tabuleiro {
         }
     };
     
+    public static void main(String[] args) {
+        Tabuleiro tab = new Tabuleiro();
+        Peca piece = tab.GetPecaNaPosicao(3, 0);
+        
+        //piece.MovimentosValidos();
+        //System.out.print(piece);
+        piece.print_movimentos_validos();   
+        
+    }
+
 }
