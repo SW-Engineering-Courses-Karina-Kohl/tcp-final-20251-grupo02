@@ -1,6 +1,6 @@
 package jogo;
 import jogo.peca.*;
-import jogo.peca.Peca.Pair;
+import misc.Pair;
 
 public class Tabuleiro {
     
@@ -76,8 +76,8 @@ public class Tabuleiro {
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
         
-        Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
-        Peca.Pair posicaoFinal = jogada.peca_capturada.grid_position;
+        Pair pecaMovida = jogada.peca_movida.grid_position;
+        Pair posicaoFinal = jogada.peca_capturada.grid_position;
         //Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
         
         // move peça e anula posição anterior

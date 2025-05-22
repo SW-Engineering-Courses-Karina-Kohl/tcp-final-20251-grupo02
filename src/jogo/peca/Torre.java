@@ -1,4 +1,5 @@
 package jogo.peca;
+import misc.Pair;
 import java.util.ArrayList;
 import jogo.Jogada;
 

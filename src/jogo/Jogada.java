@@ -1,6 +1,6 @@
 package jogo;
 import jogo.peca.*;
-import jogo.peca.Peca.Pair;
+import misc.Pair;
 
 public class Jogada {
     
