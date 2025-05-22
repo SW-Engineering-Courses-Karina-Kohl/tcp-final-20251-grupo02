@@ -32,7 +32,7 @@ public class Tabuleiro {
         //Peca bispo_branco2 = new Bispo(5, 7, "B");
 
         Peca rei_branco = new Rei(3,7,"R");
-        //Peca dama_branca = new Dama(4,7, "D");
+        Peca dama_branca = new Dama(4,7, "D");
 
         // pecas pretas (id minúsculo)
         Peca peao_preto1 = new Peao(0, 1, "p");
@@ -76,7 +76,7 @@ public class Tabuleiro {
         //this.tabuleiro[7][5] = bispo_branco2;
 
         this.tabuleiro[7][3] = rei_branco;
-        //this.tabuleiro[7][4] = dama_branca;
+        this.tabuleiro[7][4] = dama_branca;
 
         // atribuindo peças pretas ao tabuleiro
         this.tabuleiro[1][0] = peao_preto1;
@@ -116,7 +116,7 @@ public class Tabuleiro {
     public void MudancaNoTabuleiro(Jogada jogada){
         
         Peca.Pair pecaMovida = jogada.peca_movida.grid_position;
-        Peca.Pair posicaoFinal = jogada.posicao_final;
+        Peca.Pair posicaoFinal = jogada.peca_capturada.grid_position;
         //Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
         
         // move peça e anula posição anterior
@@ -171,10 +171,8 @@ public class Tabuleiro {
         for(int i = 0; i < SIZE; i ++){
             for(int j = 0; j < SIZE; j++)
             {
-                if (this.tabuleiro[i][j] == null)
-                    string = string.concat("_ ");    
-                else
-                    string = string.concat(tabuleiro[i][j].identificador + " ");
+                if (this.tabuleiro[i][j] == null) string = string.concat("_ ");    
+                else string = string.concat(tabuleiro[i][j].identificador + " ");
             }
             string = string.concat("\n");
         }
@@ -186,8 +184,10 @@ public class Tabuleiro {
     public static void main(String[] args) {
         Tabuleiro tab = new Tabuleiro();
         
-        Jogada j = new Jogada(tab.GetPecaNaPosicao(0, 7), new Pair(3, 7));
-        j.ValidarJogada(tab);        
+        Jogada j = new Jogada(tab.GetPecaNaPosicao(4, 7), tab.GetPecaNaPosicao(7, 7));
+        //j.ValidarJogada(tab);        
+        j.ValidarJogada(tab);
+    
     }
 
 }

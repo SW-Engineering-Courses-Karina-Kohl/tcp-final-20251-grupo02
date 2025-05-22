@@ -58,7 +58,7 @@ public abstract class Peca{
     public abstract ArrayList<Pair> MovimentosValidos();
         
     public void Mover(Jogada jogada){
-        this.grid_position = jogada.posicao_final;  
+        this.grid_position = jogada.peca_capturada.grid_position;  
     };
     
     public void DestruirPeca(){

@@ -4,7 +4,7 @@ import jogo.Jogada;
 
 public class Torre extends Peca {
     
-    boolean jaMovido = false;
+    public boolean jaMovido = false;
     
     public Torre(int x, int y, String id){
         super(x, y, id);

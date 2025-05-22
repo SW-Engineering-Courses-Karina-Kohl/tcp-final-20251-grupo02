@@ -4,7 +4,7 @@ import jogo.Jogada;
 
 public class Peao extends Peca {
     
-    boolean jaMovido = false;
+    public boolean jaMovido = false;
 
     public Peao(int x, int y, String id){
         super(x, y, id);
