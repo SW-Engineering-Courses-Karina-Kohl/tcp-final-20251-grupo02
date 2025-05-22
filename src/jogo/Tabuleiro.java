@@ -12,93 +12,49 @@ public class Tabuleiro {
 
     // cria o tabuleiro da visão das brancas
     public Tabuleiro(){
-        // pecas brancas (id maiúsculo)
-        Peca peao_branco1 = new Peao(0, 6, "P");
-        Peca peao_branco2 = new Peao(1, 6, "P");       
-        Peca peao_branco3 = new Peao(2, 6, "P");
-        Peca peao_branco4 = new Peao(3, 6, "P");
-        Peca peao_branco5 = new Peao(4, 6, "P");
-        Peca peao_branco6 = new Peao(5, 6, "P");
-        Peca peao_branco7 = new Peao(6, 6, "P");
-        Peca peao_branco8 = new Peao(7, 6, "P");
+        //  pecas brancas (id maiúsculo)
+        this.tabuleiro[6][0] = new Peao(0, 6, "P");
+        this.tabuleiro[6][1] = new Peao(1, 6, "P");              
+        this.tabuleiro[6][2] = new Peao(2, 6, "P");
+        this.tabuleiro[6][3] = new Peao(3, 6, "P");
+        this.tabuleiro[6][4] = new Peao(4, 6, "P");
+        this.tabuleiro[6][5] = new Peao(5, 6, "P");
+        this.tabuleiro[6][6] = new Peao(6, 6, "P");
+        this.tabuleiro[6][7] = new Peao(7, 6, "P");
 
-        Peca torre_branca1 = new Torre(0, 7, "T");
-        Peca torre_branca2 = new Torre(7, 7, "T");
+        this.tabuleiro[7][0] = new Torre(0, 7, "T");
+        this.tabuleiro[7][7] = new Torre(7, 7, "T");
 
-        Peca cavalo_branco1 = new Cavalo(1, 7, "C");
-        //Peca cavalo_branco2 = new Cavalo(6, 7, "C");
+        this.tabuleiro[7][1] = new Cavalo(1, 7, "C");
+        this.tabuleiro[7][6] = new Cavalo(6, 7, "C");
 
-        Peca bispo_branco1 = new Bispo(2, 7, "B");
-        //Peca bispo_branco2 = new Bispo(5, 7, "B");
+        this.tabuleiro[7][2] = new Bispo(2, 7, "B");
+        this.tabuleiro[7][5] = new Bispo(5, 7, "B");
 
-        Peca rei_branco = new Rei(3,7,"R");
-        Peca dama_branca = new Dama(4,7, "D");
+        this.tabuleiro[7][3] = new Rei(3,7,"R"); 
+        this.tabuleiro[7][4] = new Dama(4,7, "D"); 
 
         // pecas pretas (id minúsculo)
-        Peca peao_preto1 = new Peao(0, 1, "p");
-        Peca peao_preto2 = new Peao(1, 1, "p");
-        Peca peao_preto3 = new Peao(2, 1, "p");
-        Peca peao_preto4 = new Peao(3, 1, "p");
-        Peca peao_preto5 = new Peao(4, 1, "p");
-        Peca peao_preto6 = new Peao(5, 1, "p");
-        Peca peao_preto7 = new Peao(6, 1, "p");
-        Peca peao_preto8 = new Peao(7, 1, "p");
+        this.tabuleiro[1][0] = new Peao(0, 1, "p");
+        this.tabuleiro[1][1] = new Peao(1, 1, "p");
+        this.tabuleiro[1][2] = new Peao(2, 1, "p");
+        this.tabuleiro[1][3] = new Peao(3, 1, "p");
+        this.tabuleiro[1][4] = new Peao(4, 1, "p");
+        this.tabuleiro[1][5] = new Peao(5, 1, "p");
+        this.tabuleiro[1][6] = new Peao(6, 1, "p");
+        this.tabuleiro[1][7] = new Peao(7, 1, "p");
+        
+        this.tabuleiro[0][0] = new Torre(0, 0, "t");
+        this.tabuleiro[0][7] = new Torre(7, 0, "t");
+        
+        this.tabuleiro[0][1] = new Cavalo(1, 0, "c");
+        this.tabuleiro[0][6] = new Cavalo(6, 0, "c");
+        
+        this.tabuleiro[0][2] = new Bispo(2, 0, "b");
+        this.tabuleiro[0][5] = new Bispo(5, 0, "b");
 
-        Peca torre_preta1 = new Torre(0, 0, "t");
-        Peca torre_preta2 = new Torre(7, 0, "t");
-
-        Peca cavalo_preto1 = new Cavalo(1, 0, "c");
-        Peca cavalo_preto2 = new Cavalo(6, 0, "c");
-
-        Peca bispo_preto1 = new Bispo(2, 0, "b");
-        Peca bispo_preto2 = new Bispo(5, 0, "b");
-
-        Peca rei_preto = new Rei(3, 0, "r");
-        Peca dama_preto = new Dama(4, 0, "d");
-
-        // atribuindo peças brancas ao tabuleiro
-        this.tabuleiro[6][0] = peao_branco1;
-        this.tabuleiro[6][1] = peao_branco2;       
-        this.tabuleiro[6][2] = peao_branco3;
-        this.tabuleiro[6][3] = peao_branco4;
-        this.tabuleiro[6][4] = peao_branco5;
-        this.tabuleiro[6][5] = peao_branco6;
-        this.tabuleiro[6][6] = peao_branco7;
-        this.tabuleiro[6][7] = peao_branco8;
-
-        this.tabuleiro[7][0] = torre_branca1;
-        this.tabuleiro[7][7] = torre_branca2;
-
-        this.tabuleiro[7][1] = cavalo_branco1;
-        //this.tabuleiro[7][6] = cavalo_branco2;
-
-        this.tabuleiro[7][2] = bispo_branco1;
-        //this.tabuleiro[7][5] = bispo_branco2;
-
-        this.tabuleiro[7][3] = rei_branco;
-        this.tabuleiro[7][4] = dama_branca;
-
-        // atribuindo peças pretas ao tabuleiro
-        this.tabuleiro[1][0] = peao_preto1;
-        this.tabuleiro[1][1] = peao_preto2;
-        this.tabuleiro[1][2] = peao_preto3;
-        this.tabuleiro[1][3] = peao_preto4;
-        this.tabuleiro[1][4] = peao_preto5;
-        this.tabuleiro[1][5] = peao_preto6;
-        this.tabuleiro[1][6] = peao_preto7;
-        this.tabuleiro[1][7] = peao_preto8;
-
-        this.tabuleiro[0][0] = torre_preta1;
-        this.tabuleiro[0][7] = torre_preta2;
-
-        this.tabuleiro[0][1] = cavalo_preto1;
-        this.tabuleiro[0][6] = cavalo_preto2;
-
-        this.tabuleiro[0][2] = bispo_preto1;
-        this.tabuleiro[0][5] = bispo_preto2;
-
-        this.tabuleiro[0][3] = rei_preto;
-        this.tabuleiro[0][4] = dama_preto;
+        this.tabuleiro[0][3] = new Rei(3, 0, "r");
+        this.tabuleiro[0][4] = new Dama(4, 0, "d");
     }
     
     // checa qual peça está na posicao (x,y)
