@@ -10,51 +10,56 @@ public class Tabuleiro {
     // tabuleiro[y][x] = Peca(x, y)
     private final Peca[][] tabuleiro = new Peca[SIZE][SIZE];
 
+    // tabuleiro[y][x] = Peca(x, y)
+    private void InitializePeca(Peca peca){
+        this.tabuleiro[peca.grid_position.y][peca.grid_position.x] = peca;
+    }
+
     // cria o tabuleiro da visão das brancas
     public Tabuleiro(){
-        //  pecas brancas (id maiúsculo)
-        this.tabuleiro[6][0] = new Peao(0, 6, "P");
-        this.tabuleiro[6][1] = new Peao(1, 6, "P");              
-        this.tabuleiro[6][2] = new Peao(2, 6, "P");
-        this.tabuleiro[6][3] = new Peao(3, 6, "P");
-        this.tabuleiro[6][4] = new Peao(4, 6, "P");
-        this.tabuleiro[6][5] = new Peao(5, 6, "P");
-        this.tabuleiro[6][6] = new Peao(6, 6, "P");
-        this.tabuleiro[6][7] = new Peao(7, 6, "P");
+        // pecas brancas (id maiúsculo)
+        this.InitializePeca(new Peao(0, 6, "P"));
+        this.InitializePeca(new Peao(1, 6, "P"));
+        this.InitializePeca(new Peao(2, 6, "P"));
+        this.InitializePeca(new Peao(3, 6, "P"));
+        this.InitializePeca(new Peao(4, 6, "P"));
+        this.InitializePeca(new Peao(5, 6, "P"));
+        this.InitializePeca(new Peao(6, 6, "P"));
+        this.InitializePeca(new Peao(7, 6, "P"));
 
-        this.tabuleiro[7][0] = new Torre(0, 7, "T");
-        this.tabuleiro[7][7] = new Torre(7, 7, "T");
+        this.InitializePeca(new Torre(0, 7, "T"));
+        this.InitializePeca(new Torre(7, 7, "T"));
 
-        this.tabuleiro[7][1] = new Cavalo(1, 7, "C");
-        this.tabuleiro[7][6] = new Cavalo(6, 7, "C");
+        this.InitializePeca(new Cavalo(1, 7, "C"));
+        this.InitializePeca(new Cavalo(6, 7, "C"));
 
-        this.tabuleiro[7][2] = new Bispo(2, 7, "B");
-        this.tabuleiro[7][5] = new Bispo(5, 7, "B");
+        this.InitializePeca(new Bispo(2, 7, "B"));
+        this.InitializePeca(new Bispo(5, 7, "B"));
 
-        this.tabuleiro[7][4] = new Rei(4,7,"R"); 
-        this.tabuleiro[7][3] = new Dama(3,7, "D"); 
+        this.InitializePeca(new Rei(4,7,"R"));
+        this.InitializePeca(new Dama(3,7, "D"));
 
         // pecas pretas (id minúsculo)
-        this.tabuleiro[1][0] = new Peao(0, 1, "p");
-        this.tabuleiro[1][1] = new Peao(1, 1, "p");
-        this.tabuleiro[1][2] = new Peao(2, 1, "p");
-        this.tabuleiro[1][3] = new Peao(3, 1, "p");
-        this.tabuleiro[1][4] = new Peao(4, 1, "p");
-        this.tabuleiro[1][5] = new Peao(5, 1, "p");
-        this.tabuleiro[1][6] = new Peao(6, 1, "p");
-        this.tabuleiro[1][7] = new Peao(7, 1, "p");
+        this.InitializePeca(new Peao(0, 1, "p"));
+        this.InitializePeca(new Peao(1, 1, "p"));
+        this.InitializePeca(new Peao(2, 1, "p"));
+        this.InitializePeca(new Peao(3, 1, "p"));
+        this.InitializePeca(new Peao(4, 1, "p"));
+        this.InitializePeca(new Peao(5, 1, "p"));
+        this.InitializePeca(new Peao(6, 1, "p"));
+        this.InitializePeca(new Peao(7, 1, "p"));
         
-        this.tabuleiro[0][0] = new Torre(0, 0, "t");
-        this.tabuleiro[0][7] = new Torre(7, 0, "t");
+        this.InitializePeca(new Torre(0, 0, "t"));
+        this.InitializePeca(new Torre(7, 0, "t"));
         
-        this.tabuleiro[0][1] = new Cavalo(1, 0, "c");
-        this.tabuleiro[0][6] = new Cavalo(6, 0, "c");
+        this.InitializePeca(new Cavalo(1, 0, "c"));
+        this.InitializePeca(new Cavalo(6, 0, "c"));
         
-        this.tabuleiro[0][2] = new Bispo(2, 0, "b");
-        this.tabuleiro[0][5] = new Bispo(5, 0, "b");
+        this.InitializePeca(new Bispo(2, 0, "b"));
+        this.InitializePeca(new Bispo(5, 0, "b"));
 
-        this.tabuleiro[0][4] = new Rei(4, 0, "r");
-        this.tabuleiro[0][3] = new Dama(3, 0, "d");
+        this.InitializePeca(new Rei(4, 0, "r"));
+        this.InitializePeca(new Dama(3, 0, "d"));
     }
     
     // checa qual peça está na posicao (x,y)
