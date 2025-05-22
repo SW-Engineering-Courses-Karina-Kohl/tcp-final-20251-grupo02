@@ -63,6 +63,10 @@ public class Jogada {
 
         if (this.jogada_valida){
             tabuleiro.MudancaNoTabuleiro(this);
+            peca_movida.Mover(this);
+            peca_capturada.DestruirPeca();
+        }
+            
     }
        
     public boolean IsTherePecaInBetween(Tabuleiro tabuleiro){

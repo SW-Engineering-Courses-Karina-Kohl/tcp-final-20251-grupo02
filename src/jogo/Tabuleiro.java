@@ -60,13 +60,13 @@ public class Tabuleiro {
     // checa qual peça está na posicao (x,y)
     Peca GetPecaNaPosicao(int x, int y){
         return this.tabuleiro[y][x];
-    };
+    }
 
     boolean IsTherePecaNaPosicao(int x, int y){   
         if (this.tabuleiro[y][x] != null) 
             return true;
         return false;
-    };
+    }
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
@@ -88,7 +88,7 @@ public class Tabuleiro {
         //if (existe_peca_capturada)
         
         //this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = null;
-    };
+    }
 
     public void GirarTabuleiro(){
         for (int i = 0; i < SIZE; i++) {
@@ -104,35 +104,18 @@ public class Tabuleiro {
                 }
             }
         }
-    };
-    
-    /*
-    public void print_tabuleiro(){
-       for(int i = 0; i < SIZE; i ++){
-            for(int j = 0; j < SIZE; j++)
-            {
-                if (this.tabuleiro[i][j] == null)
-                    System.out.printf("_ ", tabuleiro[i][j]);    
-                else
-                    System.out.printf("%s ", tabuleiro[i][j].identificador);
-            }
-            System.out.printf("\n");
-        }
-    }; */
+    }
     
     @Override
     public String toString(){
-        
         String string = "\n";
         for(int i = 0; i < SIZE; i ++){
-            for(int j = 0; j < SIZE; j++)
-            {
+            for(int j = 0; j < SIZE; j++){
                 if (this.tabuleiro[i][j] == null) string = string.concat("_ ");    
                 else string = string.concat(tabuleiro[i][j].identificador + " ");
             }
             string = string.concat("\n");
         }
-    
         return string;
     }
 
