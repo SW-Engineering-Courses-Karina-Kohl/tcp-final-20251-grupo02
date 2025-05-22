@@ -31,8 +31,8 @@ public class Tabuleiro {
         this.tabuleiro[7][2] = new Bispo(2, 7, "B");
         this.tabuleiro[7][5] = new Bispo(5, 7, "B");
 
-        this.tabuleiro[7][3] = new Rei(3,7,"R"); 
-        this.tabuleiro[7][4] = new Dama(4,7, "D"); 
+        this.tabuleiro[7][4] = new Rei(4,7,"R"); 
+        this.tabuleiro[7][3] = new Dama(3,7, "D"); 
 
         // pecas pretas (id minúsculo)
         this.tabuleiro[1][0] = new Peao(0, 1, "p");
@@ -53,8 +53,8 @@ public class Tabuleiro {
         this.tabuleiro[0][2] = new Bispo(2, 0, "b");
         this.tabuleiro[0][5] = new Bispo(5, 0, "b");
 
-        this.tabuleiro[0][3] = new Rei(3, 0, "r");
-        this.tabuleiro[0][4] = new Dama(4, 0, "d");
+        this.tabuleiro[0][4] = new Rei(4, 0, "r");
+        this.tabuleiro[0][3] = new Dama(3, 0, "d");
     }
     
     // checa qual peça está na posicao (x,y)
