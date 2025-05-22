@@ -14,6 +14,7 @@ public class Peao extends Peca {
     public ArrayList<Pair> MovimentosValidos(){
         
         Pair cima = this.grid_position.add(new Pair(0, - 1)); 
+        Pair cima_duplo = this.grid_position.add(new Pair(0, - 2)); 
         
         // diagonais superiores
         Pair superior_direita = this.grid_position.add(new Pair(+ 1, - 1)); 
@@ -21,6 +22,8 @@ public class Peao extends Peca {
         
         if(cima.IsPieceInsideBoard(0, SIZE))
             mov.add(cima);
+        if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido)
+            mov.add(cima_duplo);
         if(superior_direita.IsPieceInsideBoard(0, SIZE))
             mov.add(superior_direita);
         if(superior_esquerda.IsPieceInsideBoard(0, SIZE))

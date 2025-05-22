@@ -40,7 +40,28 @@ public class Jogada {
         if ( reiPodeFazerRoque && torrePodeFazerRoque )
             jogada_valida = true;
         
-        if (this.jogada_valida)
+        // movimentação especial do peão
+        if (peca_movida instanceof Peao && 
+            // se a peça capturada está logo acima do peão:
+            peca_capturada.grid_position.equals( 
+            new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y - 1))
+            ){
+            jogada_valida = false;
+            return;
+        }
+            
+        if(peca_movida instanceof Peao &&
+            // se a peça capturada está nas diagonais superiores do peão:
+            ((peca_capturada.grid_position.equals(
+                new Pair (peca_movida.grid_position.x + 1, peca_movida.grid_position.y - 1))) || 
+            (peca_capturada.grid_position.equals( 
+                new Pair (peca_movida.grid_position.x - 1, peca_movida.grid_position.y - 1)) ))
+        )
+
+            jogada_valida = true;
+            
+
+        if (this.jogada_valida){
             tabuleiro.MudancaNoTabuleiro(this);
     }
        
