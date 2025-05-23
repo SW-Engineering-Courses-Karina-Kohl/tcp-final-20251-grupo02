@@ -40,6 +40,14 @@ public class Jogada {
         if ( reiPodeFazerRoque && torrePodeFazerRoque )
             jogada_valida = true;
         
+        // se as peças da jogada tiverem a mesma cor:
+        if ( (Character.isLowerCase(this.peca_movida.identificador) &&  Character.isLowerCase(this.peca_capturada.identificador)) ||
+                (Character.isUpperCase(this.peca_movida.identificador) && Character.isUpperCase(this.peca_capturada.identificador)) 
+        ){
+            jogada_valida = false;
+        }
+        
+        
         // movimentação especial do peão
         if (peca_movida instanceof Peao && 
             // se a peça capturada está logo acima do peão:
