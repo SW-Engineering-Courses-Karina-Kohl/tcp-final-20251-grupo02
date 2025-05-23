@@ -60,6 +60,14 @@ public class Tabuleiro {
 
         this.InitializePeca(new Rei(4, 0, 'r'));
         this.InitializePeca(new Dama(3, 0, 'd'));
+    
+        for(int i = 0 ; i < SIZE; i ++){
+            for (int j = 0; j < SIZE;j ++){
+                if (this.tabuleiro[i][j] == null)
+                    this.tabuleiro[i][j] = new Blank(j, i);
+            }
+        }
+    
     }
     
     // checa qual peça está na posicao (x,y)
@@ -116,8 +124,7 @@ public class Tabuleiro {
         String string = "\n";
         for(int i = 0; i < SIZE; i ++){
             for(int j = 0; j < SIZE; j++){
-                if (this.tabuleiro[i][j] == null) string = string.concat("_ ");    
-                else string = string.concat(tabuleiro[i][j].identificador + " ");
+                string = string.concat(tabuleiro[i][j].identificador + " ");
             }
             string = string.concat("\n");
         }
