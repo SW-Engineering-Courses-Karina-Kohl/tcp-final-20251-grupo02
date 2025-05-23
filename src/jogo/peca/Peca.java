@@ -8,9 +8,9 @@ public abstract class Peca{
     public final int SIZE = 8;
     public float posicao;
     public Pair grid_position;
-    public String identificador;
+    public char identificador;
     
-    public Peca(int x, int y, String id){
+    public Peca(int x, int y, char id){
         this.grid_position = new Pair(x, y);
         this.identificador = id; 
     }

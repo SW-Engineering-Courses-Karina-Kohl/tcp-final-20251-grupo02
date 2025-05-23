@@ -7,7 +7,7 @@ public class Rei extends Peca{
     
     public boolean jaMovido = false;
     
-    public Rei(int x, int y, String id){
+    public Rei(int x, int y, char id){
         super(x, y, id);
     }
 

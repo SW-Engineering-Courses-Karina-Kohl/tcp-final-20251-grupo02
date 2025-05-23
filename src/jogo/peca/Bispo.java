@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Bispo extends Peca {
     
-    public Bispo(int x, int y, String id){
+    public Bispo(int x, int y, char id){
         super(x, y, id);
     } 
 

@@ -7,7 +7,7 @@ public class Torre extends Peca {
     
     public boolean jaMovido = false;
     
-    public Torre(int x, int y, String id){
+    public Torre(int x, int y, char id){
         super(x, y, id);
     }
 

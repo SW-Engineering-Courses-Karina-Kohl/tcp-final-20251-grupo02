@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Dama extends Peca {
     
-    public Dama(int x, int y, String id){
+    public Dama(int x, int y, char id){
         super(x, y, id);
     }
 

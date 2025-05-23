@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Cavalo extends Peca {
    
-    public Cavalo(int x, int y, String id){
+    public Cavalo(int x, int y, char id){
         super(x, y, id);
     }
 

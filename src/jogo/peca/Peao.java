@@ -7,7 +7,7 @@ public class Peao extends Peca {
     
     public boolean jaMovido = false;
 
-    public Peao(int x, int y, String id){
+    public Peao(int x, int y, char id){
         super(x, y, id);
     }
 
