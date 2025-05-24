@@ -68,6 +68,14 @@ public class Jogada {
 
             jogada_valida = true;
             
+       
+            if (peca_movida instanceof Peao && 
+                // se a peça capturada está duas casas acima do peão:
+                peca_capturada.grid_position.equals( 
+                new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y - 2))
+                ){
+            jogada_valida = true;
+        }
 
         if (this.jogada_valida){
             tabuleiro.MudancaNoTabuleiro(this);
