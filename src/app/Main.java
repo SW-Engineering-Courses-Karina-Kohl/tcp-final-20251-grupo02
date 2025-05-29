@@ -11,7 +11,6 @@ public class Main
 
         SetTargetFPS(60);
 
-
         while (!WindowShouldClose()) 
         {
             BeginDrawing();
