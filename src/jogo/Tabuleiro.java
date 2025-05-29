@@ -90,7 +90,7 @@ public class Tabuleiro {
         
         // move peça e anula posição anterior
         this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.peca_movida;
-        this.tabuleiro[pecaMovida.y][pecaMovida.x] = null;
+        this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);
         // jogada.peca_movida.DestruirPeca;
         
         // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
@@ -129,16 +129,6 @@ public class Tabuleiro {
             string = string.concat("\n");
         }
         return string;
-    }
-
-
-    public static void main(String[] args) {
-        Tabuleiro tab = new Tabuleiro();
-        
-        Jogada j = new Jogada(tab.GetPecaNaPosicao(4, 7), tab.GetPecaNaPosicao(7, 7));
-        //j.ValidarJogada(tab);        
-        j.ValidarJogada(tab);
-    
     }
 
 }
