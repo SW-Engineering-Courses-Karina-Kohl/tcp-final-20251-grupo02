@@ -1,3 +1,15 @@
+03/06/2025
+
+Primeiro: desconsiderem meu pull request patch 2 :-)
+Prof foi cacaca! E olha que beleza, a configuração do github de vcs vai impedir que a cacaca se propague :-)
+
+Sobre as questões que vocês trouxeram no final da aula hoje: o erro é em tempo de execução?
+eu consegui compilar e rodar a branch de desenvolvimento, mas ainda não tem o tabuleiro nela.
+
+Qual o passo a passo para reproduzir o comportamento que vocês estão tendo dificuldade?
+
+-------------------------------------------------------------------------------------------------------------
+
 16/05/2025
 - Os requisitos não-funcionais estão apontando para o lado correto. Vocês estão certos ao focar em desempenho, usabilidade e confiabilidade. 
 porém, para melhorar, sempre que possível usem métricas objetivas, evitem termos subjetivos como “rápido”, “leve”, “bonito”, “fácil”
@@ -31,3 +43,5 @@ Quase bom (é mensurável), mas poderia ser mais preciso no contexto (tempo de v
 
 Sugestão:
 O tempo de validação de qualquer jogada, desde a entrada do usuário até a resposta visual da aplicação, não deve ultrapassar 2 segundos.
+
+
