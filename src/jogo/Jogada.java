@@ -77,15 +77,10 @@ public class Jogada {
         if ( this.peca_movida instanceof Peao 
         && peca_capturada.grid_position.y == 0)
             this.peca_movida = ((Peao) this.peca_movida).Promover();
-        
-        // validar as movimentações especiais do peão
-        if(this.peca_movida instanceof Peao)
-            return this.ValidarJogadaPeao(tabuleiro);
 
         // se a posição da peça capturada está vazia,
         // nao existe nenhuma peça entre a movida e a capturada e
         // a peça capturada está em uma casa que a peça movida pode se movimentar:
-        // (happiest case)
         if (this.peca_capturada instanceof Blank 
         &&  peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position) 
         && !this.IsTherePecaInBetween(tabuleiro)){
@@ -95,23 +90,6 @@ public class Jogada {
         // validar as movimentações especiais do peão
         if(this.peca_movida instanceof Peao)
             return this.ValidarJogadaPeao(tabuleiro);
-
-        // validar o roque (jogada do rei na torre)
-        if(this.peca_movida instanceof Rei && this.peca_capturada instanceof Torre)
-            return this.ValidarRoque(tabuleiro);
-
-        // se as peças da jogada tiverem a mesma cor:
-        if ( (Character.isLowerCase(this.peca_movida.identificador) &&  Character.isLowerCase(this.peca_capturada.identificador)) ||
-            (Character.isUpperCase(this.peca_movida.identificador) && Character.isUpperCase(this.peca_capturada.identificador))
-        ){
-            //this.jogada_valida = false;
-            return false;
-        }
-
-	    // Remover, smell, mover na main
-        if (this.jogada_valida){
-            
-        }
     
         return false;
     }
