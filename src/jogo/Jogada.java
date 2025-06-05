@@ -62,6 +62,10 @@ public class Jogada {
 
     // valida se a jogada pode ser feita e muda o tabuleiro
     public boolean ValidarJogada(Tabuleiro tabuleiro){
+        // movimentação do cavalo
+        if (this.peca_movida instanceof Cavalo && peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position) ){
+            return true;
+        }
 
         // se a posição da peça capturada está vazia,
         // nao existe nenhuma peça entre a movida e a capturada e
