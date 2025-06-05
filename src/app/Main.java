@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 public class Main
 {
-    public static void main(String args[])
-    {
+    public static void main(String args[]){
         // InitWindow(800, 450, "Main");
 
         // SetTargetFPS(60);
@@ -35,6 +34,7 @@ public class Main
 
 	System.out.println(jogo.tabuleiro);
 
+		while(true){
 	System.out.println("Coordenacas da peça e da casa para mover: ");
 
 	int px = scanner.nextInt() - 1;
@@ -51,21 +51,15 @@ public class Main
 
 	Jogada jogada = new Jogada(peca, peca2);
 	
-	//jogada.ValidarJogada(jogo.tabuleiro);
-	/* 
-	if(jogada.jogada_valida){
-	    jogo.tabuleiro.MudancaNoTabuleiro(jogada);
-	} else {
-	    System.out.println("invalida");
-	}*/
-	
-	if(jogada.ValidarJogada(jogo.tabuleiro)){
+			if( jogada.ValidarJogada(jogo.tabuleiro) ){
 		jogo.tabuleiro.MudancaNoTabuleiro(jogada);
 		jogada.peca_movida.Mover(jogada);
 	    jogada.peca_capturada.DestruirPeca();
 	}
 
 	System.out.println(jogo.tabuleiro);
+		}
+		
     }
 
 }
