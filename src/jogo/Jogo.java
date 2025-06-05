@@ -9,9 +9,9 @@ public class Jogo {
     final int  MAX_PEÇAS = 32;
     final int  MAX_JOGADORES = 2;
 
-    Tabuleiro tabuleiro;
+    public Tabuleiro tabuleiro;
     Jogador jogador_branco;
-    Jogador jogador_preto; 
+    Jogador jogador_preto;
 
     Jogador jogador_turno_atual = jogador_branco;
 
@@ -26,7 +26,7 @@ public class Jogo {
         if (this.jogador_turno_atual == this.jogador_branco)
             this.jogador_turno_atual = this.jogador_preto;
         else this.jogador_turno_atual = this.jogador_branco;
-    
+
         this.tabuleiro.GirarTabuleiro();
     }
 
@@ -41,10 +41,10 @@ public class Jogo {
         int x_capturado = -1;
         int y_capturado = -1;
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
-            while(true){ 
-                
+            while(true){
+
                 //Move a = jogo.readFile(reader);
-                line = reader.readLine(); 
+                line = reader.readLine();
                 // Example line: "1,4 3,4"
                 String[] parts = line.split(" ");
                 String[] from = parts[0].split(",");
@@ -55,20 +55,20 @@ public class Jogo {
                 x_capturado = Integer.parseInt(to[0]);
                 y_capturado = Integer.parseInt(to[1]);
 
-                
+
                 System.out.printf("From: (%d,%d) To: (%d,%d)%n", x_movido, y_movido, x_capturado, y_capturado);
                 //return new Move(fromRow, fromCol, toRow, toCol);
-        
-                
+
+
                 Jogada jogada = new Jogada(jogo.tabuleiro.GetPecaNaPosicao(x_movido, y_movido), jogo.tabuleiro.GetPecaNaPosicao(x_capturado, y_capturado));
                 jogada.ValidarJogada(jogo.tabuleiro);
                 jogo.ProximoTurno();
             }
         }
-        
+
         catch (IOException e) {
             e.printStackTrace();
-        }        
+        }
     }
 
     public static record Move(int x_movido, int y_movido, int x_capturado, int y_capturado) {};
