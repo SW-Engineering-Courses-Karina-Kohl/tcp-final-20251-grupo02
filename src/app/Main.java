@@ -27,37 +27,36 @@ public class Main
         // }
         // CloseWindow();
 
-	Jogo jogo = new Jogo();
-	jogo.NovoJogo();
+		Jogo jogo = new Jogo();
+		jogo.NovoJogo();
 
-	Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 
-	System.out.println(jogo.tabuleiro);
+		System.out.println(jogo.tabuleiro);
 
 		while(true){
-	System.out.println("Coordenacas da peça e da casa para mover: ");
+			System.out.println("Coordenacas da peça e da casa para mover: ");
+			int px = scanner.nextInt() - 1;
+			int py = scanner.nextInt() - 1;
 
-	int px = scanner.nextInt() - 1;
-	int py = scanner.nextInt() - 1;
+			int mx = scanner.nextInt() - 1;
+			int my = scanner.nextInt() - 1;
 
-	int mx = scanner.nextInt() - 1;
-	int my = scanner.nextInt() - 1;
+			Peca peca = jogo.tabuleiro.GetPecaNaPosicao(px, py);
+			Peca peca2 = jogo.tabuleiro.GetPecaNaPosicao(mx, my);
 
-	Peca peca = jogo.tabuleiro.GetPecaNaPosicao(px, py);
-	Peca peca2 = jogo.tabuleiro.GetPecaNaPosicao(mx, my);
+			System.out.println("Peça movida: " + peca.identificador);
+			System.out.println("Peça capturada: " + peca2.identificador);
 
-	System.out.println("Peça movida: " + peca.identificador);
-	System.out.println("Peça capturada: " + peca2.identificador);
-
-	Jogada jogada = new Jogada(peca, peca2);
-	
+			Jogada jogada = new Jogada(peca, peca2);
+			
 			if( jogada.ValidarJogada(jogo.tabuleiro) ){
-		jogo.tabuleiro.MudancaNoTabuleiro(jogada);
-		jogada.peca_movida.Mover(jogada);
-	    jogada.peca_capturada.DestruirPeca();
-	}
+				jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+				jogada.peca_movida.Mover(jogada);
+				jogada.peca_capturada.DestruirPeca();
+			} 
 
-	System.out.println(jogo.tabuleiro);
+			System.out.println(jogo.tabuleiro);
 		}
 		
     }

@@ -11,7 +11,7 @@ public class Pair{
     }
 
     public Pair add(Pair other) {
-	return new Pair(this.x + other.x, this.y + other.y);
+	    return new Pair(this.x + other.x, this.y + other.y);
     }    
 
     @Override
@@ -19,7 +19,6 @@ public class Pair{
 	return "(" + this.x + ", " + this.y + ")";
     }
 
-    // feio mas funciona
     public boolean IsPieceInsideBoard(int inf, int sup) {
 	return ((this.x >= inf && this.y >= inf) &&
 		(this.x < sup && this.y < sup));

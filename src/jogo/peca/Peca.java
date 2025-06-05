@@ -23,11 +23,11 @@ public abstract class Peca{
         
     public void Mover(Jogada jogada){
         this.grid_position = jogada.peca_capturada.grid_position;  
-    };
+    }
     
     public void DestruirPeca(){
 
-    };
+    }
 
     public void print_movimentos_validos(){
         this.MovimentosValidos();

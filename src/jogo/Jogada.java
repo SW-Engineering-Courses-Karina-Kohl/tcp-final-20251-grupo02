@@ -62,10 +62,25 @@ public class Jogada {
 
     // valida se a jogada pode ser feita e muda o tabuleiro
     public boolean ValidarJogada(Tabuleiro tabuleiro){
+        // se as peças da jogada tiverem a mesma cor:
+        if ((Character.isLowerCase(this.peca_movida.identificador) && Character.isLowerCase(this.peca_capturada.identificador)) ||
+            (Character.isUpperCase(this.peca_movida.identificador) && Character.isUpperCase(this.peca_capturada.identificador))){
+            return false;
+        }
+
         // movimentação do cavalo
         if (this.peca_movida instanceof Cavalo && peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position) ){
             return true;
         }
+
+        // se o peão está na última posição vertical:
+        if ( this.peca_movida instanceof Peao 
+        && peca_capturada.grid_position.y == 0)
+            this.peca_movida = ((Peao) this.peca_movida).Promover();
+        
+        // validar as movimentações especiais do peão
+        if(this.peca_movida instanceof Peao)
+            return this.ValidarJogadaPeao(tabuleiro);
 
         // se a posição da peça capturada está vazia,
         // nao existe nenhuma peça entre a movida e a capturada e
