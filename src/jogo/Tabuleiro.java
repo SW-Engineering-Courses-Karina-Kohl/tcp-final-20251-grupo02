@@ -122,9 +122,9 @@ public class Tabuleiro {
     @Override
     public String toString(){
         String string = "\n";
-	string = string.concat("  1 2 3 4 5 6 7 8\n");
+	    string = string.concat("  1 2 3 4 5 6 7 8\n");
         for(int i = 0; i < SIZE; i ++){
-	    string = string.concat(i + 1 + " ");
+	        string = string.concat(i + 1 + " ");
             for(int j = 0; j < SIZE; j++){
                 string = string.concat(tabuleiro[i][j].identificador + " ");
             }
