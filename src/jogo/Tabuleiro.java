@@ -83,24 +83,12 @@ public class Tabuleiro {
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
-
         Pair pecaMovida = jogada.peca_movida.grid_position;
         Pair posicaoFinal = jogada.peca_capturada.grid_position;
-        //Peca.Pair pecaMovida_movimentada = jogada.peca_movida.grid_position.add(jogada.movimento);
 
         // move peça e anula posição anterior
         this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.peca_movida;
-        this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);
-        // jogada.peca_movida.DestruirPeca;
-
-        // (capturar uma peça é simplesmente sobrescrever a posicao da peca capturada com a peca movida),
-        // nao é necessario Jogada saber qual é a peca capturada.
-        //boolean existe_peca_capturada = (jogada.posicao_final != jogada.peca_movida.grid_position);
-
-        // anula peça capturada
-        //if (existe_peca_capturada)
-
-        //this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = null;
+        this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
     }
 
     public void GirarTabuleiro(){

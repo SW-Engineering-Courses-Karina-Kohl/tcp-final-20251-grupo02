@@ -2,7 +2,6 @@ package app;
 import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
 import jogo.*;
-import misc.*;
 import jogo.peca.*;
 
 import java.util.Scanner;
