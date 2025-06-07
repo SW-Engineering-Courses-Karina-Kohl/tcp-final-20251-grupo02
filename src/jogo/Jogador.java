@@ -8,10 +8,11 @@ public class Jogador {
 
     ArrayList<Peca> pecas = new ArrayList<>();
     String cor;
+    Relogio relogio;
 
-    public Jogador(String cor){
+    public Jogador(String cor, int tempoInicial){
         this.cor = cor;
-
+        this.relogio = new Relogio(tempoInicial);
 
     }
 
@@ -21,5 +22,11 @@ public class Jogador {
         jogada.ValidarJogada(tabuleiro);
         return jogada;
     }
+
+    public Relogio getRelogio() {
+        return relogio;
+    }
+
+   
 
 }

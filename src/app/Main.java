@@ -6,35 +6,39 @@ import jogo.peca.*;
 
 import java.util.Scanner;
 
-public class Main
-{
-    public static void main(String args[]){
-        // InitWindow(800, 450, "Main");
+public class Main {
+    public static void main(String[] args) {
+        // 1) Inicia o jogo com 5 minutos (300s)
+        Jogo jogo = new Jogo();
+        jogo.NovoJogo(300);
 
-        // SetTargetFPS(60);
+        // 2) Thread dedicada a mostrar os relógios em tempo real
+        Thread display = new Thread(() -> {
+            while (true) {
+                String tBranco = jogo.getJogadorBranco().getRelogio().formatarTempo();
+                String tPreto  = jogo.getJogadorPreto() .getRelogio().formatarTempo();
+                // Só atualiza a linha dos relógios, sem pular linha
+                System.out.print("\rTempo BRANCO: " + tBranco +
+                                 "    Tempo PRETO: " + tPreto);
+                System.out.flush();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }, "Display-Relogios");
+        display.setDaemon(true);
+        display.start();
+		System.out.print("\n");
+        // 3) Loop principal de entrada e movimento
+        Scanner scanner = new Scanner(System.in);
 
+        // Imprime o tabuleiro *uma vez*, antes de começar
+        System.out.println(jogo.getTabuleiro());
 
-        // while (!WindowShouldClose())
-        // {
-        //     BeginDrawing();
-
-        //         ClearBackground(RAYWHITE);
-        //         DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-        //         DrawFPS(20, 20);
-
-        //     EndDrawing();
-        // }
-        // CloseWindow();
-
-		Jogo jogo = new Jogo();
-		jogo.NovoJogo();
-
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println(jogo.tabuleiro);
-
-		while(true){
-			System.out.println("Coordenacas da peça e da casa para mover: ");
+        while (true) {
+            System.out.println("Coordenacas da peça e da casa para mover: ");
 			int px = scanner.nextInt() - 1;
 			int py = scanner.nextInt() - 1;
 
@@ -56,8 +60,6 @@ public class Main
 			} 
 
 			System.out.println(jogo.tabuleiro);
-		}
-		
+        }
     }
-
 }
