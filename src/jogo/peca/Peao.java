@@ -11,6 +11,13 @@ public class Peao extends Peca {
         super(x, y, id);
     }
 
+    public Peca Promover(){
+        char novo_id;
+        if (Character.isLowerCase(this.identificador)) novo_id = 'd';
+        else novo_id = 'D';
+        return new Dama(this.grid_position.x, this.grid_position.y, novo_id);
+    }
+
     @Override
     public ArrayList<Pair> MovimentosValidos(){
         
