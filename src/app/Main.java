@@ -6,9 +6,8 @@ import jogo.peca.*;
 
 import java.util.Scanner;
 
-public class Main
-{
-    public static void main(String args[]){
+public class Main {
+    public static void main(String[] args) {
         // InitWindow(800, 450, "Main");
 
         // SetTargetFPS(60);
@@ -25,16 +24,21 @@ public class Main
         //     EndDrawing();
         // }
         // CloseWindow();
+        Jogo jogo = new Jogo();
+        jogo.NovoJogo(300);
 
-		Jogo jogo = new Jogo();
-		jogo.NovoJogo();
+        
+        Scanner scanner = new Scanner(System.in);
 
-		Scanner scanner = new Scanner(System.in);
+        System.out.println(jogo.getTabuleiro());
 
-		System.out.println(jogo.tabuleiro);
-
-		while(true){
-			System.out.println("Coordenacas da peça e da casa para mover: ");
+        while (true) {
+            String tBranco = jogo.getJogadorBranco().getRelogio().formatarTempo();
+                String tPreto  = jogo.getJogadorPreto() .getRelogio().formatarTempo();
+                // Só atualiza a linha dos relógios, sem pular linha
+                System.out.println("\rTempo BRANCO: " + tBranco +
+                                 "    Tempo PRETO: " + tPreto);
+            System.out.println("Coordenacas da peça e da casa para mover: ");
 			int px = scanner.nextInt() - 1;
 			int py = scanner.nextInt() - 1;
 
@@ -53,11 +57,11 @@ public class Main
 				jogo.tabuleiro.MudancaNoTabuleiro(jogada);
 				jogada.peca_movida.Mover(jogada);
 				jogada.peca_capturada.DestruirPeca();
+
+                jogo.ProximoTurno();
 			} 
 
 			System.out.println(jogo.tabuleiro);
-		}
-		
+        }
     }
-
 }
