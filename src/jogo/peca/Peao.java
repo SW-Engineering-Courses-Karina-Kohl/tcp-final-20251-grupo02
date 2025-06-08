@@ -32,8 +32,8 @@ public class Peao extends Peca {
 	Pair cima_duplo = this.grid_position.add(new Pair(0, direcao * 2));
 
         // diagonais superiores
-        Pair superior_direita = this.grid_position.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.grid_position.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.grid_position.add(new Pair(+ 1, direcao * 1));
+        Pair superior_esquerda = this.grid_position.add(new Pair(- 1, direcao * 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE))
             mov.add(cima);
