@@ -23,7 +23,7 @@ public class Jogo {
 
         this.jogador_turno_atual.getRelogio().IniciarRelogio();
     }
-    
+
 
     public void ProximoTurno(){
         jogador_turno_atual.getRelogio().PausaRelogio();
@@ -33,7 +33,7 @@ public class Jogo {
         else this.jogador_turno_atual = this.jogador_branco;
 
         jogador_turno_atual.getRelogio().IniciarRelogio();
-        this.tabuleiro.GirarTabuleiro();
+        // this.tabuleiro.GirarTabuleiro();
     }
 
     public Tabuleiro getTabuleiro() {
