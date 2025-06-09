@@ -22,7 +22,8 @@ public class Tabuleiro {
     }
 
     // cria o tabuleiro da visão das brancas
-    public Tabuleiro(){
+    public Tabuleiro()
+    {
         // pecas brancas (id maiúsculo)
         this.InitializePeca(new Peao(0, 6, 'P'));
         this.InitializePeca(new Peao(1, 6, 'P'));
@@ -146,21 +147,29 @@ public class Tabuleiro {
 
     public Pair GetMousePositionOnTabuleiro(int xInicial, int yInicial, int escala)
     {
-        Pair posicao = new Pair(-1, -1);
-        //Vendo se o mouse tá dentro do limite
-        if (GetMouseY() >= yInicial && GetMouseY() < yInicial + (16 * escala * 8))
-        {
-            if (GetMouseX() >= xInicial && GetMouseX() < xInicial + (16 * escala * 8))
-            {
-                int linha = (int)((GetMouseY() - yInicial) / (16 * escala));
-                int coluna = (int)((GetMouseX() - xInicial) / (16 * escala));
-                
-                posicao.x = coluna;
-                posicao.y = linha;
-            }
-        }
+        int linha = (int)((GetMouseY() - yInicial) / (16 * escala));
+        int coluna = (int)((GetMouseX() - xInicial) / (16 * escala));
+
+        Pair posicao = new Pair(coluna, linha);
 
         return posicao;
     }
 
+    public boolean MouseClikedOnTabuleiro(int xInicial, int yInicial, int escala)
+    {
+        boolean clicou = false;
+        if (IsMouseButtonPressed(0))
+        {
+            //Vendo se o mouse tá dentro do limite
+            if (GetMouseY() >= yInicial && GetMouseY() < yInicial + (16 * escala * 8))
+            {
+                if (GetMouseX() >= xInicial && GetMouseX() < xInicial + (16 * escala * 8))
+                {
+                    clicou = true;
+                }
+            }
+        }
+
+        return clicou;
+    }
 }

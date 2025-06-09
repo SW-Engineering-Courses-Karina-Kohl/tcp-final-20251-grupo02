@@ -13,6 +13,10 @@ public class Main
 	final static int LARGURA = 640;
 	final static int ALTURA = 360;
 
+	final static int XINICIAL = 192;
+	final static int YINICIAL = 61;
+	final static int ESCALA = 2;
+
     public static void main(String[] args) 
 	{
 		// Cria um novo jogo
@@ -83,42 +87,38 @@ public class Main
 
 				jogo.getTabuleiro().DrawGrid(192, 61, 2);
 
-				if (IsMouseButtonPressed(0))
+				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
 				{
-					Pair posicao = jogo.getTabuleiro().GetMousePositionOnTabuleiro(192, 61, 2);
-
-					if (posicao.x != -1)
+					Pair posicao = jogo.getTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
+					if (clicks == 0)
 					{
-						if (clicks == 0)
+						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+						clicks++;
+					}
+					else if (clicks == 1)
+					{
+						peca2 = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+
+						System.out.println("Peça movida: " + peca.identificador);
+						System.out.println("Peça capturada: " + peca2.identificador);
+
+						Jogada jogada = new Jogada(peca, peca2);
+
+						// Válida a jogada
+						if(jogada.ValidarJogada(jogo.tabuleiro))
 						{
-							peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
-							clicks++;
+							// Se for válida, muda o tabuleiro
+							jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+
+							// Atualiza as peças
+							jogada.peca_movida.Mover(jogada);
+							jogada.peca_capturada.DestruirPeca();
+
+							jogo.ProximoTurno(); // atualiza o turno
 						}
-						else if (clicks == 1)
-						{
-							peca2 = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 
-							System.out.println("Peça movida: " + peca.identificador);
-							System.out.println("Peça capturada: " + peca2.identificador);
-
-							Jogada jogada = new Jogada(peca, peca2);
-
-							// Válida a jogada
-							if(jogada.ValidarJogada(jogo.tabuleiro))
-							{
-								// Se for válida, muda o tabuleiro
-								jogo.tabuleiro.MudancaNoTabuleiro(jogada);
-
-								// Atualiza as peças
-								jogada.peca_movida.Mover(jogada);
-								jogada.peca_capturada.DestruirPeca();
-
-								jogo.ProximoTurno(); // atualiza o turno
-							}
-
-							System.out.println(jogo.tabuleiro);
-							clicks = 0;
-						}
+						System.out.println(jogo.tabuleiro);
+						clicks = 0;
 					}
 				}
 
