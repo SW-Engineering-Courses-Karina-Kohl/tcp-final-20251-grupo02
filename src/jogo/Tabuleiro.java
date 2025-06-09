@@ -1,4 +1,10 @@
 package jogo;
+import static com.raylib.Raylib.DrawRectangle;
+import static com.raylib.Raylib.GetMouseX;
+import static com.raylib.Raylib.GetMouseY;
+import static com.raylib.Raylib.IsMouseButtonPressed;
+
+import gui.Cor;
 import jogo.peca.*;
 import misc.Pair;
 
@@ -119,6 +125,42 @@ public class Tabuleiro {
             string = string.concat("\n");
         }
         return string;
+    }
+
+    public void DrawGrid(int xInicial, int yInicial, int escala)
+    {
+        int contadorAlteraCor = 0;
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                Cor quadradoCor = new Cor(250, 245, 240, 255);
+                if (contadorAlteraCor % 2 == 1)
+                    quadradoCor = new Cor(38, 41, 66, 255);
+                contadorAlteraCor++;
+                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoCor.GetCor());
+            }
+            contadorAlteraCor++;
+        }
+    }
+
+    public Pair GetMousePositionOnTabuleiro(int xInicial, int yInicial, int escala)
+    {
+        Pair posicao = new Pair(-1, -1);
+        //Vendo se o mouse tá dentro do limite
+        if (GetMouseY() >= yInicial && GetMouseY() < yInicial + (16 * escala * 8))
+        {
+            if (GetMouseX() >= xInicial && GetMouseX() < xInicial + (16 * escala * 8))
+            {
+                int linha = (int)((GetMouseY() - yInicial) / (16 * escala));
+                int coluna = (int)((GetMouseX() - xInicial) / (16 * escala));
+                
+                posicao.x = coluna;
+                posicao.y = linha;
+            }
+        }
+
+        return posicao;
     }
 
 }
