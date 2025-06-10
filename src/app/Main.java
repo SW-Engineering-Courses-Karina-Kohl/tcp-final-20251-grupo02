@@ -1,78 +1,101 @@
 package app;
 import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
+import gui.*;
 import jogo.*;
 import jogo.peca.*;
+import misc.*;
 
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        // InitWindow(800, 450, "Main");
+public class Main 
+{
+	final static int LARGURA = 640;
+	final static int ALTURA = 360;
 
-        // SetTargetFPS(60);
+	final static int XINICIAL = 192;
+	final static int YINICIAL = 61;
+	final static int ESCALA = 2;
 
+    public static void main(String[] args) 
+	{
+		InitWindow(LARGURA, ALTURA, "Main");
 
-        // while (!WindowShouldClose())
-        // {
-        //     BeginDrawing();
+		SetTargetFPS(60);
 
-        //         ClearBackground(RAYWHITE);
-        //         DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-        //         DrawFPS(20, 20);
-
-        //     EndDrawing();
-        // }
-        // CloseWindow();
-
-	// Cria um novo jogo
+		// Cria um novo jogo
         Jogo jogo = new Jogo();
         jogo.NovoJogo(300);
 
-
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println(jogo.getTabuleiro());
+		
+		int clicks = 0;
+		Peca peca = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
+		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 
-        while (true) {
-            String tBranco = jogo.getJogadorBranco().getRelogio().formatarTempo();
-	    String tPreto  = jogo.getJogadorPreto().getRelogio().formatarTempo();
-	    // Só atualiza a linha dos relógios, sem pular linha
-	    System.out.println("\rTempo BRANCO: " + tBranco +
-			       "    Tempo PRETO: " + tPreto);
-            System.out.println("Coordenacas da peça e da casa para mover: ");
 
-	    // Le as peças do teclado
-	    int px = scanner.nextInt() - 1;
-	    int py = scanner.nextInt() - 1;
+		while (!WindowShouldClose()) 
+		{
 
-	    int mx = scanner.nextInt() - 1;
-	    int my = scanner.nextInt() - 1;
+			BeginDrawing();
 
-	    // pega as peças nas posições lidas
-	    Peca peca = jogo.tabuleiro.GetPecaNaPosicao(px, py);
-	    Peca peca2 = jogo.tabuleiro.GetPecaNaPosicao(mx, my);
+				ClearBackground(new Cor(52, 54, 71, 255).GetCor());
+				//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+				DrawFPS(20, 20);
 
-	    System.out.println("Peça movida: " + peca.identificador);
-	    System.out.println("Peça capturada: " + peca2.identificador);
+				//Desenhando os relogios
+				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
+				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
 
-	    // Cria uma jogada com as peças
-	    Jogada jogada = new Jogada(peca, peca2);
+				//Desenhando o tabuleiro
+				jogo.getTabuleiro().DrawGrid(192, 61, 2);
 
-	    // Válida a jogada
-	    if( jogada.ValidarJogada(jogo.tabuleiro) ){
+				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
+				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
+				{
+					Pair posicao = jogo.getTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
 
-		// Se for válida, muda o tabuleiro
-		jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+					//Primeiro click, pega o peca
+					if (clicks == 0)
+					{
+						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+						clicks++;
+					}
+					//Segundo click pega o peca2 e jah faz a jogada
+					else if (clicks == 1)
+					{
+						//Coisas do Enzo
+						peca2 = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 
-		// Atualiza as peças
-		jogada.peca_movida.Mover(jogada);
-		jogada.peca_capturada.DestruirPeca();
+						System.out.println("Peça movida: " + peca.identificador);
+						System.out.println("Peça capturada: " + peca2.identificador);
 
-                jogo.ProximoTurno(); // atualiza o turno
-	    }
+						Jogada jogada = new Jogada(peca, peca2);
 
-	    System.out.println(jogo.tabuleiro);
-        }
+						// Válida a jogada
+						if(jogada.ValidarJogada(jogo.tabuleiro))
+						{
+							// Se for válida, muda o tabuleiro
+							jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+
+							// Atualiza as peças
+							jogada.peca_movida.Mover(jogada);
+							jogada.peca_capturada.DestruirPeca();
+
+							jogo.ProximoTurno(); // atualiza o turno
+						}
+
+						System.out.println(jogo.tabuleiro);
+						clicks = 0;
+					}
+				}
+
+				//Desenhando as pecas
+				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
+
+			EndDrawing();
+		}
+		CloseWindow();
+
     }
 }
