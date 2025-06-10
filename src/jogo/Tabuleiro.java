@@ -1,17 +1,32 @@
 package jogo;
+import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.DrawRectangle;
 import static com.raylib.Raylib.GetMouseX;
 import static com.raylib.Raylib.GetMouseY;
 import static com.raylib.Raylib.IsMouseButtonPressed;
+import static com.raylib.Raylib.LoadTexture;
+
+import com.raylib.Raylib.Texture;
 
 import gui.Cor;
+import gui.Sprite;
 import jogo.peca.*;
 import misc.Pair;
 
-public class Tabuleiro {
+public class Tabuleiro 
+{
 
     private int PecasNoTabuleiro = 32;
     private static final int SIZE = 8;
+
+    //Dando load nas imagens
+    //Isso será um problema no futuro se a gente quiser inicializar novamente o tabuleiro
+    private Texture peaoTexture = LoadTexture("res/pecas/peao.png");
+    private Texture torreTexture = LoadTexture("res/pecas/torre.png");
+    private Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+    private Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
+    private Texture reiTexture = LoadTexture("res/pecas/rei.png");
+    private Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
 
     // tabuleiro[y][x] = Peca(x, y)
     private Peca[][] tabuleiro = new Peca[SIZE][SIZE];
@@ -46,6 +61,29 @@ public class Tabuleiro {
         this.InitializePeca(new Rei(4,7,'R'));
         this.InitializePeca(new Dama(3,7, 'D'));
 
+        //Passando as imagens
+        //Peao
+        for (int i = 0; i < SIZE; i++)
+            tabuleiro[6][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
+        
+        //Torre
+        tabuleiro[7][0].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
+        tabuleiro[7][7].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
+
+        //Cavalo
+        tabuleiro[7][1].sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
+        tabuleiro[7][6].sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
+
+        //Bispo
+        tabuleiro[7][2].sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
+        tabuleiro[7][5].sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
+
+        //Rei
+        tabuleiro[7][4].sprite = new Sprite(reiTexture, 2, 0, 0, 0, WHITE, 2);
+
+        //Rainha
+        tabuleiro[7][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
+
         // pecas pretas (id minúsculo)
         this.InitializePeca(new Peao(0, 1, 'p'));
         this.InitializePeca(new Peao(1, 1, 'p'));
@@ -67,6 +105,29 @@ public class Tabuleiro {
 
         this.InitializePeca(new Rei(4, 0, 'r'));
         this.InitializePeca(new Dama(3, 0, 'd'));
+
+        //Passando as imagens
+        //Peao
+        for (int i = 0; i < SIZE; i++)
+            tabuleiro[1][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
+        
+        //Torre
+        tabuleiro[0][0].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
+        tabuleiro[0][7].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
+
+        //Cavalo
+        tabuleiro[0][1].sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
+        tabuleiro[0][6].sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
+
+        //Bispo
+        tabuleiro[0][2].sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
+        tabuleiro[0][5].sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
+
+        //Rei
+        tabuleiro[0][4].sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
+
+        //Rainha
+        tabuleiro[0][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
 
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
@@ -171,5 +232,12 @@ public class Tabuleiro {
         }
 
         return clicou;
+    }
+
+    public void DrawPecas(int xInicial, int yInicial)
+    {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                tabuleiro[i][j].DrawPeca(xInicial, yInicial);
     }
 }

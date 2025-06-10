@@ -1,6 +1,11 @@
 package jogo.peca;
 import misc.Pair;
+
+import static com.raylib.Colors.WHITE;
+
 import java.util.ArrayList;
+
+import gui.Sprite;
 import jogo.Jogada;
 
 public class Peao extends Peca {
