@@ -43,19 +43,28 @@ public class Main
 				//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 				DrawFPS(20, 20);
 
+				//Desenhando os relogios
+				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
+				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
+
+				//Desenhando o tabuleiro
 				jogo.getTabuleiro().DrawGrid(192, 61, 2);
 
+				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
 				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
 				{
 					Pair posicao = jogo.getTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
 
+					//Primeiro click, pega o peca
 					if (clicks == 0)
 					{
 						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 						clicks++;
 					}
+					//Segundo click pega o peca2 e jah faz a jogada
 					else if (clicks == 1)
 					{
+						//Coisas do Enzo
 						peca2 = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 
 						System.out.println("Peça movida: " + peca.identificador);
