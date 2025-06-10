@@ -59,6 +59,8 @@ public class Main
 					if (clicks == 0)
 					{
 						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+						
+						//System.out.println(peca.MovimentosValidos());
 						clicks++;
 					}
 					//Segundo click pega o peca2 e jah faz a jogada
@@ -89,7 +91,8 @@ public class Main
 						clicks = 0;
 					}
 				}
-
+				if (clicks > 0)
+					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
 				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
 
