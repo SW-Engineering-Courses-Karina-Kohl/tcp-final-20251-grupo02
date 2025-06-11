@@ -33,12 +33,14 @@ public abstract class Peca{
 
     }
 
+    /*
     public void print_movimentos_validos(){
         this.MovimentosValidos();
         for (Pair p : new_mov) {
            System.out.println(p);
         }
     }
+     */
 
     public void DrawPeca(int xInicial, int yInicial)
     {
