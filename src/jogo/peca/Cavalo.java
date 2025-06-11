@@ -11,6 +11,8 @@ public class Cavalo extends Peca {
     @Override
     public ArrayList<Pair> MovimentosValidos(){
         
+        ArrayList<Pair> new_mov = new ArrayList<>();
+
         // L pra cima direita esquerda
         Pair cima_direita = this.grid_position.add(new Pair(+ 1, - 2));
         Pair cima_esquerda = this.grid_position.add(new Pair(- 1, - 2));
@@ -28,22 +30,23 @@ public class Cavalo extends Peca {
         Pair esquerda_baixo = this.grid_position.add(new Pair(- 2, + 1));
         
         if(cima_direita.IsPieceInsideBoard(0, SIZE))
-            mov.add(cima_direita);
+            new_mov.add(cima_direita);
         if(cima_esquerda.IsPieceInsideBoard(0, SIZE))
-            mov.add(cima_esquerda);
+            new_mov.add(cima_esquerda);
         if(baixo_direita.IsPieceInsideBoard(0, SIZE))
-            mov.add(baixo_direita);
+            new_mov.add(baixo_direita);
         if(baixo_esquerda.IsPieceInsideBoard(0, SIZE))
-            mov.add(baixo_esquerda);
+            new_mov.add(baixo_esquerda);
         if(direita_cima.IsPieceInsideBoard(0, SIZE))
-            mov.add(direita_cima);
+            new_mov.add(direita_cima);
         if(direita_baixo.IsPieceInsideBoard(0, SIZE))
-            mov.add(direita_baixo);
+            new_mov.add(direita_baixo);
         if(esquerda_cima.IsPieceInsideBoard(0, SIZE))
-            mov.add(esquerda_cima);
+            new_mov.add(esquerda_cima);
         if(esquerda_baixo.IsPieceInsideBoard(0, SIZE))
-            mov.add(esquerda_baixo);
+            new_mov.add(esquerda_baixo);
     
+        mov = new_mov;
         return mov;
     }
 

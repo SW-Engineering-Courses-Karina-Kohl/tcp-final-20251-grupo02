@@ -11,6 +11,8 @@ public class Bispo extends Peca {
     @Override
     public ArrayList<Pair> MovimentosValidos(){
         
+        ArrayList<Pair> new_mov = new ArrayList<>();
+
         for(int i = 1; i < SIZE; i++) {
             // diagonais
             Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));
@@ -20,14 +22,16 @@ public class Bispo extends Peca {
             Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
              
             if(superior_direita.IsPieceInsideBoard(0, SIZE))
-                mov.add(superior_direita);
+                new_mov.add(superior_direita);
             if(superior_esquerda.IsPieceInsideBoard(0, SIZE) )
-                mov.add(superior_esquerda);
+                new_mov.add(superior_esquerda);
             if(inferior_direita.IsPieceInsideBoard(0, SIZE))
-                mov.add(inferior_direita);
+                new_mov.add(inferior_direita);
             if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
-                mov.add(inferior_esquerda); 
+                new_mov.add(inferior_esquerda); 
         }
+
+        mov = new_mov;
 
         return mov;
     }

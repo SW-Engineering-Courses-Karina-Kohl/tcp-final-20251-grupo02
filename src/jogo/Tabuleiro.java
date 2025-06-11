@@ -1,4 +1,6 @@
 package jogo;
+import static com.raylib.Colors.GREEN;
+import static com.raylib.Colors.RED;
 import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.DrawRectangle;
 import static com.raylib.Raylib.GetMouseX;
@@ -6,6 +8,9 @@ import static com.raylib.Raylib.GetMouseY;
 import static com.raylib.Raylib.IsMouseButtonPressed;
 import static com.raylib.Raylib.LoadTexture;
 
+import java.util.ArrayList;
+
+import com.raylib.Raylib.Color;
 import com.raylib.Raylib.Texture;
 
 import gui.Cor;
@@ -239,5 +244,17 @@ public class Tabuleiro
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 tabuleiro[i][j].DrawPeca(xInicial, yInicial);
+    }
+
+    public void DrawMovimentosValidos(ArrayList<Pair> movimentos, int xInicial, int yInicial, int escala)
+    {
+        System.out.println(movimentos.size());
+        for (int i = 0; i < movimentos.size(); i++)
+            if (tabuleiro[movimentos.get(i).y][movimentos.get(i).x] instanceof Blank )
+                DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);
+            else
+                DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, RED);
     }
 }

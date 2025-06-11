@@ -14,6 +14,8 @@ public class Torre extends Peca {
     @Override
     public ArrayList<Pair> MovimentosValidos(){
         
+        ArrayList<Pair> new_mov = new ArrayList<>();
+
         for(int i = 1; i < SIZE; i++) {
             Pair cima = this.grid_position.add(new Pair(0, - i));
             Pair baixo = this.grid_position.add(new Pair(0, + i));
@@ -22,14 +24,16 @@ public class Torre extends Peca {
             Pair esquerda = this.grid_position.add(new Pair(- i, 0));
             
             if(cima.IsPieceInsideBoard(0, SIZE))
-                mov.add(cima);
+                new_mov.add(cima);
             if(baixo.IsPieceInsideBoard(0, SIZE) )
-                mov.add(baixo);
+                new_mov.add(baixo);
             if(direita.IsPieceInsideBoard(0, SIZE))
-                mov.add(direita);
+                new_mov.add(direita);
             if(esquerda.IsPieceInsideBoard(0, SIZE))
-                mov.add(esquerda);     
+                new_mov.add(esquerda);     
         }
+
+        mov = new_mov;
         return mov;
     }
 
