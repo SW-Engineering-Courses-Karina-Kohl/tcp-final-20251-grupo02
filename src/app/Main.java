@@ -91,6 +91,12 @@ public class Main
 						clicks = 0;
 					}
 				}
+
+				//Parando de selecionar uma peca
+				if (IsMouseButtonPressed(1))
+					clicks = 0;
+
+				//Mostrando as jogadas
 				if (clicks > 0)
 					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas

@@ -26,12 +26,12 @@ public class Tabuleiro
 
     //Dando load nas imagens
     //Isso será um problema no futuro se a gente quiser inicializar novamente o tabuleiro
-    private Texture peaoTexture = LoadTexture("res/pecas/peao.png");
-    private Texture torreTexture = LoadTexture("res/pecas/torre.png");
-    private Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
-    private Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
-    private Texture reiTexture = LoadTexture("res/pecas/rei.png");
-    private Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
+    private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
+    private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
+    private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+    private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
+    private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
+    private static Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
 
     // tabuleiro[y][x] = Peca(x, y)
     private Peca[][] tabuleiro = new Peca[SIZE][SIZE];
