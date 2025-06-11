@@ -46,9 +46,7 @@ public class Rei extends Peca{
         if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
             new_mov.add(inferior_esquerda);
   
-        mov = new_mov;
-
-        return mov;
+        return new_mov;
     }
 
     @Override

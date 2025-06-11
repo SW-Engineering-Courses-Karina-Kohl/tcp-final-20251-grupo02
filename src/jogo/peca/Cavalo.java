@@ -46,8 +46,7 @@ public class Cavalo extends Peca {
         if(esquerda_baixo.IsPieceInsideBoard(0, SIZE))
             new_mov.add(esquerda_baixo);
     
-        mov = new_mov;
-        return mov;
+        return new_mov;
     }
 
 }
