@@ -106,11 +106,9 @@ public class Jogada {
         && peca_capturada.grid_position.y == 0)
             this.peca_movida = ((Peao) this.peca_movida).Promover();
 
-        // se a posição da peça capturada está vazia,
         // nao existe nenhuma peça entre a movida e a capturada e
         // a peça capturada está em uma casa que a peça movida pode se movimentar:
-        if (this.peca_capturada instanceof Blank
-        &&  peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position)
+        if (peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position)
         && !this.IsTherePecaInBetween(tabuleiro))
             return true;
 
