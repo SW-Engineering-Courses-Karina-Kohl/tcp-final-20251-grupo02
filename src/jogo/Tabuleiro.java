@@ -250,7 +250,7 @@ public class Tabuleiro
     {
         System.out.println(movimentos.size());
         for (int i = 0; i < movimentos.size(); i++)
-            if (tabuleiro[movimentos.get(i).y][movimentos.get(i).x] instanceof Blank )
+            if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
                 DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);
             else

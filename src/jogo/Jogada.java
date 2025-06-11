@@ -33,51 +33,51 @@ public class Jogada {
     private boolean ValidarJogadaPeao(Tabuleiro tabuleiro){
 
 
-	int direcao = -1; // direção permitida de movimento para peça
-	if(peca_movida.identificador == 'P'){
-	    direcao = -1;
-	} else {
-	    direcao = 1;
-	}
+        int direcao = -1; // direção permitida de movimento para peça
+        if(peca_movida.identificador == 'P'){
+            direcao = -1;
+        } else {
+            direcao = 1;
+        }
 
-	// Se a posição estiver vazia.
-	if(this.peca_capturada instanceof Blank){
+        // Se a posição estiver vazia.
+        if(this.peca_capturada instanceof Blank){
 
-	    // se quer andar um para frente e esta vazio
-	    if (this.peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 1))))
-                return true;
+            // se quer andar um para frente e esta vazio
+            if (this.peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 1))))
+                    return true;
 
-	    // se quer andar dois para frente e esta vazio, retorna falso
-	    if (!(((Peao) peca_movida).jaMovido) &&(peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 2)))))
-		return true;
+            // se quer andar dois para frente e esta vazio, retorna falso
+            if (!(((Peao) peca_movida).jaMovido) &&(peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 2)))))
+            return true;
 
-	    // se tentar andar na diagonal sem ter peça para capturar
-	    if(((peca_capturada.grid_position.equals(
-						     new Pair (peca_movida.grid_position.x + 1, peca_movida.grid_position.y + (direcao*1)))) ||
-		(peca_capturada.grid_position.equals(
-						     new Pair (peca_movida.grid_position.x - 1, peca_movida.grid_position.y + (direcao*1))) )))
-		return false;
+            // se tentar andar na diagonal sem ter peça para capturar
+            if(((peca_capturada.grid_position.equals(
+                                new Pair (peca_movida.grid_position.x + 1, peca_movida.grid_position.y + (direcao*1)))) ||
+            (peca_capturada.grid_position.equals(
+                                new Pair (peca_movida.grid_position.x - 1, peca_movida.grid_position.y + (direcao*1))) )))
+            return false;
 
 
-	} else {
-	    // se quer andar um para frente e não está vazio retorna falso
-	    if (peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 1))))
-                return false;
+        } else {
+            // se quer andar um para frente e não está vazio retorna falso
+            if (peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 1))))
+                    return false;
 
-	    // se quer andar dois para frente e não esta vazio, retorna falso
-	    if (peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 2))))
-		return false;
+            // se quer andar dois para frente e não esta vazio, retorna falso
+            if (peca_capturada.grid_position.equals(new Pair (peca_movida.grid_position.x, peca_movida.grid_position.y + (direcao * 2))))
+            return false;
 
-	    // se quer capturar na diagonal e tem peça lá, captura
-	    if(((peca_capturada.grid_position.equals(
-			    	new Pair (peca_movida.grid_position.x + 1, peca_movida.grid_position.y + (direcao*1)))) ||
-		(peca_capturada.grid_position.equals(
-				new Pair (peca_movida.grid_position.x - 1, peca_movida.grid_position.y + (direcao*1))) )))
-		return true;
+            // se quer capturar na diagonal e tem peça lá, captura
+            if(((peca_capturada.grid_position.equals(
+                        new Pair (peca_movida.grid_position.x + 1, peca_movida.grid_position.y + (direcao*1)))) ||
+            (peca_capturada.grid_position.equals(
+                    new Pair (peca_movida.grid_position.x - 1, peca_movida.grid_position.y + (direcao*1))) )))
+            return true;
 
-	}
+        }
 
-        return false;
+            return false;
     }
 
 
