@@ -5,7 +5,9 @@ import gui.*;
 import jogo.*;
 import jogo.peca.*;
 import misc.*;
+import vfx.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main 
@@ -16,6 +18,7 @@ public class Main
 	final static int XINICIAL = 192;
 	final static int YINICIAL = 61;
 	final static int ESCALA = 2;
+	final static int MARGEM_PARTICULA = 20;
 
     public static void main(String[] args) 
 	{
@@ -33,6 +36,7 @@ public class Main
 		Peca peca = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 
+		EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
 
 		while (!WindowShouldClose()) 
 		{
@@ -43,9 +47,8 @@ public class Main
 				//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 				DrawFPS(20, 20);
 
-				//Desenhando os relogios
-				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
-				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
+				//Emitindo as particulas de fundo
+				emissor.EmitirParicula();
 
 				//Desenhando o tabuleiro
 				jogo.getTabuleiro().DrawGrid(192, 61, 2);
@@ -101,6 +104,12 @@ public class Main
 					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
 				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
+
+				
+				//Desenhando os relogios
+				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
+				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
+
 
 			EndDrawing();
 		}

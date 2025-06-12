@@ -105,4 +105,14 @@ public class Sprite
     {
         cor = novaCor;
     }
+
+    public void SetAngulo(float novoAngulo)
+    {
+        angulo = novoAngulo;
+    }
+
+    public void IncrementaAngulo(float incrmento)
+    {
+        angulo += incrmento;
+    }
 }
