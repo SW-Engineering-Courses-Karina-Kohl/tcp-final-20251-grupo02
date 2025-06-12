@@ -43,10 +43,12 @@ public class Peao extends Peca {
         Pair superior_direita = this.grid_position.add(new Pair(+ 1, direcao * 1));
         Pair superior_esquerda = this.grid_position.add(new Pair(- 1, direcao * 1));
 
-        if(cima.IsPieceInsideBoard(0, SIZE) && (tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
+        if(cima.IsPieceInsideBoard(0, SIZE) && (tabuleiro.GetPecaNaPosicao(cima.x, cima.y) instanceof Blank)){
             new_mov.add(cima);
-        if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && (tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
-            new_mov.add(cima_duplo);
+	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && (tabuleiro.GetPecaNaPosicao(cima_duplo.x, cima_duplo.y) instanceof Blank)){
+		new_mov.add(cima_duplo);
+	    }
+	}
         if(superior_direita.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
             new_mov.add(superior_direita);
         if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.GetPecaNaPosicao(superior_esquerda.x, superior_esquerda.y) instanceof Blank))
