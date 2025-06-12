@@ -10,6 +10,8 @@ import vfx.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.text.Position;
+
 public class Main 
 {
 	final static int LARGURA = 640;
@@ -37,6 +39,9 @@ public class Main
 		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 
 		EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
+
+		//Font
+		Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
 		while (!WindowShouldClose()) 
 		{
@@ -103,11 +108,9 @@ public class Main
 					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
 				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
-
 				
-				//Desenhando os relogios
-				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
-				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
+				DrawTextEx(pixelFont, jogo.getJogadorBranco().getRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
+				DrawTextEx(pixelFont, jogo.getJogadorPreto().getRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
 
 
 			EndDrawing();
