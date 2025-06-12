@@ -18,7 +18,7 @@ import gui.Sprite;
 import jogo.peca.*;
 import misc.Pair;
 
-public class Tabuleiro 
+public class Tabuleiro
 {
 
     private int PecasNoTabuleiro = 32;
@@ -75,7 +75,7 @@ public class Tabuleiro
         //Peao
         for (int i = 0; i < SIZE; i++)
             tabuleiro[6][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
-        
+
         //Torre
         tabuleiro[7][0].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
         tabuleiro[7][7].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
@@ -120,7 +120,7 @@ public class Tabuleiro
         //Peao
         for (int i = 0; i < SIZE; i++)
             tabuleiro[1][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
-        
+
         //Torre
         tabuleiro[0][0].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
         tabuleiro[0][7].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
@@ -272,17 +272,17 @@ public class Tabuleiro
 
             if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
             {
-                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/
-                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVerdeSprite.GetWidth() / 2, 
+                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVerdeSprite.GetWidth() / 2,
                 movimentos.get(i).y * 16 * escala + yInicial + miraVerdeSprite.GetHeight() / 2);
             }
-          
+
             else
             {
-                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, RED);*/
-                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVermelhaSprite.GetWidth() / 2, 
+                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVermelhaSprite.GetWidth() / 2,
                 movimentos.get(i).y * 16 * escala + yInicial + miraVermelhaSprite.GetHeight() / 2);
             }
         }
