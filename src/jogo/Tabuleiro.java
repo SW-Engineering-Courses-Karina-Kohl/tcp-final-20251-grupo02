@@ -26,12 +26,17 @@ public class Tabuleiro
 
     //Dando load nas imagens
     //Isso será um problema no futuro se a gente quiser inicializar novamente o tabuleiro
-    private Texture peaoTexture = LoadTexture("res/pecas/peao.png");
-    private Texture torreTexture = LoadTexture("res/pecas/torre.png");
-    private Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
-    private Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
-    private Texture reiTexture = LoadTexture("res/pecas/rei.png");
-    private Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
+    private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
+    private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
+    private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+    private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
+    private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
+    private static Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
+
+    private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
+    private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
+    private Sprite miraVerdeSprite;
+    private Sprite miraVermelhaSprite;
 
     // tabuleiro[y][x] = Peca(x, y)
     private Peca[][] tabuleiro = new Peca[SIZE][SIZE];
@@ -141,6 +146,9 @@ public class Tabuleiro
             }
         }
 
+        //Sprites das miras
+        miraVerdeSprite = new Sprite(miraVerdeTexture, 2, 0, 0, 1, WHITE, 2);
+        miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
     // checa qual peça está na posicao (x,y)
@@ -247,13 +255,36 @@ public class Tabuleiro
 
     public void DrawMovimentosValidos(ArrayList<Pair> movimentos, int xInicial, int yInicial, int escala)
     {
-        System.out.println(movimentos.size());
         for (int i = 0; i < movimentos.size(); i++)
-            if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
-                DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
-                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);
+        {
+            //Mudando a sprite
+            Pair mousePosition = GetMousePositionOnTabuleiro(xInicial, yInicial, escala);
+            if (mousePosition.x == movimentos.get(i).x && mousePosition.y == movimentos.get(i).y)
+            {
+                miraVerdeSprite.SetImagemAtual(0);
+                miraVermelhaSprite.SetImagemAtual(0);
+            }
             else
-                DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
-                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, RED);
+            {
+                miraVerdeSprite.SetImagemAtual(1);
+                miraVermelhaSprite.SetImagemAtual(1);
+            }
+
+            if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
+            {
+                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/
+                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVerdeSprite.GetWidth() / 2, 
+                movimentos.get(i).y * 16 * escala + yInicial + miraVerdeSprite.GetHeight() / 2);
+            }
+          
+            else
+            {
+                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
+                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, RED);*/
+                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVermelhaSprite.GetWidth() / 2, 
+                movimentos.get(i).y * 16 * escala + yInicial + miraVermelhaSprite.GetHeight() / 2);
+            }
+        }
     }
 }
