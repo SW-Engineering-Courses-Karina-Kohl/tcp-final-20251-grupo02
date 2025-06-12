@@ -156,11 +156,22 @@ public class Tabuleiro
         return this.tabuleiro[y][x];
     }
 
+    public Peca GetPecaNaPosicao(Pair p){
+	return this.tabuleiro[p.y][p.x];
+    }
+
     public boolean IsTherePecaNaPosicao(int x, int y){
         if (this.tabuleiro[y][x] != null)
             return true;
         return false;
     }
+
+    public boolean IsTherePecaNaPosicao(Pair p){
+        if (this.tabuleiro[p.y][p.x] instanceof Blank)
+            return false;
+        return true;
+    }
+
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
