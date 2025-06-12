@@ -98,7 +98,7 @@ public class Jogada {
 
         // movimentação do cavalo
         if (this.peca_movida instanceof Cavalo
-        && peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position) )
+        && peca_movida.MovimentosValidos(tabuleiro).contains(this.peca_capturada.grid_position) )
             return true;
 
         // se o peão está na última posição vertical:
@@ -110,7 +110,7 @@ public class Jogada {
         // nao existe nenhuma peça entre a movida e a capturada e
         // a peça capturada está em uma casa que a peça movida pode se movimentar:
         if (this.peca_capturada instanceof Blank
-        &&  peca_movida.MovimentosValidos().contains(this.peca_capturada.grid_position)
+        &&  peca_movida.MovimentosValidos(tabuleiro).contains(this.peca_capturada.grid_position)
         && !this.IsTherePecaInBetween(tabuleiro))
             return true;
 

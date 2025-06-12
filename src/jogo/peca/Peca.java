@@ -1,43 +1,44 @@
 package jogo.peca;
 import jogo.Jogada;
+import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 import gui.*;
 
 public abstract class Peca{
-    
+
     public final int SIZE = 8;
     public float posicao;
     public Pair grid_position;
     public char identificador;
 
     public Sprite sprite;
-    
+
     public Peca(int x, int y, char id)
     {
         this.grid_position = new Pair(x, y);
-        this.identificador = id; 
+        this.identificador = id;
     }
-  
+
     public ArrayList<Pair> mov = new ArrayList<>();
-    
-    // retorna todos os movimentos que uma peça pode 
+
+    // retorna todos os movimentos que uma peça pode
     // se movimentar, independente se a casa está ocupada ou não
-    public abstract ArrayList<Pair> MovimentosValidos();
-        
+    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro);
+
     public void Mover(Jogada jogada)
     {
-        this.grid_position = jogada.peca_capturada.grid_position;  
+        this.grid_position = jogada.peca_capturada.grid_position;
     }
-    
+
     public void DestruirPeca()
     {
 
     }
 
-    public void print_movimentos_validos()
+    public void print_movimentos_validos(Tabuleiro tabuleiro)
     {
-        this.MovimentosValidos();
+        this.MovimentosValidos(tabuleiro);
         for (Pair p : mov) {
            System.out.println(p);
         }
@@ -50,7 +51,7 @@ public abstract class Peca{
     }
 
     @Override
-    public String toString() 
+    public String toString()
     {
         return this.identificador + " " + this.grid_position;
     }

@@ -1,4 +1,5 @@
 package jogo.peca;
+import jogo.Tabuleiro;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -24,7 +25,7 @@ public class Peao extends Peca {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
 
     ArrayList<Pair> new_mov = new ArrayList<>();
 
@@ -42,13 +43,13 @@ public class Peao extends Peca {
         Pair superior_direita = this.grid_position.add(new Pair(+ 1, direcao * 1));
         Pair superior_esquerda = this.grid_position.add(new Pair(- 1, direcao * 1));
 
-        if(cima.IsPieceInsideBoard(0, SIZE))
+        if(cima.IsPieceInsideBoard(0, SIZE) && (tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
             new_mov.add(cima);
-        if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido)
+        if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && (tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
             new_mov.add(cima_duplo);
-        if(superior_direita.IsPieceInsideBoard(0, SIZE))
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.GetPecaNaPosicao(superior_direita.x, superior_direita.y) instanceof Blank))
             new_mov.add(superior_direita);
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE))
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.GetPecaNaPosicao(superior_esquerda.x, superior_esquerda.y) instanceof Blank))
             new_mov.add(superior_esquerda);
 
         mov = new_mov;

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 import javax.swing.text.Position;
 
-public class Main 
+public class Main
 {
 	final static int LARGURA = 640;
 	final static int ALTURA = 360;
@@ -22,7 +22,7 @@ public class Main
 	final static int ESCALA = 2;
 	final static int MARGEM_PARTICULA = 20;
 
-    public static void main(String[] args) 
+    public static void main(String[] args)
 	{
 		InitWindow(LARGURA, ALTURA, "Main");
 
@@ -33,7 +33,7 @@ public class Main
         jogo.NovoJogo(300);
 
         System.out.println(jogo.getTabuleiro());
-		
+
 		int clicks = 0;
 		Peca peca = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
@@ -43,7 +43,7 @@ public class Main
 		//Font
 		Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
-		while (!WindowShouldClose()) 
+		while (!WindowShouldClose())
 		{
 
 			BeginDrawing();
@@ -67,7 +67,7 @@ public class Main
 					if (clicks == 0)
 					{
 						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
-						
+
 						clicks++;
 					}
 					//Segundo click pega o peca2 e jah faz a jogada
@@ -105,10 +105,10 @@ public class Main
 
 				//Mostrando as jogadas
 				if (clicks > 0)
-					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
+				    jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(jogo.getTabuleiro()), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
 				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
-				
+
 				DrawTextEx(pixelFont, jogo.getJogadorBranco().getRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
 				DrawTextEx(pixelFont, jogo.getJogadorPreto().getRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
 
