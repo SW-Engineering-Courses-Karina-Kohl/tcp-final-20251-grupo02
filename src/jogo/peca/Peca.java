@@ -47,12 +47,12 @@ public abstract class Peca{
     public void DrawPeca(int xInicial, int yInicial)
     {
         if (sprite != null)
-            sprite.DrawSpritePro(grid_position.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial, grid_position.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
+            sprite.DrawSpritePro(grid_position.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial, 
+                                grid_position.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.identificador + " " + this.grid_position;
     }
 

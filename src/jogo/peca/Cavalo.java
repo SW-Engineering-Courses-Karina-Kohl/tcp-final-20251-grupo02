@@ -1,5 +1,4 @@
 package jogo.peca;
-import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 
@@ -46,9 +45,8 @@ public class Cavalo extends Peca {
             new_mov.add(esquerda_cima);
         if(esquerda_baixo.IsPieceInsideBoard(0, SIZE))
             new_mov.add(esquerda_baixo);
-
-        mov = new_mov;
-        return mov;
+    
+        return new_mov;
     }
 
 }
