@@ -51,7 +51,7 @@ public class Main
 				emissor.EmitirParicula();
 
 				//Desenhando o tabuleiro
-				jogo.getTabuleiro().DrawGrid(192, 61, 2);
+				jogo.getTabuleiro().DrawGrid(XINICIAL, YINICIAL, ESCALA);
 
 				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
 				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
@@ -63,7 +63,6 @@ public class Main
 					{
 						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 						
-						//System.out.println(peca.MovimentosValidos());
 						clicks++;
 					}
 					//Segundo click pega o peca2 e jah faz a jogada
