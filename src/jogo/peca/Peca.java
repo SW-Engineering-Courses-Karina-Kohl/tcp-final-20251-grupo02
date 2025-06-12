@@ -36,6 +36,13 @@ public abstract class Peca{
 
     }
 
+    public char GetCorPeca(){
+	if(Character.isLowerCase(this.identificador)){
+	    return 'p';
+	}
+	return 'b';
+    }
+
     public void print_movimentos_validos(Tabuleiro tabuleiro)
     {
         this.MovimentosValidos(tabuleiro);
@@ -47,7 +54,7 @@ public abstract class Peca{
     public void DrawPeca(int xInicial, int yInicial)
     {
         if (sprite != null)
-            sprite.DrawSpritePro(grid_position.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial, 
+            sprite.DrawSpritePro(grid_position.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
                                 grid_position.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
     }
 
