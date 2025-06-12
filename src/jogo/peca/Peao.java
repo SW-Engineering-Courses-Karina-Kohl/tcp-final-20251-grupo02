@@ -27,7 +27,7 @@ public class Peao extends Peca {
     @Override
     public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
 
-    ArrayList<Pair> new_mov = new ArrayList<>();
+    this.movimentos = new ArrayList<>();
 
 	int direcao = -1;
 	char cor = this.GetCorPeca();
@@ -45,17 +45,19 @@ public class Peao extends Peca {
         Pair superior_esquerda = this.grid_position.add(new Pair(- 1, direcao * 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.IsTherePecaNaPosicao(cima))){
-            new_mov.add(cima);
+            movimentos.add(cima);
 	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(tabuleiro.IsTherePecaNaPosicao(cima_duplo))){
-		new_mov.add(cima_duplo);
+		movimentos.add(cima_duplo);
 	    }
 	}
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.IsTherePecaNaPosicao(superior_direita)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca())
-            new_mov.add(superior_direita);
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.IsTherePecaNaPosicao(superior_esquerda)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca())
-            new_mov.add(superior_esquerda);
 
-        return new_mov;
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.IsTherePecaNaPosicao(superior_direita)) && cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca())
+            movimentos.add(superior_direita);
+
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.IsTherePecaNaPosicao(superior_esquerda)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca())
+            movimentos.add(superior_esquerda);
+
+        return movimentos;
     }
 
     @Override
