@@ -51,9 +51,7 @@ public class Peao extends Peca {
         if(superior_esquerda.IsPieceInsideBoard(0, SIZE))
             new_mov.add(superior_esquerda);
 
-        mov = new_mov;
-
-        return mov;
+        return new_mov;
     }
 
     @Override

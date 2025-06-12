@@ -33,8 +33,7 @@ public class Torre extends Peca {
                 new_mov.add(esquerda);     
         }
 
-        mov = new_mov;
-        return mov;
+        return new_mov;
     }
 
     @Override

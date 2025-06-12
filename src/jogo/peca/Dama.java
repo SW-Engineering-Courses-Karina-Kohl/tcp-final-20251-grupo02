@@ -45,9 +45,7 @@ public class Dama extends Peca {
                 new_mov.add(inferior_esquerda);
         }
 
-        mov = new_mov;
-
-        return mov;
-    };
+        return new_mov;
+    }
 
 }

@@ -194,9 +194,8 @@ public class Tabuleiro
 	    string = string.concat("  1 2 3 4 5 6 7 8\n");
         for(int i = 0; i < SIZE; i ++){
 	        string = string.concat(i + 1 + " ");
-            for(int j = 0; j < SIZE; j++){
+            for(int j = 0; j < SIZE; j++)
                 string = string.concat(tabuleiro[i][j].identificador + " ");
-            }
             string = string.concat("\n");
         }
         return string;
@@ -271,13 +270,14 @@ public class Tabuleiro
                 miraVermelhaSprite.SetImagemAtual(1);
             }
 
-            if (tabuleiro[movimentos.get(i).y][movimentos.get(i).x] instanceof Blank )
+            if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
             {
                 /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/
                 miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVerdeSprite.GetWidth() / 2, 
                 movimentos.get(i).y * 16 * escala + yInicial + miraVerdeSprite.GetHeight() / 2);
             }
+          
             else
             {
                 /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial, 
