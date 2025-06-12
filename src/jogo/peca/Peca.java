@@ -20,7 +20,7 @@ public abstract class Peca{
         this.identificador = id;
     }
 
-    public ArrayList<Pair> mov = new ArrayList<>();
+    public ArrayList<Pair> movimentos = new ArrayList<>();
 
     // retorna todos os movimentos que uma peça pode
     // se movimentar, independente se a casa está ocupada ou não
@@ -43,10 +43,10 @@ public abstract class Peca{
 	return 'b';
     }
 
-    public void print_movimentos_validos(Tabuleiro tabuleiro)
+    public void print_movimentos_validos()
     {
-        this.MovimentosValidos(tabuleiro);
-        for (Pair p : mov) {
+        // this.MovimentosValidos(tabuleiro); //
+        for (Pair p : movimentos) {
            System.out.println(p);
         }
     }
