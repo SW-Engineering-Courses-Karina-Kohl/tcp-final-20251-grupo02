@@ -1,17 +1,18 @@
 package jogo.peca;
+import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 
 public class Bispo extends Peca {
-    
+
     public Bispo(int x, int y, char id){
         super(x, y, id);
-    } 
+    }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(){
-        
-        ArrayList<Pair> new_mov = new ArrayList<>();
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+
+	movimentos = new ArrayList<>();
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
@@ -20,18 +21,18 @@ public class Bispo extends Peca {
 
             Pair inferior_direita = this.grid_position.add(new Pair(+ i, + i));
             Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
-             
+
             if(superior_direita.IsPieceInsideBoard(0, SIZE))
-                new_mov.add(superior_direita);
+                movimentos.add(superior_direita);
             if(superior_esquerda.IsPieceInsideBoard(0, SIZE) )
-                new_mov.add(superior_esquerda);
+                movimentos.add(superior_esquerda);
             if(inferior_direita.IsPieceInsideBoard(0, SIZE))
-                new_mov.add(inferior_direita);
+                movimentos.add(inferior_direita);
             if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
-                new_mov.add(inferior_esquerda); 
+                movimentos.add(inferior_esquerda);
         }
 
-        return new_mov;
+        return movimentos;
     }
-    
+
 }
