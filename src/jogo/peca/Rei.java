@@ -16,6 +16,7 @@ public class Rei extends Peca{
     public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
 
         movimentos = new ArrayList<>();
+	char cor = this.GetCorPeca();
 
         Pair cima = this.grid_position.add(new Pair(0, - 1));
         Pair baixo = this.grid_position.add(new Pair(0, + 1));
@@ -30,21 +31,28 @@ public class Rei extends Peca{
         Pair inferior_direita = this.grid_position.add(new Pair(+ 1, + 1));
         Pair inferior_esquerda = this.grid_position.add(new Pair(- 1, + 1));
 
-        if(cima.IsPieceInsideBoard(0, SIZE))
+        if(cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(cima);
-        if(baixo.IsPieceInsideBoard(0, SIZE))
+
+        if(baixo.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(baixo);
-        if(direita.IsPieceInsideBoard(0, SIZE))
+
+        if(direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(direita);
-        if(esquerda.IsPieceInsideBoard(0, SIZE))
+
+        if(esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(esquerda);
-        if(superior_direita.IsPieceInsideBoard(0, SIZE))
+
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(superior_direita);
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE))
+
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(superior_esquerda);
-        if(inferior_direita.IsPieceInsideBoard(0, SIZE))
+
+        if(inferior_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(inferior_direita);
-        if(inferior_esquerda.IsPieceInsideBoard(0, SIZE))
+
+        if(inferior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(inferior_esquerda);
 
         return movimentos;
