@@ -80,23 +80,28 @@ public class Main
 						System.out.println("Peça movida: " + peca_movida.identificador);
 						System.out.println("Peça capturada: " + peca_capturada.identificador);
 
-						Jogada jogada = new Jogada(peca_movida, peca_capturada);
+						// Isso tera que ser levemente modificado para implementar o Roque
+						if(peca_movida.GetCorPeca() == peca_capturada.GetCorPeca()){
+						    peca_movida = peca_capturada;
+						} else {
+						    Jogada jogada = new Jogada(peca_movida, peca_capturada);
 
-						// Válida a jogada
-						if(jogada.ValidarJogada(jogo.tabuleiro))
-						{
-							// Se for válida, muda o tabuleiro
-							jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+						    // Válida a jogada
+						    if(jogada.ValidarJogada(jogo.tabuleiro))
+							{
+							    // Se for válida, muda o tabuleiro
+							    jogo.tabuleiro.MudancaNoTabuleiro(jogada);
 
-							// Atualiza as peças
-							jogada.peca_movida.Mover(jogada);
-							jogada.peca_capturada.DestruirPeca();
+							    // Atualiza as peças
+							    jogada.peca_movida.Mover(jogada);
+							    jogada.peca_capturada.DestruirPeca();
 
-							jogo.ProximoTurno(); // atualiza o turno
+							    jogo.ProximoTurno(); // atualiza o turno
+							}
+
+						    System.out.println(jogo.tabuleiro);
+						    clicks = 0;
 						}
-
-						System.out.println(jogo.tabuleiro);
-						clicks = 0;
 					}
 				}
 
