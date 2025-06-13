@@ -32,11 +32,11 @@ public class Main
         Jogo jogo = new Jogo();
         jogo.NovoJogo(300);
 
-        System.out.println(jogo.getTabuleiro());
+        System.out.println(jogo.GetTabuleiro());
 
 		int clicks = 0;
-		Peca peca = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
-		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
+		Peca peca_movida = new Blank(0, 0);
+		Peca peca_capturada = new Blank(0, 0);
 
 		EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
 
@@ -56,30 +56,31 @@ public class Main
 				emissor.EmitirParicula();
 
 				//Desenhando o tabuleiro
-				jogo.getTabuleiro().DrawGrid(XINICIAL, YINICIAL, ESCALA);
+				jogo.GetTabuleiro().DrawGrid(XINICIAL, YINICIAL, ESCALA);
+
 
 				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
-				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
+				if (jogo.GetTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
 				{
-					Pair posicao = jogo.getTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
+					Pair posicao = jogo.GetTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
 
-					//Primeiro click, pega o peca
+					//Primeiro click, pega o peca_movida
 					if (clicks == 0)
 					{
-						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+						peca_movida = jogo.GetTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 
 						clicks++;
 					}
-					//Segundo click pega o peca2 e jah faz a jogada
+					//Segundo click pega o peca_capturada e jah faz a jogada
 					else if (clicks == 1)
 					{
 						//Coisas do Enzo
-						peca2 = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+						peca_capturada = jogo.GetTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 
-						System.out.println("Peça movida: " + peca.identificador);
-						System.out.println("Peça capturada: " + peca2.identificador);
+						System.out.println("Peça movida: " + peca_movida.identificador);
+						System.out.println("Peça capturada: " + peca_capturada.identificador);
 
-						Jogada jogada = new Jogada(peca, peca2);
+						Jogada jogada = new Jogada(peca_movida, peca_capturada);
 
 						// Válida a jogada
 						if(jogada.ValidarJogada(jogo.tabuleiro))
@@ -99,18 +100,24 @@ public class Main
 					}
 				}
 
+				// Validando se o click é valido para o turno atual
+				if(peca_movida.GetCorPeca() != jogo.GetJogadorTurnoAtual().GetCorJogador()){
+				    peca_movida = new Blank(0, 0);
+				    clicks = 0;
+				}
+
 				//Parando de selecionar uma peca
 				if (IsMouseButtonPressed(1))
 					clicks = 0;
 
 				//Mostrando as jogadas
 				if (clicks > 0)
-				    jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(jogo.getTabuleiro()), XINICIAL, YINICIAL, ESCALA);
+				    jogo.GetTabuleiro().DrawMovimentosValidos(peca_movida.MovimentosValidos(jogo.GetTabuleiro()), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
-				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
+				jogo.GetTabuleiro().DrawPecas(XINICIAL, YINICIAL);
 
-				DrawTextEx(pixelFont, jogo.getJogadorBranco().getRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
-				DrawTextEx(pixelFont, jogo.getJogadorPreto().getRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
+				DrawTextEx(pixelFont, jogo.GetJogadorBranco().GetRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
+				DrawTextEx(pixelFont, jogo.GetJogadorPreto().GetRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
 
 
 			EndDrawing();
