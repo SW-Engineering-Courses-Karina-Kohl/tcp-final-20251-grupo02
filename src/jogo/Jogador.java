@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 public class Jogador {
 
-    
+
 
     ArrayList<Peca> pecas = new ArrayList<>();
-    String cor;
+    char cor;
     Relogio relogio;
 
-    public Jogador(String cor, int tempoInicial){
+    public Jogador(char cor, int tempoInicial){
         this.cor = cor;
         this.relogio = new Relogio(tempoInicial);
 
     }
 
+    public char GetCorJogador(){
+	return cor;
+    }
 
     public Jogada NovaJogada(Peca peca_movida, Peca peca_capturada, Tabuleiro tabuleiro){
         Jogada jogada = new Jogada(peca_movida, peca_capturada);
@@ -27,6 +30,6 @@ public class Jogador {
         return relogio;
     }
 
-   
+
 
 }

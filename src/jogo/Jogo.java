@@ -17,8 +17,8 @@ public class Jogo {
 
     public void NovoJogo(int tempoInicial){
         this.tabuleiro = new Tabuleiro();
-        this.jogador_branco = new Jogador("branco", tempoInicial);
-        this.jogador_preto = new Jogador("preto",tempoInicial);
+        this.jogador_branco = new Jogador('b', tempoInicial);
+        this.jogador_preto = new Jogador('p',tempoInicial);
         this.jogador_turno_atual = jogador_branco;
 
         this.jogador_turno_atual.getRelogio().IniciarRelogio();
