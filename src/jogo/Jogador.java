@@ -26,7 +26,7 @@ public class Jogador {
         return jogada;
     }
 
-    public Relogio getRelogio() {
+    public Relogio GetRelogio() {
         return relogio;
     }
 
