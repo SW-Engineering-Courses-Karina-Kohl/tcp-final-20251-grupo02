@@ -3,3 +3,4 @@ bin/
 raylib.ps1
 testing.txt
 *.class
+*.orig
