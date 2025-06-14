@@ -175,11 +175,11 @@ public class Tabuleiro
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
-        Pair pecaMovida = jogada.peca_movida.grid_position;
+        Pair pecaMovida = jogada.pecaMovida.grid_position;
         Pair posicaoFinal = jogada.peca_capturada.grid_position;
 
         // move peça e anula posição anterior
-        this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.peca_movida;
+        this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
         this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
     }
 
