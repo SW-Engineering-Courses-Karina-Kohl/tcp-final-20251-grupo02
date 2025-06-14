@@ -37,6 +37,9 @@ public abstract class Peca{
     }
 
     public char GetCorPeca(){
+	if(this instanceof Blank){
+	    return '_';
+	}
 	if(Character.isLowerCase(this.identificador)){
 	    return 'p';
 	}

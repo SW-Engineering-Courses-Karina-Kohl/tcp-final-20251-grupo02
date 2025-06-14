@@ -17,38 +17,38 @@ public class Jogo {
 
     public void NovoJogo(int tempoInicial){
         this.tabuleiro = new Tabuleiro();
-        this.jogador_branco = new Jogador("branco", tempoInicial);
-        this.jogador_preto = new Jogador("preto",tempoInicial);
+        this.jogador_branco = new Jogador('b', tempoInicial);
+        this.jogador_preto = new Jogador('p',tempoInicial);
         this.jogador_turno_atual = jogador_branco;
 
-        this.jogador_turno_atual.getRelogio().IniciarRelogio();
+        this.jogador_turno_atual.GetRelogio().IniciarRelogio();
     }
 
 
     public void ProximoTurno(){
-        jogador_turno_atual.getRelogio().PausaRelogio();
+        jogador_turno_atual.GetRelogio().PausaRelogio();
 
         if (this.jogador_turno_atual == this.jogador_branco)
             this.jogador_turno_atual = this.jogador_preto;
         else this.jogador_turno_atual = this.jogador_branco;
 
-        jogador_turno_atual.getRelogio().IniciarRelogio();
+        jogador_turno_atual.GetRelogio().IniciarRelogio();
         // this.tabuleiro.GirarTabuleiro();
     }
 
-    public Tabuleiro getTabuleiro() {
+    public Tabuleiro GetTabuleiro() {
         return tabuleiro;
     }
 
-    public Jogador getJogadorBranco() {
+    public Jogador GetJogadorBranco() {
         return jogador_branco;
     }
 
-    public Jogador getJogadorPreto() {
+    public Jogador GetJogadorPreto() {
         return jogador_preto;
     }
 
-    public Jogador getJogadorTurnoAtual() {
+    public Jogador GetJogadorTurnoAtual() {
         return jogador_turno_atual;
     }
 
