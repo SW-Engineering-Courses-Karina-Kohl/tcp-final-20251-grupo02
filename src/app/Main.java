@@ -55,33 +55,7 @@ public class Main {
                     Pair destino = pos;
                     Peca destinoPeca = tab.GetPecaNaPosicao(destino);
 
-                    //Verficação do En Passant
-                    if (pecaMovida instanceof Peao && destinoPeca instanceof Blank) {
-                        Peao peao = (Peao) pecaMovida;
-                        int dirY = (peao.GetCorPeca() == 'b') ? -1 : 1;
-
-                        if (Math.abs(destino.x - peao.grid_position.x) == 1
-                                && destino.y - peao.grid_position.y == dirY) {
-
-                            Pair adj = new Pair(destino.x, peao.grid_position.y);
-                            Peca adjP = tab.GetPecaNaPosicao(adj);
-
-                            if (adjP instanceof Peao && adjP.GetCorPeca() != peao.GetCorPeca()) {
-                                // captura en passant
-                                Jogada ep = new Jogada(peao, adjP);
-
-                                tab.MudancaNoTabuleiro(new Jogada(peao, new Blank(destino.x, destino.y)));
-                                peao.Mover(new Jogada(peao, new Blank(destino.x, destino.y)));
-                                tab.MudancaNoTabuleiro(new Jogada(adjP, new Blank(adj.x, adj.y)));
-                                
-                                adjP.DestruirPeca();
-                                jogo.ProximoTurno();
-                                clicks = 0;
-
-                                continue;
-                            }
-                        }
-                    }
+                    
 
                     // Verificação do Roque
                     if (pecaMovida instanceof Rei
