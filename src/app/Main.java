@@ -12,122 +12,117 @@ import java.util.Scanner;
 
 import javax.swing.text.Position;
 
-public class Main
-{
-	final static int LARGURA = 640;
-	final static int ALTURA = 360;
+public class Main {
+    
+    final static int LARGURA = 640;
+    final static int ALTURA = 360;
 
-	final static int XINICIAL = 192;
-	final static int YINICIAL = 61;
-	final static int ESCALA = 2;
-	final static int MARGEM_PARTICULA = 20;
+    final static int XINICIAL = 192;
+    final static int YINICIAL = 61;
+    final static int ESCALA = 2;
+    final static int MARGEM_PARTICULA = 20;
 
-    public static void main(String[] args)
-	{
-		InitWindow(LARGURA, ALTURA, "Main");
+    public static void main(String[] args) {
+        InitWindow(LARGURA, ALTURA, "Main");
+        SetTargetFPS(60);
 
-		SetTargetFPS(60);
-
-		// Cria um novo jogo
         Jogo jogo = new Jogo();
         jogo.NovoJogo(300);
 
-        System.out.println(jogo.GetTabuleiro());
+        int clicks = 0;
+        Peca pecaMovida = new Blank(0, 0);
 
-		int clicks = 0;
-		Peca peca_movida = new Blank(0, 0);
-		Peca peca_capturada = new Blank(0, 0);
+        EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
+        Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
-		EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
+        while (!WindowShouldClose()) {
+            BeginDrawing();
 
-		//Font
-		Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
+            ClearBackground(new Cor(52, 54, 71, 255).GetCor());
+            DrawFPS(20, 20);
 
-		while (!WindowShouldClose())
-		{
+            emissor.EmitirParicula();
 
-			BeginDrawing();
+            Tabuleiro tab = jogo.GetTabuleiro();
+            tab.DrawGrid(XINICIAL, YINICIAL, ESCALA);
 
-				ClearBackground(new Cor(52, 54, 71, 255).GetCor());
-				//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-				DrawFPS(20, 20);
+            if (tab.MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA)) {
+                Pair pos = tab.GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
+                if (clicks == 0) {
+                    pecaMovida = tab.GetPecaNaPosicao(pos.x, pos.y);
+                    clicks = 1;
+                } else if (clicks == 1) {
+                    Pair destino = pos;
+                    Peca destinoPeca = tab.GetPecaNaPosicao(destino);
 
-				//Emitindo as particulas de fundo
-				emissor.EmitirParicula();
+                    
 
-				//Desenhando o tabuleiro
-				jogo.GetTabuleiro().DrawGrid(XINICIAL, YINICIAL, ESCALA);
+                    // Verificação do Roque
+                    if (pecaMovida instanceof Rei
+                            && destino.y == pecaMovida.grid_position.y
+                            && Math.abs(destino.x - pecaMovida.grid_position.x) == 2
+                            && destinoPeca instanceof Blank) {
 
+                        int dir = (destino.x > pecaMovida.grid_position.x) ? 1 : -1;
+                        Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.grid_position.y);
+                        Torre torre = (Torre) tab.GetPecaNaPosicao(torrePos);
+                        Jogada roque = new Jogada(pecaMovida, torre);
 
-				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
-				if (jogo.GetTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
-				{
-					Pair posicao = jogo.GetTabuleiro().GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
+                        if (roque.ValidarRoque(tab)) {
+                            // mover rei
+                            tab.MudancaNoTabuleiro(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
+                            pecaMovida.Mover(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
+                            ((Rei) pecaMovida).jaMovido = true;
 
-					//Primeiro click, pega o peca_movida
-					if (clicks == 0)
-					{
-						peca_movida = jogo.GetTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+                            // mover torre
+                            Pair torreDestino = new Pair(destino.x - dir, destino.y);
+                            tab.MudancaNoTabuleiro(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
+                            torre.Mover(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
+                            torre.jaMovido = true;
+                            jogo.ProximoTurno();
+                        }
 
-						clicks++;
-					}
-					//Segundo click pega o peca_capturada e jah faz a jogada
-					else if (clicks == 1)
-					{
-						//Coisas do Enzo
-						peca_capturada = jogo.GetTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
+                        clicks = 0;
+                        continue;
+                    }
 
-						System.out.println("Peça movida: " + peca_movida.identificador);
-						System.out.println("Peça capturada: " + peca_capturada.identificador);
+                    // Verificação da jogada
+                    Jogada jogada = new Jogada(pecaMovida, destinoPeca);
+                    if (jogada.ValidarJogada(tab)) {
+                        tab.MudancaNoTabuleiro(jogada);
+                        jogada.pecaMovida.Mover(jogada);
+                        jogada.peca_capturada.DestruirPeca();
+                        
+                        if (pecaMovida instanceof Rei) {
+                            ((Rei) pecaMovida).jaMovido = true;
+                        }
+                        if (pecaMovida instanceof Torre) {
+                            ((Torre) pecaMovida).jaMovido = true;
+                        }
+                        jogo.ProximoTurno();
+                       // if (jogada.ValidarPromocaoPeao(tab)) {} falta a implementação do iuri
+                    }
+                    
+                    clicks = 0;
+                }
+            }
 
-						// Isso tera que ser levemente modificado para implementar o Roque
-						if(peca_movida.GetCorPeca() == peca_capturada.GetCorPeca()){
-						    peca_movida = peca_capturada;
-						} else {
-						    Jogada jogada = new Jogada(peca_movida, peca_capturada);
+            // valida turno
+            if (pecaMovida.GetCorPeca() != jogo.GetJogadorTurnoAtual().GetCorJogador()) {
+                pecaMovida = new Blank(0, 0);
+                clicks = 0;
+            }
+            if (IsMouseButtonPressed(1)) clicks = 0;
 
-						    // Válida a jogada
-						    if(jogada.ValidarJogada(jogo.tabuleiro))
-							{
-							    // Se for válida, muda o tabuleiro
-							    jogo.tabuleiro.MudancaNoTabuleiro(jogada);
+            if (clicks == 1){
+                tab.DrawMovimentosValidos(pecaMovida.MovimentosValidos(tab), XINICIAL, YINICIAL, ESCALA);
+            }
+            tab.DrawPecas(XINICIAL, YINICIAL);
 
-							    // Atualiza as peças
-							    jogada.peca_movida.Mover(jogada);
-							    jogada.peca_capturada.DestruirPeca();
-
-							    jogo.ProximoTurno(); // atualiza o turno
-							}
-
-						    System.out.println(jogo.tabuleiro);
-						    clicks = 0;
-						}
-					}
-				}
-
-				// Validando se o click é valido para o turno atual
-				if(peca_movida.GetCorPeca() != jogo.GetJogadorTurnoAtual().GetCorJogador()){
-				    peca_movida = new Blank(0, 0);
-				    clicks = 0;
-				}
-
-				//Parando de selecionar uma peca
-				if (IsMouseButtonPressed(1))
-					clicks = 0;
-
-				//Mostrando as jogadas
-				if (clicks > 0)
-				    jogo.GetTabuleiro().DrawMovimentosValidos(peca_movida.MovimentosValidos(jogo.GetTabuleiro()), XINICIAL, YINICIAL, ESCALA);
-				//Desenhando as pecas
-				jogo.GetTabuleiro().DrawPecas(XINICIAL, YINICIAL);
-
-				DrawTextEx(pixelFont, jogo.GetJogadorBranco().GetRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
-				DrawTextEx(pixelFont, jogo.GetJogadorPreto().GetRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
-
-
-			EndDrawing();
-		}
-		CloseWindow();
-
+            DrawTextEx(pixelFont, jogo.GetJogadorBranco().GetRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
+            DrawTextEx(pixelFont, jogo.GetJogadorPreto().GetRelogio().formatarTempo(), new Vector2().x(527).y(53), 32, 2, BLACK);
+            EndDrawing();
+        }
+        CloseWindow();
     }
 }

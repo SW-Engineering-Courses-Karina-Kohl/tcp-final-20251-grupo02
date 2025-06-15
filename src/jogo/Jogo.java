@@ -1,5 +1,9 @@
 package jogo;
 
+import jogo.peca.Dama;
+import jogo.peca.Peao;
+import jogo.peca.Peca;
+
 public class Jogo {
 
     final int  MAX_PEÇAS = 32;
@@ -51,5 +55,6 @@ public class Jogo {
     public Jogador GetJogadorTurnoAtual() {
         return jogador_turno_atual;
     }
+     
 
 }
