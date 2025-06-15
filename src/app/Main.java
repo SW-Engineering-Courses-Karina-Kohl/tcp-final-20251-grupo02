@@ -100,7 +100,9 @@ public class Main {
                             ((Torre) pecaMovida).jaMovido = true;
                         }
                         jogo.ProximoTurno();
+                       // if (jogada.ValidarPromocaoPeao(tab)) {} falta a implementação do iuri
                     }
+                    
                     clicks = 0;
                 }
             }

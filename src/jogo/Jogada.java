@@ -118,4 +118,33 @@ public class Jogada {
 
     //}
 
+   public boolean ValidarPromocaoPeao(Tabuleiro tabuleiro) {
+        boolean promoveu = false;
+        //verificação para as brancas
+        for(int x = 0; x < 8; x++) {
+            Peca p = tabuleiro.GetPecaNaPosicao(x,0);
+            if (p instanceof Peao && p.GetCorPeca() == 'b') {
+                //promove para rainha
+                Dama dama = new Dama(x, 0, 'b');
+                tabuleiro.MudancaNoTabuleiro(
+                    new Jogada(p, dama)
+                );
+                promoveu = true;
+            }
+        }
+        //verificação para as pretas
+        for(int x = 0; x < 8; x++) {
+            Peca p = tabuleiro.GetPecaNaPosicao(x,7);
+            if (p instanceof Peao && p.GetCorPeca() == 'p') {
+                //promove para rainha
+                Dama dama = new Dama(x, 7, 'p');
+                tabuleiro.MudancaNoTabuleiro(
+                    new Jogada(p, dama)
+                );
+                promoveu = true;
+            }
+        }
+
+        return promoveu;
+    }
 }
