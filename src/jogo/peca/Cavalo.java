@@ -1,12 +1,27 @@
 package jogo.peca;
 import jogo.Tabuleiro;
 import misc.Pair;
+
+import static com.raylib.Colors.WHITE;
+import static com.raylib.Raylib.LoadTexture;
+
 import java.util.ArrayList;
+
+import com.raylib.Raylib.Texture;
+
+import gui.Sprite;
 
 public class Cavalo extends Peca {
 
+    private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+
     public Cavalo(int x, int y, char id){
         super(x, y, id);
+
+        if (GetCorPeca() == 'b')
+            sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
+        else
+            sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
     @Override
