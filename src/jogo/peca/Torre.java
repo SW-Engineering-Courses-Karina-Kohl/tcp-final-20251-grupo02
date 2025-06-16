@@ -1,15 +1,29 @@
 package jogo.peca;
 import jogo.Tabuleiro;
 import misc.Pair;
+
+import static com.raylib.Colors.WHITE;
+import static com.raylib.Raylib.LoadTexture;
+
 import java.util.ArrayList;
+
+import com.raylib.Raylib.Texture;
+
+import gui.Sprite;
 import jogo.Jogada;
 
 public class Torre extends Peca {
 
     public boolean jaMovido = false;
+	private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
 
     public Torre(int x, int y, char id){
         super(x, y, id);
+
+        if (GetCorPeca() == 'b')
+            sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
+        else
+            sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
     @Override

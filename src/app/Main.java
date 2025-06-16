@@ -16,7 +16,8 @@ import javax.swing.text.Position;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Vector2;
 
-public class Main {
+public class Main 
+{
     
     final static int LARGURA = 640;
     final static int ALTURA = 360;

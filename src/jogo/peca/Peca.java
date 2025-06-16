@@ -2,7 +2,13 @@ package jogo.peca;
 import jogo.Jogada;
 import jogo.Tabuleiro;
 import misc.Pair;
+
+import static com.raylib.Colors.WHITE;
+
 import java.util.ArrayList;
+
+import com.raylib.Raylib.Texture;
+
 import gui.*;
 
 public abstract class Peca{
