@@ -31,7 +31,7 @@ public class Tabuleiro
     private Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
     private Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
     private Texture reiTexture = LoadTexture("res/pecas/rei.png");
-    private Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
+    private Texture rainhaTexture = LoadTexture("res/pecas/dama.png");
 
     // tabuleiro[y][x] = Peca(x, y)
     private Peca[][] tabuleiro = new Peca[SIZE][SIZE];
@@ -66,6 +66,7 @@ public class Tabuleiro
         this.InitializePeca(new Rei(4,7,'R'));
         this.InitializePeca(new Dama(3,7, 'D'));
 
+        
         //Passando as imagens
         //Peao
         for (int i = 0; i < SIZE; i++)
@@ -88,6 +89,7 @@ public class Tabuleiro
 
         //Rainha
         tabuleiro[7][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
+        
 
         // pecas pretas (id minúsculo)
         this.InitializePeca(new Peao(0, 1, 'p'));
@@ -111,6 +113,7 @@ public class Tabuleiro
         this.InitializePeca(new Rei(4, 0, 'r'));
         this.InitializePeca(new Dama(3, 0, 'd'));
 
+        
         //Passando as imagens
         //Peao
         for (int i = 0; i < SIZE; i++)
@@ -133,7 +136,7 @@ public class Tabuleiro
 
         //Rainha
         tabuleiro[0][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
-
+        
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
                 if (this.tabuleiro[i][j] == null)
