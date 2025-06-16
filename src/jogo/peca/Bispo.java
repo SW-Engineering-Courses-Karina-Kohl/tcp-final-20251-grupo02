@@ -3,10 +3,16 @@ import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Texture;
+
+import static com.raylib.Raylib.LoadTexture;
+
 public class Bispo extends Peca {
 
-    public Bispo(int x, int y, char id){
-        super(x, y, id);
+    private static Texture textura = LoadTexture("res/pecas/bispo.png");
+	
+	public Bispo(int x, int y, char id){
+        super(x, y, id ,textura);
     }
 
     @Override

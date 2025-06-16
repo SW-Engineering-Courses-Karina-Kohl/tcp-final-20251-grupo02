@@ -4,6 +4,8 @@ import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 import gui.*;
+import com.raylib.Raylib.Texture;
+import static com.raylib.Colors.WHITE;
 
 public abstract class Peca{
 
@@ -11,13 +13,14 @@ public abstract class Peca{
     public float posicao;
     public Pair grid_position;
     public char identificador;
-
     public Sprite sprite;
 
-    public Peca(int x, int y, char id)
-    {
+    public Peca(int x, int y, char id, Texture textura){
         this.grid_position = new Pair(x, y);
         this.identificador = id;
+        int imagem_atual = 0;
+        if (Character.isUpperCase(id)) imagem_atual = 0; else imagem_atual = 1;
+        this.sprite = new  Sprite(textura, 2, 0, 0, imagem_atual, WHITE, 2);
     }
 
     public ArrayList<Pair> movimentos = new ArrayList<>();

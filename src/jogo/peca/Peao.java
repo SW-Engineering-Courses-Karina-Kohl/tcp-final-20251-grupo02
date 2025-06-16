@@ -6,15 +6,19 @@ import static com.raylib.Colors.WHITE;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Texture;
+import static com.raylib.Raylib.LoadTexture;
+
 import gui.Sprite;
 import jogo.Jogada;
 
 public class Peao extends Peca {
 
+    private static Texture textura = LoadTexture("res/pecas/peao.png");
     public boolean jaMovido = false;
 
     public Peao(int x, int y, char id){
-        super(x, y, id);
+        super(x, y, id, textura);
     }
 
     public Peca Promover(){

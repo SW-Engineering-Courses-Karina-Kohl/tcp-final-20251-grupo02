@@ -2,14 +2,19 @@ package jogo.peca;
 import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
+
+import com.raylib.Raylib.Texture;
+
 import jogo.Jogada;
+import static com.raylib.Raylib.LoadTexture;
 
 public class Torre extends Peca {
 
     public boolean jaMovido = false;
+	private static Texture textura = LoadTexture("res/pecas/torre.png");
 
     public Torre(int x, int y, char id){
-        super(x, y, id);
+        super(x, y, id, textura);
     }
 
     @Override

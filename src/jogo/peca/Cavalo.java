@@ -3,10 +3,16 @@ import jogo.Tabuleiro;
 import misc.Pair;
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Texture;
+
+import static com.raylib.Raylib.LoadTexture;
+
 public class Cavalo extends Peca {
 
+    private static Texture textura = LoadTexture("res/pecas/cavalo.png");
+    
     public Cavalo(int x, int y, char id){
-        super(x, y, id);
+        super(x, y, id, textura);
     }
 
     @Override

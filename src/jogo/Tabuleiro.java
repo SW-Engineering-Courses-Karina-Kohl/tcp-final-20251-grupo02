@@ -26,12 +26,12 @@ public class Tabuleiro
 
     //Dando load nas imagens
     //Isso será um problema no futuro se a gente quiser inicializar novamente o tabuleiro
-    private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
-    private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
-    private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
-    private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
-    private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
-    private static Texture rainhaTexture = LoadTexture("res/pecas/dama.png");
+    // private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
+    // private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
+    // private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+    // private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
+    // private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
+    // private static Texture rainhaTexture = LoadTexture("res/pecas/dama.png");
 
     private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
     private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
@@ -47,8 +47,7 @@ public class Tabuleiro
     }
 
     // cria o tabuleiro da visão das brancas
-    public Tabuleiro()
-    {
+    public Tabuleiro(){
         // pecas brancas (id maiúsculo)
         this.InitializePeca(new Peao(0, 6, 'P'));
         this.InitializePeca(new Peao(1, 6, 'P'));
@@ -70,31 +69,6 @@ public class Tabuleiro
 
         this.InitializePeca(new Rei(4,7,'R'));
         this.InitializePeca(new Dama(3,7, 'D'));
-
-        
-        //Passando as imagens
-        //Peao
-        for (int i = 0; i < SIZE; i++)
-            tabuleiro[6][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
-
-        //Torre
-        tabuleiro[7][0].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
-        tabuleiro[7][7].sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
-
-        //Cavalo
-        tabuleiro[7][1].sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
-        tabuleiro[7][6].sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
-
-        //Bispo
-        tabuleiro[7][2].sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
-        tabuleiro[7][5].sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
-
-        //Rei
-        tabuleiro[7][4].sprite = new Sprite(reiTexture, 2, 0, 0, 0, WHITE, 2);
-
-        //Rainha
-        tabuleiro[7][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
-        
 
         // pecas pretas (id minúsculo)
         this.InitializePeca(new Peao(0, 1, 'p'));
@@ -118,30 +92,6 @@ public class Tabuleiro
         this.InitializePeca(new Rei(4, 0, 'r'));
         this.InitializePeca(new Dama(3, 0, 'd'));
 
-        
-        //Passando as imagens
-        //Peao
-        for (int i = 0; i < SIZE; i++)
-            tabuleiro[1][i].sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
-
-        //Torre
-        tabuleiro[0][0].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
-        tabuleiro[0][7].sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
-
-        //Cavalo
-        tabuleiro[0][1].sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
-        tabuleiro[0][6].sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
-
-        //Bispo
-        tabuleiro[0][2].sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
-        tabuleiro[0][5].sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
-
-        //Rei
-        tabuleiro[0][4].sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
-
-        //Rainha
-        tabuleiro[0][3].sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
-        
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
                 if (this.tabuleiro[i][j] == null)
