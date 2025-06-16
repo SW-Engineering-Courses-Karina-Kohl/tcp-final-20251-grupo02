@@ -31,7 +31,7 @@ public class Tabuleiro
     private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
     private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
     private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
-    private static Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
+    private static Texture rainhaTexture = LoadTexture("res/pecas/dama.png");
 
     private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
     private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
