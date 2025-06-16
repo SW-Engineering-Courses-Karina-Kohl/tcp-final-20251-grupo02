@@ -5,8 +5,12 @@ import gui.*;
 import jogo.*;
 import jogo.peca.*;
 import misc.*;
+import vfx.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.text.Position;
 
 public class Main 
 {
@@ -16,6 +20,7 @@ public class Main
 	final static int XINICIAL = 192;
 	final static int YINICIAL = 61;
 	final static int ESCALA = 2;
+	final static int MARGEM_PARTICULA = 20;
 
     public static void main(String[] args) 
 	{
@@ -33,6 +38,10 @@ public class Main
 		Peca peca = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 		Peca peca2 = jogo.getTabuleiro().GetPecaNaPosicao(0, 0);
 
+		EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
+
+		//Font
+		Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
 		while (!WindowShouldClose()) 
 		{
@@ -43,12 +52,11 @@ public class Main
 				//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 				DrawFPS(20, 20);
 
-				//Desenhando os relogios
-				DrawText(jogo.getJogadorBranco().getRelogio().formatarTempo(), 527, 21, 32, WHITE);
-				DrawText(jogo.getJogadorPreto().getRelogio().formatarTempo(), 527, 21 + 32, 32, BLACK);
+				//Emitindo as particulas de fundo
+				emissor.EmitirParicula();
 
 				//Desenhando o tabuleiro
-				jogo.getTabuleiro().DrawGrid(192, 61, 2);
+				jogo.getTabuleiro().DrawGrid(XINICIAL, YINICIAL, ESCALA);
 
 				//Vendo o se o mouse clicou em alguma posicao do tabuleiro
 				if (jogo.getTabuleiro().MouseClikedOnTabuleiro(XINICIAL, YINICIAL, ESCALA))
@@ -60,7 +68,6 @@ public class Main
 					{
 						peca = jogo.getTabuleiro().GetPecaNaPosicao(posicao.x, posicao.y);
 						
-						//System.out.println(peca.MovimentosValidos());
 						clicks++;
 					}
 					//Segundo click pega o peca2 e jah faz a jogada
@@ -91,10 +98,20 @@ public class Main
 						clicks = 0;
 					}
 				}
+
+				//Parando de selecionar uma peca
+				if (IsMouseButtonPressed(1))
+					clicks = 0;
+
+				//Mostrando as jogadas
 				if (clicks > 0)
 					jogo.getTabuleiro().DrawMovimentosValidos(peca.MovimentosValidos(), XINICIAL, YINICIAL, ESCALA);
 				//Desenhando as pecas
 				jogo.getTabuleiro().DrawPecas(XINICIAL, YINICIAL);
+				
+				DrawTextEx(pixelFont, jogo.getJogadorBranco().getRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
+				DrawTextEx(pixelFont, jogo.getJogadorPreto().getRelogio().formatarTempo(), new Vector2().x(527).y(21 + 32), 32, 2, BLACK);
+
 
 			EndDrawing();
 		}
