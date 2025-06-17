@@ -36,6 +36,17 @@ public abstract class Peca{
 	return movimentos;
     }
 
+    public void CheckMoviment(Tabuleiro tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
+
+	if(testingCheck){
+	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetCorPeca(), moviment)){
+		movs.add(moviment);
+	    }
+	} else {
+	    movs.add(moviment);
+	}
+    }
+
     public void Mover(Jogada jogada)
     {
         this.posicaoTabuleiro = jogada.peca_capturada.posicaoTabuleiro;
