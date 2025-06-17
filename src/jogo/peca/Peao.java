@@ -34,9 +34,9 @@ public class Peao extends Peca {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
-    this.movimentos = new ArrayList<>();
+	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
 	int direcao = -1;
 	char cor = this.GetCorPeca();
@@ -46,6 +46,7 @@ public class Peao extends Peca {
 	    direcao = 1;
 	}
 
+
 	Pair cima = this.posicaoTabuleiro.add(new Pair(0, direcao * 1));
 	Pair cima_duplo = this.posicaoTabuleiro.add(new Pair(0, direcao * 2));
 
@@ -53,20 +54,31 @@ public class Peao extends Peca {
         Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, direcao * 1));
         Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, direcao * 1));
 
+
+
         if(cima.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.PosicaoOcupada(cima))){
-            movimentos.add(cima);
-	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(tabuleiro.PosicaoOcupada(cima_duplo))){
-		movimentos.add(cima_duplo);
-	    }
+	    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 	}
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca())
-            movimentos.add(superior_direita);
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca())
-            movimentos.add(superior_esquerda);
+	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(tabuleiro.PosicaoOcupada(cima_duplo))){
+		this.CheckMoviment(tabuleiro, newMovimentos, cima_duplo, testingCheck);
 
-        return movimentos;
+	    }
+
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
+	    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
+	}
+
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
+	    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
+	}
+
+	if(testingCheck){
+	    movimentos = newMovimentos;
+	}
+
+        return newMovimentos;
     }
 
     @Override

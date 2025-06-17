@@ -24,15 +24,16 @@ public class Bispo extends Peca {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
-	movimentos = new ArrayList<>();
+	ArrayList<Pair> newMovimentos = new ArrayList<>();
+
 	char cor = this.GetCorPeca();
 
-	boolean PecaSuperiorDireita = false;
-	boolean PecaSuperiorEsquerda = false;
-	boolean PecaInferiorDireita = false;
-	boolean PecaInferiorEsquerda = false;
+	boolean pecaSuperiorDireita = false;
+	boolean pecaSuperiorEsquerda = false;
+	boolean pecaInferiorDireita = false;
+	boolean pecaInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
@@ -42,49 +43,54 @@ public class Bispo extends Peca {
             Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ i, + i));
             Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, + i));
 
-            if(!PecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
                 if(tabuleiro.PosicaoOcupada(superior_direita)){
-		    PecaSuperiorDireita = true;
+		    pecaSuperiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
-		    movimentos.add(superior_direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
 
-            if(!PecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
                 if(tabuleiro.PosicaoOcupada(superior_esquerda)){
-		    PecaSuperiorEsquerda = true;
+		    pecaSuperiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
-		    movimentos.add(superior_esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
 
-            if(!PecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
                 if(tabuleiro.PosicaoOcupada(inferior_direita)){
-		    PecaInferiorDireita = true;
+		    pecaInferiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca()){
-		    movimentos.add(inferior_direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
 
-            if(!PecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
                 if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
-		    PecaInferiorEsquerda = true;
+		    pecaInferiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca()){
-		    movimentos.add(inferior_esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }
 
         }
 
-        return movimentos;
+
+	if(testingCheck){
+	    movimentos = newMovimentos;
+	}
+
+        return newMovimentos;
     }
 
 }

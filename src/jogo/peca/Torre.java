@@ -27,9 +27,9 @@ public class Torre extends Peca {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
-	movimentos = new ArrayList<>();
+	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetCorPeca();
 
 	boolean pecaCima = false;
@@ -49,7 +49,7 @@ public class Torre extends Peca {
 		    pecaCima = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca()){
-		    movimentos.add(cima);
+		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 		}
 	    }
 
@@ -58,7 +58,7 @@ public class Torre extends Peca {
 		    pecaBaixo = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(baixo).GetCorPeca()){
-		    movimentos.add(baixo);
+		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 		}
 	    }
 
@@ -67,7 +67,7 @@ public class Torre extends Peca {
 		    pecaDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(direita).GetCorPeca()){
-		    movimentos.add(direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 		}
 	    }
 
@@ -76,13 +76,17 @@ public class Torre extends Peca {
 		    pecaEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(esquerda).GetCorPeca()){
-		    movimentos.add(esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 		}
 	    }
 
         }
 
-        return movimentos;
+	if(testingCheck){
+	    movimentos = newMovimentos;
+	}
+
+        return newMovimentos;
     }
 
     @Override
