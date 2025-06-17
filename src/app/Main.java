@@ -16,9 +16,9 @@ import javax.swing.text.Position;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Vector2;
 
-public class Main 
+public class Main
 {
-    
+
     final static int LARGURA = 640;
     final static int ALTURA = 360;
 
@@ -27,16 +27,17 @@ public class Main
     final static int ESCALA = 2;
     final static int MARGEM_PARTICULA = 20;
 
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         InitWindow(LARGURA, ALTURA, "Main");
         SetTargetFPS(60);
-
+	// ToggleFullscreen();
         Jogo jogo = new Jogo();
         jogo.NovoJogo(300);
 
         int clicks = 0;
         Peca pecaMovida = new Blank(0, 0);
+	ArrayList<Pair> movimentosClicado = new ArrayList<>();
 
         EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
         Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
@@ -44,6 +45,7 @@ public class Main
         //A array de paginas funciona da seguinte maneira
         //Cada posicao representa uma pagina, sendo um valor bool, falando se a tela esta ativa ou nao
         //Ou seja, normalmente averá apenas uma pagina ativa por vez
+
         //A ordem eh a seguinte:
         //Menu inicial, opcoes, jogo, tela final
         boolean[] paginas = new boolean[4];
@@ -56,8 +58,8 @@ public class Main
         OpcoesMenu opcoesMenu = new OpcoesMenu(LARGURA, pixelFont);
         FinalMenu finalMenu = new FinalMenu(LARGURA, pixelFont);
         JogoMenu jogoMenu = new JogoMenu();
-        
-        //0 = empate; 1 = branco; 2 = preto; 
+
+        //0 = empate; 1 = branco; 2 = preto;
         boolean[] vencedor = new boolean[3];
 
         //Ponteiro de novo
@@ -78,7 +80,7 @@ public class Main
 
             if (paginas[2] == true)
             {
-                jogoMenu.LogicaJogoMenu(paginas, jogo, vencedor);  
+                jogoMenu.LogicaJogoMenu(paginas, jogo, vencedor);
                 //Criando o jogo novo
                 if (criarJogo == true)
                 {
@@ -99,41 +101,43 @@ public class Main
                     Pair pos = tab.GetMousePositionOnTabuleiro(XINICIAL, YINICIAL, ESCALA);
                     if (clicks == 0) {
                         pecaMovida = tab.GetPecaNaPosicao(pos.x, pos.y);
+			pecaMovida.MovimentosValidos(tab, false);
+			pecaMovida.MovimentosValidos(tab, true);
                         clicks = 1;
+
                     } else if (clicks == 1) {
                         Pair destino = pos;
                         Peca destinoPeca = tab.GetPecaNaPosicao(destino);
+			System.out.println("Dentro do click 1");
 
-                        
+                        // // Verificação do Roque
+                        // if (pecaMovida instanceof Rei
+                        //         && destino.y == pecaMovida.posicaoTabuleiro.y
+                        //         && Math.abs(destino.x - pecaMovida.posicaoTabuleiro.x) == 2
+                        //         && destinoPeca instanceof Blank) {
 
-                        // Verificação do Roque
-                        if (pecaMovida instanceof Rei
-                                && destino.y == pecaMovida.grid_position.y
-                                && Math.abs(destino.x - pecaMovida.grid_position.x) == 2
-                                && destinoPeca instanceof Blank) {
+                        //     int dir = (destino.x > pecaMovida.posicaoTabuleiro.x) ? 1 : -1;
+                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.posicaoTabuleiro.y);
+                        //     Torre torre = (Torre) tab.GetPecaNaPosicao(torrePos);
+                        //     Jogada roque = new Jogada(pecaMovida, torre);
 
-                            int dir = (destino.x > pecaMovida.grid_position.x) ? 1 : -1;
-                            Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.grid_position.y);
-                            Torre torre = (Torre) tab.GetPecaNaPosicao(torrePos);
-                            Jogada roque = new Jogada(pecaMovida, torre);
+                        //     // if (roque.ValidarRoque(tab)) {
+                        //     //     // mover rei
+                        //     //     tab.MudancaNoTabuleiro(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
+                        //     //     pecaMovida.Mover(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
+                        //     //     ((Rei) pecaMovida).jaMovido = true;
 
-                            if (roque.ValidarRoque(tab)) {
-                                // mover rei
-                                tab.MudancaNoTabuleiro(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
-                                pecaMovida.Mover(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
-                                ((Rei) pecaMovida).jaMovido = true;
+                        //     //     // mover torre
+                        //     //     Pair torreDestino = new Pair(destino.x - dir, destino.y);
+                        //     //     tab.MudancaNoTabuleiro(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
+                        //     //     torre.Mover(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
+                        //     //     torre.jaMovido = true;
+                        //     //     jogo.ProximoTurno();
+                        //     // }
 
-                                // mover torre
-                                Pair torreDestino = new Pair(destino.x - dir, destino.y);
-                                tab.MudancaNoTabuleiro(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
-                                torre.Mover(new Jogada(torre, new Blank(torreDestino.x, torreDestino.y)));
-                                torre.jaMovido = true;
-                                jogo.ProximoTurno();
-                            }
-
-                            clicks = 0;
-                            continue;
-                        }
+                        //     clicks = 0;
+                        //     continue;
+                        // }
 
                         // Verificação da jogada
                         Jogada jogada = new Jogada(pecaMovida, destinoPeca);
@@ -141,17 +145,34 @@ public class Main
                             tab.MudancaNoTabuleiro(jogada);
                             jogada.pecaMovida.Mover(jogada);
                             jogada.peca_capturada.DestruirPeca();
-                            
+
                             if (pecaMovida instanceof Rei) {
                                 ((Rei) pecaMovida).jaMovido = true;
                             }
                             if (pecaMovida instanceof Torre) {
                                 ((Torre) pecaMovida).jaMovido = true;
                             }
+
+			    if(tab.CheckCheck(tab.GetReiCor('b'))){
+				jogo.GetJogadorBranco().emCheque = true;
+				System.out.println("Brancas em cheque");
+			    } else {
+				System.out.println("Brancas sem cheque");
+				jogo.GetJogadorBranco().emCheque = false;
+			    }
+
+			    if (tab.CheckCheck(tab.GetReiCor('p'))){
+				jogo.GetJogadorPreto().emCheque = true;
+				System.out.println("Pretas em cheque");
+			    } else {
+				System.out.println("Pretas sem cheque");
+				jogo.GetJogadorPreto().emCheque = false;
+			    }
+
                             jogo.ProximoTurno();
                         // if (jogada.ValidarPromocaoPeao(tab)) {} falta a implementação do iuri
                         }
-                        
+
                         clicks = 0;
                     }
                 }
@@ -161,14 +182,15 @@ public class Main
                     pecaMovida = new Blank(0, 0);
                     clicks = 0;
                 }
+
                 if (IsMouseButtonPressed(1)) clicks = 0;
 
                 tab.DrawPecas(XINICIAL, YINICIAL);
 
                 if (clicks == 1){
-                    tab.DrawMovimentosValidos(pecaMovida.MovimentosValidos(tab), XINICIAL, YINICIAL, ESCALA);
-                }
-                
+		    tab.DrawMovimentosValidos(pecaMovida.GetMovimentos(), XINICIAL, YINICIAL, ESCALA);
+		}
+
 
                 DrawTextEx(pixelFont, jogo.GetJogadorBranco().GetRelogio().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
                 DrawTextEx(pixelFont, jogo.GetJogadorPreto().GetRelogio().formatarTempo(), new Vector2().x(527).y(53), 32, 2, BLACK);

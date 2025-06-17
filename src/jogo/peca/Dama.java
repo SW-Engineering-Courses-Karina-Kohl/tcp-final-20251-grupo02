@@ -24,114 +24,118 @@ public class Dama extends Peca {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
-        movimentos = new ArrayList<>();
+	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetCorPeca();
 
-	boolean PecaCima = false;
-	boolean PecaBaixo = false;
-	boolean PecaDireita = false;
-	boolean PecaEsquerda = false;
-	boolean PecaSuperiorDireita = false;
-	boolean PecaSuperiorEsquerda = false;
-	boolean PecaInferiorDireita = false;
-	boolean PecaInferiorEsquerda = false;
+	boolean pecaCima = false;
+	boolean pecaBaixo = false;
+	boolean pecaDireita = false;
+	boolean pecaEsquerda = false;
+	boolean pecaSuperiorDireita = false;
+	boolean pecaSuperiorEsquerda = false;
+	boolean pecaInferiorDireita = false;
+	boolean pecaInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.grid_position.add(new Pair(0, - i));
-            Pair baixo = this.grid_position.add(new Pair(0, + i));
+            Pair cima = this.posicaoTabuleiro.add(new Pair(0, - i));
+            Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + i));
 
-            Pair direita = this.grid_position.add(new Pair(+ i, 0));
-            Pair esquerda = this.grid_position.add(new Pair(- i, 0));
+            Pair direita = this.posicaoTabuleiro.add(new Pair(+ i, 0));
+            Pair esquerda = this.posicaoTabuleiro.add(new Pair(- i, 0));
 
             // diagonais
-            Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.grid_position.add(new Pair(- i, - i));
+            Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.grid_position.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
+            Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, + i));
 
 
-	    if(!PecaCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(cima)){
-		    PecaCima = true;
+
+	    if(!pecaCima && cima.IsPieceInsideBoard(0, SIZE)){
+                if(tabuleiro.PosicaoOcupada(cima)){
+		    pecaCima = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca()){
-		    movimentos.add(cima);
+		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 		}
 	    }
 
-	    if(!PecaBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(baixo)){
-		    PecaBaixo = true;
+	    if(!pecaBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
+                if(tabuleiro.PosicaoOcupada(baixo)){
+		    pecaBaixo = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(baixo).GetCorPeca()){
-		    movimentos.add(baixo);
+		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 		}
 	    }
 
-	    if(!PecaDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(direita)){
-		    PecaDireita = true;
+	    if(!pecaDireita && direita.IsPieceInsideBoard(0, SIZE)){
+                if(tabuleiro.PosicaoOcupada(direita)){
+		    pecaDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(direita).GetCorPeca()){
-		    movimentos.add(direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 		}
 	    }
 
-	    if(!PecaEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(esquerda)){
-		    PecaEsquerda = true;
+	    if(!pecaEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
+                if(tabuleiro.PosicaoOcupada(esquerda)){
+		    pecaEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(esquerda).GetCorPeca()){
-		    movimentos.add(esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 		}
 	    }
 
-            if(!PecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(superior_direita)){
-		    PecaSuperiorDireita = true;
+                if(tabuleiro.PosicaoOcupada(superior_direita)){
+		    pecaSuperiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
-		    movimentos.add(superior_direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
 
-            if(!PecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(superior_esquerda)){
-		    PecaSuperiorEsquerda = true;
+                if(tabuleiro.PosicaoOcupada(superior_esquerda)){
+		    pecaSuperiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
-		    movimentos.add(superior_esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
 
-            if(!PecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(inferior_direita)){
-		    PecaInferiorDireita = true;
+                if(tabuleiro.PosicaoOcupada(inferior_direita)){
+		    pecaInferiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca()){
-		    movimentos.add(inferior_direita);
+		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
 
-            if(!PecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(inferior_esquerda)){
-		    PecaInferiorEsquerda = true;
+                if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
+		    pecaInferiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca()){
-		    movimentos.add(inferior_esquerda);
+		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }
-
         }
 
-        return movimentos;
+	if(testingCheck){
+	    movimentos = newMovimentos;
+	}
+
+        return newMovimentos;
     }
 
 }

@@ -15,14 +15,14 @@ public abstract class Peca{
 
     public final int SIZE = 8;
     public float posicao;
-    public Pair grid_position;
+    public Pair posicaoTabuleiro;
     public char identificador;
 
     public Sprite sprite;
 
     public Peca(int x, int y, char id)
     {
-        this.grid_position = new Pair(x, y);
+        this.posicaoTabuleiro = new Pair(x, y);
         this.identificador = id;
     }
 
@@ -30,11 +30,26 @@ public abstract class Peca{
 
     // retorna todos os movimentos que uma peça pode
     // se movimentar, independente se a casa está ocupada ou não
-    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro);
+    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro, boolean emCheque);
+
+    public ArrayList<Pair> GetMovimentos(){
+	return movimentos;
+    }
+
+    public void CheckMoviment(Tabuleiro tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
+
+	if(testingCheck){
+	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetCorPeca(), moviment)){
+		movs.add(moviment);
+	    }
+	} else {
+	    movs.add(moviment);
+	}
+    }
 
     public void Mover(Jogada jogada)
     {
-        this.grid_position = jogada.peca_capturada.grid_position;
+        this.posicaoTabuleiro = jogada.peca_capturada.posicaoTabuleiro;
     }
 
     public void DestruirPeca()
@@ -63,13 +78,13 @@ public abstract class Peca{
     public void DrawPeca(int xInicial, int yInicial)
     {
         if (sprite != null)
-            sprite.DrawSpritePro(grid_position.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
-                                grid_position.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
+            sprite.DrawSpritePro(posicaoTabuleiro.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
+                                posicaoTabuleiro.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
     }
 
     @Override
     public String toString() {
-        return this.identificador + " " + this.grid_position;
+        return this.identificador + " " + this.posicaoTabuleiro;
     }
 
 }

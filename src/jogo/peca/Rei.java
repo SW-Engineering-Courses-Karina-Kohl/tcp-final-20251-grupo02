@@ -27,49 +27,54 @@ public class Rei extends Peca{
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
-        movimentos = new ArrayList<>();
+	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetCorPeca();
 
-        Pair cima = this.grid_position.add(new Pair(0, - 1));
-        Pair baixo = this.grid_position.add(new Pair(0, + 1));
+        Pair cima = this.posicaoTabuleiro.add(new Pair(0, - 1));
+        Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + 1));
 
-        Pair direita = this.grid_position.add(new Pair(+ 1, 0));
-        Pair esquerda = this.grid_position.add(new Pair(- 1, 0));
+        Pair direita = this.posicaoTabuleiro.add(new Pair(+ 1, 0));
+        Pair esquerda = this.posicaoTabuleiro.add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_direita = this.grid_position.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.grid_position.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, - 1));
+        Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, - 1));
 
-        Pair inferior_direita = this.grid_position.add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.grid_position.add(new Pair(- 1, + 1));
+        Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, + 1));
+        Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, + 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
-            movimentos.add(cima);
+	    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 
         if(baixo.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(baixo).GetCorPeca())
-            movimentos.add(baixo);
+	    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 
         if(direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(direita).GetCorPeca())
-            movimentos.add(direita);
+	    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 
         if(esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(esquerda).GetCorPeca())
-            movimentos.add(esquerda);
+	    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 
         if(superior_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca())
-            movimentos.add(superior_direita);
+	    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 
         if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca())
-            movimentos.add(superior_esquerda);
+	    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 
         if(inferior_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca())
-            movimentos.add(inferior_direita);
+	    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 
         if(inferior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca())
-            movimentos.add(inferior_esquerda);
+	    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 
-        return movimentos;
+
+	if(testingCheck){
+	    movimentos = newMovimentos;
+	}
+
+        return newMovimentos;
     }
 
     @Override

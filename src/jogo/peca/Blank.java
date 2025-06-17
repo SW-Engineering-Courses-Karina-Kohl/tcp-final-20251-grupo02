@@ -11,7 +11,7 @@ public class Blank extends Peca{
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro){
+    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
         return movimentos;
     }
 

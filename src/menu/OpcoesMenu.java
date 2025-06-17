@@ -14,11 +14,11 @@ public class OpcoesMenu
 {
 
     //Texto de cima
-    private static Texture opcoesTexture = LoadTexture("res/UI/opcoes.png");
+    private static Texture opcoesTexture = LoadTexture("res/ui/opcoes.png");
     private Sprite opcoesSprite = new Sprite(opcoesTexture, 1, 0, 0, 0, WHITE, 1);
 
     //Texto de tempo
-    private static Texture tempoTexture = LoadTexture("res/UI/tempo.png");
+    private static Texture tempoTexture = LoadTexture("res/ui/tempo.png");
     private Sprite tempoSprite = new Sprite(tempoTexture, 1, 0, 0, 0, WHITE, 1);
 
     //Botao de voltar

@@ -36,10 +36,15 @@ public class Tabuleiro
 
     // tabuleiro[y][x] = Peca(x, y)
     private void InitializePeca(Peca peca){
-        this.tabuleiro[peca.grid_position.y][peca.grid_position.x] = peca;
+        this.tabuleiro[peca.posicaoTabuleiro.y][peca.posicaoTabuleiro.x] = peca;
     }
 
     // cria o tabuleiro da visão das brancas
+
+    public Tabuleiro(Tabuleiro copy){
+	this.tabuleiro = copy.GetTabuleiro();
+    }
+
     public Tabuleiro()
     {
         // pecas brancas (id maiúsculo)
@@ -98,6 +103,10 @@ public class Tabuleiro
         miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
+    public Peca[][] GetTabuleiro(){
+	return this.tabuleiro;
+    }
+
     // checa qual peça está na posicao (x,y)
     public Peca GetPecaNaPosicao(int x, int y){
         return this.tabuleiro[y][x];
@@ -107,13 +116,21 @@ public class Tabuleiro
 	return this.tabuleiro[p.y][p.x];
     }
 
-    public boolean IsTherePecaNaPosicao(int x, int y){
+    public void SetPecaNaPosicao(int x, int y, Peca peca){
+        tabuleiro[y][x] = peca;
+    }
+
+    public void GetPecaNaPosicao(Pair p, Peca peca){
+	tabuleiro[p.y][p.x] = peca;
+    }
+
+    public boolean PosicaoOcupada(int x, int y){
         if (this.tabuleiro[y][x] != null)
             return true;
         return false;
     }
 
-    public boolean IsTherePecaNaPosicao(Pair p){
+    public boolean PosicaoOcupada(Pair p){
         if (this.tabuleiro[p.y][p.x] instanceof Blank)
             return false;
         return true;
@@ -122,12 +139,86 @@ public class Tabuleiro
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
-        Pair pecaMovida = jogada.pecaMovida.grid_position;
-        Pair posicaoFinal = jogada.peca_capturada.grid_position;
+        Pair pecaMovida = jogada.pecaMovida.posicaoTabuleiro;
+        Pair posicaoFinal = jogada.peca_capturada.posicaoTabuleiro;
 
         // move peça e anula posição anterior
         this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
         this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
+    }
+
+
+    public boolean MoveLeadsToCheck(Peca pecaMovida, char cor, Pair mov){
+
+
+	Tabuleiro simulacao = new Tabuleiro();
+
+	for(int i = 0; i < SIZE; i++){
+	    for(int j = 0; j < SIZE; j++){
+		simulacao.SetPecaNaPosicao(i, j, this.GetPecaNaPosicao(i, j));
+	    }
+	}
+
+	Peca pecaCapturada = simulacao.GetPecaNaPosicao(mov);
+
+	Jogada jogadaSimulada = new Jogada(pecaMovida, pecaCapturada);
+	simulacao.MudancaNoTabuleiro(jogadaSimulada);
+
+	System.out.println(this.toString());
+	System.out.println(simulacao.toString());
+
+	// Se o movimento gerar um check
+	if(pecaMovida instanceof Rei){
+	    if(simulacao.CheckCheck(new Rei(mov.x, mov.y, pecaMovida.identificador))){
+		System.out.println("Leva a check");
+		return true;
+	    }
+	} else if(simulacao.CheckCheck(simulacao.GetReiCor(cor))){
+	    System.out.println("Leva a check");
+	    return true;
+	}
+	return false;
+    }
+
+    public boolean CheckCheck(Rei rei){
+
+	char corRei = rei.GetCorPeca();
+
+	// Para cada peça no tabuleiro
+	for(int i = 0; i < SIZE; i++){
+	    for(int j = 0; j < SIZE; j++){
+
+		Peca pecaVerificada =  this.GetPecaNaPosicao(i, j);
+
+		// Se for inimiga
+		if(pecaVerificada.GetCorPeca() != corRei){
+
+		    // Se os movimentos possíveis capturam o rei
+		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
+			if(rei.posicaoTabuleiro.equals(mov)){
+			    System.out.println(rei.posicaoTabuleiro.toString() + " Leva a check");
+			    return true; // retorna check = true
+			}
+		    }
+		}
+	    }
+	}
+
+	return false;
+    }
+
+    public Rei GetReiCor(char cor){
+
+	for(int i = 0; i < SIZE; i++){
+	    for(int j = 0; j < SIZE; j++){
+		Peca pecaVerificada = this.GetPecaNaPosicao(i, j);
+		if(pecaVerificada instanceof Rei && cor == pecaVerificada.GetCorPeca()){
+		    return (Rei) pecaVerificada;
+		}
+	    }
+	}
+
+	return null;
     }
 
     public void GirarTabuleiro(){
