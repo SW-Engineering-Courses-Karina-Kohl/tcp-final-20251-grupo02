@@ -9,11 +9,18 @@ public class Jogador {
     ArrayList<Peca> pecas = new ArrayList<>();
     char cor;
     Relogio relogio;
+    public boolean emCheque;
 
     public Jogador(char cor, int tempoInicial){
         this.cor = cor;
         this.relogio = new Relogio(tempoInicial);
+	this.emCheque = false;
 
+    }
+
+
+    public boolean IsInCheck(){
+	return emCheque;
     }
 
     public char GetCorJogador(){

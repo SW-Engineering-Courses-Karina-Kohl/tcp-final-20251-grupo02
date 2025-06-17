@@ -30,7 +30,11 @@ public abstract class Peca{
 
     // retorna todos os movimentos que uma peça pode
     // se movimentar, independente se a casa está ocupada ou não
-    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro);
+    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro, boolean emCheque);
+
+    public ArrayList<Pair> GetMovimentos(){
+	return movimentos;
+    }
 
     public void Mover(Jogada jogada)
     {

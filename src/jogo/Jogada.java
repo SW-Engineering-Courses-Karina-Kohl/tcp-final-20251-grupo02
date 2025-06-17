@@ -18,7 +18,7 @@ public class Jogada {
     public boolean ValidarRoque(Tabuleiro tabuleiro) {
         if (!(pecaMovida instanceof Rei && peca_capturada instanceof Torre))
             return false;
-            
+
         Rei rei = (Rei) pecaMovida;
         Torre torre = (Torre) peca_capturada;
 
@@ -28,7 +28,7 @@ public class Jogada {
 
         Pair posRei = rei.posicaoTabuleiro;
         Pair posTorre = torre.posicaoTabuleiro;
-      
+
         if (posRei.y != posTorre.y)
             return false;
 
@@ -42,7 +42,7 @@ public class Jogada {
             x += dir;
         }
 
-        
+
         char moverCor = rei.GetCorPeca();
         char oponenteCor = moverCor == 'b' ? 'p' : 'b';
 
@@ -66,7 +66,7 @@ public class Jogada {
                 Peca p = tabuleiro.GetPecaNaPosicao(x, y);
                 if (p.GetCorPeca() != atacanteCor)
                     continue;
-                for (Pair mv : p.MovimentosValidos(tabuleiro)) {
+                for (Pair mv : p.GetMovimentos()) {
                     if (mv.equals(alvo))
                         return true;
                 }
@@ -78,7 +78,7 @@ public class Jogada {
     // valida se a jogada pode ser feita e muda o tabuleiro
     public boolean ValidarJogada(Tabuleiro tabuleiro){
 
-	for (Pair p : this.pecaMovida.MovimentosValidos(tabuleiro)) {
+	for (Pair p : this.pecaMovida.GetMovimentos()) {
 	    if(p.x == this.peca_capturada.posicaoTabuleiro.x && p.y == this.peca_capturada.posicaoTabuleiro.y){
 		return true;
 	    }
