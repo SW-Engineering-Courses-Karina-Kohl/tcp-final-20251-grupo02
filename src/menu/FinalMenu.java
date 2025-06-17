@@ -59,7 +59,7 @@ public class FinalMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaFinalMenu(boolean[] paginas, Jogo jogo, OpcoesMenu opcoesMenu, int vencedor)
+    public void LogicaFinalMenu(boolean[] paginas, Jogo jogo, OpcoesMenu opcoesMenu, boolean[] vencedor, boolean[] rodandoJogo)
     {
         if (paginas[3] == true)
         {   
@@ -73,7 +73,7 @@ public class FinalMenu
             //Saindo
             if (sairBotao.MouseClick())
             {
-                CloseWindow();
+                rodandoJogo[0] = false;
             }
 
             DrawTextosFinal(jogo, opcoesMenu, vencedor);
@@ -82,20 +82,16 @@ public class FinalMenu
 
 
     //Desenhando os textos
-    public void DrawTextosFinal(Jogo jogo, OpcoesMenu opcoesMenu, int vencedor)
+    public void DrawTextosFinal(Jogo jogo, OpcoesMenu opcoesMenu, boolean[] vencedor)
     {
-        switch (vencedor)
-        {
-            case 0:
-                vencedorTexto = "EMPATE";
-                break;
-            case 1:
-                vencedorTexto = "BRANCO VENCEU";
-                break;
-            case 2:
-                vencedorTexto = "PRETO VENCEU";
-                break;
-        }
+
+        if (vencedor[0])
+            vencedorTexto = "EMPATE";
+        else if (vencedor[1])
+            vencedorTexto = "BRANCO VENCEU";
+        else if (vencedor[2])
+            vencedorTexto = "PRETO VENCEU";
+
         vencedorLargura = MeasureTextEx(fonte, vencedorTexto, tamanhoFonte, espacoFonte);
         DrawTextEx(fonte, vencedorTexto, 
         new Vector2().x(centroTela - vencedorLargura.x() / 2).y(21), tamanhoFonte, espacoFonte, 
