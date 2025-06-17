@@ -5,6 +5,8 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Texture;
+
 import gui.*;
 
 
@@ -42,7 +44,7 @@ public class MainMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public boolean LogicaMainMenu(boolean[] paginas)
+    public boolean LogicaMainMenu(boolean[] paginas, boolean[] rodandoJogo)
     {
         boolean criarJogo = false;
         if (paginas[0] == true)
@@ -65,7 +67,7 @@ public class MainMenu
             //Saindo
             if (sairBotao.MouseClick())
             {
-                CloseWindow();
+                rodandoJogo[0] = false;
             }
 
             logoSprite.DrawSpritePro(centroTela, 100);

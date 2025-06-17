@@ -49,7 +49,7 @@ public class Botao
         boolean click = false;
         if (MouseOn())
         {
-            if (IsMouseButtonPressed(0))
+            if (IsMouseButtonReleased(0))
             {
                 click = true;
             }

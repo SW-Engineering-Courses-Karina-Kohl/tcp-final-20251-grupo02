@@ -55,10 +55,16 @@ public class Main
         MainMenu mainMenu = new MainMenu(LARGURA);
         OpcoesMenu opcoesMenu = new OpcoesMenu(LARGURA, pixelFont);
         FinalMenu finalMenu = new FinalMenu(LARGURA, pixelFont);
+        JogoMenu jogoMenu = new JogoMenu();
         
         //0 = empate; 1 = branco; 2 = preto; 
-        int vencedor = 0;
-        while (!WindowShouldClose()) {
+        boolean[] vencedor = new boolean[3];
+
+        //Ponteiro de novo
+        boolean[] rodandoJogo = new boolean[1];
+        rodandoJogo[0] = true;
+
+        while (!WindowShouldClose() && rodandoJogo[0]) {
             BeginDrawing();
 
             ClearBackground(new Cor(52, 54, 71, 255).GetCor());
@@ -66,28 +72,24 @@ public class Main
 
             emissor.EmitirParicula();
 
-            criarJogo = mainMenu.LogicaMainMenu(paginas);
+            criarJogo = mainMenu.LogicaMainMenu(paginas, rodandoJogo);
             opcoesMenu.LogicaOpcoesMenu(paginas);
-            finalMenu.LogicaFinalMenu(paginas, jogo, opcoesMenu, vencedor);
+            finalMenu.LogicaFinalMenu(paginas, jogo, opcoesMenu, vencedor, rodandoJogo);
 
             if (paginas[2] == true)
-            {  
+            {
+                jogoMenu.LogicaJogoMenu(paginas, jogo, vencedor);  
                 //Criando o jogo novo
                 if (criarJogo == true)
                 {
                     jogo.NovoJogo(opcoesMenu.ConverteParaSegundos());
                     pecaMovida = new Blank(0, 0);
 
+                    for (int i = 0; i < 3; i++)
+                    {
+                        vencedor[i] = false;
+                    }
                     criarJogo = false;
-                }
-
-                //Isso eh soh pra testar se o final ta funcionado, depois a gente apaga
-                if (IsKeyPressed(KEY_F))
-                {
-                    jogo.GetJogadorBranco().GetRelogio().PausaRelogio();
-                    jogo.GetJogadorPreto().GetRelogio().PausaRelogio();
-                    paginas[2] = false;
-                    paginas[3] = true;
                 }
 
                 Tabuleiro tab = jogo.GetTabuleiro();
