@@ -168,12 +168,15 @@ public class Tabuleiro
 	System.out.println(simulacao.toString());
 
 	// Se o movimento gerar um check
-	if(simulacao.CheckCheck(simulacao.GetReiCor(cor))){
+	if(pecaMovida instanceof Rei){
+	    if(simulacao.CheckCheck(new Rei(mov.x, mov.y, pecaMovida.identificador))){
+		System.out.println("Leva a check");
+		return true;
+	    }
+	} else if(simulacao.CheckCheck(simulacao.GetReiCor(cor))){
 	    System.out.println("Leva a check");
 	    return true;
 	}
-
-
 	return false;
     }
 
@@ -193,6 +196,7 @@ public class Tabuleiro
 		    // Se os movimentos possíveis capturam o rei
 		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
 			if(rei.posicaoTabuleiro.equals(mov)){
+			    System.out.println(rei.posicaoTabuleiro.toString() + " Leva a check");
 			    return true; // retorna check = true
 			}
 		    }
