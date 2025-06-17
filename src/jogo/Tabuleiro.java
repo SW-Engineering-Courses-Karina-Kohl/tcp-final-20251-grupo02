@@ -36,7 +36,7 @@ public class Tabuleiro
 
     // tabuleiro[y][x] = Peca(x, y)
     private void InitializePeca(Peca peca){
-        this.tabuleiro[peca.grid_position.y][peca.grid_position.x] = peca;
+        this.tabuleiro[peca.posicaoTabuleiro.y][peca.posicaoTabuleiro.x] = peca;
     }
 
     // cria o tabuleiro da visão das brancas
@@ -107,13 +107,13 @@ public class Tabuleiro
 	return this.tabuleiro[p.y][p.x];
     }
 
-    public boolean IsTherePecaNaPosicao(int x, int y){
+    public boolean PosicaoOcupada(int x, int y){
         if (this.tabuleiro[y][x] != null)
             return true;
         return false;
     }
 
-    public boolean IsTherePecaNaPosicao(Pair p){
+    public boolean PosicaoOcupada(Pair p){
         if (this.tabuleiro[p.y][p.x] instanceof Blank)
             return false;
         return true;
@@ -122,8 +122,8 @@ public class Tabuleiro
 
     // muda o tabuleiro de acordo com a jogada
     public void MudancaNoTabuleiro(Jogada jogada){
-        Pair pecaMovida = jogada.pecaMovida.grid_position;
-        Pair posicaoFinal = jogada.peca_capturada.grid_position;
+        Pair pecaMovida = jogada.pecaMovida.posicaoTabuleiro;
+        Pair posicaoFinal = jogada.peca_capturada.posicaoTabuleiro;
 
         // move peça e anula posição anterior
         this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;

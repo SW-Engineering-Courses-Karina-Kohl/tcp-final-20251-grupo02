@@ -39,22 +39,22 @@ public class Dama extends Peca {
 	boolean PecaInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.grid_position.add(new Pair(0, - i));
-            Pair baixo = this.grid_position.add(new Pair(0, + i));
+            Pair cima = this.posicaoTabuleiro.add(new Pair(0, - i));
+            Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + i));
 
-            Pair direita = this.grid_position.add(new Pair(+ i, 0));
-            Pair esquerda = this.grid_position.add(new Pair(- i, 0));
+            Pair direita = this.posicaoTabuleiro.add(new Pair(+ i, 0));
+            Pair esquerda = this.posicaoTabuleiro.add(new Pair(- i, 0));
 
             // diagonais
-            Pair superior_direita = this.grid_position.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.grid_position.add(new Pair(- i, - i));
+            Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.grid_position.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.grid_position.add(new Pair(- i, + i));
+            Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, + i));
 
 
 	    if(!PecaCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(cima)){
+                if(tabuleiro.PosicaoOcupada(cima)){
 		    PecaCima = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca()){
@@ -63,7 +63,7 @@ public class Dama extends Peca {
 	    }
 
 	    if(!PecaBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(baixo)){
+                if(tabuleiro.PosicaoOcupada(baixo)){
 		    PecaBaixo = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(baixo).GetCorPeca()){
@@ -72,7 +72,7 @@ public class Dama extends Peca {
 	    }
 
 	    if(!PecaDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(direita)){
+                if(tabuleiro.PosicaoOcupada(direita)){
 		    PecaDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(direita).GetCorPeca()){
@@ -81,7 +81,7 @@ public class Dama extends Peca {
 	    }
 
 	    if(!PecaEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.IsTherePecaNaPosicao(esquerda)){
+                if(tabuleiro.PosicaoOcupada(esquerda)){
 		    PecaEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(esquerda).GetCorPeca()){
@@ -91,7 +91,7 @@ public class Dama extends Peca {
 
             if(!PecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(superior_direita)){
+                if(tabuleiro.PosicaoOcupada(superior_direita)){
 		    PecaSuperiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
@@ -101,7 +101,7 @@ public class Dama extends Peca {
 
             if(!PecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(superior_esquerda)){
+                if(tabuleiro.PosicaoOcupada(superior_esquerda)){
 		    PecaSuperiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
@@ -111,7 +111,7 @@ public class Dama extends Peca {
 
             if(!PecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(inferior_direita)){
+                if(tabuleiro.PosicaoOcupada(inferior_direita)){
 		    PecaInferiorDireita = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca()){
@@ -121,7 +121,7 @@ public class Dama extends Peca {
 
             if(!PecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.IsTherePecaNaPosicao(inferior_esquerda)){
+                if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
 		    PecaInferiorEsquerda = true;
 		}
 		if(cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca()){

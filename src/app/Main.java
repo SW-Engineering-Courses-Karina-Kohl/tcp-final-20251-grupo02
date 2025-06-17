@@ -108,12 +108,12 @@ public class Main
 
                         // Verificação do Roque
                         if (pecaMovida instanceof Rei
-                                && destino.y == pecaMovida.grid_position.y
-                                && Math.abs(destino.x - pecaMovida.grid_position.x) == 2
+                                && destino.y == pecaMovida.posicaoTabuleiro.y
+                                && Math.abs(destino.x - pecaMovida.posicaoTabuleiro.x) == 2
                                 && destinoPeca instanceof Blank) {
 
-                            int dir = (destino.x > pecaMovida.grid_position.x) ? 1 : -1;
-                            Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.grid_position.y);
+                            int dir = (destino.x > pecaMovida.posicaoTabuleiro.x) ? 1 : -1;
+                            Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.posicaoTabuleiro.y);
                             Torre torre = (Torre) tab.GetPecaNaPosicao(torrePos);
                             Jogada roque = new Jogada(pecaMovida, torre);
 

@@ -32,18 +32,18 @@ public class Rei extends Peca{
         movimentos = new ArrayList<>();
 	char cor = this.GetCorPeca();
 
-        Pair cima = this.grid_position.add(new Pair(0, - 1));
-        Pair baixo = this.grid_position.add(new Pair(0, + 1));
+        Pair cima = this.posicaoTabuleiro.add(new Pair(0, - 1));
+        Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + 1));
 
-        Pair direita = this.grid_position.add(new Pair(+ 1, 0));
-        Pair esquerda = this.grid_position.add(new Pair(- 1, 0));
+        Pair direita = this.posicaoTabuleiro.add(new Pair(+ 1, 0));
+        Pair esquerda = this.posicaoTabuleiro.add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_direita = this.grid_position.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.grid_position.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, - 1));
+        Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, - 1));
 
-        Pair inferior_direita = this.grid_position.add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.grid_position.add(new Pair(- 1, + 1));
+        Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, + 1));
+        Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, + 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca())
             movimentos.add(cima);

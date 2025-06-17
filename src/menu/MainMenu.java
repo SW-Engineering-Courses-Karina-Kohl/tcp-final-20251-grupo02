@@ -13,7 +13,7 @@ import gui.*;
 public class MainMenu
 {
 
-    private static Texture logoTexture = LoadTexture("res/UI/logo.png");
+    private static Texture logoTexture = LoadTexture("res/ui/logo.png");
     private Sprite logoSprite = new Sprite(logoTexture, 1, 0, 0, 0, WHITE, 1);
 
     //Botao de novo jogo

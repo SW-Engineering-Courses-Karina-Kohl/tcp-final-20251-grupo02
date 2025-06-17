@@ -14,7 +14,7 @@ import jogo.*;
 
 public class FinalMenu 
 {
-    private static Texture logoTexture = LoadTexture("res/UI/logo.png");
+    private static Texture logoTexture = LoadTexture("res/ui/logo.png");
 
     //Botao de voltar pro comeco
     private static Texture menuInicialTexture = LoadTexture("res/botoes/menu_inicial.png");

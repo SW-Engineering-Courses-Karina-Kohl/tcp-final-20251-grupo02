@@ -26,8 +26,8 @@ public class Jogada {
         if (rei.jaMovido || torre.jaMovido)
             return false;
 
-        Pair posRei = rei.grid_position;
-        Pair posTorre = torre.grid_position;
+        Pair posRei = rei.posicaoTabuleiro;
+        Pair posTorre = torre.posicaoTabuleiro;
       
         if (posRei.y != posTorre.y)
             return false;
@@ -79,7 +79,7 @@ public class Jogada {
     public boolean ValidarJogada(Tabuleiro tabuleiro){
 
 	for (Pair p : this.pecaMovida.MovimentosValidos(tabuleiro)) {
-	    if(p.x == this.peca_capturada.grid_position.x && p.y == this.peca_capturada.grid_position.y){
+	    if(p.x == this.peca_capturada.posicaoTabuleiro.x && p.y == this.peca_capturada.posicaoTabuleiro.y){
 		return true;
 	    }
         }
@@ -88,17 +88,17 @@ public class Jogada {
     }
 
     private boolean IsTherePecaInBetween(Tabuleiro tabuleiro){
-        // +1 if peca_capturada.grid_position > pecaMovida.grid_position
-        //  0 if peca_capturada.grid_position == pecaMovida.grid_position
-        // -1 if peca_capturada.grid_position < pecaMovida.grid_position
+        // +1 if peca_capturada.posicaoTabuleiro > pecaMovida.posicaoTabuleiro
+        //  0 if peca_capturada.posicaoTabuleiro == pecaMovida.posicaoTabuleiro
+        // -1 if peca_capturada.posicaoTabuleiro < pecaMovida.posicaoTabuleiro
 
-        int dx = Integer.compare(this.peca_capturada.grid_position.x, this.pecaMovida.grid_position.x);
-        int dy = Integer.compare(this.peca_capturada.grid_position.y, this.pecaMovida.grid_position.y);
+        int dx = Integer.compare(this.peca_capturada.posicaoTabuleiro.x, this.pecaMovida.posicaoTabuleiro.x);
+        int dy = Integer.compare(this.peca_capturada.posicaoTabuleiro.y, this.pecaMovida.posicaoTabuleiro.y);
 
-        int x = pecaMovida.grid_position.x + dx;
-        int y = pecaMovida.grid_position.y + dy;
+        int x = pecaMovida.posicaoTabuleiro.x + dx;
+        int y = pecaMovida.posicaoTabuleiro.y + dy;
 
-        while (! this.peca_capturada.grid_position.equals(new Pair(x, y)) ) {
+        while (! this.peca_capturada.posicaoTabuleiro.equals(new Pair(x, y)) ) {
             if (!(tabuleiro.GetPecaNaPosicao(x, y) instanceof Blank)) {
                 return true;
             }

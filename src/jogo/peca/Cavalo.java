@@ -31,20 +31,20 @@ public class Cavalo extends Peca {
 	char cor = this.GetCorPeca();
 
         // L pra cima direita esquerda
-        Pair cima_direita = this.grid_position.add(new Pair(+ 1, - 2));
-        Pair cima_esquerda = this.grid_position.add(new Pair(- 1, - 2));
+        Pair cima_direita = this.posicaoTabuleiro.add(new Pair(+ 1, - 2));
+        Pair cima_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, - 2));
 
         // L pra baixo direita esquerda
-        Pair baixo_direita = this.grid_position.add(new Pair(+ 1, + 2));
-        Pair baixo_esquerda = this.grid_position.add(new Pair(- 1, + 2));
+        Pair baixo_direita = this.posicaoTabuleiro.add(new Pair(+ 1, + 2));
+        Pair baixo_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, + 2));
 
         // L pra direita cima baixo
-        Pair direita_cima = this.grid_position.add(new Pair(+ 2, - 1));
-        Pair direita_baixo = this.grid_position.add(new Pair(+ 2, + 1));
+        Pair direita_cima = this.posicaoTabuleiro.add(new Pair(+ 2, - 1));
+        Pair direita_baixo = this.posicaoTabuleiro.add(new Pair(+ 2, + 1));
 
         // L pra esquerda cima baixo
-        Pair esquerda_cima = this.grid_position.add(new Pair(- 2, - 1));
-        Pair esquerda_baixo = this.grid_position.add(new Pair(- 2, + 1));
+        Pair esquerda_cima = this.posicaoTabuleiro.add(new Pair(- 2, - 1));
+        Pair esquerda_baixo = this.posicaoTabuleiro.add(new Pair(- 2, + 1));
 
         if(cima_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPecaNaPosicao(cima_direita).GetCorPeca())
             movimentos.add(cima_direita);
