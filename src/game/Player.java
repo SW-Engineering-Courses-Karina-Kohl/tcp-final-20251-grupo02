@@ -29,7 +29,7 @@ public class Player {
 
     public Move NovaMove(Piece movedPiece, Piece capturedPiece, Board board){
         Move move = new Move(movedPiece, capturedPiece);
-        move.ValidarMove(board);
+        move.ValidateMove(board);
         return move;
     }
 

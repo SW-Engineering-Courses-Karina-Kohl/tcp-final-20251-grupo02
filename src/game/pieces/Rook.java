@@ -19,8 +19,16 @@ public class Rook extends Piece {
 
     public Rook(int x, int y, char id){
         super(x, y, id);
+	this.LoadSprite();
+    }
 
-	if (GetColorPiece() == 'w')
+    public Rook(Pair p, char id){
+        super(p.x, p.y, id);
+	this.LoadSprite();
+    }
+
+    private void LoadSprite(){
+	if (GetPieceColor() == 'w')
 	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 0, WHITE, 2));
         else
 	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 1, WHITE, 2));
@@ -30,7 +38,7 @@ public class Rook extends Piece {
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char color = this.GetColorPiece();
+	char color = this.GetPieceColor();
 
 	boolean pieceUp = false;
 	boolean pieceDown = false;
@@ -49,7 +57,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(up)){
 		    pieceUp = true;
 		}
-		if(color != board.GetPieceInPosition(up).GetColorPiece()){
+		if(color != board.GetPieceInPosition(up).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, up, testingCheck);
 		}
 	    }
@@ -58,7 +66,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(down)){
 		    pieceDown = true;
 		}
-		if(color != board.GetPieceInPosition(down).GetColorPiece()){
+		if(color != board.GetPieceInPosition(down).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, down, testingCheck);
 		}
 	    }
@@ -67,7 +75,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(right)){
 		    pieceRight = true;
 		}
-		if(color != board.GetPieceInPosition(right).GetColorPiece()){
+		if(color != board.GetPieceInPosition(right).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, right, testingCheck);
 		}
 	    }
@@ -76,7 +84,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(left)){
 		    pieceLeft = true;
 		}
-		if(color != board.GetPieceInPosition(left).GetColorPiece()){
+		if(color != board.GetPieceInPosition(left).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, left, testingCheck);
 		}
 	    }

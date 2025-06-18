@@ -17,8 +17,16 @@ public class Queen extends Piece {
 
     public Queen(int x, int y, char id){
         super(x, y, id);
+	this.LoadSprite();
+    }
 
-	if (GetColorPiece() == 'w')
+    public Queen(Pair p, char id){
+        super(p.x, p.y, id);
+	this.LoadSprite();
+    }
+
+    private void LoadSprite(){
+	if (GetPieceColor() == 'w')
 	    this.SetSprite(new Sprite(queenTexture, 2, 0, 0, 0, WHITE, 2));
         else
 	    this.SetSprite(new Sprite(queenTexture, 2, 0, 0, 1, WHITE, 2));
@@ -28,7 +36,7 @@ public class Queen extends Piece {
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char color = this.GetColorPiece();
+	char color = this.GetPieceColor();
 
 	boolean pieceUp = false;
 	boolean pieceDown = false;
@@ -54,7 +62,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(doubleUp)){
 		    pieceUp = true;
 		}
-		if(color != board.GetPieceInPosition(doubleUp).GetColorPiece()){
+		if(color != board.GetPieceInPosition(doubleUp).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
 		}
 	    }
@@ -63,7 +71,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(down)){
 		    pieceDown = true;
 		}
-		if(color != board.GetPieceInPosition(down).GetColorPiece()){
+		if(color != board.GetPieceInPosition(down).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, down, testingCheck);
 		}
 	    }
@@ -72,7 +80,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(right)){
 		    pieceRight = true;
 		}
-		if(color != board.GetPieceInPosition(right).GetColorPiece()){
+		if(color != board.GetPieceInPosition(right).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, right, testingCheck);
 		}
 	    }
@@ -81,7 +89,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(left)){
 		    pieceLeft = true;
 		}
-		if(color != board.GetPieceInPosition(left).GetColorPiece()){
+		if(color != board.GetPieceInPosition(left).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, left, testingCheck);
 		}
 	    }
@@ -91,7 +99,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(upperRight)){
 		    pieceUpperRight = true;
 		}
-		if(color != board.GetPieceInPosition(upperRight).GetColorPiece()){
+		if(color != board.GetPieceInPosition(upperRight).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
 		}
 	    }
@@ -101,7 +109,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(upperLeft)){
 		    pieceUpperLeft = true;
 		}
-		if(color != board.GetPieceInPosition(upperLeft).GetColorPiece()){
+		if(color != board.GetPieceInPosition(upperLeft).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 		}
 	    }
@@ -111,7 +119,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(lowerRight)){
 		    pieceLowerRight = true;
 		}
-		if(color != board.GetPieceInPosition(lowerRight).GetColorPiece()){
+		if(color != board.GetPieceInPosition(lowerRight).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, lowerRight, testingCheck);
 		}
 	    }
@@ -121,7 +129,7 @@ public class Queen extends Piece {
                 if(board.IsTherePieceInPosition(lowerLeft)){
 		    pieceLowerLeft = true;
 		}
-		if(color != board.GetPieceInPosition(lowerLeft).GetColorPiece()){
+		if(color != board.GetPieceInPosition(lowerLeft).GetPieceColor()){
 		    this.CheckMoviment(board, newMovimentos, lowerLeft, testingCheck);
 		}
 	    }

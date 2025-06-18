@@ -176,7 +176,7 @@ public class Board
     /* Check if the king passed as argument is currently in check */
     public boolean CheckCheck(King king){
 
-	char colorKing = king.GetColorPiece();
+	char colorKing = king.GetPieceColor();
 
 	// For each piece in the board board
 	for(int i = 0; i < SIZE; i++){
@@ -184,7 +184,7 @@ public class Board
 
 		Piece piece =  this.GetPieceInPosition(i, j);
 
-		if(piece.GetColorPiece() != colorKing){
+		if(piece.GetPieceColor() != colorKing){
 
 		    for (Pair movePostion : piece.ValidMoviments(this, false)){
 			if(king.GetBoardPosition().IsEqualsTo(movePostion)){
@@ -208,7 +208,7 @@ public class Board
 
 		Piece piece = this.GetPieceInPosition(i, j);
 
-		if(piece instanceof King && color == piece.GetColorPiece()){
+		if(piece instanceof King && color == piece.GetPieceColor()){
 		    return (King) piece;
 		}
 

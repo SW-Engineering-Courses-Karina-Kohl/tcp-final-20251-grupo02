@@ -78,151 +78,116 @@ public class Main
             finalMenu.LogicaFinalMenu(paginas, jogo, opcoesMenu, vencedor, rodandoMatch);
 
             if (paginas[2] == true)
-            {
-                jogoMenu.LogicaGameMenu(paginas, jogo, vencedor);
-                //Criando o jogo novo
-                if (criarMatch == true)
-                {
-                    jogo = new Match(opcoesMenu.ConverteParaSegundos());
-                    movedPiece = new Blank(0, 0);
+		{
+		    jogoMenu.LogicaGameMenu(paginas, jogo, vencedor);
+		    //Criando o jogo novo
+		    if (criarMatch == true)
+			{
+			    jogo = new Match(opcoesMenu.ConverteParaSegundos());
+			    movedPiece = new Blank(0, 0);
 
-                    for (int i = 0; i < 3; i++)
-                    {
-                        vencedor[i] = false;
-                    }
-                    criarMatch = false;
-                }
+			    for (int i = 0; i < 3; i++)
+				{
+				    vencedor[i] = false;
+				}
+			    criarMatch = false;
+			}
 
-                Board tab = jogo.GetBoard();
-                tab.DrawGrid(XINICIAL, YINICIAL, ESCALA);
+		    Board tab = jogo.GetBoard();
+		    tab.DrawGrid(XINICIAL, YINICIAL, ESCALA);
 
-                if (tab.MouseClikedOnBoard(XINICIAL, YINICIAL, ESCALA)) {
-                    Pair pos = tab.GetMousePositionOnBoard(XINICIAL, YINICIAL, ESCALA);
-                    if (clicks == 0) {
-                        movedPiece = tab.GetPieceInPosition(pos.x, pos.y);
-			movedPiece.ValidMoviments(tab, false);
-			movedPiece.ValidMoviments(tab, true);
-                        clicks = 1;
+		    if (tab.MouseClikedOnBoard(XINICIAL, YINICIAL, ESCALA)) {
+			Pair pos = tab.GetMousePositionOnBoard(XINICIAL, YINICIAL, ESCALA);
+			if (clicks == 0) {
+			    movedPiece = tab.GetPieceInPosition(pos.x, pos.y);
+			    movedPiece.ValidMoviments(tab, false);
+			    movedPiece.ValidMoviments(tab, true);
+			    clicks = 1;
 
-                    } else if (clicks == 1) {
-                        Pair destino = pos;
-                        Piece destinoPiece = tab.GetPieceInPosition(destino);
-			System.out.println("Dentro do click 1");
+			} else if (clicks == 1) {
+			    Pair destino = pos;
+			    Piece destinoPiece = tab.GetPieceInPosition(destino);
+			    System.out.println("Dentro do click 1");
 
-                        // // Verificação do Roque
-                        // if (movedPiece instanceof King
-                        //         && destino.y == movedPiece.GetBoardPosition().y
-                        //         && Math.abs(destino.x - movedPiece.GetBoardPosition().x) == 2
-                        //         && destinoPiece instanceof Blank) {
 
-                        //     int dir = (destino.x > movedPiece.GetBoardPosition().x) ? 1 : -1;
-                        //     Pair rookPos = new Pair((dir == 1 ? 7 : 0), movedPiece.GetBoardPosition().y);
-                        //     Rook rook = (Rook) tab.GetPieceInPosition(rookPos);
-                        //     Move roque = new Move(movedPiece, rook);
+			    // Verificação da move
+			    Move move = new Move(movedPiece, destinoPiece);
+			    if (move.ValidateMove(tab)){
 
-                        //     // if (roque.ValidarRoque(tab)) {
-                        //     //     // mover king
-                        //     //     tab.UpdateBoard(new Move(movedPiece, new Blank(destino.x, destino.y)));
-                        //     //     movedPiece.MovePiece(new Move(movedPiece, new Blank(destino.x, destino.y)));
-                        //     //     ((King) movedPiece).hasMoved = true;
+				tab.UpdateBoard(move);
+				move.movedPiece.MovePiece(move);
 
-                        //     //     // mover rook
-                        //     //     Pair rookDestino = new Pair(destino.x - dir, destino.y);
-                        //     //     tab.UpdateBoard(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
-                        //     //     rook.MovePiece(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
-                        //     //     rook.hasMoved = true;
-                        //     //     jogo.NextTurn();
-                        //     // }
+				if(movedPiece instanceof King) {
+				    ((King) movedPiece).hasMoved = true;
+				}
+				if(movedPiece instanceof Rook) {
+				    ((Rook) movedPiece).hasMoved = true;
+				}
 
-                        //     clicks = 0;
-                        //     continue;
-                        // }
+				// Verify if the players are in check
+				jogo.GetWhitePlayer().emCheque = tab.CheckCheck(tab.GetKingColor('w'));
+				jogo.GetBlackPlayer().emCheque = tab.CheckCheck(tab.GetKingColor('b'));
 
-                        // Verificação da move
-                        Move move = new Move(movedPiece, destinoPiece);
-                        if (move.ValidarMove(tab)) {
-                            tab.UpdateBoard(move);
-                            move.movedPiece.MovePiece(move);
+				jogo.NextTurn();
 
-                            if (movedPiece instanceof King) {
-                                ((King) movedPiece).hasMoved = true;
-                            }
-                            if (movedPiece instanceof Rook) {
-                                ((Rook) movedPiece).hasMoved = true;
-                            }
+				if (move.movedPiece instanceof Pawn) {
 
-			    if(tab.CheckCheck(tab.GetKingColor('w'))){
-				jogo.GetWhitePlayer().emCheque = true;
-				System.out.println("Brancas em cheque");
-			    } else {
-				System.out.println("Brancas sem cheque");
-				jogo.GetWhitePlayer().emCheque = false;
+				    int promotionTile = 0;
+				    char pawnColor = movedPiece.GetPieceColor();
+				    Pair pawnPosition = movedPiece.GetBoardPosition();
+
+				    if(pawnColor == 'w'){
+					promotionTile = 0;
+				    } else {
+					promotionTile = 7;
+				    }
+
+				    if(pawnPosition.y == promotionTile){
+
+					//[T]orre  [C]avalo  [B]ispo  [D]ama"
+					Scanner scanner = new Scanner(System.in);
+					char escolha = Character.toUpperCase(scanner.next().charAt(0));
+					switch (escolha) {
+					case 'T':
+					    tab.SetPieceInPosition(pawnPosition, new Rook(pawnPosition, move.promotionId(pawnColor, 'T')));
+					    break;
+					case 'B':
+					    tab.SetPieceInPosition(pawnPosition, new Bishop(pawnPosition, move.promotionId(pawnColor, 'B')));
+					    break;
+					case 'C':
+					    tab.SetPieceInPosition(pawnPosition, new Knight(pawnPosition, move.promotionId(pawnColor, 'C')));
+					    break;
+					case 'D':
+					    tab.SetPieceInPosition(pawnPosition, new Queen(pawnPosition, move.promotionId(pawnColor, 'D')));
+					    break;
+					}
+				    }
+				}
 			    }
+			    clicks = 0;
+			}
+		    }
 
-			    if (tab.CheckCheck(tab.GetKingColor('b'))){
-				jogo.GetBlackPlayer().emCheque = true;
-				System.out.println("Pretas em cheque");
-			    } else {
-				System.out.println("Pretas sem cheque");
-				jogo.GetBlackPlayer().emCheque = false;
-			    }
+		    // valida turno
+		    if (movedPiece.GetPieceColor() != jogo.GetCurrentTurnPlayer().GetColorPlayer()) {
+			movedPiece = new Blank(0, 0);
+			clicks = 0;
+		    }
 
-                        jogo.NextTurn();
-                         if (move.ValidarPromocaoPawn(tab)) {
+		    if (IsMouseButtonPressed(1)) clicks = 0;
 
-                            Pair positionPeao = movedPiece.GetBoardPosition();
-                            char color = movedPiece.GetColorPiece();
-                            //[T]orre  [C]avalo  [B]ispo  [D]ama"
-                            Scanner scanner = new Scanner(System.in);
-                            char escolha = Character.toUpperCase(scanner.next().charAt(0));
+		    tab.DrawPieces(XINICIAL, YINICIAL);
 
-                            Piece promocao = null;
-                            switch (escolha) {
-                                case 'T':
-                                    char id = move.idPromocao(color, 'T');
-                                    promocao = new Rook(positionPeao.x, positionPeao.y, id);
-                                    break;
-                                case 'B':
-                                    id = move.idPromocao(color, 'T');
-                                    promocao = new Bishop(positionPeao.x, positionPeao.y, id);
-                                    break;
-                                case 'C':
-                                    id = move.idPromocao(color, 'T');
-                                    promocao = new Knight(positionPeao.x, positionPeao.y, id);
-                                    break;
-                                case 'D':
-                                    id = move.idPromocao(color, 'T');
-                                    promocao = new Queen(positionPeao.x, positionPeao.y, id);
-                                    break;
-                            }
-                            tab.SetPieceInPosition(positionPeao.x, positionPeao.y, promocao);
-                         }
-                        }
+		    if (clicks == 1){
+			tab.DrawValidMoviments(movedPiece.GetMoviments(), XINICIAL, YINICIAL, ESCALA);
+		    }
 
-                        clicks = 0;
-                    }
-                }
 
-                // valida turno
-                if (movedPiece.GetColorPiece() != jogo.GetCurrentTurnPlayer().GetColorPlayer()) {
-                    movedPiece = new Blank(0, 0);
-                    clicks = 0;
-                }
-
-                if (IsMouseButtonPressed(1)) clicks = 0;
-
-                tab.DrawPieces(XINICIAL, YINICIAL);
-
-                if (clicks == 1){
-		    tab.DrawValidMoviments(movedPiece.GetMoviments(), XINICIAL, YINICIAL, ESCALA);
+		    DrawTextEx(pixelFont, jogo.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
+		    DrawTextEx(pixelFont, jogo.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
 		}
-
-
-                DrawTextEx(pixelFont, jogo.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
-                DrawTextEx(pixelFont, jogo.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
-            }
-            EndDrawing();
-        }
-        CloseWindow();
+	    EndDrawing();
+	}
+	CloseWindow();
     }
 }

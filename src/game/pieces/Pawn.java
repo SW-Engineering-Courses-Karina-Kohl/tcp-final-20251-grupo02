@@ -20,13 +20,15 @@ public class Pawn extends Piece {
 
     public Pawn(int x, int y, char id){
         super(x, y, id);
+	this.LoadSprite();
+    }
 
-	if (GetColorPiece() == 'w')
+    private void LoadSprite(){
+	if (GetPieceColor() == 'w')
 	    this.SetSprite(new Sprite(pawnTexture, 2, 0, 0, 0, WHITE, 2));
         else
 	    this.SetSprite(new Sprite(pawnTexture, 2, 0, 0, 1, WHITE, 2));
     }
-
 
     @Override
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
@@ -34,7 +36,7 @@ public class Pawn extends Piece {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
 	int direction = -1;
-	char color = this.GetColorPiece();
+	char color = this.GetPieceColor();
 	if(color == 'w'){
 	    direction = -1;
 	} else {
@@ -56,11 +58,11 @@ public class Pawn extends Piece {
 	    }
 	}
 
-        if(upperRight.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperRight)) && color != board.GetPieceInPosition(upperRight).GetColorPiece()){
+        if(upperRight.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperRight)) && color != board.GetPieceInPosition(upperRight).GetPieceColor()){
 	    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
 	}
 
-        if(upperLeft.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperLeft)) && color != board.GetPieceInPosition(upperLeft).GetColorPiece()){
+        if(upperLeft.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperLeft)) && color != board.GetPieceInPosition(upperLeft).GetPieceColor()){
 	    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 	}
 

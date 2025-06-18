@@ -47,7 +47,7 @@ public abstract class Piece{
 	return id;
     }
 
-    public char GetColorPiece(){
+    public char GetPieceColor(){
 
 	if(this instanceof Blank){
 	    return '_';
@@ -75,7 +75,7 @@ public abstract class Piece{
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
-	    if(!board.MoveLeadsToCheck(this, this.GetColorPiece(), moviment)){
+	    if(!board.MoveLeadsToCheck(this, this.GetPieceColor(), moviment)){
 		movs.add(moviment);
 	    }
 	} else {
