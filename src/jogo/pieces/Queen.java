@@ -17,7 +17,7 @@ public class Queen extends Piece {
     public Queen(int x, int y, char id){
         super(x, y, id);
 
-        if (GetCorPiece() == 'b')
+        if (GetOurColorPiece() == 'b')
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
@@ -27,7 +27,7 @@ public class Queen extends Piece {
     public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetCorPiece();
+	char cor = this.GetOurColorPiece();
 
 	boolean pecaCima = false;
 	boolean pecaBaixo = false;
@@ -58,7 +58,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(cima)){
 		    pecaCima = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 		}
 	    }
@@ -67,7 +67,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(baixo)){
 		    pecaBaixo = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 		}
 	    }
@@ -76,7 +76,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(direita)){
 		    pecaDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 		}
 	    }
@@ -85,7 +85,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(esquerda)){
 		    pecaEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 		}
 	    }
@@ -95,7 +95,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(superior_direita)){
 		    pecaSuperiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
@@ -105,7 +105,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(superior_esquerda)){
 		    pecaSuperiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
@@ -115,7 +115,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(inferior_direita)){
 		    pecaInferiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
@@ -125,7 +125,7 @@ public class Queen extends Piece {
                 if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
 		    pecaInferiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }

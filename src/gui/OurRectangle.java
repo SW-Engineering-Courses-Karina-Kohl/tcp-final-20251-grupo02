@@ -4,7 +4,7 @@ import static com.raylib.Raylib.*;
 
 
 
-public class Retangulo 
+public class OurRectangle 
 {
     private Rectangle retangulo;
     private float x;
@@ -12,7 +12,7 @@ public class Retangulo
     private float width;
     private float height;
 
-    public Retangulo(float x, float y, float width, float height)
+    public OurRectangle(float x, float y, float width, float height)
     {
         this.x = x;
         this.y = y;
@@ -65,7 +65,7 @@ public class Retangulo
         retangulo.height(newHeight);
     }
 
-    public Rectangle GetRetangulo()
+    public Rectangle GetOurRectangle()
     {
         return retangulo;
     }

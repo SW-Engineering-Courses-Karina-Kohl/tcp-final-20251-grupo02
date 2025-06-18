@@ -11,7 +11,7 @@ public class Sprite
 {
     private Texture textura;
     private float escala, angulo;
-    private Retangulo corte;
+    private OurRectangle corte;
     private int imagem_velocidade;
     private int imagem_atual;
     private int contador = 0;
@@ -28,7 +28,7 @@ public class Sprite
         this.cor = cor;
 
         //corte = new Rectangle().x(0).y(0).width(this.textura.width() / qtd_imagens).height(this.textura.height());
-        corte = new Retangulo(0, 0, this.textura.width() / qtd_imagens, this.textura.height());
+        corte = new OurRectangle(0, 0, this.textura.width() / qtd_imagens, this.textura.height());
     }
 
 
@@ -65,7 +65,7 @@ public class Sprite
         .y((float) textura.height() * escala / 2);
         
         // Desenhando
-        DrawTexturePro(textura, corte.GetRetangulo(), rec_sprite, pivot, angulo, cor);
+        DrawTexturePro(textura, corte.GetOurRectangle(), rec_sprite, pivot, angulo, cor);
     }
 
     public float GetWidth()
@@ -101,9 +101,9 @@ public class Sprite
         imagem_atual = novaImagemAtual;
     }
 
-    public void SetCor(Color novaCor)
+    public void SetOurColor(Color novaOurColor)
     {
-        cor = novaCor;
+        cor = novaOurColor;
     }
 
     public void SetAngulo(float novoAngulo)

@@ -17,7 +17,7 @@ public class Bishop extends Piece {
     public Bishop(int x, int y, char id){
         super(x, y, id);
 
-        if (GetCorPiece() == 'b')
+        if (GetOurColorPiece() == 'b')
             sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -28,7 +28,7 @@ public class Bishop extends Piece {
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
-	char cor = this.GetCorPiece();
+	char cor = this.GetOurColorPiece();
 
 	boolean pecaSuperiorDireita = false;
 	boolean pecaSuperiorEsquerda = false;
@@ -48,7 +48,7 @@ public class Bishop extends Piece {
                 if(tabuleiro.PosicaoOcupada(superior_direita)){
 		    pecaSuperiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
@@ -58,7 +58,7 @@ public class Bishop extends Piece {
                 if(tabuleiro.PosicaoOcupada(superior_esquerda)){
 		    pecaSuperiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
@@ -68,7 +68,7 @@ public class Bishop extends Piece {
                 if(tabuleiro.PosicaoOcupada(inferior_direita)){
 		    pecaInferiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
@@ -78,7 +78,7 @@ public class Bishop extends Piece {
                 if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
 		    pecaInferiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }

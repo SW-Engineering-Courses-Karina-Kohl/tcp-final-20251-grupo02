@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import com.raylib.Raylib.Color;
 import com.raylib.Raylib.Texture;
 
-import gui.Cor;
+import gui.OurColor;
 import gui.Sprite;
 import jogo.pieces.*;
 import misc.Pair;
@@ -173,7 +173,7 @@ public class Board
 		System.out.println("Leva a check");
 		return true;
 	    }
-	} else if(simulacao.CheckCheck(simulacao.GetKingCor(cor))){
+	} else if(simulacao.CheckCheck(simulacao.GetKingOurColor(cor))){
 	    System.out.println("Leva a check");
 	    return true;
 	}
@@ -182,7 +182,7 @@ public class Board
 
     public boolean CheckCheck(King rei){
 
-	char corKing = rei.GetCorPiece();
+	char corKing = rei.GetOurColorPiece();
 
 	// Para cada peça no tabuleiro
 	for(int i = 0; i < SIZE; i++){
@@ -191,7 +191,7 @@ public class Board
 		Piece pecaVerificada =  this.GetPieceNaPosicao(i, j);
 
 		// Se for inimiga
-		if(pecaVerificada.GetCorPiece() != corKing){
+		if(pecaVerificada.GetOurColorPiece() != corKing){
 
 		    // Se os movimentos possíveis capturam o rei
 		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
@@ -207,12 +207,12 @@ public class Board
 	return false;
     }
 
-    public King GetKingCor(char cor){
+    public King GetKingOurColor(char cor){
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 		Piece pecaVerificada = this.GetPieceNaPosicao(i, j);
-		if(pecaVerificada instanceof King && cor == pecaVerificada.GetCorPiece()){
+		if(pecaVerificada instanceof King && cor == pecaVerificada.GetOurColorPiece()){
 		    return (King) pecaVerificada;
 		}
 	    }
@@ -252,18 +252,18 @@ public class Board
 
     public void DrawGrid(int xInicial, int yInicial, int escala)
     {
-        int contadorAlteraCor = 0;
+        int contadorAlteraOurColor = 0;
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
-                Cor quadradoCor = new Cor(250, 245, 240, 255);
-                if (contadorAlteraCor % 2 == 1)
-                    quadradoCor = new Cor(38, 41, 66, 255);
-                contadorAlteraCor++;
-                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoCor.GetCor());
+                OurColor quadradoOurColor = new OurColor(250, 245, 240, 255);
+                if (contadorAlteraOurColor % 2 == 1)
+                    quadradoOurColor = new OurColor(38, 41, 66, 255);
+                contadorAlteraOurColor++;
+                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoOurColor.GetOurColor());
             }
-            contadorAlteraCor++;
+            contadorAlteraOurColor++;
         }
     }
 

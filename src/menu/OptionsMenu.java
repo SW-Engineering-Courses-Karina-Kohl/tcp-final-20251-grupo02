@@ -21,18 +21,18 @@ public class OptionsMenu
     private static Texture tempoTexture = LoadTexture("res/ui/tempo.png");
     private Sprite tempoSprite = new Sprite(tempoTexture, 1, 0, 0, 0, WHITE, 1);
 
-    //Botao de voltar
+    //Button de voltar
     private static Texture voltarTexture = LoadTexture("res/botoes/voltar.png");
     private Sprite voltarSprite = new Sprite(voltarTexture, 1, 0, 0, 0, WHITE, 1);
-    private Botao voltarBotao;
+    private Button voltarButton;
 
     //Botoes de alterar o tempo
     private static Texture setaCimaTexture = LoadTexture("res/botoes/seta_cima.png");
     private Sprite setaCimaSprite = new Sprite(setaCimaTexture, 1, 0, 0, 0, WHITE, 1);
-    private Botao[] setaCimaBotao = new Botao[4];
+    private Button[] setaCimaButton = new Button[4];
 
     private Sprite setaBaixoSprite = new Sprite(setaCimaTexture, 1, 180, 0, 0, WHITE, 1);
-    private Botao[] setaBaixoBotao = new Botao[4];
+    private Button[] setaBaixoButton = new Button[4];
 
     private int larguraTela;
     private int centroTela;
@@ -50,17 +50,17 @@ public class OptionsMenu
         centroTela = larguraTela / 2;
         this.fonte = fonte;
 
-        voltarBotao = new Botao(centroTela, 320, voltarSprite);
+        voltarButton = new Button(centroTela, 320, voltarSprite);
         for (int i = 0; i < 2; i++)
         {
-            setaCimaBotao[i] = new Botao(341 + (int) setaCimaSprite.GetWidth() / 2 + i * 19,  82 + (int) setaCimaSprite.GetHeight() / 2, setaCimaSprite);
-            setaBaixoBotao[i] = new Botao(341 + (int) setaBaixoSprite.GetWidth() / 2 + i * 19, 121, setaBaixoSprite);
+            setaCimaButton[i] = new Button(341 + (int) setaCimaSprite.GetWidth() / 2 + i * 19,  82 + (int) setaCimaSprite.GetHeight() / 2, setaCimaSprite);
+            setaBaixoButton[i] = new Button(341 + (int) setaBaixoSprite.GetWidth() / 2 + i * 19, 121, setaBaixoSprite);
         }
 
         for (int i = 2; i < 4; i++)
         {
-            setaCimaBotao[i] = new Botao(388 + (int) setaCimaSprite.GetWidth() / 2 + (i - 2) * 19,  82 + (int) setaCimaSprite.GetHeight() / 2, setaCimaSprite);
-            setaBaixoBotao[i] = new Botao(388 + (int) setaBaixoSprite.GetWidth() / 2 + (i - 2) * 19, 121, setaBaixoSprite);
+            setaCimaButton[i] = new Button(388 + (int) setaCimaSprite.GetWidth() / 2 + (i - 2) * 19,  82 + (int) setaCimaSprite.GetHeight() / 2, setaCimaSprite);
+            setaBaixoButton[i] = new Button(388 + (int) setaBaixoSprite.GetWidth() / 2 + (i - 2) * 19, 121, setaBaixoSprite);
         }
 
         for (int i = 0; i < 10; i++)
@@ -81,7 +81,7 @@ public class OptionsMenu
             tempoSprite.DrawSpritePro(centroTela - tempoSprite.GetWidth() / 2, 104);
 
             //Voltando pro menu pricipal
-            if (voltarBotao.MouseClick())
+            if (voltarButton.MouseClick())
             {
                 paginas[1] = false;
                 paginas[0] = true;
@@ -125,8 +125,8 @@ public class OptionsMenu
 
     public void LoopIndex(int min, int max, int i)
     {
-        indexNumeros[i] += BoolToInt(setaCimaBotao[i].MouseClick());
-        indexNumeros[i] -= BoolToInt(setaBaixoBotao[i].MouseClick());
+        indexNumeros[i] += BoolToInt(setaCimaButton[i].MouseClick());
+        indexNumeros[i] -= BoolToInt(setaBaixoButton[i].MouseClick());
 
         if (indexNumeros[i] > max)
         {

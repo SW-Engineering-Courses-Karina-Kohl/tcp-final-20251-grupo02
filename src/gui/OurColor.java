@@ -2,14 +2,14 @@ package gui;
 import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
 
-public class Cor
+public class OurColor
 {   
     private Color cor;
     int r;
     int g;
     int b;
     int a;
-    public Cor(int r, int g, int b, int a)
+    public OurColor(int r, int g, int b, int a)
     {
         this.r = r;
         this.g = g;
@@ -18,17 +18,17 @@ public class Cor
         cor = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
     }
 
-    public Color GetCor()
+    public Color GetOurColor()
     {
         return cor;
     }
 
-    public void SetCor(Color cor)
+    public void SetOurColor(Color cor)
     {
         this.cor = cor;
     }
 
-    public void SetCor(int r, int g, int b, int a)
+    public void SetOurColor(int r, int g, int b, int a)
     {
         this.r = r;
         this.g = g;

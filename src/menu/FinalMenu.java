@@ -16,15 +16,15 @@ public class FinalMenu
 {
     private static Texture logoTexture = LoadTexture("res/ui/logo.png");
 
-    //Botao de voltar pro comeco
+    //Button de voltar pro comeco
     private static Texture menuInicialTexture = LoadTexture("res/botoes/menu_inicial.png");
     private Sprite menuInicialSprite = new Sprite(menuInicialTexture, 1, 0, 0, 0, WHITE, 1);
-    private Botao menuInicialBotao;
+    private Button menuInicialButton;
 
-    //Botao de sair
+    //Button de sair
     private static Texture sairTextura = LoadTexture("res/botoes/sair.png");
     private Sprite sairSprite = new Sprite(sairTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao sairBotao;
+    private Button sairButton;
 
     private int larguraTela;
     private int centroTela;
@@ -51,8 +51,8 @@ public class FinalMenu
     {
         this.larguraTela = larguraTela;
         centroTela = larguraTela / 2;
-        menuInicialBotao = new Botao(centroTela, 280, menuInicialSprite);
-        sairBotao = new Botao(centroTela, 320, sairSprite);
+        menuInicialButton = new Button(centroTela, 280, menuInicialSprite);
+        sairButton = new Button(centroTela, 320, sairSprite);
 
         this.fonte = fonte;
 
@@ -64,14 +64,14 @@ public class FinalMenu
         if (paginas[3] == true)
         {
             //Voltando pro menu inicial
-            if (menuInicialBotao.MouseClick())
+            if (menuInicialButton.MouseClick())
             {
                 paginas[0] = true;
                 paginas[3] = false;
             }
 
             //Saindo
-            if (sairBotao.MouseClick())
+            if (sairButton.MouseClick())
             {
                 rodandoJogo[0] = false;
             }
@@ -95,7 +95,7 @@ public class FinalMenu
         vencedorLargura = MeasureTextEx(fonte, vencedorTexto, tamanhoFonte, espacoFonte);
         DrawTextEx(fonte, vencedorTexto,
         new Vector2().x(centroTela - vencedorLargura.x() / 2).y(21), tamanhoFonte, espacoFonte,
-        new Cor(157, 204, 102, 255).GetCor());
+        new OurColor(157, 204, 102, 255).GetOurColor());
 
 
         //informacoes do tempo

@@ -20,7 +20,7 @@ public class Pawn extends Piece {
 
     public Pawn(int x, int y, char id){
         super(x, y, id);
-        if (GetCorPiece() == 'b')
+        if (GetOurColorPiece() == 'b')
             sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -39,7 +39,7 @@ public class Pawn extends Piece {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
 	int direcao = -1;
-	char cor = this.GetCorPiece();
+	char cor = this.GetOurColorPiece();
 	if(cor == 'b'){
 	    direcao = -1;
 	} else {
@@ -66,11 +66,11 @@ public class Pawn extends Piece {
 
 	    }
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
 	    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 	}
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
 	    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 	}
 

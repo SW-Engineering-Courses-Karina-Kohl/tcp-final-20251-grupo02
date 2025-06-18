@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import com.raylib.Raylib.Texture;
 
-import gui.Cor;
+import gui.OurColor;
 
 public class BackgroundParticlesEmitter 
 {
@@ -44,7 +44,7 @@ public class BackgroundParticlesEmitter
         for (int i = 0; i < 10; i++)
         {
             Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
-            , minVelocidade, maxVelocidade, 100, 100, false, 0, new Cor(255, 255, 255, 255));
+            , minVelocidade, maxVelocidade, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
             listaParticles.add(particula);
         }
 
@@ -61,7 +61,7 @@ public class BackgroundParticlesEmitter
                 if (listaParticles.get(i).GetY() <  -10)
                 {
                     Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
-                    , minVelocidade, maxVelocidade, 100, 100, false, 0, new Cor(255, 255, 255, 255));
+                    , minVelocidade, maxVelocidade, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
                     
                     listaParticles.set(i, particula);
                 }

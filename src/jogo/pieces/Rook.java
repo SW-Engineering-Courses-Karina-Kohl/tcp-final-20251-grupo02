@@ -20,7 +20,7 @@ public class Rook extends Piece {
     public Rook(int x, int y, char id){
         super(x, y, id);
 
-        if (GetCorPiece() == 'b')
+        if (GetOurColorPiece() == 'b')
             sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
@@ -30,7 +30,7 @@ public class Rook extends Piece {
     public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetCorPiece();
+	char cor = this.GetOurColorPiece();
 
 	boolean pecaCima = false;
 	boolean pecaBaixo = false;
@@ -48,7 +48,7 @@ public class Rook extends Piece {
                 if(tabuleiro.PosicaoOcupada(cima)){
 		    pecaCima = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 		}
 	    }
@@ -57,7 +57,7 @@ public class Rook extends Piece {
                 if(tabuleiro.PosicaoOcupada(baixo)){
 		    pecaBaixo = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 		}
 	    }
@@ -66,7 +66,7 @@ public class Rook extends Piece {
                 if(tabuleiro.PosicaoOcupada(direita)){
 		    pecaDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 		}
 	    }
@@ -75,7 +75,7 @@ public class Rook extends Piece {
                 if(tabuleiro.PosicaoOcupada(esquerda)){
 		    pecaEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetCorPiece()){
+		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 		}
 	    }

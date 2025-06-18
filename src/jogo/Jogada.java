@@ -43,8 +43,8 @@ public class Jogada {
         }
 
 
-        char moverCor = rei.GetCorPiece();
-        char oponenteCor = moverCor == 'b' ? 'p' : 'b';
+        char moverOurColor = rei.GetOurColorPiece();
+        char oponenteOurColor = moverOurColor == 'b' ? 'p' : 'b';
 
         Pair[] posicoes = new Pair[] {
             posKing,
@@ -52,7 +52,7 @@ public class Jogada {
             new Pair(posKing.x + 2*dir, posKing.y)
         };
         for (Pair p : posicoes) {
-            if (isAtacado(tabuleiro, p, oponenteCor))
+            if (isAtacado(tabuleiro, p, oponenteOurColor))
                 return false;
         }
 
@@ -60,11 +60,11 @@ public class Jogada {
     }
 
     // verifica se uma casa está atacada por alguma peça da cor atacante, se houver, não há roque
-    private boolean isAtacado(Board tabuleiro, Pair alvo, char atacanteCor) {
+    private boolean isAtacado(Board tabuleiro, Pair alvo, char atacanteOurColor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 Piece p = tabuleiro.GetPieceNaPosicao(x, y);
-                if (p.GetCorPiece() != atacanteCor)
+                if (p.GetOurColorPiece() != atacanteOurColor)
                     continue;
                 for (Pair mv : p.GetMovimentos()) {
                     if (mv.equals(alvo))
@@ -123,7 +123,7 @@ public class Jogada {
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
             Piece p = tabuleiro.GetPieceNaPosicao(x,0);
-            if (p instanceof Pawn && p.GetCorPiece() == 'b') {
+            if (p instanceof Pawn && p.GetOurColorPiece() == 'b') {
                 //promove para rainha
                 Queen dama = new Queen(x, 0, 'b');
                 tabuleiro.MudancaNoBoard(
@@ -135,7 +135,7 @@ public class Jogada {
         //verificação para as pretas
         for(int x = 0; x < 8; x++) {
             Piece p = tabuleiro.GetPieceNaPosicao(x,7);
-            if (p instanceof Pawn && p.GetCorPiece() == 'p') {
+            if (p instanceof Pawn && p.GetOurColorPiece() == 'p') {
                 //promove para rainha
                 Queen dama = new Queen(x, 7, 'p');
                 tabuleiro.MudancaNoBoard(

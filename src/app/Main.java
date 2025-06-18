@@ -69,7 +69,7 @@ public class Main
         while (!WindowShouldClose() && rodandoMatch[0]) {
             BeginDrawing();
 
-            ClearBackground(new Cor(52, 54, 71, 255).GetCor());
+            ClearBackground(new OurColor(52, 54, 71, 255).GetOurColor());
             // DrawFPS(20, 20);
 
             emissor.EmitirParicula();
@@ -153,7 +153,7 @@ public class Main
                                 ((Rook) pecaMovida).jaMovido = true;
                             }
 
-			    if(tab.CheckCheck(tab.GetKingCor('b'))){
+			    if(tab.CheckCheck(tab.GetKingOurColor('b'))){
 				jogo.GetPlayerBranco().emCheque = true;
 				System.out.println("Brancas em cheque");
 			    } else {
@@ -161,7 +161,7 @@ public class Main
 				jogo.GetPlayerBranco().emCheque = false;
 			    }
 
-			    if (tab.CheckCheck(tab.GetKingCor('p'))){
+			    if (tab.CheckCheck(tab.GetKingOurColor('p'))){
 				jogo.GetPlayerPreto().emCheque = true;
 				System.out.println("Pretas em cheque");
 			    } else {
@@ -178,7 +178,7 @@ public class Main
                 }
 
                 // valida turno
-                if (pecaMovida.GetCorPiece() != jogo.GetPlayerTurnoAtual().GetCorPlayer()) {
+                if (pecaMovida.GetOurColorPiece() != jogo.GetPlayerTurnoAtual().GetOurColorPlayer()) {
                     pecaMovida = new Blank(0, 0);
                     clicks = 0;
                 }

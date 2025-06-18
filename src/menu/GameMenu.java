@@ -10,29 +10,29 @@ import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
-import gui.Botao;
-import gui.Cor;
+import gui.Button;
+import gui.OurColor;
 import gui.Sprite;
 import jogo.Match;
 
 public class GameMenu
 {
-    //Botao sugerir empate
+    //Button sugerir empate
     private static Texture empateTexture = LoadTexture("res/botoes/empate.png");
     private Sprite empateSprite = new Sprite(empateTexture, 1, 0, 0, 0, WHITE, 1);
-    private Botao empateBotao;
+    private Button empateButton;
 
-    //Botao de sair
+    //Button de sair
     private static Texture desistirTextura = LoadTexture("res/botoes/desistir.png");
     private Sprite desistirSprite = new Sprite(desistirTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao desistirBotao;
+    private Button desistirButton;
 
 
     public GameMenu()
     {
 
-        empateBotao = new Botao(26 + (int) empateSprite.GetWidth() / 2, 180 + (int) empateSprite.GetHeight() / 2, empateSprite);
-        desistirBotao = new Botao(26 + (int) desistirSprite.GetWidth() / 2, 141 + (int) desistirSprite.GetHeight() / 2, desistirSprite);
+        empateButton = new Button(26 + (int) empateSprite.GetWidth() / 2, 180 + (int) empateSprite.GetHeight() / 2, empateSprite);
+        desistirButton = new Button(26 + (int) desistirSprite.GetWidth() / 2, 141 + (int) desistirSprite.GetHeight() / 2, desistirSprite);
 
     }
 
@@ -41,8 +41,8 @@ public class GameMenu
     {
         if (paginas[2] == true)
         {
-            //Botao de empate
-            if (empateBotao.MouseClick())
+            //Button de empate
+            if (empateButton.MouseClick())
             {
                 match.GetPlayerBranco().GetClock().PausaClock();
                 match.GetPlayerPreto().GetClock().PausaClock();
@@ -53,14 +53,14 @@ public class GameMenu
             }
 
             //Desistindo
-            if (desistirBotao.MouseClick())
+            if (desistirButton.MouseClick())
             {
                 match.GetPlayerBranco().GetClock().PausaClock();
                 match.GetPlayerPreto().GetClock().PausaClock();
                 paginas[2] = false;
                 paginas[3] = true;
 
-                if (match.GetPlayerTurnoAtual().GetCorPlayer() == 'b')
+                if (match.GetPlayerTurnoAtual().GetOurColorPlayer() == 'b')
                     vencedor[2] = true;
                 else
                     vencedor[1] = true;

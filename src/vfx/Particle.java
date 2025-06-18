@@ -12,7 +12,7 @@ public class Particle
     private Sprite sprite;
     private int x;
     private int y;
-    private Cor cor;
+    private OurColor cor;
     private float direcao;
     private float rotacao;
     private boolean rotaciona;
@@ -28,7 +28,7 @@ public class Particle
 
     public Particle(Texture imagem, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotaciona,
     float minVelocidadeRotacao, float maxVelocidadeRotacao, int minEscala, int maxEscala, float minVelocidade, float maxVelocidade,
-    int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, Cor cor)
+    int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, OurColor cor)
     {
         this.rotaciona = rotaciona;
         this.gravidade = gravidade;
@@ -51,7 +51,7 @@ public class Particle
 
         this.cor = cor;
 
-        sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetCor(), 1);
+        sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetOurColor(), 1);
     }
 
     public void atualizaParticle()

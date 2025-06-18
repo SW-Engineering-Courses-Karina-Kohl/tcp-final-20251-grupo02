@@ -23,7 +23,7 @@ public class Player {
 	return emCheque;
     }
 
-    public char GetCorPlayer(){
+    public char GetOurColorPlayer(){
 	return cor;
     }
 
