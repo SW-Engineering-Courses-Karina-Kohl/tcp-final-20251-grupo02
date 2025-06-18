@@ -10,33 +10,33 @@ public class Match {
     final int  MAX_JOGADORES = 2;
 
     public Board board;
-    Player jogador_branco;
-    Player jogador_preto;
+    public Player whitePlayer;
+    public Player blackPlayer;
 
-    Player jogador_turno_atual = jogador_branco;
+    public Player currentTurnPlayer = whitePlayer;
 
     public void NovoMatch() {
-        NovoMatch(300); //time padrão
+        NovoMatch(300); // Standard time
     }
 
-    public void NovoMatch(int timeInicial){
+    public void NovoMatch(int initialTime){
         this.board = new Board();
-        this.jogador_branco = new Player('w', timeInicial);
-        this.jogador_preto = new Player('b',timeInicial);
-        this.jogador_turno_atual = jogador_branco;
+        this.whitePlayer = new Player('w', initialTime);
+        this.blackPlayer = new Player('b', initialTime);
+        this.currentTurnPlayer = whitePlayer;
 
-        this.jogador_turno_atual.GetClock().StartClock();
+        this.currentTurnPlayer.GetClock().StartClock();
     }
 
 
-    public void ProximoTurno(){
-        jogador_turno_atual.GetClock().StopClock();
+    public void NextTurn(){
+        currentTurnPlayer.GetClock().StopClock();
 
-        if (this.jogador_turno_atual == this.jogador_branco)
-            this.jogador_turno_atual = this.jogador_preto;
-        else this.jogador_turno_atual = this.jogador_branco;
+        if (this.currentTurnPlayer == this.whitePlayer)
+            this.currentTurnPlayer = this.blackPlayer;
+        else this.currentTurnPlayer = this.whitePlayer;
 
-        jogador_turno_atual.GetClock().StartClock();
+        currentTurnPlayer.GetClock().StartClock();
         // this.board.GirarBoard();
     }
 
@@ -44,17 +44,17 @@ public class Match {
         return board;
     }
 
-    public Player GetPlayerBranco() {
-        return jogador_branco;
+    public Player GetWhitePlayer() {
+        return whitePlayer;
     }
 
-    public Player GetPlayerPreto() {
-        return jogador_preto;
+    public Player GetBlackPlayer() {
+        return blackPlayer;
     }
 
-    public Player GetPlayerTurnoAtual() {
-        return jogador_turno_atual;
+    public Player GetCurrentTurnPlayer() {
+        return currentTurnPlayer;
     }
-     
+
 
 }

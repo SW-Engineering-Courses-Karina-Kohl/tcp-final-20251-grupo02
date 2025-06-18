@@ -132,7 +132,7 @@ public class Main
                         //     //     tab.UpdateBoard(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
                         //     //     rook.MovePiece(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
                         //     //     rook.hasMoved = true;
-                        //     //     jogo.ProximoTurno();
+                        //     //     jogo.NextTurn();
                         //     // }
 
                         //     clicks = 0;
@@ -153,22 +153,22 @@ public class Main
                             }
 
 			    if(tab.CheckCheck(tab.GetKingColor('w'))){
-				jogo.GetPlayerBranco().emCheque = true;
+				jogo.GetWhitePlayer().emCheque = true;
 				System.out.println("Brancas em cheque");
 			    } else {
 				System.out.println("Brancas sem cheque");
-				jogo.GetPlayerBranco().emCheque = false;
+				jogo.GetWhitePlayer().emCheque = false;
 			    }
 
 			    if (tab.CheckCheck(tab.GetKingColor('b'))){
-				jogo.GetPlayerPreto().emCheque = true;
+				jogo.GetBlackPlayer().emCheque = true;
 				System.out.println("Pretas em cheque");
 			    } else {
 				System.out.println("Pretas sem cheque");
-				jogo.GetPlayerPreto().emCheque = false;
+				jogo.GetBlackPlayer().emCheque = false;
 			    }
 
-                        jogo.ProximoTurno();
+                        jogo.NextTurn();
                          if (move.ValidarPromocaoPawn(tab)) {
 
                             Pair positionPeao = movedPiece.GetBoardPosition();
@@ -205,7 +205,7 @@ public class Main
                 }
 
                 // valida turno
-                if (movedPiece.GetColorPiece() != jogo.GetPlayerTurnoAtual().GetColorPlayer()) {
+                if (movedPiece.GetColorPiece() != jogo.GetCurrentTurnPlayer().GetColorPlayer()) {
                     movedPiece = new Blank(0, 0);
                     clicks = 0;
                 }
@@ -219,8 +219,8 @@ public class Main
 		}
 
 
-                DrawTextEx(pixelFont, jogo.GetPlayerBranco().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
-                DrawTextEx(pixelFont, jogo.GetPlayerPreto().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
+                DrawTextEx(pixelFont, jogo.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
+                DrawTextEx(pixelFont, jogo.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
             }
             EndDrawing();
         }

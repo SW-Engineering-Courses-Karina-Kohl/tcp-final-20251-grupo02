@@ -99,12 +99,12 @@ public class FinalMenu
 
 
         //informacoes do time
-        int timeDifBranco = opcoesMenu.ConverteParaSegundos() - match.GetPlayerBranco().GetClock().GetTime();
-        int timeDifPreto = opcoesMenu.ConverteParaSegundos() - match.GetPlayerPreto().GetClock().GetTime();
+        int timeDifBranco = opcoesMenu.ConverteParaSegundos() - match.GetWhitePlayer().GetClock().GetTime();
+        int timeDifPreto = opcoesMenu.ConverteParaSegundos() - match.GetBlackPlayer().GetClock().GetTime();
         int timeFinal = timeDifBranco + timeDifPreto;
         duracaoTexto = String.format("TEMPO TOTAL: %02d:%02d", timeFinal / 60, timeFinal % 60);
-        timeBrancoTexto = "TEMPO BRANCO: " + match.GetPlayerBranco().GetClock().FormatTime();
-        timePretoTexto = "TEMPO PRETO: " + match.GetPlayerPreto().GetClock().FormatTime();
+        timeBrancoTexto = "TEMPO BRANCO: " + match.GetWhitePlayer().GetClock().FormatTime();
+        timePretoTexto = "TEMPO PRETO: " + match.GetBlackPlayer().GetClock().FormatTime();
 
         duracaoLargura = MeasureTextEx(fonte, duracaoTexto, tamanhoFonte, espacoFonte);
         timeBrancoLargura = MeasureTextEx(fonte, timeBrancoTexto, tamanhoFonte, espacoFonte);
