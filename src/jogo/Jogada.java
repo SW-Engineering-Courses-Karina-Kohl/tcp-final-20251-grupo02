@@ -4,52 +4,52 @@ import misc.Pair;
 
 public class Jogada {
 
-    public Peca pecaMovida;
-    public Peca peca_capturada;
+    public Piece pecaMovida;
+    public Piece peca_capturada;
     //Jogador jogador;
 
-    // pecaMovida = tab.getPecaNaPosicao(x,y)
-    // peca_capturada = tab.getPecaNaPosicao(x,y)
-    public Jogada(Peca pecaMovida, Peca peca_capturada){
+    // pecaMovida = tab.getPieceNaPosicao(x,y)
+    // peca_capturada = tab.getPieceNaPosicao(x,y)
+    public Jogada(Piece pecaMovida, Piece peca_capturada){
         this.pecaMovida = pecaMovida;
         this.peca_capturada = peca_capturada;
     }
 
     public boolean ValidarRoque(Tabuleiro tabuleiro) {
-        if (!(pecaMovida instanceof Rei && peca_capturada instanceof Torre))
+        if (!(pecaMovida instanceof King && peca_capturada instanceof Rook))
             return false;
 
-        Rei rei = (Rei) pecaMovida;
-        Torre torre = (Torre) peca_capturada;
+        King rei = (King) pecaMovida;
+        Rook torre = (Rook) peca_capturada;
 
         // ambos não devem ter movido
         if (rei.jaMovido || torre.jaMovido)
             return false;
 
-        Pair posRei = rei.posicaoTabuleiro;
-        Pair posTorre = torre.posicaoTabuleiro;
+        Pair posKing = rei.posicaoTabuleiro;
+        Pair posRook = torre.posicaoTabuleiro;
 
-        if (posRei.y != posTorre.y)
+        if (posKing.y != posRook.y)
             return false;
 
-        int dir = Integer.compare(posTorre.x, posRei.x);
+        int dir = Integer.compare(posRook.x, posKing.x);
 
-        // verificar casas entre Rei e Torre
-        int x = posRei.x + dir;
-        while (x != posTorre.x) {
-            if (!(tabuleiro.GetPecaNaPosicao(x, posRei.y) instanceof Blank))
+        // verificar casas entre King e Rook
+        int x = posKing.x + dir;
+        while (x != posRook.x) {
+            if (!(tabuleiro.GetPieceNaPosicao(x, posKing.y) instanceof Blank))
                 return false;
             x += dir;
         }
 
 
-        char moverCor = rei.GetCorPeca();
+        char moverCor = rei.GetCorPiece();
         char oponenteCor = moverCor == 'b' ? 'p' : 'b';
 
         Pair[] posicoes = new Pair[] {
-            posRei,
-            new Pair(posRei.x + dir, posRei.y),
-            new Pair(posRei.x + 2*dir, posRei.y)
+            posKing,
+            new Pair(posKing.x + dir, posKing.y),
+            new Pair(posKing.x + 2*dir, posKing.y)
         };
         for (Pair p : posicoes) {
             if (isAtacado(tabuleiro, p, oponenteCor))
@@ -63,8 +63,8 @@ public class Jogada {
     private boolean isAtacado(Tabuleiro tabuleiro, Pair alvo, char atacanteCor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                Peca p = tabuleiro.GetPecaNaPosicao(x, y);
-                if (p.GetCorPeca() != atacanteCor)
+                Piece p = tabuleiro.GetPieceNaPosicao(x, y);
+                if (p.GetCorPiece() != atacanteCor)
                     continue;
                 for (Pair mv : p.GetMovimentos()) {
                     if (mv.equals(alvo))
@@ -87,7 +87,7 @@ public class Jogada {
 	return false;
     }
 
-    private boolean IsTherePecaInBetween(Tabuleiro tabuleiro){
+    private boolean IsTherePieceInBetween(Tabuleiro tabuleiro){
         // +1 if peca_capturada.posicaoTabuleiro > pecaMovida.posicaoTabuleiro
         //  0 if peca_capturada.posicaoTabuleiro == pecaMovida.posicaoTabuleiro
         // -1 if peca_capturada.posicaoTabuleiro < pecaMovida.posicaoTabuleiro
@@ -99,7 +99,7 @@ public class Jogada {
         int y = pecaMovida.posicaoTabuleiro.y + dy;
 
         while (! this.peca_capturada.posicaoTabuleiro.equals(new Pair(x, y)) ) {
-            if (!(tabuleiro.GetPecaNaPosicao(x, y) instanceof Blank)) {
+            if (!(tabuleiro.GetPieceNaPosicao(x, y) instanceof Blank)) {
                 return true;
             }
 
@@ -118,14 +118,14 @@ public class Jogada {
 
     //}
 
-   public boolean ValidarPromocaoPeao(Tabuleiro tabuleiro) {
+   public boolean ValidarPromocaoPawn(Tabuleiro tabuleiro) {
         boolean promoveu = false;
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
-            Peca p = tabuleiro.GetPecaNaPosicao(x,0);
-            if (p instanceof Peao && p.GetCorPeca() == 'b') {
+            Piece p = tabuleiro.GetPieceNaPosicao(x,0);
+            if (p instanceof Pawn && p.GetCorPiece() == 'b') {
                 //promove para rainha
-                Dama dama = new Dama(x, 0, 'b');
+                Queen dama = new Queen(x, 0, 'b');
                 tabuleiro.MudancaNoTabuleiro(
                     new Jogada(p, dama)
                 );
@@ -134,10 +134,10 @@ public class Jogada {
         }
         //verificação para as pretas
         for(int x = 0; x < 8; x++) {
-            Peca p = tabuleiro.GetPecaNaPosicao(x,7);
-            if (p instanceof Peao && p.GetCorPeca() == 'p') {
+            Piece p = tabuleiro.GetPieceNaPosicao(x,7);
+            if (p instanceof Pawn && p.GetCorPiece() == 'p') {
                 //promove para rainha
-                Dama dama = new Dama(x, 7, 'p');
+                Queen dama = new Queen(x, 7, 'p');
                 tabuleiro.MudancaNoTabuleiro(
                     new Jogada(p, dama)
                 );

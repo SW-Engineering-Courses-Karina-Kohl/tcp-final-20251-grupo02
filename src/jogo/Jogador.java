@@ -1,12 +1,12 @@
 package jogo;
-import jogo.peca.Peca;
+import jogo.peca.Piece;
 import java.util.ArrayList;
 
 public class Jogador {
 
 
 
-    ArrayList<Peca> pecas = new ArrayList<>();
+    ArrayList<Piece> pecas = new ArrayList<>();
     char cor;
     Relogio relogio;
     public boolean emCheque;
@@ -27,7 +27,7 @@ public class Jogador {
 	return cor;
     }
 
-    public Jogada NovaJogada(Peca pecaMovida, Peca peca_capturada, Tabuleiro tabuleiro){
+    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Tabuleiro tabuleiro){
         Jogada jogada = new Jogada(pecaMovida, peca_capturada);
         jogada.ValidarJogada(tabuleiro);
         return jogada;

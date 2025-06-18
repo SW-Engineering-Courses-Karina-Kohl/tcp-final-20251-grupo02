@@ -21,7 +21,7 @@ import misc.Pair;
 public class Tabuleiro
 {
 
-    private int PecasNoTabuleiro = 32;
+    private int PiecesNoTabuleiro = 32;
     private static final int SIZE = 8;
 
     //Dando load nas imagens
@@ -31,11 +31,11 @@ public class Tabuleiro
     private Sprite miraVerdeSprite;
     private Sprite miraVermelhaSprite;
 
-    // tabuleiro[y][x] = Peca(x, y)
-    private Peca[][] tabuleiro = new Peca[SIZE][SIZE];
+    // tabuleiro[y][x] = Piece(x, y)
+    private Piece[][] tabuleiro = new Piece[SIZE][SIZE];
 
-    // tabuleiro[y][x] = Peca(x, y)
-    private void InitializePeca(Peca peca){
+    // tabuleiro[y][x] = Piece(x, y)
+    private void InitializePiece(Piece peca){
         this.tabuleiro[peca.posicaoTabuleiro.y][peca.posicaoTabuleiro.x] = peca;
     }
 
@@ -48,48 +48,48 @@ public class Tabuleiro
     public Tabuleiro()
     {
         // pecas brancas (id maiúsculo)
-        this.InitializePeca(new Peao(0, 6, 'P'));
-        this.InitializePeca(new Peao(1, 6, 'P'));
-        this.InitializePeca(new Peao(2, 6, 'P'));
-        this.InitializePeca(new Peao(3, 6, 'P'));
-        this.InitializePeca(new Peao(4, 6, 'P'));
-        this.InitializePeca(new Peao(5, 6, 'P'));
-        this.InitializePeca(new Peao(6, 6, 'P'));
-        this.InitializePeca(new Peao(7, 6, 'P'));
+        this.InitializePiece(new Pawn(0, 6, 'P'));
+        this.InitializePiece(new Pawn(1, 6, 'P'));
+        this.InitializePiece(new Pawn(2, 6, 'P'));
+        this.InitializePiece(new Pawn(3, 6, 'P'));
+        this.InitializePiece(new Pawn(4, 6, 'P'));
+        this.InitializePiece(new Pawn(5, 6, 'P'));
+        this.InitializePiece(new Pawn(6, 6, 'P'));
+        this.InitializePiece(new Pawn(7, 6, 'P'));
 
-        this.InitializePeca(new Torre(0, 7, 'T'));
-        this.InitializePeca(new Torre(7, 7, 'T'));
+        this.InitializePiece(new Rook(0, 7, 'T'));
+        this.InitializePiece(new Rook(7, 7, 'T'));
 
-        this.InitializePeca(new Cavalo(1, 7, 'C'));
-        this.InitializePeca(new Cavalo(6, 7, 'C'));
+        this.InitializePiece(new Knight(1, 7, 'C'));
+        this.InitializePiece(new Knight(6, 7, 'C'));
 
-        this.InitializePeca(new Bispo(2, 7, 'B'));
-        this.InitializePeca(new Bispo(5, 7, 'B'));
+        this.InitializePiece(new Bishop(2, 7, 'B'));
+        this.InitializePiece(new Bishop(5, 7, 'B'));
 
-        this.InitializePeca(new Rei(4,7,'R'));
-        this.InitializePeca(new Dama(3,7, 'D'));
+        this.InitializePiece(new King(4,7,'R'));
+        this.InitializePiece(new Queen(3,7, 'D'));
 
         // pecas pretas (id minúsculo)
-        this.InitializePeca(new Peao(0, 1, 'p'));
-        this.InitializePeca(new Peao(1, 1, 'p'));
-        this.InitializePeca(new Peao(2, 1, 'p'));
-        this.InitializePeca(new Peao(3, 1, 'p'));
-        this.InitializePeca(new Peao(4, 1, 'p'));
-        this.InitializePeca(new Peao(5, 1, 'p'));
-        this.InitializePeca(new Peao(6, 1, 'p'));
-        this.InitializePeca(new Peao(7, 1, 'p'));
+        this.InitializePiece(new Pawn(0, 1, 'p'));
+        this.InitializePiece(new Pawn(1, 1, 'p'));
+        this.InitializePiece(new Pawn(2, 1, 'p'));
+        this.InitializePiece(new Pawn(3, 1, 'p'));
+        this.InitializePiece(new Pawn(4, 1, 'p'));
+        this.InitializePiece(new Pawn(5, 1, 'p'));
+        this.InitializePiece(new Pawn(6, 1, 'p'));
+        this.InitializePiece(new Pawn(7, 1, 'p'));
 
-        this.InitializePeca(new Torre(0, 0, 't'));
-        this.InitializePeca(new Torre(7, 0, 't'));
+        this.InitializePiece(new Rook(0, 0, 't'));
+        this.InitializePiece(new Rook(7, 0, 't'));
 
-        this.InitializePeca(new Cavalo(1, 0, 'c'));
-        this.InitializePeca(new Cavalo(6, 0, 'c'));
+        this.InitializePiece(new Knight(1, 0, 'c'));
+        this.InitializePiece(new Knight(6, 0, 'c'));
 
-        this.InitializePeca(new Bispo(2, 0, 'b'));
-        this.InitializePeca(new Bispo(5, 0, 'b'));
+        this.InitializePiece(new Bishop(2, 0, 'b'));
+        this.InitializePiece(new Bishop(5, 0, 'b'));
 
-        this.InitializePeca(new Rei(4, 0, 'r'));
-        this.InitializePeca(new Dama(3, 0, 'd'));
+        this.InitializePiece(new King(4, 0, 'r'));
+        this.InitializePiece(new Queen(3, 0, 'd'));
 
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
@@ -103,24 +103,24 @@ public class Tabuleiro
         miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
-    public Peca[][] GetTabuleiro(){
+    public Piece[][] GetTabuleiro(){
 	return this.tabuleiro;
     }
 
     // checa qual peça está na posicao (x,y)
-    public Peca GetPecaNaPosicao(int x, int y){
+    public Piece GetPieceNaPosicao(int x, int y){
         return this.tabuleiro[y][x];
     }
 
-    public Peca GetPecaNaPosicao(Pair p){
+    public Piece GetPieceNaPosicao(Pair p){
 	return this.tabuleiro[p.y][p.x];
     }
 
-    public void SetPecaNaPosicao(int x, int y, Peca peca){
+    public void SetPieceNaPosicao(int x, int y, Piece peca){
         tabuleiro[y][x] = peca;
     }
 
-    public void GetPecaNaPosicao(Pair p, Peca peca){
+    public void GetPieceNaPosicao(Pair p, Piece peca){
 	tabuleiro[p.y][p.x] = peca;
     }
 
@@ -148,18 +148,18 @@ public class Tabuleiro
     }
 
 
-    public boolean MoveLeadsToCheck(Peca pecaMovida, char cor, Pair mov){
+    public boolean MoveLeadsToCheck(Piece pecaMovida, char cor, Pair mov){
 
 
 	Tabuleiro simulacao = new Tabuleiro();
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		simulacao.SetPecaNaPosicao(i, j, this.GetPecaNaPosicao(i, j));
+		simulacao.SetPieceNaPosicao(i, j, this.GetPieceNaPosicao(i, j));
 	    }
 	}
 
-	Peca pecaCapturada = simulacao.GetPecaNaPosicao(mov);
+	Piece pecaCapturada = simulacao.GetPieceNaPosicao(mov);
 
 	Jogada jogadaSimulada = new Jogada(pecaMovida, pecaCapturada);
 	simulacao.MudancaNoTabuleiro(jogadaSimulada);
@@ -168,30 +168,30 @@ public class Tabuleiro
 	System.out.println(simulacao.toString());
 
 	// Se o movimento gerar um check
-	if(pecaMovida instanceof Rei){
-	    if(simulacao.CheckCheck(new Rei(mov.x, mov.y, pecaMovida.identificador))){
+	if(pecaMovida instanceof King){
+	    if(simulacao.CheckCheck(new King(mov.x, mov.y, pecaMovida.identificador))){
 		System.out.println("Leva a check");
 		return true;
 	    }
-	} else if(simulacao.CheckCheck(simulacao.GetReiCor(cor))){
+	} else if(simulacao.CheckCheck(simulacao.GetKingCor(cor))){
 	    System.out.println("Leva a check");
 	    return true;
 	}
 	return false;
     }
 
-    public boolean CheckCheck(Rei rei){
+    public boolean CheckCheck(King rei){
 
-	char corRei = rei.GetCorPeca();
+	char corKing = rei.GetCorPiece();
 
 	// Para cada peça no tabuleiro
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 
-		Peca pecaVerificada =  this.GetPecaNaPosicao(i, j);
+		Piece pecaVerificada =  this.GetPieceNaPosicao(i, j);
 
 		// Se for inimiga
-		if(pecaVerificada.GetCorPeca() != corRei){
+		if(pecaVerificada.GetCorPiece() != corKing){
 
 		    // Se os movimentos possíveis capturam o rei
 		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
@@ -207,13 +207,13 @@ public class Tabuleiro
 	return false;
     }
 
-    public Rei GetReiCor(char cor){
+    public King GetKingCor(char cor){
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		Peca pecaVerificada = this.GetPecaNaPosicao(i, j);
-		if(pecaVerificada instanceof Rei && cor == pecaVerificada.GetCorPeca()){
-		    return (Rei) pecaVerificada;
+		Piece pecaVerificada = this.GetPieceNaPosicao(i, j);
+		if(pecaVerificada instanceof King && cor == pecaVerificada.GetCorPiece()){
+		    return (King) pecaVerificada;
 		}
 	    }
 	}
@@ -229,7 +229,7 @@ public class Tabuleiro
 
                 if (i < i_espelhado || (i == i_espelhado && j < j_espelhado)) {
                     // espelha verticalmente e horizontalmente
-                    Peca temp = this.tabuleiro[i][j];
+                    Piece temp = this.tabuleiro[i][j];
                     this.tabuleiro[i][j] = this.tabuleiro[i_espelhado][j_espelhado];
                     this.tabuleiro[i_espelhado][j_espelhado] = temp;
                 }
@@ -295,11 +295,11 @@ public class Tabuleiro
         return clicou;
     }
 
-    public void DrawPecas(int xInicial, int yInicial)
+    public void DrawPieces(int xInicial, int yInicial)
     {
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
-                tabuleiro[i][j].DrawPeca(xInicial, yInicial);
+                tabuleiro[i][j].DrawPiece(xInicial, yInicial);
     }
 
     public void DrawMovimentosValidos(ArrayList<Pair> movimentos, int xInicial, int yInicial, int escala)
@@ -319,7 +319,7 @@ public class Tabuleiro
                 miraVermelhaSprite.SetImagemAtual(1);
             }
 
-            if (this.GetPecaNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
+            if (this.GetPieceNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
             {
                 /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/
