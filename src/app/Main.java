@@ -169,8 +169,19 @@ public class Main
 				jogo.GetJogadorPreto().emCheque = false;
 			    }
 
-                            jogo.ProximoTurno();
-                        // if (jogada.ValidarPromocaoPeao(tab)) {} falta a implementação do iuri
+                        jogo.ProximoTurno();
+                         if (jogada.ValidarPromocaoPeao(tab)) {
+                            
+                            Pair posicaoPeao = pecaMovida.posicaoTabuleiro; 
+                            char idRainha;
+                            if (pecaMovida.GetCorPeca() == 'b') {
+                                idRainha = 'D';
+                            } else {
+                                idRainha = 'd';
+                            }
+                            Dama rainha = new Dama(posicaoPeao.x, posicaoPeao.y, idRainha);
+                            tab.SetPecaNaPosicao(pos.x, pos.y, rainha);
+                         }
                         }
 
                         clicks = 0;
