@@ -24,8 +24,8 @@ public class Board
     private int PiecesOnBoard = 32;
     private static final int SIZE = 8;
 
-    //Dando load nas imagens
-    //Isso será um problema no futuro se a gente quiser inicializar novamente o board
+    // Loading images
+    // This will be a problem in the future if we want to instanciate the board again
     private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
     private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
     private Sprite miraVerdeSprite;
@@ -39,15 +39,10 @@ public class Board
         this.board[piece.posicaoBoard.y][piece.posicaoBoard.x] = piece;
     }
 
-    // cria o board da visão das brancas
-
-    public Board(Board copy){
-	this.board = copy.GetBoard();
-    }
-
+    // Creates a board in the view of the white pieces
     public Board()
     {
-        // pieces brancas (id maiúsculo)
+        // white pieces (uppercase id)
         this.InitializePiece(new Pawn(0, 6, 'P'));
         this.InitializePiece(new Pawn(1, 6, 'P'));
         this.InitializePiece(new Pawn(2, 6, 'P'));
@@ -91,6 +86,7 @@ public class Board
         this.InitializePiece(new King(4, 0, 'r'));
         this.InitializePiece(new Queen(3, 0, 'd'));
 
+	// Blank spaces
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
                 if (this.board[i][j] == null)
@@ -98,7 +94,7 @@ public class Board
             }
         }
 
-        //Sprites das miras
+        //Sprites of the "aims"
         miraVerdeSprite = new Sprite(miraVerdeTexture, 2, 0, 0, 1, WHITE, 2);
         miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
@@ -336,4 +332,6 @@ public class Board
             }
         }
     }
+
+
 }
