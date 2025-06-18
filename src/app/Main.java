@@ -173,14 +173,31 @@ public class Main
                          if (jogada.ValidarPromocaoPeao(tab)) {
                             
                             Pair posicaoPeao = pecaMovida.posicaoTabuleiro; 
-                            char idRainha;
-                            if (pecaMovida.GetCorPeca() == 'b') {
-                                idRainha = 'D';
-                            } else {
-                                idRainha = 'd';
+                            char cor = pecaMovida.GetCorPeca();
+                            //[T]orre  [C]avalo  [B]ispo  [D]ama"
+                            Scanner scanner = new Scanner(System.in);
+                            char escolha = Character.toUpperCase(scanner.next().charAt(0));
+
+                            Peca promocao = null;
+                            switch (escolha) {
+                                case 'T':
+                                    char id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Torre(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'B':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Bispo(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'C':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Cavalo(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'D':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Dama(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
                             }
-                            Dama rainha = new Dama(posicaoPeao.x, posicaoPeao.y, idRainha);
-                            tab.SetPecaNaPosicao(pos.x, pos.y, rainha);
+                            tab.SetPecaNaPosicao(posicaoPeao.x, posicaoPeao.y, promocao);
                          }
                         }
 
