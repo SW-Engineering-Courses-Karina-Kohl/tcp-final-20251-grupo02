@@ -2,32 +2,32 @@ package game;
 import game.pieces.*;
 import misc.Pair;
 
-public class Jogada {
+public class Move {
 
-    public Piece pieceMovida;
-    public Piece piece_capturada;
+    public Piece movedPiece;
+    public Piece capturedPiece;
     //Player jogador;
 
-    // pieceMovida = tab.getPieceNaPosition(x,y)
-    // piece_capturada = tab.getPieceNaPosition(x,y)
-    public Jogada(Piece pieceMovida, Piece piece_capturada){
-        this.pieceMovida = pieceMovida;
-        this.piece_capturada = piece_capturada;
+    // movedPiece = tab.getPieceNaPosition(x,y)
+    // capturedPiece = tab.getPieceNaPosition(x,y)
+    public Move(Piece movedPiece, Piece capturedPiece){
+        this.movedPiece = movedPiece;
+        this.capturedPiece = capturedPiece;
     }
 
     public boolean ValidarRoque(Board board) {
-        if (!(pieceMovida instanceof King && piece_capturada instanceof Rook))
+        if (!(movedPiece instanceof King && capturedPiece instanceof Rook))
             return false;
 
-        King rei = (King) pieceMovida;
-        Rook torre = (Rook) piece_capturada;
+        King rei = (King) movedPiece;
+        Rook torre = (Rook) capturedPiece;
 
         // ambos não devem ter movido
         if (rei.jaMovido || torre.jaMovido)
             return false;
 
-        Pair posKing = rei.posicaoBoard;
-        Pair posRook = torre.posicaoBoard;
+        Pair posKing = rei.boardPosition;
+        Pair posRook = torre.boardPosition;
 
         if (posKing.y != posRook.y)
             return false;
@@ -67,7 +67,7 @@ public class Jogada {
                 if (p.GetColorPiece() != atacanteColor)
                     continue;
                 for (Pair mv : p.GetMovimentos()) {
-                    if (mv.equals(alvo))
+                    if (mv.IsEqualsTo(alvo))
                         return true;
                 }
             }
@@ -75,11 +75,11 @@ public class Jogada {
         return false;
     }
 
-    // valida se a jogada pode ser feita e muda o board
-    public boolean ValidarJogada(Board board){
+    // valida se a move pode ser feita e muda o board
+    public boolean ValidarMove(Board board){
 
-	for (Pair p : this.pieceMovida.GetMovimentos()) {
-	    if(p.x == this.piece_capturada.posicaoBoard.x && p.y == this.piece_capturada.posicaoBoard.y){
+	for (Pair p : this.movedPiece.GetMovimentos()) {
+	    if(p.x == this.capturedPiece.boardPosition.x && p.y == this.capturedPiece.boardPosition.y){
 		return true;
 	    }
         }
@@ -88,17 +88,17 @@ public class Jogada {
     }
 
     private boolean IsTherePieceInBetween(Board board){
-        // +1 if piece_capturada.posicaoBoard > pieceMovida.posicaoBoard
-        //  0 if piece_capturada.posicaoBoard == pieceMovida.posicaoBoard
-        // -1 if piece_capturada.posicaoBoard < pieceMovida.posicaoBoard
+        // +1 if capturedPiece.boardPosition > movedPiece.boardPosition
+        //  0 if capturedPiece.boardPosition == movedPiece.boardPosition
+        // -1 if capturedPiece.boardPosition < movedPiece.boardPosition
 
-        int dx = Integer.compare(this.piece_capturada.posicaoBoard.x, this.pieceMovida.posicaoBoard.x);
-        int dy = Integer.compare(this.piece_capturada.posicaoBoard.y, this.pieceMovida.posicaoBoard.y);
+        int dx = Integer.compare(this.capturedPiece.boardPosition.x, this.movedPiece.boardPosition.x);
+        int dy = Integer.compare(this.capturedPiece.boardPosition.y, this.movedPiece.boardPosition.y);
 
-        int x = pieceMovida.posicaoBoard.x + dx;
-        int y = pieceMovida.posicaoBoard.y + dy;
+        int x = movedPiece.boardPosition.x + dx;
+        int y = movedPiece.boardPosition.y + dy;
 
-        while (! this.piece_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
+        while (! this.capturedPiece.boardPosition.IsEqualsTo(new Pair(x, y)) ) {
             if (!(board.GetPieceInPosition(x, y) instanceof Blank)) {
                 return true;
             }
@@ -126,8 +126,8 @@ public class Jogada {
             if (p instanceof Pawn && p.GetColorPiece() == 'b') {
                 //promove para rainha
                 Queen dama = new Queen(x, 0, 'b');
-                board.MudancaNoBoard(
-                    new Jogada(p, dama)
+                board.UpdateBoard(
+                    new Move(p, dama)
                 );
                 promoveu = true;
             }
@@ -138,8 +138,8 @@ public class Jogada {
             if (p instanceof Pawn && p.GetColorPiece() == 'p') {
                 //promove para rainha
                 Queen dama = new Queen(x, 7, 'p');
-                board.MudancaNoBoard(
-                    new Jogada(p, dama)
+                board.UpdateBoard(
+                    new Move(p, dama)
                 );
                 promoveu = true;
             }
