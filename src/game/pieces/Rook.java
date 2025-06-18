@@ -32,54 +32,54 @@ public class Rook extends Piece {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char color = this.GetColorPiece();
 
-	boolean pieceCima = false;
-	boolean pieceBaixo = false;
-	boolean pieceDikingta = false;
-	boolean pieceEsquerda = false;
+	boolean pieceUp = false;
+	boolean pieceDown = false;
+	boolean pieceRight = false;
+	boolean pieceLeft = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair doubleUp = this.GetBoardPosition().add(new Pair(0, - i));
-            Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
-            Pair dikingta = this.GetBoardPosition().add(new Pair(+ i, 0));
-            Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
+            Pair up = this.GetBoardPosition().add(new Pair(0, - i));
+            Pair down = this.GetBoardPosition().add(new Pair(0, + i));
 
-	    if(!pieceCima && doubleUp.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(doubleUp)){
-		    pieceCima = true;
+            Pair right = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair left = this.GetBoardPosition().add(new Pair(- i, 0));
+
+	    if(!pieceUp && up.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(up)){
+		    pieceUp = true;
 		}
-		if(color != board.GetPieceInPosition(doubleUp).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
+		if(color != board.GetPieceInPosition(up).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, up, testingCheck);
 		}
 	    }
 
-	    if(!pieceBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(baixo)){
-		    pieceBaixo = true;
+	    if(!pieceDown && down.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(down)){
+		    pieceDown = true;
 		}
-		if(color != board.GetPieceInPosition(baixo).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
-		}
-	    }
-
-	    if(!pieceDikingta && dikingta.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(dikingta)){
-		    pieceDikingta = true;
-		}
-		if(color != board.GetPieceInPosition(dikingta).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
+		if(color != board.GetPieceInPosition(down).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, down, testingCheck);
 		}
 	    }
 
-	    if(!pieceEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(esquerda)){
-		    pieceEsquerda = true;
+	    if(!pieceRight && right.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(right)){
+		    pieceRight = true;
 		}
-		if(color != board.GetPieceInPosition(esquerda).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
+		if(color != board.GetPieceInPosition(right).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, right, testingCheck);
 		}
 	    }
 
+	    if(!pieceLeft && left.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(left)){
+		    pieceLeft = true;
+		}
+		if(color != board.GetPieceInPosition(left).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, left, testingCheck);
+		}
+	    }
         }
 
 	if(testingCheck){

@@ -37,11 +37,11 @@ public class FinalMenu
     private String duracaoTexto;
     private Vector2 duracaoLargura;
 
-    private String tempoBrancoTexto;
-    private Vector2 tempoBrancoLargura;
+    private String timeBrancoTexto;
+    private Vector2 timeBrancoLargura;
 
-    private String tempoPretoTexto;
-    private Vector2 tempoPretoLargura;
+    private String timePretoTexto;
+    private Vector2 timePretoLargura;
 
     private String vencedorTexto;
     private Vector2 vencedorLargura;
@@ -98,25 +98,25 @@ public class FinalMenu
         new OurColor(157, 204, 102, 255).GetColor());
 
 
-        //informacoes do tempo
-        int tempoDifBranco = opcoesMenu.ConverteParaSegundos() - match.GetPlayerBranco().GetClock().getTempo();
-        int tempoDifPreto = opcoesMenu.ConverteParaSegundos() - match.GetPlayerPreto().GetClock().getTempo();
-        int tempoFinal = tempoDifBranco + tempoDifPreto;
-        duracaoTexto = String.format("TEMPO TOTAL: %02d:%02d", tempoFinal / 60, tempoFinal % 60);
-        tempoBrancoTexto = "TEMPO BRANCO: " + match.GetPlayerBranco().GetClock().formatarTempo();
-        tempoPretoTexto = "TEMPO PRETO: " + match.GetPlayerPreto().GetClock().formatarTempo();
+        //informacoes do time
+        int timeDifBranco = opcoesMenu.ConverteParaSegundos() - match.GetPlayerBranco().GetClock().GetTime();
+        int timeDifPreto = opcoesMenu.ConverteParaSegundos() - match.GetPlayerPreto().GetClock().GetTime();
+        int timeFinal = timeDifBranco + timeDifPreto;
+        duracaoTexto = String.format("TEMPO TOTAL: %02d:%02d", timeFinal / 60, timeFinal % 60);
+        timeBrancoTexto = "TEMPO BRANCO: " + match.GetPlayerBranco().GetClock().FormatTime();
+        timePretoTexto = "TEMPO PRETO: " + match.GetPlayerPreto().GetClock().FormatTime();
 
         duracaoLargura = MeasureTextEx(fonte, duracaoTexto, tamanhoFonte, espacoFonte);
-        tempoBrancoLargura = MeasureTextEx(fonte, tempoBrancoTexto, tamanhoFonte, espacoFonte);
-        tempoPretoLargura = MeasureTextEx(fonte, tempoPretoTexto, tamanhoFonte, espacoFonte);
+        timeBrancoLargura = MeasureTextEx(fonte, timeBrancoTexto, tamanhoFonte, espacoFonte);
+        timePretoLargura = MeasureTextEx(fonte, timePretoTexto, tamanhoFonte, espacoFonte);
 
         DrawTextEx(fonte, duracaoTexto,
         new Vector2().x(centroTela - duracaoLargura.x() / 2).y(98), tamanhoFonte, espacoFonte, WHITE);
 
-        DrawTextEx(fonte, tempoBrancoTexto,
-        new Vector2().x(centroTela - tempoBrancoLargura.x() / 2).y(137), tamanhoFonte, espacoFonte, WHITE);
+        DrawTextEx(fonte, timeBrancoTexto,
+        new Vector2().x(centroTela - timeBrancoLargura.x() / 2).y(137), tamanhoFonte, espacoFonte, WHITE);
 
-        DrawTextEx(fonte, tempoPretoTexto,
-        new Vector2().x(centroTela - tempoPretoLargura.x() / 2).y(175), tamanhoFonte, espacoFonte, WHITE);
+        DrawTextEx(fonte, timePretoTexto,
+        new Vector2().x(centroTela - timePretoLargura.x() / 2).y(175), tamanhoFonte, espacoFonte, WHITE);
     }
 }

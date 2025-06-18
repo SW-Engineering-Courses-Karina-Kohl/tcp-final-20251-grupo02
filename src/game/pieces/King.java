@@ -42,30 +42,26 @@ public class King extends Piece{
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char color = this.GetColorPiece();
 
-        Pair doubleUp = this.GetBoardPosition().add(new Pair(0, - 1));
-        Pair baixo = this.GetBoardPosition().add(new Pair(0, + 1));
-
-        Pair dikingta = this.GetBoardPosition().add(new Pair(+ 1, 0));
-        Pair esquerda = this.GetBoardPosition().add(new Pair(- 1, 0));
-
-        // diagonais
+        Pair up = this.GetBoardPosition().add(new Pair(0, - 1));
+        Pair down = this.GetBoardPosition().add(new Pair(0, + 1));
+        Pair right = this.GetBoardPosition().add(new Pair(+ 1, 0));
+        Pair left = this.GetBoardPosition().add(new Pair(- 1, 0));
         Pair upperRight = this.GetBoardPosition().add(new Pair(+ 1, - 1));
         Pair upperLeft = this.GetBoardPosition().add(new Pair(- 1, - 1));
+        Pair lowerRight = this.GetBoardPosition().add(new Pair(+ 1, + 1));
+        Pair lowerLeft = this.GetBoardPosition().add(new Pair(- 1, + 1));
 
-        Pair inferiordikingta = this.GetBoardPosition().add(new Pair(+ 1, + 1));
-        Pair inferioresquerda = this.GetBoardPosition().add(new Pair(- 1, + 1));
+        if(up.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(up).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, up, testingCheck);
 
-        if(doubleUp.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(doubleUp).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
+        if(down.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(down).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, down, testingCheck);
 
-        if(baixo.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(baixo).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
+        if(right.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(right).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, right, testingCheck);
 
-        if(dikingta.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(dikingta).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
-
-        if(esquerda.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(esquerda).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
+        if(left.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(left).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, left, testingCheck);
 
         if(upperRight.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upperRight).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
@@ -73,11 +69,11 @@ public class King extends Piece{
         if(upperLeft.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upperLeft).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 
-        if(inferiordikingta.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(inferiordikingta).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, inferiordikingta, testingCheck);
+        if(lowerRight.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(lowerRight).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, lowerRight, testingCheck);
 
-        if(inferioresquerda.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(inferioresquerda).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, inferioresquerda, testingCheck);
+        if(lowerLeft.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(lowerLeft).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, lowerLeft, testingCheck);
 
 
 	if(testingCheck){

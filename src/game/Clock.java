@@ -1,45 +1,46 @@
 package game;
 public class Clock {
-    private int tempo;                 // em segundos
-    private volatile boolean ativo;    // garanta visibilidade entre threads
+
+    private int time;                 // in seconds
+    private volatile boolean active;    // makes visible between threads
     private Thread thread;
 
-    public Clock(int tempoInicial) {
-        this.tempo = tempoInicial;
-        this.ativo = false;
+    public Clock(int initialTime) {
+        this.time = initialTime;
+        this.active = false;
     }
 
-    public void IniciarClock() {
-        // se já está ativo e a thread viva, não faz nada
+    public void StartClock() {
+	// if it's already active and thread is alive, do nothing
         if (thread != null && thread.isAlive()) return;
 
-        ativo = true;
+        active = true;
         thread = new Thread(() -> {
-            while (ativo && tempo > 0) {
+            while (active && time > 0) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
                 }
-                tempo--;
+                time--;
             }
         }, "Clock-Thread");
         thread.setDaemon(true);
         thread.start();
     }
 
-    public void PausaClock() {
-        ativo = false;
+    public void StopClock() {
+        active = false;
     }
 
-    public String formatarTempo() {
-        int min = tempo / 60;
-        int seg = tempo % 60;
+    public String FormatTime() {
+        int min = time / 60;
+        int seg = time % 60;
         return String.format("%02d:%02d", min, seg);
     }
 
-    public int getTempo() {
-        return tempo;
+    public int GetTime() {
+        return time;
     }
 }

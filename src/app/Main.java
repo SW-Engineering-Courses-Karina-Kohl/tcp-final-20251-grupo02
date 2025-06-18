@@ -219,8 +219,8 @@ public class Main
 		}
 
 
-                DrawTextEx(pixelFont, jogo.GetPlayerBranco().GetClock().formatarTempo(), new Vector2().x(527).y(21), 32, 2, WHITE);
-                DrawTextEx(pixelFont, jogo.GetPlayerPreto().GetClock().formatarTempo(), new Vector2().x(527).y(53), 32, 2, BLACK);
+                DrawTextEx(pixelFont, jogo.GetPlayerBranco().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
+                DrawTextEx(pixelFont, jogo.GetPlayerPreto().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
             }
             EndDrawing();
         }

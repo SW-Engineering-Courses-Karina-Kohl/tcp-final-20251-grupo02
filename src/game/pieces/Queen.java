@@ -30,104 +30,99 @@ public class Queen extends Piece {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char color = this.GetColorPiece();
 
-	boolean pieceCima = false;
-	boolean pieceBaixo = false;
-	boolean pieceDikingta = false;
-	boolean pieceEsquerda = false;
-	boolean pieceSdoubleUperiorDikingta = false;
-	boolean pieceSdoubleUperiorEsquerda = false;
-	boolean pieceInferiorDikingta = false;
-	boolean pieceInferiorEsquerda = false;
+	boolean pieceUp = false;
+	boolean pieceDown = false;
+	boolean pieceRight = false;
+	boolean pieceLeft = false;
+	boolean pieceUpperRight = false;
+	boolean pieceUpperLeft = false;
+	boolean pieceLowerRight = false;
+	boolean pieceLowerLeft = false;
 
         for(int i = 1; i < SIZE; i++) {
+
             Pair doubleUp = this.GetBoardPosition().add(new Pair(0, - i));
-            Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
-
-            Pair dikingta = this.GetBoardPosition().add(new Pair(+ i, 0));
-            Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
-
-            // diagonais
+            Pair down = this.GetBoardPosition().add(new Pair(0, + i));
+            Pair right = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair left = this.GetBoardPosition().add(new Pair(- i, 0));
             Pair upperRight = this.GetBoardPosition().add(new Pair(+ i, - i));
             Pair upperLeft = this.GetBoardPosition().add(new Pair(- i, - i));
+            Pair lowerRight = this.GetBoardPosition().add(new Pair(+ i, + i));
+            Pair lowerLeft = this.GetBoardPosition().add(new Pair(- i, + i));
 
-            Pair inferiordikingta = this.GetBoardPosition().add(new Pair(+ i, + i));
-            Pair inferioresquerda = this.GetBoardPosition().add(new Pair(- i, + i));
-
-
-
-	    if(!pieceCima && doubleUp.IsPieceInsideBoard(0, SIZE)){
+	    if(!pieceUp && doubleUp.IsPieceInsideBoard(0, SIZE)){
                 if(board.IsTherePieceInPosition(doubleUp)){
-		    pieceCima = true;
+		    pieceUp = true;
 		}
 		if(color != board.GetPieceInPosition(doubleUp).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
 		}
 	    }
 
-	    if(!pieceBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(baixo)){
-		    pieceBaixo = true;
+	    if(!pieceDown && down.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(down)){
+		    pieceDown = true;
 		}
-		if(color != board.GetPieceInPosition(baixo).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
-		}
-	    }
-
-	    if(!pieceDikingta && dikingta.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(dikingta)){
-		    pieceDikingta = true;
-		}
-		if(color != board.GetPieceInPosition(dikingta).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
+		if(color != board.GetPieceInPosition(down).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, down, testingCheck);
 		}
 	    }
 
-	    if(!pieceEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(esquerda)){
-		    pieceEsquerda = true;
+	    if(!pieceRight && right.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(right)){
+		    pieceRight = true;
 		}
-		if(color != board.GetPieceInPosition(esquerda).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
+		if(color != board.GetPieceInPosition(right).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, right, testingCheck);
 		}
 	    }
 
-            if(!pieceSdoubleUperiorDikingta && upperRight.IsPieceInsideBoard(0, SIZE)){
+	    if(!pieceLeft && left.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(left)){
+		    pieceLeft = true;
+		}
+		if(color != board.GetPieceInPosition(left).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, left, testingCheck);
+		}
+	    }
+
+            if(!pieceUpperRight && upperRight.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.IsTherePieceInPosition(upperRight)){
-		    pieceSdoubleUperiorDikingta = true;
+		    pieceUpperRight = true;
 		}
 		if(color != board.GetPieceInPosition(upperRight).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
 		}
 	    }
 
-            if(!pieceSdoubleUperiorEsquerda && upperLeft.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceUpperLeft && upperLeft.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.IsTherePieceInPosition(upperLeft)){
-		    pieceSdoubleUperiorEsquerda = true;
+		    pieceUpperLeft = true;
 		}
 		if(color != board.GetPieceInPosition(upperLeft).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 		}
 	    }
 
-            if(!pieceInferiorDikingta && inferiordikingta.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceLowerRight && lowerRight.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(inferiordikingta)){
-		    pieceInferiorDikingta = true;
+                if(board.IsTherePieceInPosition(lowerRight)){
+		    pieceLowerRight = true;
 		}
-		if(color != board.GetPieceInPosition(inferiordikingta).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, inferiordikingta, testingCheck);
+		if(color != board.GetPieceInPosition(lowerRight).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, lowerRight, testingCheck);
 		}
 	    }
 
-            if(!pieceInferiorEsquerda && inferioresquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceLowerLeft && lowerLeft.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(inferioresquerda)){
-		    pieceInferiorEsquerda = true;
+                if(board.IsTherePieceInPosition(lowerLeft)){
+		    pieceLowerLeft = true;
 		}
-		if(color != board.GetPieceInPosition(inferioresquerda).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, inferioresquerda, testingCheck);
+		if(color != board.GetPieceInPosition(lowerLeft).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, lowerLeft, testingCheck);
 		}
 	    }
         }

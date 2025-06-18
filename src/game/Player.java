@@ -11,9 +11,9 @@ public class Player {
     Clock relogio;
     public boolean emCheque;
 
-    public Player(char color, int tempoInicial){
+    public Player(char color, int timeInicial){
         this.color = color;
-        this.relogio = new Clock(tempoInicial);
+        this.relogio = new Clock(timeInicial);
 	this.emCheque = false;
 
     }

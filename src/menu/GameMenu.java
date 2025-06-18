@@ -44,8 +44,8 @@ public class GameMenu
             //Button de empate
             if (empateButton.MouseClick())
             {
-                match.GetPlayerBranco().GetClock().PausaClock();
-                match.GetPlayerPreto().GetClock().PausaClock();
+                match.GetPlayerBranco().GetClock().StopClock();
+                match.GetPlayerPreto().GetClock().StopClock();
                 paginas[2] = false;
                 paginas[3] = true;
 
@@ -55,8 +55,8 @@ public class GameMenu
             //Desistindo
             if (desistirButton.MouseClick())
             {
-                match.GetPlayerBranco().GetClock().PausaClock();
-                match.GetPlayerPreto().GetClock().PausaClock();
+                match.GetPlayerBranco().GetClock().StopClock();
+                match.GetPlayerPreto().GetClock().StopClock();
                 paginas[2] = false;
                 paginas[3] = true;
 
