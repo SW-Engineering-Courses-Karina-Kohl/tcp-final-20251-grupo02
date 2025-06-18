@@ -33,7 +33,7 @@ public class Main
         SetTargetFPS(60);
 	//ToggleFullscreen();
         Match jogo = new Match();
-        jogo.NovoMatch(300);
+        jogo.NewMatch(300);
 
         int clicks = 0;
         Piece movedPiece = new Blank(0, 0);
@@ -84,7 +84,7 @@ public class Main
                 //Criando o jogo novo
                 if (criarMatch == true)
                 {
-                    jogo.NovoMatch(opcoesMenu.ConverteParaSegundos());
+                    jogo.NewMatch(opcoesMenu.ConverteParaSegundos());
                     movedPiece = new Blank(0, 0);
 
                     for (int i = 0; i < 3; i++)
