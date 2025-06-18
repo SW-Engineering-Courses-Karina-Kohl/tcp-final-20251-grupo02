@@ -23,7 +23,7 @@ public class Move {
         Rook rook = (Rook) capturedPiece;
 
         // ambos não devem ter movido
-        if (king.jaMovido || rook.jaMovido)
+        if (king.hasMoved || rook.hasMoved)
             return false;
 
         Pair posKing = king.GetBoardPosition();
@@ -59,7 +59,7 @@ public class Move {
         return true;
     }
 
-    // verifica se uma casa está atacada por alguma peça da cor atacante, se houver, não há roque
+    // verifica se uma casa está atacada por alguma peça da color atacante, se houver, não há roque
     private boolean isAtacado(Board board, Pair alvo, char atacanteColor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -148,8 +148,8 @@ public class Move {
         return promoveu;
     }
 
-    public char idPromocao(char cor, char tipoMaiusculo) {
-	if (cor == 'w') {
+    public char idPromocao(char color, char tipoMaiusculo) {
+	if (color == 'w') {
 	    // jogador branco: usa letra maiúscula
 	    return tipoMaiusculo;
 	} else {

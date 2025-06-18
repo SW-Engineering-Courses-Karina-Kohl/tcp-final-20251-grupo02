@@ -39,7 +39,7 @@ public class Board
     /* Class contructor: Creates a board in the view of the white pieces */
     public Board()
     {
-        // white pieces (uppercase id)
+        // white pieces (doubleUppercase id)
         this.InitializePiece(new Pawn(0, 6, 'P'));
         this.InitializePiece(new Pawn(1, 6, 'P'));
         this.InitializePiece(new Pawn(2, 6, 'P'));
@@ -146,7 +146,7 @@ public class Board
 
 
     /* Check if a move leads to a check. If yes, return true, otherwise returns false */
-    public boolean MoveLeadsToCheck(Piece movedPiece, char cor, Pair movePosition){
+    public boolean MoveLeadsToCheck(Piece movedPiece, char color, Pair movePosition){
 
 	Board simulationBoard = new Board();
 
@@ -166,7 +166,7 @@ public class Board
 	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.GetPieceId()))){
 		return true;
 	    }
-	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(cor))){
+	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(color))){
 	    return true;
 	}
 	return false;
@@ -176,7 +176,7 @@ public class Board
     /* Check if the king passed as argument is currently in check */
     public boolean CheckCheck(King king){
 
-	char corKing = king.GetColorPiece();
+	char colorKing = king.GetColorPiece();
 
 	// For each piece in the board board
 	for(int i = 0; i < SIZE; i++){
@@ -184,7 +184,7 @@ public class Board
 
 		Piece piece =  this.GetPieceInPosition(i, j);
 
-		if(piece.GetColorPiece() != corKing){
+		if(piece.GetColorPiece() != colorKing){
 
 		    for (Pair movePostion : piece.ValidMoviments(this, false)){
 			if(king.GetBoardPosition().IsEqualsTo(movePostion)){

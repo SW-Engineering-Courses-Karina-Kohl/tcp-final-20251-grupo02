@@ -4,7 +4,7 @@ import static com.raylib.Raylib.*;
 
 public class OurColor
 {   
-    private Color cor;
+    private Color color;
     int r;
     int g;
     int b;
@@ -15,17 +15,17 @@ public class OurColor
         this.g = g;
         this.b = b;
         this.a = a;
-        cor = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
+        color = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
     }
 
     public Color GetColor()
     {
-        return cor;
+        return color;
     }
 
-    public void SetOurColor(Color cor)
+    public void SetOurColor(Color color)
     {
-        this.cor = cor;
+        this.color = color;
     }
 
     public void SetOurColor(int r, int g, int b, int a)
@@ -34,6 +34,6 @@ public class OurColor
         this.g = g;
         this.b = b;
         this.a = a;
-        cor = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
+        color = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
     }
 }

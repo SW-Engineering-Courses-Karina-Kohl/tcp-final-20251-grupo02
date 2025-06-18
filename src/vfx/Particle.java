@@ -12,8 +12,8 @@ public class Particle
     private Sprite sprite;
     private int x;
     private int y;
-    private OurColor cor;
-    private float direcao;
+    private OurColor color;
+    private float direction;
     private float rotacao;
     private boolean rotaciona;
     private float velocidadeRotacao;
@@ -28,7 +28,7 @@ public class Particle
 
     public Particle(Texture imagem, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotaciona,
     float minVelocidadeRotacao, float maxVelocidadeRotacao, int minEscala, int maxEscala, float minVelocidade, float maxVelocidade,
-    int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, OurColor cor)
+    int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, OurColor color)
     {
         this.rotaciona = rotaciona;
         this.gravidade = gravidade;
@@ -39,19 +39,19 @@ public class Particle
         vidaMaxima = getRandomRangeInt(minVidaAtual, maxVidaAtual);
         vidaAtual = vidaMaxima;
 
-        direcao = getRandomRangeFloat(minDirecao, maxDirecao);
+        direction = getRandomRangeFloat(minDirecao, maxDirecao);
         velocidade = getRandomRangeFloat(minVelocidade, maxVelocidade);
         escala = getRandomRangeInt(minEscala, maxEscala);
         velocidadeRotacao = getRandomRangeFloat(minVelocidadeRotacao, maxVelocidadeRotacao);
 
         //Pegando o angulo
-        float angulo = (float) (direcao * Math.PI) / 180; 
+        float angulo = (float) (direction * Math.PI) / 180; 
         velocidadeX = velocidade * (float) Math.cos(angulo);
         velocidadeY = velocidade * (float) Math.sin(angulo);
 
-        this.cor = cor;
+        this.color = color;
 
-        sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetColor(), 1);
+        sprite = new Sprite(imagem, escala, angulo, 0, 0, color.GetColor(), 1);
     }
 
     public void atualizaParticle()

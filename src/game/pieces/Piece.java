@@ -52,9 +52,11 @@ public abstract class Piece{
 	if(this instanceof Blank){
 	    return '_';
 	}
+
 	if(Character.isLowerCase(this.GetPieceId())){
 	    return 'b';
 	}
+
 	return 'w';
 
     }
@@ -62,6 +64,8 @@ public abstract class Piece{
     public void SetSprite(Sprite sprite){
 	this.sprite = sprite;
     }
+
+
 
     public void MovePiece(Move move){
         this.boardPosition = move.capturedPiece.GetBoardPosition();

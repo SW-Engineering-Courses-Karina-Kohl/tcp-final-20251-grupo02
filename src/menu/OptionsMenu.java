@@ -13,7 +13,7 @@ import gui.*;
 public class OptionsMenu
 {
 
-    //Texto de cima
+    //Texto de doubleUp
     private static Texture opcoesTexture = LoadTexture("res/ui/opcoes.png");
     private Sprite opcoesSprite = new Sprite(opcoesTexture, 1, 0, 0, 0, WHITE, 1);
 
@@ -27,7 +27,7 @@ public class OptionsMenu
     private Button voltarButton;
 
     //Botoes de alterar o tempo
-    private static Texture setaCimaTexture = LoadTexture("res/botoes/seta_cima.png");
+    private static Texture setaCimaTexture = LoadTexture("res/botoes/seta_doubleUp.png");
     private Sprite setaCimaSprite = new Sprite(setaCimaTexture, 1, 0, 0, 0, WHITE, 1);
     private Button[] setaCimaButton = new Button[4];
 

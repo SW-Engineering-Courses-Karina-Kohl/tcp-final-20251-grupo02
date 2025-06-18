@@ -125,13 +125,13 @@ public class Main
                         //     //     // mover king
                         //     //     tab.UpdateBoard(new Move(movedPiece, new Blank(destino.x, destino.y)));
                         //     //     movedPiece.MovePiece(new Move(movedPiece, new Blank(destino.x, destino.y)));
-                        //     //     ((King) movedPiece).jaMovido = true;
+                        //     //     ((King) movedPiece).hasMoved = true;
 
                         //     //     // mover rook
                         //     //     Pair rookDestino = new Pair(destino.x - dir, destino.y);
                         //     //     tab.UpdateBoard(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
                         //     //     rook.MovePiece(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
-                        //     //     rook.jaMovido = true;
+                        //     //     rook.hasMoved = true;
                         //     //     jogo.ProximoTurno();
                         //     // }
 
@@ -146,10 +146,10 @@ public class Main
                             move.movedPiece.MovePiece(move);
 
                             if (movedPiece instanceof King) {
-                                ((King) movedPiece).jaMovido = true;
+                                ((King) movedPiece).hasMoved = true;
                             }
                             if (movedPiece instanceof Rook) {
-                                ((Rook) movedPiece).jaMovido = true;
+                                ((Rook) movedPiece).hasMoved = true;
                             }
 
 			    if(tab.CheckCheck(tab.GetKingColor('w'))){
@@ -172,7 +172,7 @@ public class Main
                          if (move.ValidarPromocaoPawn(tab)) {
 
                             Pair positionPeao = movedPiece.GetBoardPosition();
-                            char cor = movedPiece.GetColorPiece();
+                            char color = movedPiece.GetColorPiece();
                             //[T]orre  [C]avalo  [B]ispo  [D]ama"
                             Scanner scanner = new Scanner(System.in);
                             char escolha = Character.toUpperCase(scanner.next().charAt(0));
@@ -180,19 +180,19 @@ public class Main
                             Piece promocao = null;
                             switch (escolha) {
                                 case 'T':
-                                    char id = move.idPromocao(cor, 'T');
+                                    char id = move.idPromocao(color, 'T');
                                     promocao = new Rook(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'B':
-                                    id = move.idPromocao(cor, 'T');
+                                    id = move.idPromocao(color, 'T');
                                     promocao = new Bishop(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'C':
-                                    id = move.idPromocao(cor, 'T');
+                                    id = move.idPromocao(color, 'T');
                                     promocao = new Knight(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'D':
-                                    id = move.idPromocao(cor, 'T');
+                                    id = move.idPromocao(color, 'T');
                                     promocao = new Queen(positionPeao.x, positionPeao.y, id);
                                     break;
                             }

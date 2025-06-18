@@ -14,7 +14,7 @@ import game.Move;
 
 public class King extends Piece{
 
-    public boolean jaMovido = false;
+    public boolean hasMoved = false;
     private static Texture kingTexture = LoadTexture("res/pieces/king.png");
 
     public King(int x, int y, char id){
@@ -40,44 +40,44 @@ public class King extends Piece{
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetColorPiece();
+	char color = this.GetColorPiece();
 
-        Pair cima = this.GetBoardPosition().add(new Pair(0, - 1));
+        Pair doubleUp = this.GetBoardPosition().add(new Pair(0, - 1));
         Pair baixo = this.GetBoardPosition().add(new Pair(0, + 1));
 
         Pair dikingta = this.GetBoardPosition().add(new Pair(+ 1, 0));
         Pair esquerda = this.GetBoardPosition().add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_dikingta = this.GetBoardPosition().add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- 1, - 1));
+        Pair upperRight = this.GetBoardPosition().add(new Pair(+ 1, - 1));
+        Pair upperLeft = this.GetBoardPosition().add(new Pair(- 1, - 1));
 
-        Pair inferior_dikingta = this.GetBoardPosition().add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- 1, + 1));
+        Pair inferiordikingta = this.GetBoardPosition().add(new Pair(+ 1, + 1));
+        Pair inferioresquerda = this.GetBoardPosition().add(new Pair(- 1, + 1));
 
-        if(cima.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(cima).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
+        if(doubleUp.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(doubleUp).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
 
-        if(baixo.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(baixo).GetColorPiece())
+        if(baixo.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(baixo).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
 
-        if(dikingta.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(dikingta).GetColorPiece())
+        if(dikingta.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(dikingta).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
 
-        if(esquerda.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(esquerda).GetColorPiece())
+        if(esquerda.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(esquerda).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
 
-        if(superior_dikingta.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(superior_dikingta).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, superior_dikingta, testingCheck);
+        if(upperRight.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upperRight).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(superior_esquerda).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
+        if(upperLeft.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upperLeft).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 
-        if(inferior_dikingta.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(inferior_dikingta).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, inferior_dikingta, testingCheck);
+        if(inferiordikingta.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(inferiordikingta).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, inferiordikingta, testingCheck);
 
-        if(inferior_esquerda.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(inferior_esquerda).GetColorPiece())
-	    this.CheckMoviment(board, newMovimentos, inferior_esquerda, testingCheck);
+        if(inferioresquerda.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(inferioresquerda).GetColorPiece())
+	    this.CheckMoviment(board, newMovimentos, inferioresquerda, testingCheck);
 
 
 	if(testingCheck){
@@ -90,7 +90,7 @@ public class King extends Piece{
     @Override
     public void MovePiece(Move move){
         super.MovePiece(move);
-        this.jaMovido = true;
+        this.hasMoved = true;
     }
 
 }

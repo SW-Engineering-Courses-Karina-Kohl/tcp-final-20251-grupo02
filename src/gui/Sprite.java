@@ -11,24 +11,24 @@ public class Sprite
 {
     private Texture textura;
     private float escala, angulo;
-    private OurRectangle corte;
+    private OurRectangle colorte;
     private int imagem_velocidade;
     private int imagem_atual;
     private int contador = 0;
-    private Color cor;
+    private Color color;
     private int qtd_imagens;
 
-    public Sprite(Texture textura, float escala, float angulo, int imagem_velocidade, int imagem_atual, Color cor, int qtd_imagens)
+    public Sprite(Texture textura, float escala, float angulo, int imagem_velocidade, int imagem_atual, Color color, int qtd_imagens)
     {
         this.textura = textura;
         this.escala = escala;
         this.angulo = angulo;
         this.imagem_velocidade = imagem_velocidade;
         this.imagem_atual = imagem_atual;
-        this.cor = cor;
+        this.color = color;
 
-        //corte = new Rectangle().x(0).y(0).width(this.textura.width() / qtd_imagens).height(this.textura.height());
-        corte = new OurRectangle(0, 0, this.textura.width() / qtd_imagens, this.textura.height());
+        //colorte = new Rectangle().x(0).y(0).width(this.textura.width() / qtd_imagens).height(this.textura.height());
+        colorte = new OurRectangle(0, 0, this.textura.width() / qtd_imagens, this.textura.height());
     }
 
 
@@ -43,14 +43,14 @@ public class Sprite
             if (contador >= (60 / imagem_velocidade))
             {
                 // Mudando a imagem
-                imagem_atual = (imagem_atual + 1) % (int)(textura.width() / Math.abs(corte.GetWidth()));
-                corte.SetX((float)imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(corte.GetWidth()))));
+                imagem_atual = (imagem_atual + 1) % (int)(textura.width() / Math.abs(colorte.GetWidth()));
+                colorte.SetX((float)imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))));
                 contador = 0;
             }
         }
         else
         {
-            corte.SetX((float) imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(corte.GetWidth()))));
+            colorte.SetX((float) imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))));
         }
         
 
@@ -61,16 +61,16 @@ public class Sprite
         .height(GetHeight());
 
         Vector2 pivot = new Vector2()
-        .x((float) (textura.width() / (textura.width() / Math.abs(corte.GetWidth())) / 2) * escala)
+        .x((float) (textura.width() / (textura.width() / Math.abs(colorte.GetWidth())) / 2) * escala)
         .y((float) textura.height() * escala / 2);
         
         // Desenhando
-        DrawTexturePro(textura, corte.GetOurRectangle(), rec_sprite, pivot, angulo, cor);
+        DrawTexturePro(textura, colorte.GetOurRectangle(), rec_sprite, pivot, angulo, color);
     }
 
     public float GetWidth()
     {
-        return (float) (textura.width() / (textura.width() / Math.abs(corte.GetWidth()))) * escala;
+        return (float) (textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))) * escala;
     }
 
     public float GetHeight()
@@ -103,7 +103,7 @@ public class Sprite
 
     public void SetOurColor(Color novaOurColor)
     {
-        cor = novaOurColor;
+        color = novaOurColor;
     }
 
     public void SetAngulo(float novoAngulo)

@@ -14,7 +14,7 @@ import game.Move;
 
 public class Pawn extends Piece {
 
-    public boolean jaMovido = false;
+    public boolean hasMoved = false;
 
     private static Texture pawnTexture = LoadTexture("res/pieces/pawn.png");
 
@@ -27,45 +27,41 @@ public class Pawn extends Piece {
 	    this.SetSprite(new Sprite(pawnTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
+
     @Override
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
-	int direcao = -1;
-	char cor = this.GetColorPiece();
-	if(cor == 'w'){
-	    direcao = -1;
+	int direction = -1;
+	char color = this.GetColorPiece();
+	if(color == 'w'){
+	    direction = -1;
 	} else {
-	    direcao = 1;
+	    direction = 1;
 	}
 
+	Pair up = this.GetBoardPosition().add(new Pair(0, direction * 1));
+	Pair doubleUp = this.GetBoardPosition().add(new Pair(0, direction * 2));
 
-	Pair cima = this.GetBoardPosition().add(new Pair(0, direcao * 1));
-	Pair cima_duplo = this.GetBoardPosition().add(new Pair(0, direcao * 2));
+	// The pawn only attacks on its diagonals
+        Pair upperRight = this.GetBoardPosition().add(new Pair(+ 1, direction * 1));
+        Pair upperLeft = this.GetBoardPosition().add(new Pair(- 1, direction * 1));
 
-        // diagonais superiores
-        Pair superior_dikingta = this.GetBoardPosition().add(new Pair(+ 1, direcao * 1));
-        Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- 1, direcao * 1));
+        if(up.IsPieceInsideBoard(0, SIZE) && !(board.IsTherePieceInPosition(up))){
+	    this.CheckMoviment(board, newMovimentos, up, testingCheck);
 
-
-
-        if(cima.IsPieceInsideBoard(0, SIZE) && !(board.IsTherePieceInPosition(cima))){
-	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
-	}
-
-
-	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(board.IsTherePieceInPosition(cima_duplo))){
-		this.CheckMoviment(board, newMovimentos, cima_duplo, testingCheck);
-
+	    if(!this.hasMoved && doubleUp.IsPieceInsideBoard(0, SIZE) && !(board.IsTherePieceInPosition(doubleUp))){
+		this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
 	    }
-
-        if(superior_dikingta.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(superior_dikingta)) && cor != board.GetPieceInPosition(superior_dikingta).GetColorPiece()){
-	    this.CheckMoviment(board, newMovimentos, superior_dikingta, testingCheck);
 	}
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(superior_esquerda)) && cor != board.GetPieceInPosition(superior_esquerda).GetColorPiece()){
-	    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
+        if(upperRight.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperRight)) && color != board.GetPieceInPosition(upperRight).GetColorPiece()){
+	    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
+	}
+
+        if(upperLeft.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(upperLeft)) && color != board.GetPieceInPosition(upperLeft).GetColorPiece()){
+	    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
 	}
 
 	if(testingCheck){
@@ -78,7 +74,7 @@ public class Pawn extends Piece {
     @Override
     public void MovePiece(Move move){
         super.MovePiece(move);
-        this.jaMovido = true;
+        this.hasMoved = true;
     }
 
 }

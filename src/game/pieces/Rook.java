@@ -14,7 +14,7 @@ import game.Move;
 
 public class Rook extends Piece {
 
-    public boolean jaMovido = false;
+    public boolean hasMoved = false;
     private static Texture rookTexture = LoadTexture("res/pieces/rook.png");
 
     public Rook(int x, int y, char id){
@@ -30,7 +30,7 @@ public class Rook extends Piece {
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetColorPiece();
+	char color = this.GetColorPiece();
 
 	boolean pieceCima = false;
 	boolean pieceBaixo = false;
@@ -38,18 +38,18 @@ public class Rook extends Piece {
 	boolean pieceEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.GetBoardPosition().add(new Pair(0, - i));
+            Pair doubleUp = this.GetBoardPosition().add(new Pair(0, - i));
             Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
             Pair dikingta = this.GetBoardPosition().add(new Pair(+ i, 0));
             Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
 
-	    if(!pieceCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(cima)){
+	    if(!pieceCima && doubleUp.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(doubleUp)){
 		    pieceCima = true;
 		}
-		if(cor != board.GetPieceInPosition(cima).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
+		if(color != board.GetPieceInPosition(doubleUp).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, doubleUp, testingCheck);
 		}
 	    }
 
@@ -57,7 +57,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(baixo)){
 		    pieceBaixo = true;
 		}
-		if(cor != board.GetPieceInPosition(baixo).GetColorPiece()){
+		if(color != board.GetPieceInPosition(baixo).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
 		}
 	    }
@@ -66,7 +66,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(dikingta)){
 		    pieceDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(dikingta).GetColorPiece()){
+		if(color != board.GetPieceInPosition(dikingta).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
 		}
 	    }
@@ -75,7 +75,7 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(esquerda)){
 		    pieceEsquerda = true;
 		}
-		if(cor != board.GetPieceInPosition(esquerda).GetColorPiece()){
+		if(color != board.GetPieceInPosition(esquerda).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
 		}
 	    }
@@ -92,7 +92,7 @@ public class Rook extends Piece {
     @Override
     public void MovePiece(Move move){
         super.MovePiece(move);
-        this.jaMovido = true;
+        this.hasMoved = true;
     }
 
 }

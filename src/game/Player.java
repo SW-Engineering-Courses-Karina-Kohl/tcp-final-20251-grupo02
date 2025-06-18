@@ -7,12 +7,12 @@ public class Player {
 
 
     ArrayList<Piece> pieces = new ArrayList<>();
-    char cor;
+    char color;
     Clock relogio;
     public boolean emCheque;
 
-    public Player(char cor, int tempoInicial){
-        this.cor = cor;
+    public Player(char color, int tempoInicial){
+        this.color = color;
         this.relogio = new Clock(tempoInicial);
 	this.emCheque = false;
 
@@ -24,7 +24,7 @@ public class Player {
     }
 
     public char GetColorPlayer(){
-	return cor;
+	return color;
     }
 
     public Move NovaMove(Piece movedPiece, Piece capturedPiece, Board board){
