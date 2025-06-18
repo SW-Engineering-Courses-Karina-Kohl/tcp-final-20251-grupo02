@@ -21,28 +21,28 @@ import misc.Pair;
 public class Board
 {
 
-    private int PiecesNoBoard = 32;
+    private int PiecesOnBoard = 32;
     private static final int SIZE = 8;
 
     //Dando load nas imagens
-    //Isso será um problema no futuro se a gente quiser inicializar novamente o tabuleiro
+    //Isso será um problema no futuro se a gente quiser inicializar novamente o board
     private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
     private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
     private Sprite miraVerdeSprite;
     private Sprite miraVermelhaSprite;
 
-    // tabuleiro[y][x] = Piece(x, y)
-    private Piece[][] tabuleiro = new Piece[SIZE][SIZE];
+    // board[y][x] = Piece(x, y)
+    private Piece[][] board = new Piece[SIZE][SIZE];
 
-    // tabuleiro[y][x] = Piece(x, y)
+    // board[y][x] = Piece(x, y)
     private void InitializePiece(Piece peca){
-        this.tabuleiro[peca.posicaoBoard.y][peca.posicaoBoard.x] = peca;
+        this.board[peca.posicaoBoard.y][peca.posicaoBoard.x] = peca;
     }
 
-    // cria o tabuleiro da visão das brancas
+    // cria o board da visão das brancas
 
     public Board(Board copy){
-	this.tabuleiro = copy.GetBoard();
+	this.board = copy.GetBoard();
     }
 
     public Board()
@@ -93,8 +93,8 @@ public class Board
 
         for(int i = 0 ; i < SIZE; i ++){
             for (int j = 0; j < SIZE;j ++){
-                if (this.tabuleiro[i][j] == null)
-                    this.tabuleiro[i][j] = new Blank(j, i);
+                if (this.board[i][j] == null)
+                    this.board[i][j] = new Blank(j, i);
             }
         }
 
@@ -104,47 +104,47 @@ public class Board
     }
 
     public Piece[][] GetBoard(){
-	return this.tabuleiro;
+	return this.board;
     }
 
     // checa qual peça está na posicao (x,y)
     public Piece GetPieceNaPosicao(int x, int y){
-        return this.tabuleiro[y][x];
+        return this.board[y][x];
     }
 
     public Piece GetPieceNaPosicao(Pair p){
-	return this.tabuleiro[p.y][p.x];
+	return this.board[p.y][p.x];
     }
 
     public void SetPieceNaPosicao(int x, int y, Piece peca){
-        tabuleiro[y][x] = peca;
+        board[y][x] = peca;
     }
 
     public void GetPieceNaPosicao(Pair p, Piece peca){
-	tabuleiro[p.y][p.x] = peca;
+	board[p.y][p.x] = peca;
     }
 
     public boolean PosicaoOcupada(int x, int y){
-        if (this.tabuleiro[y][x] != null)
+        if (this.board[y][x] != null)
             return true;
         return false;
     }
 
     public boolean PosicaoOcupada(Pair p){
-        if (this.tabuleiro[p.y][p.x] instanceof Blank)
+        if (this.board[p.y][p.x] instanceof Blank)
             return false;
         return true;
     }
 
 
-    // muda o tabuleiro de acordo com a jogada
+    // muda o board de acordo com a jogada
     public void MudancaNoBoard(Jogada jogada){
         Pair pecaMovida = jogada.pecaMovida.posicaoBoard;
         Pair posicaoFinal = jogada.peca_capturada.posicaoBoard;
 
         // move peça e anula posição anterior
-        this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
-        this.tabuleiro[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
+        this.board[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
+        this.board[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
     }
 
 
@@ -184,7 +184,7 @@ public class Board
 
 	char corKing = rei.GetOurColorPiece();
 
-	// Para cada peça no tabuleiro
+	// Para cada peça no board
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 
@@ -229,9 +229,9 @@ public class Board
 
                 if (i < i_espelhado || (i == i_espelhado && j < j_espelhado)) {
                     // espelha verticalmente e horizontalmente
-                    Piece temp = this.tabuleiro[i][j];
-                    this.tabuleiro[i][j] = this.tabuleiro[i_espelhado][j_espelhado];
-                    this.tabuleiro[i_espelhado][j_espelhado] = temp;
+                    Piece temp = this.board[i][j];
+                    this.board[i][j] = this.board[i_espelhado][j_espelhado];
+                    this.board[i_espelhado][j_espelhado] = temp;
                 }
             }
         }
@@ -244,7 +244,7 @@ public class Board
         for(int i = 0; i < SIZE; i ++){
 	        string = string.concat(i + 1 + " ");
             for(int j = 0; j < SIZE; j++)
-                string = string.concat(tabuleiro[i][j].identificador + " ");
+                string = string.concat(board[i][j].identificador + " ");
             string = string.concat("\n");
         }
         return string;
@@ -299,7 +299,7 @@ public class Board
     {
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
-                tabuleiro[i][j].DrawPiece(xInicial, yInicial);
+                board[i][j].DrawPiece(xInicial, yInicial);
     }
 
     public void DrawMovimentosValidos(ArrayList<Pair> movimentos, int xInicial, int yInicial, int escala)

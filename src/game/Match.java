@@ -9,7 +9,7 @@ public class Match {
     final int  MAX_PEÇAS = 32;
     final int  MAX_JOGADORES = 2;
 
-    public Board tabuleiro;
+    public Board board;
     Player jogador_branco;
     Player jogador_preto;
 
@@ -20,7 +20,7 @@ public class Match {
     }
 
     public void NovoMatch(int tempoInicial){
-        this.tabuleiro = new Board();
+        this.board = new Board();
         this.jogador_branco = new Player('b', tempoInicial);
         this.jogador_preto = new Player('p',tempoInicial);
         this.jogador_turno_atual = jogador_branco;
@@ -37,11 +37,11 @@ public class Match {
         else this.jogador_turno_atual = this.jogador_branco;
 
         jogador_turno_atual.GetClock().IniciarClock();
-        // this.tabuleiro.GirarBoard();
+        // this.board.GirarBoard();
     }
 
     public Board GetBoard() {
-        return tabuleiro;
+        return board;
     }
 
     public Player GetPlayerBranco() {

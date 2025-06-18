@@ -24,7 +24,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetOurColorPiece();
@@ -55,78 +55,78 @@ public class Queen extends Piece {
 
 
 	    if(!pecaCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.PosicaoOcupada(cima)){
+                if(board.PosicaoOcupada(cima)){
 		    pecaCima = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
+		if(cor != board.GetPieceNaPosicao(cima).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
 		}
 	    }
 
 	    if(!pecaBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.PosicaoOcupada(baixo)){
+                if(board.PosicaoOcupada(baixo)){
 		    pecaBaixo = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
+		if(cor != board.GetPieceNaPosicao(baixo).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
 		}
 	    }
 
 	    if(!pecaDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.PosicaoOcupada(direita)){
+                if(board.PosicaoOcupada(direita)){
 		    pecaDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
+		if(cor != board.GetPieceNaPosicao(direita).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, direita, testingCheck);
 		}
 	    }
 
 	    if(!pecaEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(tabuleiro.PosicaoOcupada(esquerda)){
+                if(board.PosicaoOcupada(esquerda)){
 		    pecaEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
+		if(cor != board.GetPieceNaPosicao(esquerda).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
 		}
 	    }
 
             if(!pecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.PosicaoOcupada(superior_direita)){
+                if(board.PosicaoOcupada(superior_direita)){
 		    pecaSuperiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
+		if(cor != board.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
 
             if(!pecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.PosicaoOcupada(superior_esquerda)){
+                if(board.PosicaoOcupada(superior_esquerda)){
 		    pecaSuperiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
+		if(cor != board.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
 
             if(!pecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.PosicaoOcupada(inferior_direita)){
+                if(board.PosicaoOcupada(inferior_direita)){
 		    pecaInferiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
+		if(cor != board.GetPieceNaPosicao(inferior_direita).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
 
             if(!pecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
+                if(board.PosicaoOcupada(inferior_esquerda)){
 		    pecaInferiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetOurColorPiece()){
-		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
+		if(cor != board.GetPieceNaPosicao(inferior_esquerda).GetOurColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }
         }

@@ -11,7 +11,7 @@ public class Blank extends Piece{
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
         return movimentos;
     }
 

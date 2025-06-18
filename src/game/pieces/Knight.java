@@ -25,7 +25,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetOurColorPiece();
@@ -46,29 +46,29 @@ public class Knight extends Piece {
         Pair esquerda_cima = this.posicaoBoard.add(new Pair(- 2, - 1));
         Pair esquerda_baixo = this.posicaoBoard.add(new Pair(- 2, + 1));
 
-        if(cima_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(cima_direita).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, cima_direita, testingCheck);
+        if(cima_direita.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(cima_direita).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, cima_direita, testingCheck);
 
-        if(cima_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(cima_esquerda).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, cima_esquerda, testingCheck);
+        if(cima_esquerda.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(cima_esquerda).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, cima_esquerda, testingCheck);
 
-        if(baixo_direita.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(baixo_direita).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, baixo_direita, testingCheck);
+        if(baixo_direita.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(baixo_direita).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, baixo_direita, testingCheck);
 
-        if(baixo_esquerda.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(baixo_esquerda).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, baixo_esquerda, testingCheck);
+        if(baixo_esquerda.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(baixo_esquerda).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, baixo_esquerda, testingCheck);
 
-        if(direita_cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(direita_cima).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, direita_cima, testingCheck);
+        if(direita_cima.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(direita_cima).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, direita_cima, testingCheck);
 
-        if(direita_baixo.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(direita_baixo).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, direita_baixo, testingCheck);
+        if(direita_baixo.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(direita_baixo).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, direita_baixo, testingCheck);
 
-        if(esquerda_cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(esquerda_cima).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, esquerda_cima, testingCheck);
+        if(esquerda_cima.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(esquerda_cima).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, esquerda_cima, testingCheck);
 
-        if(esquerda_baixo.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(esquerda_baixo).GetOurColorPiece())
-	    this.CheckMoviment(tabuleiro, newMovimentos, esquerda_baixo, testingCheck);
+        if(esquerda_baixo.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceNaPosicao(esquerda_baixo).GetOurColorPiece())
+	    this.CheckMoviment(board, newMovimentos, esquerda_baixo, testingCheck);
 
 	if(testingCheck){
 	    movimentos = newMovimentos;

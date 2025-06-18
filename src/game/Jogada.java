@@ -15,7 +15,7 @@ public class Jogada {
         this.peca_capturada = peca_capturada;
     }
 
-    public boolean ValidarRoque(Board tabuleiro) {
+    public boolean ValidarRoque(Board board) {
         if (!(pecaMovida instanceof King && peca_capturada instanceof Rook))
             return false;
 
@@ -37,7 +37,7 @@ public class Jogada {
         // verificar casas entre King e Rook
         int x = posKing.x + dir;
         while (x != posRook.x) {
-            if (!(tabuleiro.GetPieceNaPosicao(x, posKing.y) instanceof Blank))
+            if (!(board.GetPieceNaPosicao(x, posKing.y) instanceof Blank))
                 return false;
             x += dir;
         }
@@ -52,7 +52,7 @@ public class Jogada {
             new Pair(posKing.x + 2*dir, posKing.y)
         };
         for (Pair p : posicoes) {
-            if (isAtacado(tabuleiro, p, oponenteOurColor))
+            if (isAtacado(board, p, oponenteOurColor))
                 return false;
         }
 
@@ -60,10 +60,10 @@ public class Jogada {
     }
 
     // verifica se uma casa está atacada por alguma peça da cor atacante, se houver, não há roque
-    private boolean isAtacado(Board tabuleiro, Pair alvo, char atacanteOurColor) {
+    private boolean isAtacado(Board board, Pair alvo, char atacanteOurColor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                Piece p = tabuleiro.GetPieceNaPosicao(x, y);
+                Piece p = board.GetPieceNaPosicao(x, y);
                 if (p.GetOurColorPiece() != atacanteOurColor)
                     continue;
                 for (Pair mv : p.GetMovimentos()) {
@@ -75,8 +75,8 @@ public class Jogada {
         return false;
     }
 
-    // valida se a jogada pode ser feita e muda o tabuleiro
-    public boolean ValidarJogada(Board tabuleiro){
+    // valida se a jogada pode ser feita e muda o board
+    public boolean ValidarJogada(Board board){
 
 	for (Pair p : this.pecaMovida.GetMovimentos()) {
 	    if(p.x == this.peca_capturada.posicaoBoard.x && p.y == this.peca_capturada.posicaoBoard.y){
@@ -87,7 +87,7 @@ public class Jogada {
 	return false;
     }
 
-    private boolean IsTherePieceInBetween(Board tabuleiro){
+    private boolean IsTherePieceInBetween(Board board){
         // +1 if peca_capturada.posicaoBoard > pecaMovida.posicaoBoard
         //  0 if peca_capturada.posicaoBoard == pecaMovida.posicaoBoard
         // -1 if peca_capturada.posicaoBoard < pecaMovida.posicaoBoard
@@ -99,7 +99,7 @@ public class Jogada {
         int y = pecaMovida.posicaoBoard.y + dy;
 
         while (! this.peca_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
-            if (!(tabuleiro.GetPieceNaPosicao(x, y) instanceof Blank)) {
+            if (!(board.GetPieceNaPosicao(x, y) instanceof Blank)) {
                 return true;
             }
 
@@ -110,23 +110,23 @@ public class Jogada {
         return false;
     }
 
-    //private boolean ValidarXeque(Board tabuleiro) {
+    //private boolean ValidarXeque(Board board) {
 
     //}
 
-    //private boolean ValidarXequeMate(Board tabuleiro) {
+    //private boolean ValidarXequeMate(Board board) {
 
     //}
 
-   public boolean ValidarPromocaoPawn(Board tabuleiro) {
+   public boolean ValidarPromocaoPawn(Board board) {
         boolean promoveu = false;
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
-            Piece p = tabuleiro.GetPieceNaPosicao(x,0);
+            Piece p = board.GetPieceNaPosicao(x,0);
             if (p instanceof Pawn && p.GetOurColorPiece() == 'b') {
                 //promove para rainha
                 Queen dama = new Queen(x, 0, 'b');
-                tabuleiro.MudancaNoBoard(
+                board.MudancaNoBoard(
                     new Jogada(p, dama)
                 );
                 promoveu = true;
@@ -134,11 +134,11 @@ public class Jogada {
         }
         //verificação para as pretas
         for(int x = 0; x < 8; x++) {
-            Piece p = tabuleiro.GetPieceNaPosicao(x,7);
+            Piece p = board.GetPieceNaPosicao(x,7);
             if (p instanceof Pawn && p.GetOurColorPiece() == 'p') {
                 //promove para rainha
                 Queen dama = new Queen(x, 7, 'p');
-                tabuleiro.MudancaNoBoard(
+                board.MudancaNoBoard(
                     new Jogada(p, dama)
                 );
                 promoveu = true;

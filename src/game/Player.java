@@ -27,9 +27,9 @@ public class Player {
 	return cor;
     }
 
-    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Board tabuleiro){
+    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Board board){
         Jogada jogada = new Jogada(pecaMovida, peca_capturada);
-        jogada.ValidarJogada(tabuleiro);
+        jogada.ValidarJogada(board);
         return jogada;
     }
 

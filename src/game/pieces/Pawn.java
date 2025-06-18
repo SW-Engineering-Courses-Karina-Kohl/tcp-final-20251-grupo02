@@ -34,7 +34,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
@@ -56,22 +56,22 @@ public class Pawn extends Piece {
 
 
 
-        if(cima.IsPieceInsideBoard(0, SIZE) && !(tabuleiro.PosicaoOcupada(cima))){
-	    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
+        if(cima.IsPieceInsideBoard(0, SIZE) && !(board.PosicaoOcupada(cima))){
+	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
 	}
 
 
-	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(tabuleiro.PosicaoOcupada(cima_duplo))){
-		this.CheckMoviment(tabuleiro, newMovimentos, cima_duplo, testingCheck);
+	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(board.PosicaoOcupada(cima_duplo))){
+		this.CheckMoviment(board, newMovimentos, cima_duplo, testingCheck);
 
 	    }
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
-	    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (board.PosicaoOcupada(superior_direita)) && cor != board.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
+	    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
 	}
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
-	    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (board.PosicaoOcupada(superior_esquerda)) && cor != board.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
+	    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
 	}
 
 	if(testingCheck){

@@ -36,10 +36,10 @@ public abstract class Piece{
 	return movimentos;
     }
 
-    public void CheckMoviment(Board tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
+    public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
-	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetOurColorPiece(), moviment)){
+	    if(!board.MoveLeadsToCheck(this, this.GetOurColorPiece(), moviment)){
 		movs.add(moviment);
 	    }
 	} else {
@@ -69,7 +69,7 @@ public abstract class Piece{
 
     public void print_movimentos_validos()
     {
-        // this.MovimentosValidos(tabuleiro); //
+        // this.MovimentosValidos(board); //
         for (Pair p : movimentos) {
            System.out.println(p);
         }
