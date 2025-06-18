@@ -96,7 +96,7 @@ public class Sprite
         return resultado;
     }
 
-    public void SetImagemAtual(int novaImagemAtual)
+    public void SetCurrentImage(int novaImagemAtual)
     {
         imagem_atual = novaImagemAtual;
     }

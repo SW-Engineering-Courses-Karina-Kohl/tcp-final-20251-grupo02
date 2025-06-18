@@ -276,11 +276,11 @@ public class Board
             Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale);
 
             if (mousePosition.x == moviments.get(i).x && mousePosition.y == moviments.get(i).y){
-                greenAimSprite.SetImagemAtual(0);
-                redAimSprite.SetImagemAtual(0);
+                greenAimSprite.SetCurrentImage(0);
+                redAimSprite.SetCurrentImage(0);
             } else {
-                greenAimSprite.SetImagemAtual(1);
-                redAimSprite.SetImagemAtual(1);
+                greenAimSprite.SetCurrentImage(1);
+                redAimSprite.SetCurrentImage(1);
             }
 
             if (this.GetPieceInPosition(moviments.get(i)) instanceof Blank ){
