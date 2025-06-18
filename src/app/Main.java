@@ -3,7 +3,7 @@ import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
 import gui.*;
 import jogo.*;
-import jogo.peca.*;
+import jogo.pieces.*;
 import menu.*;
 import misc.*;
 import vfx.*;

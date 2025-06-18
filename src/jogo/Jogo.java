@@ -1,8 +1,8 @@
 package jogo;
 
-import jogo.peca.Queen;
-import jogo.peca.Pawn;
-import jogo.peca.Piece;
+import jogo.pieces.Queen;
+import jogo.pieces.Pawn;
+import jogo.pieces.Piece;
 
 public class Jogo {
 

@@ -1,4 +1,4 @@
-package jogo.peca;
+package jogo.pieces;
 import jogo.Jogada;
 import jogo.Tabuleiro;
 import misc.Pair;

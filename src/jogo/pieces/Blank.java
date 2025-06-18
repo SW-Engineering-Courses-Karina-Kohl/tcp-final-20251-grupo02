@@ -1,4 +1,4 @@
-package jogo.peca;
+package jogo.pieces;
 import jogo.Tabuleiro;
 import java.util.ArrayList;
 

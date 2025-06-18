@@ -15,7 +15,7 @@ import com.raylib.Raylib.Texture;
 
 import gui.Cor;
 import gui.Sprite;
-import jogo.peca.*;
+import jogo.pieces.*;
 import misc.Pair;
 
 public class Tabuleiro
