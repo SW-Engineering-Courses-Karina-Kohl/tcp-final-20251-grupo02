@@ -147,4 +147,14 @@ public class Jogada {
 
         return promoveu;
     }
+
+    public char idPromocao(char cor, char tipoMaiusculo) {
+    if (cor == 'b') {
+        // jogador branco: usa letra maiúscula
+        return tipoMaiusculo;
+    } else {
+        // jogador preto: usa letra minúscula
+        return Character.toLowerCase(tipoMaiusculo);
+    }
+}
 }

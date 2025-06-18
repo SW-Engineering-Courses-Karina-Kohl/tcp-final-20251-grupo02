@@ -169,8 +169,36 @@ public class Main
 				jogo.GetJogadorPreto().emCheque = false;
 			    }
 
-                            jogo.ProximoTurno();
-                        // if (jogada.ValidarPromocaoPeao(tab)) {} falta a implementação do iuri
+                        jogo.ProximoTurno();
+                         if (jogada.ValidarPromocaoPeao(tab)) {
+                            
+                            Pair posicaoPeao = pecaMovida.posicaoTabuleiro; 
+                            char cor = pecaMovida.GetCorPeca();
+                            //[T]orre  [C]avalo  [B]ispo  [D]ama"
+                            Scanner scanner = new Scanner(System.in);
+                            char escolha = Character.toUpperCase(scanner.next().charAt(0));
+
+                            Peca promocao = null;
+                            switch (escolha) {
+                                case 'T':
+                                    char id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Torre(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'B':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Bispo(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'C':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Cavalo(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'D':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Dama(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                            }
+                            tab.SetPecaNaPosicao(posicaoPeao.x, posicaoPeao.y, promocao);
+                         }
                         }
 
                         clicks = 0;
