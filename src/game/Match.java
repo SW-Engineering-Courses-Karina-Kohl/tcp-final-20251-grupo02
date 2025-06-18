@@ -12,7 +12,7 @@ public class Match {
 
     private Player currentTurnPlayer = whitePlayer;
 
-    public void NewMatch(int initialTime){
+    public Match(int initialTime){
         this.board = new Board();
         this.whitePlayer = new Player('w', initialTime);
         this.blackPlayer = new Player('b', initialTime);
@@ -23,7 +23,6 @@ public class Match {
 
 
     public void NextTurn(){
-
         currentTurnPlayer.GetClock().StopClock();
 
         if (this.currentTurnPlayer == this.whitePlayer){
@@ -50,6 +49,4 @@ public class Match {
     public Player GetCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
-
-
 }
