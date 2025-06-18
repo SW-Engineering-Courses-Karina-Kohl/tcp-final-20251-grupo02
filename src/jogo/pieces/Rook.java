@@ -1,5 +1,5 @@
 package jogo.pieces;
-import jogo.Tabuleiro;
+import jogo.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -27,7 +27,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetCorPiece();
@@ -38,11 +38,11 @@ public class Rook extends Piece {
 	boolean pecaEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.posicaoTabuleiro.add(new Pair(0, - i));
-            Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + i));
+            Pair cima = this.posicaoBoard.add(new Pair(0, - i));
+            Pair baixo = this.posicaoBoard.add(new Pair(0, + i));
 
-            Pair direita = this.posicaoTabuleiro.add(new Pair(+ i, 0));
-            Pair esquerda = this.posicaoTabuleiro.add(new Pair(- i, 0));
+            Pair direita = this.posicaoBoard.add(new Pair(+ i, 0));
+            Pair esquerda = this.posicaoBoard.add(new Pair(- i, 0));
 
 	    if(!pecaCima && cima.IsPieceInsideBoard(0, SIZE)){
                 if(tabuleiro.PosicaoOcupada(cima)){

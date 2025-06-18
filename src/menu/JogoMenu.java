@@ -13,9 +13,9 @@ import com.raylib.Raylib.Vector2;
 import gui.Botao;
 import gui.Cor;
 import gui.Sprite;
-import jogo.Jogo;
+import jogo.Match;
 
-public class JogoMenu 
+public class JogoMenu
 {
     //Botao sugerir empate
     private static Texture empateTexture = LoadTexture("res/botoes/empate.png");
@@ -37,15 +37,15 @@ public class JogoMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaJogoMenu(boolean[] paginas, Jogo jogo, boolean[] vencedor)
+    public void LogicaJogoMenu(boolean[] paginas, Match match, boolean[] vencedor)
     {
         if (paginas[2] == true)
-        {   
+        {
             //Botao de empate
             if (empateBotao.MouseClick())
             {
-                jogo.GetJogadorBranco().GetRelogio().PausaRelogio();
-                jogo.GetJogadorPreto().GetRelogio().PausaRelogio();
+                match.GetPlayerBranco().GetClock().PausaClock();
+                match.GetPlayerPreto().GetClock().PausaClock();
                 paginas[2] = false;
                 paginas[3] = true;
 
@@ -55,12 +55,12 @@ public class JogoMenu
             //Desistindo
             if (desistirBotao.MouseClick())
             {
-                jogo.GetJogadorBranco().GetRelogio().PausaRelogio();
-                jogo.GetJogadorPreto().GetRelogio().PausaRelogio();
+                match.GetPlayerBranco().GetClock().PausaClock();
+                match.GetPlayerPreto().GetClock().PausaClock();
                 paginas[2] = false;
                 paginas[3] = true;
 
-                if (jogo.GetJogadorTurnoAtual().GetCorJogador() == 'b')
+                if (match.GetPlayerTurnoAtual().GetCorPlayer() == 'b')
                     vencedor[2] = true;
                 else
                     vencedor[1] = true;

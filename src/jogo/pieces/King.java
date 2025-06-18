@@ -1,5 +1,5 @@
 package jogo.pieces;
-import jogo.Tabuleiro;
+import jogo.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -27,23 +27,23 @@ public class King extends Piece{
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetCorPiece();
 
-        Pair cima = this.posicaoTabuleiro.add(new Pair(0, - 1));
-        Pair baixo = this.posicaoTabuleiro.add(new Pair(0, + 1));
+        Pair cima = this.posicaoBoard.add(new Pair(0, - 1));
+        Pair baixo = this.posicaoBoard.add(new Pair(0, + 1));
 
-        Pair direita = this.posicaoTabuleiro.add(new Pair(+ 1, 0));
-        Pair esquerda = this.posicaoTabuleiro.add(new Pair(- 1, 0));
+        Pair direita = this.posicaoBoard.add(new Pair(+ 1, 0));
+        Pair esquerda = this.posicaoBoard.add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.posicaoBoard.add(new Pair(+ 1, - 1));
+        Pair superior_esquerda = this.posicaoBoard.add(new Pair(- 1, - 1));
 
-        Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, + 1));
+        Pair inferior_direita = this.posicaoBoard.add(new Pair(+ 1, + 1));
+        Pair inferior_esquerda = this.posicaoBoard.add(new Pair(- 1, + 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && cor != tabuleiro.GetPieceNaPosicao(cima).GetCorPiece())
 	    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);

@@ -48,8 +48,8 @@ public class MainMenu
     {
         boolean criarJogo = false;
         if (paginas[0] == true)
-        {   
-            //Iniciando um jogo novo
+        {
+            //Iniciando um match.novo
             if (novoJogoBotao.MouseClick())
             {
                 criarJogo = true;
@@ -74,5 +74,5 @@ public class MainMenu
         }
         return criarJogo;
     }
-    
+
 }

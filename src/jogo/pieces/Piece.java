@@ -1,6 +1,6 @@
 package jogo.pieces;
 import jogo.Jogada;
-import jogo.Tabuleiro;
+import jogo.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -15,14 +15,14 @@ public abstract class Piece{
 
     public final int SIZE = 8;
     public float posicao;
-    public Pair posicaoTabuleiro;
+    public Pair posicaoBoard;
     public char identificador;
 
     public Sprite sprite;
 
     public Piece(int x, int y, char id)
     {
-        this.posicaoTabuleiro = new Pair(x, y);
+        this.posicaoBoard = new Pair(x, y);
         this.identificador = id;
     }
 
@@ -30,13 +30,13 @@ public abstract class Piece{
 
     // retorna todos os movimentos que uma peça pode
     // se movimentar, independente se a casa está ocupada ou não
-    public abstract ArrayList<Pair> MovimentosValidos(Tabuleiro Tabuleiro, boolean emCheque);
+    public abstract ArrayList<Pair> MovimentosValidos(Board Board, boolean emCheque);
 
     public ArrayList<Pair> GetMovimentos(){
 	return movimentos;
     }
 
-    public void CheckMoviment(Tabuleiro tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
+    public void CheckMoviment(Board tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
 	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetCorPiece(), moviment)){
@@ -49,7 +49,7 @@ public abstract class Piece{
 
     public void Mover(Jogada jogada)
     {
-        this.posicaoTabuleiro = jogada.peca_capturada.posicaoTabuleiro;
+        this.posicaoBoard = jogada.peca_capturada.posicaoBoard;
     }
 
     public void DestruirPiece()
@@ -78,13 +78,13 @@ public abstract class Piece{
     public void DrawPiece(int xInicial, int yInicial)
     {
         if (sprite != null)
-            sprite.DrawSpritePro(posicaoTabuleiro.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
-                                posicaoTabuleiro.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
+            sprite.DrawSpritePro(posicaoBoard.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
+                                posicaoBoard.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
     }
 
     @Override
     public String toString() {
-        return this.identificador + " " + this.posicaoTabuleiro;
+        return this.identificador + " " + this.posicaoBoard;
     }
 
 }

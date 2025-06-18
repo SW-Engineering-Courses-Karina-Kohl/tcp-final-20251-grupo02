@@ -6,7 +6,7 @@ public class Jogada {
 
     public Piece pecaMovida;
     public Piece peca_capturada;
-    //Jogador jogador;
+    //Player jogador;
 
     // pecaMovida = tab.getPieceNaPosicao(x,y)
     // peca_capturada = tab.getPieceNaPosicao(x,y)
@@ -15,7 +15,7 @@ public class Jogada {
         this.peca_capturada = peca_capturada;
     }
 
-    public boolean ValidarRoque(Tabuleiro tabuleiro) {
+    public boolean ValidarRoque(Board tabuleiro) {
         if (!(pecaMovida instanceof King && peca_capturada instanceof Rook))
             return false;
 
@@ -26,8 +26,8 @@ public class Jogada {
         if (rei.jaMovido || torre.jaMovido)
             return false;
 
-        Pair posKing = rei.posicaoTabuleiro;
-        Pair posRook = torre.posicaoTabuleiro;
+        Pair posKing = rei.posicaoBoard;
+        Pair posRook = torre.posicaoBoard;
 
         if (posKing.y != posRook.y)
             return false;
@@ -60,7 +60,7 @@ public class Jogada {
     }
 
     // verifica se uma casa está atacada por alguma peça da cor atacante, se houver, não há roque
-    private boolean isAtacado(Tabuleiro tabuleiro, Pair alvo, char atacanteCor) {
+    private boolean isAtacado(Board tabuleiro, Pair alvo, char atacanteCor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 Piece p = tabuleiro.GetPieceNaPosicao(x, y);
@@ -76,10 +76,10 @@ public class Jogada {
     }
 
     // valida se a jogada pode ser feita e muda o tabuleiro
-    public boolean ValidarJogada(Tabuleiro tabuleiro){
+    public boolean ValidarJogada(Board tabuleiro){
 
 	for (Pair p : this.pecaMovida.GetMovimentos()) {
-	    if(p.x == this.peca_capturada.posicaoTabuleiro.x && p.y == this.peca_capturada.posicaoTabuleiro.y){
+	    if(p.x == this.peca_capturada.posicaoBoard.x && p.y == this.peca_capturada.posicaoBoard.y){
 		return true;
 	    }
         }
@@ -87,18 +87,18 @@ public class Jogada {
 	return false;
     }
 
-    private boolean IsTherePieceInBetween(Tabuleiro tabuleiro){
-        // +1 if peca_capturada.posicaoTabuleiro > pecaMovida.posicaoTabuleiro
-        //  0 if peca_capturada.posicaoTabuleiro == pecaMovida.posicaoTabuleiro
-        // -1 if peca_capturada.posicaoTabuleiro < pecaMovida.posicaoTabuleiro
+    private boolean IsTherePieceInBetween(Board tabuleiro){
+        // +1 if peca_capturada.posicaoBoard > pecaMovida.posicaoBoard
+        //  0 if peca_capturada.posicaoBoard == pecaMovida.posicaoBoard
+        // -1 if peca_capturada.posicaoBoard < pecaMovida.posicaoBoard
 
-        int dx = Integer.compare(this.peca_capturada.posicaoTabuleiro.x, this.pecaMovida.posicaoTabuleiro.x);
-        int dy = Integer.compare(this.peca_capturada.posicaoTabuleiro.y, this.pecaMovida.posicaoTabuleiro.y);
+        int dx = Integer.compare(this.peca_capturada.posicaoBoard.x, this.pecaMovida.posicaoBoard.x);
+        int dy = Integer.compare(this.peca_capturada.posicaoBoard.y, this.pecaMovida.posicaoBoard.y);
 
-        int x = pecaMovida.posicaoTabuleiro.x + dx;
-        int y = pecaMovida.posicaoTabuleiro.y + dy;
+        int x = pecaMovida.posicaoBoard.x + dx;
+        int y = pecaMovida.posicaoBoard.y + dy;
 
-        while (! this.peca_capturada.posicaoTabuleiro.equals(new Pair(x, y)) ) {
+        while (! this.peca_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
             if (!(tabuleiro.GetPieceNaPosicao(x, y) instanceof Blank)) {
                 return true;
             }
@@ -110,15 +110,15 @@ public class Jogada {
         return false;
     }
 
-    //private boolean ValidarXeque(Tabuleiro tabuleiro) {
+    //private boolean ValidarXeque(Board tabuleiro) {
 
     //}
 
-    //private boolean ValidarXequeMate(Tabuleiro tabuleiro) {
+    //private boolean ValidarXequeMate(Board tabuleiro) {
 
     //}
 
-   public boolean ValidarPromocaoPawn(Tabuleiro tabuleiro) {
+   public boolean ValidarPromocaoPawn(Board tabuleiro) {
         boolean promoveu = false;
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
@@ -126,7 +126,7 @@ public class Jogada {
             if (p instanceof Pawn && p.GetCorPiece() == 'b') {
                 //promove para rainha
                 Queen dama = new Queen(x, 0, 'b');
-                tabuleiro.MudancaNoTabuleiro(
+                tabuleiro.MudancaNoBoard(
                     new Jogada(p, dama)
                 );
                 promoveu = true;
@@ -138,7 +138,7 @@ public class Jogada {
             if (p instanceof Pawn && p.GetCorPiece() == 'p') {
                 //promove para rainha
                 Queen dama = new Queen(x, 7, 'p');
-                tabuleiro.MudancaNoTabuleiro(
+                tabuleiro.MudancaNoBoard(
                     new Jogada(p, dama)
                 );
                 promoveu = true;

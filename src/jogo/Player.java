@@ -2,18 +2,18 @@ package jogo;
 import jogo.pieces.Piece;
 import java.util.ArrayList;
 
-public class Jogador {
+public class Player {
 
 
 
     ArrayList<Piece> pecas = new ArrayList<>();
     char cor;
-    Relogio relogio;
+    Clock relogio;
     public boolean emCheque;
 
-    public Jogador(char cor, int tempoInicial){
+    public Player(char cor, int tempoInicial){
         this.cor = cor;
-        this.relogio = new Relogio(tempoInicial);
+        this.relogio = new Clock(tempoInicial);
 	this.emCheque = false;
 
     }
@@ -23,17 +23,17 @@ public class Jogador {
 	return emCheque;
     }
 
-    public char GetCorJogador(){
+    public char GetCorPlayer(){
 	return cor;
     }
 
-    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Tabuleiro tabuleiro){
+    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Board tabuleiro){
         Jogada jogada = new Jogada(pecaMovida, peca_capturada);
         jogada.ValidarJogada(tabuleiro);
         return jogada;
     }
 
-    public Relogio GetRelogio() {
+    public Clock GetClock() {
         return relogio;
     }
 

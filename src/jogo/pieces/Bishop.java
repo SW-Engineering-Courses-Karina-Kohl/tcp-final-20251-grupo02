@@ -1,5 +1,5 @@
 package jogo.pieces;
-import jogo.Tabuleiro;
+import jogo.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -24,7 +24,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
@@ -37,11 +37,11 @@ public class Bishop extends Piece {
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
-            Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, - i));
+            Pair superior_direita = this.posicaoBoard.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.posicaoBoard.add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.posicaoTabuleiro.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.posicaoTabuleiro.add(new Pair(- i, + i));
+            Pair inferior_direita = this.posicaoBoard.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.posicaoBoard.add(new Pair(- i, + i));
 
             if(!pecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 

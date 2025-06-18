@@ -18,10 +18,10 @@ import gui.Sprite;
 import jogo.pieces.*;
 import misc.Pair;
 
-public class Tabuleiro
+public class Board
 {
 
-    private int PiecesNoTabuleiro = 32;
+    private int PiecesNoBoard = 32;
     private static final int SIZE = 8;
 
     //Dando load nas imagens
@@ -36,16 +36,16 @@ public class Tabuleiro
 
     // tabuleiro[y][x] = Piece(x, y)
     private void InitializePiece(Piece peca){
-        this.tabuleiro[peca.posicaoTabuleiro.y][peca.posicaoTabuleiro.x] = peca;
+        this.tabuleiro[peca.posicaoBoard.y][peca.posicaoBoard.x] = peca;
     }
 
     // cria o tabuleiro da visão das brancas
 
-    public Tabuleiro(Tabuleiro copy){
-	this.tabuleiro = copy.GetTabuleiro();
+    public Board(Board copy){
+	this.tabuleiro = copy.GetBoard();
     }
 
-    public Tabuleiro()
+    public Board()
     {
         // pecas brancas (id maiúsculo)
         this.InitializePiece(new Pawn(0, 6, 'P'));
@@ -103,7 +103,7 @@ public class Tabuleiro
         miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
-    public Piece[][] GetTabuleiro(){
+    public Piece[][] GetBoard(){
 	return this.tabuleiro;
     }
 
@@ -138,9 +138,9 @@ public class Tabuleiro
 
 
     // muda o tabuleiro de acordo com a jogada
-    public void MudancaNoTabuleiro(Jogada jogada){
-        Pair pecaMovida = jogada.pecaMovida.posicaoTabuleiro;
-        Pair posicaoFinal = jogada.peca_capturada.posicaoTabuleiro;
+    public void MudancaNoBoard(Jogada jogada){
+        Pair pecaMovida = jogada.pecaMovida.posicaoBoard;
+        Pair posicaoFinal = jogada.peca_capturada.posicaoBoard;
 
         // move peça e anula posição anterior
         this.tabuleiro[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
@@ -151,7 +151,7 @@ public class Tabuleiro
     public boolean MoveLeadsToCheck(Piece pecaMovida, char cor, Pair mov){
 
 
-	Tabuleiro simulacao = new Tabuleiro();
+	Board simulacao = new Board();
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
@@ -162,7 +162,7 @@ public class Tabuleiro
 	Piece pecaCapturada = simulacao.GetPieceNaPosicao(mov);
 
 	Jogada jogadaSimulada = new Jogada(pecaMovida, pecaCapturada);
-	simulacao.MudancaNoTabuleiro(jogadaSimulada);
+	simulacao.MudancaNoBoard(jogadaSimulada);
 
 	System.out.println(this.toString());
 	System.out.println(simulacao.toString());
@@ -195,8 +195,8 @@ public class Tabuleiro
 
 		    // Se os movimentos possíveis capturam o rei
 		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
-			if(rei.posicaoTabuleiro.equals(mov)){
-			    System.out.println(rei.posicaoTabuleiro.toString() + " Leva a check");
+			if(rei.posicaoBoard.equals(mov)){
+			    System.out.println(rei.posicaoBoard.toString() + " Leva a check");
 			    return true; // retorna check = true
 			}
 		    }
@@ -221,7 +221,7 @@ public class Tabuleiro
 	return null;
     }
 
-    public void GirarTabuleiro(){
+    public void GirarBoard(){
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 int i_espelhado = SIZE - 1 - i;
@@ -267,7 +267,7 @@ public class Tabuleiro
         }
     }
 
-    public Pair GetMousePositionOnTabuleiro(int xInicial, int yInicial, int escala)
+    public Pair GetMousePositionOnBoard(int xInicial, int yInicial, int escala)
     {
         int linha = (int)((GetMouseY() - yInicial) / (16 * escala));
         int coluna = (int)((GetMouseX() - xInicial) / (16 * escala));
@@ -277,7 +277,7 @@ public class Tabuleiro
         return posicao;
     }
 
-    public boolean MouseClikedOnTabuleiro(int xInicial, int yInicial, int escala)
+    public boolean MouseClikedOnBoard(int xInicial, int yInicial, int escala)
     {
         boolean clicou = false;
         if (IsMouseButtonPressed(0))
@@ -307,7 +307,7 @@ public class Tabuleiro
         for (int i = 0; i < movimentos.size(); i++)
         {
             //Mudando a sprite
-            Pair mousePosition = GetMousePositionOnTabuleiro(xInicial, yInicial, escala);
+            Pair mousePosition = GetMousePositionOnBoard(xInicial, yInicial, escala);
             if (mousePosition.x == movimentos.get(i).x && mousePosition.y == movimentos.get(i).y)
             {
                 miraVerdeSprite.SetImagemAtual(0);

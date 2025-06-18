@@ -1,5 +1,5 @@
 package jogo.pieces;
-import jogo.Tabuleiro;
+import jogo.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -30,11 +30,11 @@ public class Pawn extends Piece {
         char novo_id;
         if (Character.isLowerCase(this.identificador)) novo_id = 'd';
         else novo_id = 'D';
-        return new Queen(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y, novo_id);
+        return new Queen(this.posicaoBoard.x, this.posicaoBoard.y, novo_id);
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
@@ -47,12 +47,12 @@ public class Pawn extends Piece {
 	}
 
 
-	Pair cima = this.posicaoTabuleiro.add(new Pair(0, direcao * 1));
-	Pair cima_duplo = this.posicaoTabuleiro.add(new Pair(0, direcao * 2));
+	Pair cima = this.posicaoBoard.add(new Pair(0, direcao * 1));
+	Pair cima_duplo = this.posicaoBoard.add(new Pair(0, direcao * 2));
 
         // diagonais superiores
-        Pair superior_direita = this.posicaoTabuleiro.add(new Pair(+ 1, direcao * 1));
-        Pair superior_esquerda = this.posicaoTabuleiro.add(new Pair(- 1, direcao * 1));
+        Pair superior_direita = this.posicaoBoard.add(new Pair(+ 1, direcao * 1));
+        Pair superior_esquerda = this.posicaoBoard.add(new Pair(- 1, direcao * 1));
 
 
 

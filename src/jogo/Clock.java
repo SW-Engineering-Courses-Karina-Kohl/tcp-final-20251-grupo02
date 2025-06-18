@@ -1,15 +1,15 @@
 package jogo;
-public class Relogio {
+public class Clock {
     private int tempo;                 // em segundos
     private volatile boolean ativo;    // garanta visibilidade entre threads
     private Thread thread;
 
-    public Relogio(int tempoInicial) {
+    public Clock(int tempoInicial) {
         this.tempo = tempoInicial;
         this.ativo = false;
     }
 
-    public void IniciarRelogio() {
+    public void IniciarClock() {
         // se já está ativo e a thread viva, não faz nada
         if (thread != null && thread.isAlive()) return;
 
@@ -24,12 +24,12 @@ public class Relogio {
                 }
                 tempo--;
             }
-        }, "Relogio-Thread");
+        }, "Clock-Thread");
         thread.setDaemon(true);
         thread.start();
     }
 
-    public void PausaRelogio() {
+    public void PausaClock() {
         ativo = false;
     }
 

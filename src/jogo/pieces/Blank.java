@@ -1,5 +1,5 @@
 package jogo.pieces;
-import jogo.Tabuleiro;
+import jogo.Board;
 import java.util.ArrayList;
 
 import misc.Pair;
@@ -11,7 +11,7 @@ public class Blank extends Piece{
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
+    public ArrayList<Pair> MovimentosValidos(Board tabuleiro, boolean testingCheck){
         return movimentos;
     }
 
