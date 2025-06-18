@@ -25,10 +25,10 @@ public class Board
     private static final int SIZE = 8;
     private Piece[][] board = new Piece[SIZE][SIZE];
 
-    private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
-    private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
-    private Sprite miraVerdeSprite;
-    private Sprite miraVermelhaSprite;
+    private static Texture greenAimTexture = LoadTexture("res/vfx/mira_verde.png");
+    private static Texture redAimTexture = LoadTexture("res/vfx/mira_vermelha.png");
+    private Sprite greenAimSprite;
+    private Sprite redAimSprite;
     // This will be a problem in the future if we want to instanciate the board again
 
     /* board[y][x] = Piece(x, y) */
@@ -92,8 +92,8 @@ public class Board
         }
 
         //Sprites of the "aims"
-        miraVerdeSprite = new Sprite(miraVerdeTexture, 2, 0, 0, 1, WHITE, 2);
-        miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
+        greenAimSprite = new Sprite(greenAimTexture, 2, 0, 0, 1, WHITE, 2);
+        redAimSprite = new Sprite(redAimTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
 
@@ -254,44 +254,46 @@ public class Board
                 DrawRectangle(xInitial + j * 16 * scale, yInitial + i * 16 * scale, 16 * scale, 16 *scale, squareColor.GetColor());
             }
         }
+
     }
 
 
-    public void DrawPieces(int xInitial, int yInitial)
-    {
+    public void DrawPieces(int xInitial, int yInitial){
+
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++){
                 board[i][j].DrawPiece(xInitial, yInitial);
 	    }
 	}
+
     }
 
     /* Show visually in the board the valid moves of the piece */
-    public void DrawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale)
-    {
-        for (int i = 0; i < moviments.size(); i++)
-        {
+    public void DrawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale){
+
+        for (int i = 0; i < moviments.size(); i++){
+
             Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale);
 
             if (mousePosition.x == moviments.get(i).x && mousePosition.y == moviments.get(i).y){
-                miraVerdeSprite.SetImagemAtual(0);
-                miraVermelhaSprite.SetImagemAtual(0);
+                greenAimSprite.SetImagemAtual(0);
+                redAimSprite.SetImagemAtual(0);
             } else {
-                miraVerdeSprite.SetImagemAtual(1);
-                miraVermelhaSprite.SetImagemAtual(1);
+                greenAimSprite.SetImagemAtual(1);
+                redAimSprite.SetImagemAtual(1);
             }
 
             if (this.GetPieceInPosition(moviments.get(i)) instanceof Blank ){
-                miraVerdeSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + miraVerdeSprite.GetWidth() / 2,
-					      moviments.get(i).y * 16 * scale + yInitial + miraVerdeSprite.GetHeight() / 2);
+                greenAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + greenAimSprite.GetWidth() / 2,
+					      moviments.get(i).y * 16 * scale + yInitial + greenAimSprite.GetHeight() / 2);
             } else {
-		miraVermelhaSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + miraVermelhaSprite.GetWidth() / 2,
-						 moviments.get(i).y * 16 * scale + yInitial + miraVermelhaSprite.GetHeight() / 2);
+		redAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
+						 moviments.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
             }
 
         }
-    }
 
+    }
 
     public String toString(){
         String string = "\n";
@@ -299,7 +301,7 @@ public class Board
         for(int i = 0; i < SIZE; i ++){
 	        string = string.concat(i + 1 + " ");
             for(int j = 0; j < SIZE; j++)
-                string = string.concat(board[i][j].identificador + " ");
+                string = string.concat(board[i][j].GetPieceId() + " ");
             string = string.concat("\n");
         }
         return string;

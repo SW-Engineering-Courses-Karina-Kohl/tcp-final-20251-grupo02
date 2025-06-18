@@ -36,6 +36,10 @@ public abstract class Piece{
 	return movimentos;
     }
 
+    public char GetPieceId(){
+	return identificador;
+    }
+
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
