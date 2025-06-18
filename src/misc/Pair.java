@@ -24,7 +24,7 @@ public class Pair{
             (this.x < sup && this.y < sup));
     }
 
-    public boolean equals(Object obj){
+    public boolean IsEqualsTo(Object obj){
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Pair other = (Pair) obj;

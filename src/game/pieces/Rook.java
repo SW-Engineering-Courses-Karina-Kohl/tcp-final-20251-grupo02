@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.raylib.Raylib.Texture;
 
 import gui.Sprite;
-import game.Jogada;
+import game.Move;
 
 public class Rook extends Piece {
 
@@ -27,7 +27,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
+    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetColorPiece();
@@ -38,14 +38,14 @@ public class Rook extends Piece {
 	boolean pieceEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.posicaoBoard.add(new Pair(0, - i));
-            Pair baixo = this.posicaoBoard.add(new Pair(0, + i));
+            Pair cima = this.boardPosition.add(new Pair(0, - i));
+            Pair baixo = this.boardPosition.add(new Pair(0, + i));
 
-            Pair direita = this.posicaoBoard.add(new Pair(+ i, 0));
-            Pair esquerda = this.posicaoBoard.add(new Pair(- i, 0));
+            Pair direita = this.boardPosition.add(new Pair(+ i, 0));
+            Pair esquerda = this.boardPosition.add(new Pair(- i, 0));
 
 	    if(!pieceCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(board.PositionOcupada(cima)){
+                if(board.IsTherePieceInPosition(cima)){
 		    pieceCima = true;
 		}
 		if(cor != board.GetPieceInPosition(cima).GetColorPiece()){
@@ -54,7 +54,7 @@ public class Rook extends Piece {
 	    }
 
 	    if(!pieceBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(board.PositionOcupada(baixo)){
+                if(board.IsTherePieceInPosition(baixo)){
 		    pieceBaixo = true;
 		}
 		if(cor != board.GetPieceInPosition(baixo).GetColorPiece()){
@@ -63,7 +63,7 @@ public class Rook extends Piece {
 	    }
 
 	    if(!pieceDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(board.PositionOcupada(direita)){
+                if(board.IsTherePieceInPosition(direita)){
 		    pieceDireita = true;
 		}
 		if(cor != board.GetPieceInPosition(direita).GetColorPiece()){
@@ -72,7 +72,7 @@ public class Rook extends Piece {
 	    }
 
 	    if(!pieceEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(board.PositionOcupada(esquerda)){
+                if(board.IsTherePieceInPosition(esquerda)){
 		    pieceEsquerda = true;
 		}
 		if(cor != board.GetPieceInPosition(esquerda).GetColorPiece()){
@@ -90,8 +90,8 @@ public class Rook extends Piece {
     }
 
     @Override
-    public void Mover(Jogada jogada){
-        super.Mover(jogada);
+    public void Mover(Move move){
+        super.Mover(move);
         this.jaMovido = true;
     }
 

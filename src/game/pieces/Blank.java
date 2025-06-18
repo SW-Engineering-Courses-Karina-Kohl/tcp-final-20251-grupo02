@@ -10,8 +10,12 @@ public class Blank extends Piece{
         super(x, y, '_');
     }
 
+    public Blank(Pair p){
+        super(p.x, p.y, '_');
+    }
+
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
+    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
         return movimentos;
     }
 

@@ -31,9 +31,9 @@ public class Board
     private Sprite miraVermelhaSprite;
     // This will be a problem in the future if we want to instanciate the board again
 
-    // board[y][x] = Piece(x, y)
+    /* board[y][x] = Piece(x, y) */
     private void InitializePiece(Piece piece){
-        this.board[piece.posicaoBoard.y][piece.posicaoBoard.x] = piece;
+        this.board[piece.boardPosition.y][piece.boardPosition.x] = piece;
     }
 
     /* Class contructor: Creates a board in the view of the white pieces */
@@ -111,7 +111,7 @@ public class Board
 	return this.board[p.y][p.x];
     }
 
-    public void SetPieceNaPosition(int x, int y, Piece piece){
+    public void SetPieceInPosition(int x, int y, Piece piece){
         board[y][x] = piece;
     }
 
@@ -119,190 +119,157 @@ public class Board
 	board[p.y][p.x] = piece;
     }
 
-    public boolean PositionOcupada(int x, int y){
-        if (this.board[y][x] != null)
-            return true;
-        return false;
+    public boolean IsTherePieceInPosition(int x, int y){
+        if (this.board[y][x] instanceof Blank)
+            return false;
+        return true;
     }
 
-    public boolean PositionOcupada(Pair p){
+    public boolean IsTherePieceInPosition(Pair p){
         if (this.board[p.y][p.x] instanceof Blank)
             return false;
         return true;
     }
 
 
-    // muda o board de acordo com a jogada
-    public void MudancaNoBoard(Jogada jogada){
-        Pair pieceMovida = jogada.pieceMovida.posicaoBoard;
-        Pair posicaoFinal = jogada.piece_capturada.posicaoBoard;
+    /* Changes the board based on a move */
+    public void UpdateBoard(Move move){
 
-        // move peça e anula posição anterior
-        this.board[posicaoFinal.y][posicaoFinal.x] = jogada.pieceMovida;
-        this.board[pieceMovida.y][pieceMovida.x] = new Blank(pieceMovida.x, pieceMovida.y);;
+        Piece movedPiece = move.movedPiece;
+        Pair finalPosition = move.capturedPiece.boardPosition;
+
+	// Turns null (blank) the piece previous position
+	this.SetPieceInPosition(movedPiece.boardPosition, new Blank(movedPiece.boardPosition));
+	// And moves the piece
+	this.SetPieceInPosition(finalPosition, movedPiece);
     }
 
 
-    public boolean MoveLeadsToCheck(Piece pieceMovida, char cor, Pair mov){
+    /* Check if a move leads to a check. If yes, return true, otherwise returns false */
+    public boolean MoveLeadsToCheck(Piece movedPiece, char cor, Pair movePosition){
 
-
-	Board simulacao = new Board();
+	Board simulationBoard = new Board();
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		simulacao.SetPieceNaPosition(i, j, this.GetPieceInPosition(i, j));
+		simulationBoard.SetPieceInPosition(i, j, this.GetPieceInPosition(i, j));
 	    }
 	}
 
-	Piece pieceCapturada = simulacao.GetPieceInPosition(mov);
+	Piece capturedPiece = simulationBoard.GetPieceInPosition(movePosition);
 
-	Jogada jogadaSimulada = new Jogada(pieceMovida, pieceCapturada);
-	simulacao.MudancaNoBoard(jogadaSimulada);
+	Move simulatedMove = new Move(movedPiece, capturedPiece);
+	simulationBoard.UpdateBoard(simulatedMove);
 
-	System.out.println(this.toString());
-	System.out.println(simulacao.toString());
-
-	// Se o movimento gerar um check
-	if(pieceMovida instanceof King){
-	    if(simulacao.CheckCheck(new King(mov.x, mov.y, pieceMovida.identificador))){
-		System.out.println("Leva a check");
+	/* Theres a need for a special treatment for the king */
+	if(movedPiece instanceof King){
+	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.identificador))){
 		return true;
 	    }
-	} else if(simulacao.CheckCheck(simulacao.GetKingColor(cor))){
-	    System.out.println("Leva a check");
+	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(cor))){
 	    return true;
 	}
 	return false;
     }
 
+
+    /* Check if the king passed as argument is currently in check */
     public boolean CheckCheck(King rei){
 
 	char corKing = rei.GetColorPiece();
 
-	// Para cada peça no board
+	// For each piece in the board board
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 
-		Piece pieceVerificada =  this.GetPieceInPosition(i, j);
+		Piece piece =  this.GetPieceInPosition(i, j);
 
-		// Se for inimiga
-		if(pieceVerificada.GetColorPiece() != corKing){
+		if(piece.GetColorPiece() != corKing){
 
-		    // Se os movimentos possíveis capturam o rei
-		    for (Pair mov : pieceVerificada.MovimentosValidos(this, false)){
-			if(rei.posicaoBoard.equals(mov)){
-			    System.out.println(rei.posicaoBoard.toString() + " Leva a check");
-			    return true; // retorna check = true
+		    for (Pair movePostion : piece.ValidMoviments(this, false)){
+			if(rei.boardPosition.IsEqualsTo(movePostion)){
+			    return true;
 			}
 		    }
 		}
 	    }
 	}
 
+	// If no possible moves target the king, then it is not in check
 	return false;
     }
 
-    public King GetKingColor(char cor){
+
+    /* Retunr the position of the king of color "color" */
+    public King GetKingColor(char color){
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		Piece pieceVerificada = this.GetPieceInPosition(i, j);
-		if(pieceVerificada instanceof King && cor == pieceVerificada.GetColorPiece()){
-		    return (King) pieceVerificada;
+
+		Piece piece = this.GetPieceInPosition(i, j);
+
+		if(piece instanceof King && color == piece.GetColorPiece()){
+		    return (King) piece;
 		}
+
 	    }
 	}
 
+	// It will never get here because there is also a king in the board for each color
 	return null;
     }
 
-    public void GirarBoard(){
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                int i_espelhado = SIZE - 1 - i;
-                int j_espelhado = SIZE - 1 - j;
 
-                if (i < i_espelhado || (i == i_espelhado && j < j_espelhado)) {
-                    // espelha verticalmente e horizontalmente
-                    Piece temp = this.board[i][j];
-                    this.board[i][j] = this.board[i_espelhado][j_espelhado];
-                    this.board[i_espelhado][j_espelhado] = temp;
-                }
-            }
-        }
+    public Pair GetMousePositionOnBoard(int xInitial, int yInitial, int scale){
+
+        int line = (GetMouseY() - yInitial) / (16 * scale);
+        int column = (GetMouseX() - xInitial) / (16 * scale);
+
+        Pair position = new Pair(column, line);
+
+        return position;
     }
 
-    @Override
-    public String toString(){
-        String string = "\n";
-	    string = string.concat("  1 2 3 4 5 6 7 8\n");
-        for(int i = 0; i < SIZE; i ++){
-	        string = string.concat(i + 1 + " ");
-            for(int j = 0; j < SIZE; j++)
-                string = string.concat(board[i][j].identificador + " ");
-            string = string.concat("\n");
-        }
-        return string;
-    }
+    public boolean MouseClikedOnBoard(int xInitial, int yInitial, int scale)    {
 
-    public void DrawGrid(int xInicial, int yInicial, int escala)
-    {
-        int contadorAlteraColor = 0;
-        for(int i = 0; i < 8; i++)
-        {
-            for(int j = 0; j < 8; j++)
-            {
-                OurColor quadradoColor = new OurColor(250, 245, 240, 255);
-                if (contadorAlteraColor % 2 == 1)
-                    quadradoColor = new OurColor(38, 41, 66, 255);
-                contadorAlteraColor++;
-                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoColor.GetOurColor());
-            }
-            contadorAlteraColor++;
-        }
-    }
-
-    public Pair GetMousePositionOnBoard(int xInicial, int yInicial, int escala)
-    {
-        int linha = (GetMouseY() - yInicial) / (16 * escala);
-        int coluna = (GetMouseX() - xInicial) / (16 * escala);
-
-        Pair posicao = new Pair(coluna, linha);
-
-        return posicao;
-    }
-
-    public boolean MouseClikedOnBoard(int xInicial, int yInicial, int escala)
-    {
-        boolean clicou = false;
-        if (IsMouseButtonPressed(0))
-        {
-            //Vendo se o mouse tá dentro do limite
-            if (GetMouseY() >= yInicial && GetMouseY() < yInicial + (16 * escala * 8))
-            {
-                if (GetMouseX() >= xInicial && GetMouseX() < xInicial + (16 * escala * 8))
-                {
-                    clicou = true;
+        if (IsMouseButtonPressed(0)){
+            if (GetMouseY() >= yInitial && GetMouseY() < yInitial + (16 * scale * 8)){
+                if (GetMouseX() >= xInitial && GetMouseX() < xInitial + (16 * scale * 8)){
+                    return true;
                 }
             }
         }
 
-        return clicou;
+        return false;
     }
 
-    public void DrawPieces(int xInicial, int yInicial)
+    public void DrawGrid(int xInitial, int yInitial, int scale){
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                OurColor squareColor = new OurColor(250, 245, 240, 255);
+                if ((i + j) % 2 == 1){
+                    squareColor = new OurColor(38, 41, 66, 255);
+		}
+                DrawRectangle(xInitial + j * 16 * scale, yInitial + i * 16 * scale, 16 * scale, 16 *scale, squareColor.GetOurColor());
+            }
+        }
+    }
+
+
+    public void DrawPieces(int xInitial, int yInitial)
     {
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
-                board[i][j].DrawPiece(xInicial, yInicial);
+                board[i][j].DrawPiece(xInitial, yInitial);
     }
 
-    public void DrawMovimentosValidos(ArrayList<Pair> movimentos, int xInicial, int yInicial, int escala)
+    public void DrawValidMoviments(ArrayList<Pair> movimentos, int xInitial, int yInitial, int scale)
     {
         for (int i = 0; i < movimentos.size(); i++)
         {
             //Mudando a sprite
-            Pair mousePosition = GetMousePositionOnBoard(xInicial, yInicial, escala);
+            Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale);
             if (mousePosition.x == movimentos.get(i).x && mousePosition.y == movimentos.get(i).y)
             {
                 miraVerdeSprite.SetImagemAtual(0);
@@ -316,21 +283,33 @@ public class Board
 
             if (this.GetPieceInPosition(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
             {
-                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
-                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/
-                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVerdeSprite.GetWidth() / 2,
-                movimentos.get(i).y * 16 * escala + yInicial + miraVerdeSprite.GetHeight() / 2);
+                /*DrawRectangle(movimentos.get(i).x * 16 * scale + xInitial,
+                movimentos.get(i).y * 16 * scale + yInitial, 16 * scale, 16 * scale, GREEN);*/
+                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * scale + xInitial + miraVerdeSprite.GetWidth() / 2,
+                movimentos.get(i).y * 16 * scale + yInitial + miraVerdeSprite.GetHeight() / 2);
             }
 
             else
             {
-                /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
-                movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, RED);*/
-                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * escala + xInicial + miraVermelhaSprite.GetWidth() / 2,
-                movimentos.get(i).y * 16 * escala + yInicial + miraVermelhaSprite.GetHeight() / 2);
+                /*DrawRectangle(movimentos.get(i).x * 16 * scale + xInitial,
+                movimentos.get(i).y * 16 * scale + yInitial, 16 * scale, 16 * scale, RED);*/
+                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * scale + xInitial + miraVermelhaSprite.GetWidth() / 2,
+                movimentos.get(i).y * 16 * scale + yInitial + miraVermelhaSprite.GetHeight() / 2);
             }
         }
     }
 
+
+    public String toString(){
+        String string = "\n";
+	    string = string.concat("  1 2 3 4 5 6 7 8\n");
+        for(int i = 0; i < SIZE; i ++){
+	        string = string.concat(i + 1 + " ");
+            for(int j = 0; j < SIZE; j++)
+                string = string.concat(board[i][j].identificador + " ");
+            string = string.concat("\n");
+        }
+        return string;
+    }
 
 }

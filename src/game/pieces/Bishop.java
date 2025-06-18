@@ -24,7 +24,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
+    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
@@ -37,15 +37,15 @@ public class Bishop extends Piece {
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
-            Pair superior_direita = this.posicaoBoard.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.posicaoBoard.add(new Pair(- i, - i));
+            Pair superior_direita = this.boardPosition.add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.boardPosition.add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.posicaoBoard.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.posicaoBoard.add(new Pair(- i, + i));
+            Pair inferior_direita = this.boardPosition.add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.boardPosition.add(new Pair(- i, + i));
 
             if(!pieceSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.PositionOcupada(superior_direita)){
+                if(board.IsTherePieceInPosition(superior_direita)){
 		    pieceSuperiorDireita = true;
 		}
 		if(cor != board.GetPieceInPosition(superior_direita).GetColorPiece()){
@@ -55,7 +55,7 @@ public class Bishop extends Piece {
 
             if(!pieceSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.PositionOcupada(superior_esquerda)){
+                if(board.IsTherePieceInPosition(superior_esquerda)){
 		    pieceSuperiorEsquerda = true;
 		}
 		if(cor != board.GetPieceInPosition(superior_esquerda).GetColorPiece()){
@@ -65,7 +65,7 @@ public class Bishop extends Piece {
 
             if(!pieceInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.PositionOcupada(inferior_direita)){
+                if(board.IsTherePieceInPosition(inferior_direita)){
 		    pieceInferiorDireita = true;
 		}
 		if(cor != board.GetPieceInPosition(inferior_direita).GetColorPiece()){
@@ -75,7 +75,7 @@ public class Bishop extends Piece {
 
             if(!pieceInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.PositionOcupada(inferior_esquerda)){
+                if(board.IsTherePieceInPosition(inferior_esquerda)){
 		    pieceInferiorEsquerda = true;
 		}
 		if(cor != board.GetPieceInPosition(inferior_esquerda).GetColorPiece()){

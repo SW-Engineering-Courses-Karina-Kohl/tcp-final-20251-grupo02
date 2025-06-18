@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.raylib.Raylib.Texture;
 
 import gui.Sprite;
-import game.Jogada;
+import game.Move;
 
 public class King extends Piece{
 
@@ -26,24 +26,34 @@ public class King extends Piece{
             sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
+    public King(Pair p, char id){
+        super(p.x, p.y, id);
+
+        if (GetColorPiece() == 'b')
+            sprite = new Sprite(reiTexture, 2, 0, 0, 0, WHITE, 2);
+        else
+            sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
+    }
+
+
     @Override
-    public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
+    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetColorPiece();
 
-        Pair cima = this.posicaoBoard.add(new Pair(0, - 1));
-        Pair baixo = this.posicaoBoard.add(new Pair(0, + 1));
+        Pair cima = this.boardPosition.add(new Pair(0, - 1));
+        Pair baixo = this.boardPosition.add(new Pair(0, + 1));
 
-        Pair direita = this.posicaoBoard.add(new Pair(+ 1, 0));
-        Pair esquerda = this.posicaoBoard.add(new Pair(- 1, 0));
+        Pair direita = this.boardPosition.add(new Pair(+ 1, 0));
+        Pair esquerda = this.boardPosition.add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_direita = this.posicaoBoard.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.posicaoBoard.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.boardPosition.add(new Pair(+ 1, - 1));
+        Pair superior_esquerda = this.boardPosition.add(new Pair(- 1, - 1));
 
-        Pair inferior_direita = this.posicaoBoard.add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.posicaoBoard.add(new Pair(- 1, + 1));
+        Pair inferior_direita = this.boardPosition.add(new Pair(+ 1, + 1));
+        Pair inferior_esquerda = this.boardPosition.add(new Pair(- 1, + 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(cima).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
@@ -78,8 +88,8 @@ public class King extends Piece{
     }
 
     @Override
-    public void Mover(Jogada jogada){
-        super.Mover(jogada);
+    public void Mover(Move move){
+        super.Mover(move);
         this.jaMovido = true;
     }
 

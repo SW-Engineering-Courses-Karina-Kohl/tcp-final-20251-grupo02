@@ -27,10 +27,10 @@ public class Player {
 	return cor;
     }
 
-    public Jogada NovaJogada(Piece pieceMovida, Piece piece_capturada, Board board){
-        Jogada jogada = new Jogada(pieceMovida, piece_capturada);
-        jogada.ValidarJogada(board);
-        return jogada;
+    public Move NovaMove(Piece movedPiece, Piece capturedPiece, Board board){
+        Move move = new Move(movedPiece, capturedPiece);
+        move.ValidarMove(board);
+        return move;
     }
 
     public Clock GetClock() {
