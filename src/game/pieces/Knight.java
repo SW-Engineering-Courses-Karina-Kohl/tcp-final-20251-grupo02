@@ -13,7 +13,7 @@ import gui.Sprite;
 
 public class Knight extends Piece {
 
-    private static Texture cavaloTexture = LoadTexture("res/pecas/cavalo.png");
+    private static Texture cavaloTexture = LoadTexture("res/pieces/cavalo.png");
 
     public Knight(int x, int y, char id){
         super(x, y, id);

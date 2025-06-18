@@ -35,8 +35,8 @@ public class Board
     private Piece[][] board = new Piece[SIZE][SIZE];
 
     // board[y][x] = Piece(x, y)
-    private void InitializePiece(Piece peca){
-        this.board[peca.posicaoBoard.y][peca.posicaoBoard.x] = peca;
+    private void InitializePiece(Piece piece){
+        this.board[piece.posicaoBoard.y][piece.posicaoBoard.x] = piece;
     }
 
     // cria o board da visão das brancas
@@ -47,7 +47,7 @@ public class Board
 
     public Board()
     {
-        // pecas brancas (id maiúsculo)
+        // pieces brancas (id maiúsculo)
         this.InitializePiece(new Pawn(0, 6, 'P'));
         this.InitializePiece(new Pawn(1, 6, 'P'));
         this.InitializePiece(new Pawn(2, 6, 'P'));
@@ -69,7 +69,7 @@ public class Board
         this.InitializePiece(new King(4,7,'R'));
         this.InitializePiece(new Queen(3,7, 'D'));
 
-        // pecas pretas (id minúsculo)
+        // pieces pretas (id minúsculo)
         this.InitializePiece(new Pawn(0, 1, 'p'));
         this.InitializePiece(new Pawn(1, 1, 'p'));
         this.InitializePiece(new Pawn(2, 1, 'p'));
@@ -116,12 +116,12 @@ public class Board
 	return this.board[p.y][p.x];
     }
 
-    public void SetPieceNaPosicao(int x, int y, Piece peca){
-        board[y][x] = peca;
+    public void SetPieceNaPosicao(int x, int y, Piece piece){
+        board[y][x] = piece;
     }
 
-    public void GetPieceNaPosicao(Pair p, Piece peca){
-	board[p.y][p.x] = peca;
+    public void GetPieceNaPosicao(Pair p, Piece piece){
+	board[p.y][p.x] = piece;
     }
 
     public boolean PosicaoOcupada(int x, int y){
@@ -139,16 +139,16 @@ public class Board
 
     // muda o board de acordo com a jogada
     public void MudancaNoBoard(Jogada jogada){
-        Pair pecaMovida = jogada.pecaMovida.posicaoBoard;
-        Pair posicaoFinal = jogada.peca_capturada.posicaoBoard;
+        Pair pieceMovida = jogada.pieceMovida.posicaoBoard;
+        Pair posicaoFinal = jogada.piece_capturada.posicaoBoard;
 
         // move peça e anula posição anterior
-        this.board[posicaoFinal.y][posicaoFinal.x] = jogada.pecaMovida;
-        this.board[pecaMovida.y][pecaMovida.x] = new Blank(pecaMovida.x, pecaMovida.y);;
+        this.board[posicaoFinal.y][posicaoFinal.x] = jogada.pieceMovida;
+        this.board[pieceMovida.y][pieceMovida.x] = new Blank(pieceMovida.x, pieceMovida.y);;
     }
 
 
-    public boolean MoveLeadsToCheck(Piece pecaMovida, char cor, Pair mov){
+    public boolean MoveLeadsToCheck(Piece pieceMovida, char cor, Pair mov){
 
 
 	Board simulacao = new Board();
@@ -159,17 +159,17 @@ public class Board
 	    }
 	}
 
-	Piece pecaCapturada = simulacao.GetPieceNaPosicao(mov);
+	Piece pieceCapturada = simulacao.GetPieceNaPosicao(mov);
 
-	Jogada jogadaSimulada = new Jogada(pecaMovida, pecaCapturada);
+	Jogada jogadaSimulada = new Jogada(pieceMovida, pieceCapturada);
 	simulacao.MudancaNoBoard(jogadaSimulada);
 
 	System.out.println(this.toString());
 	System.out.println(simulacao.toString());
 
 	// Se o movimento gerar um check
-	if(pecaMovida instanceof King){
-	    if(simulacao.CheckCheck(new King(mov.x, mov.y, pecaMovida.identificador))){
+	if(pieceMovida instanceof King){
+	    if(simulacao.CheckCheck(new King(mov.x, mov.y, pieceMovida.identificador))){
 		System.out.println("Leva a check");
 		return true;
 	    }
@@ -188,13 +188,13 @@ public class Board
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 
-		Piece pecaVerificada =  this.GetPieceNaPosicao(i, j);
+		Piece pieceVerificada =  this.GetPieceNaPosicao(i, j);
 
 		// Se for inimiga
-		if(pecaVerificada.GetOurColorPiece() != corKing){
+		if(pieceVerificada.GetOurColorPiece() != corKing){
 
 		    // Se os movimentos possíveis capturam o rei
-		    for (Pair mov : pecaVerificada.MovimentosValidos(this, false)){
+		    for (Pair mov : pieceVerificada.MovimentosValidos(this, false)){
 			if(rei.posicaoBoard.equals(mov)){
 			    System.out.println(rei.posicaoBoard.toString() + " Leva a check");
 			    return true; // retorna check = true
@@ -211,9 +211,9 @@ public class Board
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		Piece pecaVerificada = this.GetPieceNaPosicao(i, j);
-		if(pecaVerificada instanceof King && cor == pecaVerificada.GetOurColorPiece()){
-		    return (King) pecaVerificada;
+		Piece pieceVerificada = this.GetPieceNaPosicao(i, j);
+		if(pieceVerificada instanceof King && cor == pieceVerificada.GetOurColorPiece()){
+		    return (King) pieceVerificada;
 		}
 	    }
 	}

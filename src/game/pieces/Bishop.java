@@ -13,7 +13,7 @@ import gui.Sprite;
 
 public class Bishop extends Piece {
 
-	private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
+	private static Texture bispoTexture = LoadTexture("res/pieces/bispo.png");
     public Bishop(int x, int y, char id){
         super(x, y, id);
 
@@ -30,10 +30,10 @@ public class Bishop extends Piece {
 
 	char cor = this.GetOurColorPiece();
 
-	boolean pecaSuperiorDireita = false;
-	boolean pecaSuperiorEsquerda = false;
-	boolean pecaInferiorDireita = false;
-	boolean pecaInferiorEsquerda = false;
+	boolean pieceSuperiorDireita = false;
+	boolean pieceSuperiorEsquerda = false;
+	boolean pieceInferiorDireita = false;
+	boolean pieceInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
@@ -43,40 +43,40 @@ public class Bishop extends Piece {
             Pair inferior_direita = this.posicaoBoard.add(new Pair(+ i, + i));
             Pair inferior_esquerda = this.posicaoBoard.add(new Pair(- i, + i));
 
-            if(!pecaSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.PosicaoOcupada(superior_direita)){
-		    pecaSuperiorDireita = true;
+		    pieceSuperiorDireita = true;
 		}
 		if(cor != board.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
 
-            if(!pecaSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceSuperiorEsquerda && superior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.PosicaoOcupada(superior_esquerda)){
-		    pecaSuperiorEsquerda = true;
+		    pieceSuperiorEsquerda = true;
 		}
 		if(cor != board.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
 
-            if(!pecaInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.PosicaoOcupada(inferior_direita)){
-		    pecaInferiorDireita = true;
+		    pieceInferiorDireita = true;
 		}
 		if(cor != board.GetPieceNaPosicao(inferior_direita).GetOurColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
 
-            if(!pecaInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceInferiorEsquerda && inferior_esquerda.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.PosicaoOcupada(inferior_esquerda)){
-		    pecaInferiorEsquerda = true;
+		    pieceInferiorEsquerda = true;
 		}
 		if(cor != board.GetPieceNaPosicao(inferior_esquerda).GetOurColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, inferior_esquerda, testingCheck);

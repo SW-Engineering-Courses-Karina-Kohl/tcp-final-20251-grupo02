@@ -49,7 +49,7 @@ public abstract class Piece{
 
     public void Mover(Jogada jogada)
     {
-        this.posicaoBoard = jogada.peca_capturada.posicaoBoard;
+        this.posicaoBoard = jogada.piece_capturada.posicaoBoard;
     }
 
     public void DestruirPiece()

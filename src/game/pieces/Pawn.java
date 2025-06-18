@@ -16,7 +16,7 @@ public class Pawn extends Piece {
 
     public boolean jaMovido = false;
 
-    private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
+    private static Texture peaoTexture = LoadTexture("res/pieces/peao.png");
 
     public Pawn(int x, int y, char id){
         super(x, y, id);

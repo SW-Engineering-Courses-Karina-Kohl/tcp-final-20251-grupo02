@@ -15,7 +15,7 @@ import game.Jogada;
 public class King extends Piece{
 
     public boolean jaMovido = false;
-    private static Texture reiTexture = LoadTexture("res/pecas/rei.png");
+    private static Texture reiTexture = LoadTexture("res/pieces/rei.png");
 
     public King(int x, int y, char id){
         super(x, y, id);

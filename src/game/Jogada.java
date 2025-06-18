@@ -4,23 +4,23 @@ import misc.Pair;
 
 public class Jogada {
 
-    public Piece pecaMovida;
-    public Piece peca_capturada;
+    public Piece pieceMovida;
+    public Piece piece_capturada;
     //Player jogador;
 
-    // pecaMovida = tab.getPieceNaPosicao(x,y)
-    // peca_capturada = tab.getPieceNaPosicao(x,y)
-    public Jogada(Piece pecaMovida, Piece peca_capturada){
-        this.pecaMovida = pecaMovida;
-        this.peca_capturada = peca_capturada;
+    // pieceMovida = tab.getPieceNaPosicao(x,y)
+    // piece_capturada = tab.getPieceNaPosicao(x,y)
+    public Jogada(Piece pieceMovida, Piece piece_capturada){
+        this.pieceMovida = pieceMovida;
+        this.piece_capturada = piece_capturada;
     }
 
     public boolean ValidarRoque(Board board) {
-        if (!(pecaMovida instanceof King && peca_capturada instanceof Rook))
+        if (!(pieceMovida instanceof King && piece_capturada instanceof Rook))
             return false;
 
-        King rei = (King) pecaMovida;
-        Rook torre = (Rook) peca_capturada;
+        King rei = (King) pieceMovida;
+        Rook torre = (Rook) piece_capturada;
 
         // ambos não devem ter movido
         if (rei.jaMovido || torre.jaMovido)
@@ -78,8 +78,8 @@ public class Jogada {
     // valida se a jogada pode ser feita e muda o board
     public boolean ValidarJogada(Board board){
 
-	for (Pair p : this.pecaMovida.GetMovimentos()) {
-	    if(p.x == this.peca_capturada.posicaoBoard.x && p.y == this.peca_capturada.posicaoBoard.y){
+	for (Pair p : this.pieceMovida.GetMovimentos()) {
+	    if(p.x == this.piece_capturada.posicaoBoard.x && p.y == this.piece_capturada.posicaoBoard.y){
 		return true;
 	    }
         }
@@ -88,17 +88,17 @@ public class Jogada {
     }
 
     private boolean IsTherePieceInBetween(Board board){
-        // +1 if peca_capturada.posicaoBoard > pecaMovida.posicaoBoard
-        //  0 if peca_capturada.posicaoBoard == pecaMovida.posicaoBoard
-        // -1 if peca_capturada.posicaoBoard < pecaMovida.posicaoBoard
+        // +1 if piece_capturada.posicaoBoard > pieceMovida.posicaoBoard
+        //  0 if piece_capturada.posicaoBoard == pieceMovida.posicaoBoard
+        // -1 if piece_capturada.posicaoBoard < pieceMovida.posicaoBoard
 
-        int dx = Integer.compare(this.peca_capturada.posicaoBoard.x, this.pecaMovida.posicaoBoard.x);
-        int dy = Integer.compare(this.peca_capturada.posicaoBoard.y, this.pecaMovida.posicaoBoard.y);
+        int dx = Integer.compare(this.piece_capturada.posicaoBoard.x, this.pieceMovida.posicaoBoard.x);
+        int dy = Integer.compare(this.piece_capturada.posicaoBoard.y, this.pieceMovida.posicaoBoard.y);
 
-        int x = pecaMovida.posicaoBoard.x + dx;
-        int y = pecaMovida.posicaoBoard.y + dy;
+        int x = pieceMovida.posicaoBoard.x + dx;
+        int y = pieceMovida.posicaoBoard.y + dy;
 
-        while (! this.peca_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
+        while (! this.piece_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
             if (!(board.GetPieceNaPosicao(x, y) instanceof Blank)) {
                 return true;
             }

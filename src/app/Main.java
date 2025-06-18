@@ -36,7 +36,7 @@ public class Main
         jogo.NovoMatch(300);
 
         int clicks = 0;
-        Piece pecaMovida = new Blank(0, 0);
+        Piece pieceMovida = new Blank(0, 0);
 	ArrayList<Pair> movimentosClicado = new ArrayList<>();
 
         BackgroundParticlesEmitter emissor = new BackgroundParticlesEmitter(LARGURA, ALTURA, MARGEM_PARTICULA);
@@ -85,7 +85,7 @@ public class Main
                 if (criarMatch == true)
                 {
                     jogo.NovoMatch(opcoesMenu.ConverteParaSegundos());
-                    pecaMovida = new Blank(0, 0);
+                    pieceMovida = new Blank(0, 0);
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -100,9 +100,9 @@ public class Main
                 if (tab.MouseClikedOnBoard(XINICIAL, YINICIAL, ESCALA)) {
                     Pair pos = tab.GetMousePositionOnBoard(XINICIAL, YINICIAL, ESCALA);
                     if (clicks == 0) {
-                        pecaMovida = tab.GetPieceNaPosicao(pos.x, pos.y);
-			pecaMovida.MovimentosValidos(tab, false);
-			pecaMovida.MovimentosValidos(tab, true);
+                        pieceMovida = tab.GetPieceNaPosicao(pos.x, pos.y);
+			pieceMovida.MovimentosValidos(tab, false);
+			pieceMovida.MovimentosValidos(tab, true);
                         clicks = 1;
 
                     } else if (clicks == 1) {
@@ -111,21 +111,21 @@ public class Main
 			System.out.println("Dentro do click 1");
 
                         // // Verificação do Roque
-                        // if (pecaMovida instanceof King
-                        //         && destino.y == pecaMovida.posicaoBoard.y
-                        //         && Math.abs(destino.x - pecaMovida.posicaoBoard.x) == 2
+                        // if (pieceMovida instanceof King
+                        //         && destino.y == pieceMovida.posicaoBoard.y
+                        //         && Math.abs(destino.x - pieceMovida.posicaoBoard.x) == 2
                         //         && destinoPiece instanceof Blank) {
 
-                        //     int dir = (destino.x > pecaMovida.posicaoBoard.x) ? 1 : -1;
-                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), pecaMovida.posicaoBoard.y);
+                        //     int dir = (destino.x > pieceMovida.posicaoBoard.x) ? 1 : -1;
+                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), pieceMovida.posicaoBoard.y);
                         //     Rook torre = (Rook) tab.GetPieceNaPosicao(torrePos);
-                        //     Jogada roque = new Jogada(pecaMovida, torre);
+                        //     Jogada roque = new Jogada(pieceMovida, torre);
 
                         //     // if (roque.ValidarRoque(tab)) {
                         //     //     // mover rei
-                        //     //     tab.MudancaNoBoard(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
-                        //     //     pecaMovida.Mover(new Jogada(pecaMovida, new Blank(destino.x, destino.y)));
-                        //     //     ((King) pecaMovida).jaMovido = true;
+                        //     //     tab.MudancaNoBoard(new Jogada(pieceMovida, new Blank(destino.x, destino.y)));
+                        //     //     pieceMovida.Mover(new Jogada(pieceMovida, new Blank(destino.x, destino.y)));
+                        //     //     ((King) pieceMovida).jaMovido = true;
 
                         //     //     // mover torre
                         //     //     Pair torreDestino = new Pair(destino.x - dir, destino.y);
@@ -140,17 +140,17 @@ public class Main
                         // }
 
                         // Verificação da jogada
-                        Jogada jogada = new Jogada(pecaMovida, destinoPiece);
+                        Jogada jogada = new Jogada(pieceMovida, destinoPiece);
                         if (jogada.ValidarJogada(tab)) {
                             tab.MudancaNoBoard(jogada);
-                            jogada.pecaMovida.Mover(jogada);
-                            jogada.peca_capturada.DestruirPiece();
+                            jogada.pieceMovida.Mover(jogada);
+                            jogada.piece_capturada.DestruirPiece();
 
-                            if (pecaMovida instanceof King) {
-                                ((King) pecaMovida).jaMovido = true;
+                            if (pieceMovida instanceof King) {
+                                ((King) pieceMovida).jaMovido = true;
                             }
-                            if (pecaMovida instanceof Rook) {
-                                ((Rook) pecaMovida).jaMovido = true;
+                            if (pieceMovida instanceof Rook) {
+                                ((Rook) pieceMovida).jaMovido = true;
                             }
 
 			    if(tab.CheckCheck(tab.GetKingOurColor('b'))){
@@ -178,8 +178,8 @@ public class Main
                 }
 
                 // valida turno
-                if (pecaMovida.GetOurColorPiece() != jogo.GetPlayerTurnoAtual().GetOurColorPlayer()) {
-                    pecaMovida = new Blank(0, 0);
+                if (pieceMovida.GetOurColorPiece() != jogo.GetPlayerTurnoAtual().GetOurColorPlayer()) {
+                    pieceMovida = new Blank(0, 0);
                     clicks = 0;
                 }
 
@@ -188,7 +188,7 @@ public class Main
                 tab.DrawPieces(XINICIAL, YINICIAL);
 
                 if (clicks == 1){
-		    tab.DrawMovimentosValidos(pecaMovida.GetMovimentos(), XINICIAL, YINICIAL, ESCALA);
+		    tab.DrawMovimentosValidos(pieceMovida.GetMovimentos(), XINICIAL, YINICIAL, ESCALA);
 		}
 
 

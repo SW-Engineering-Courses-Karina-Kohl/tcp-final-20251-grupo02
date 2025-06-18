@@ -6,7 +6,7 @@ public class Player {
 
 
 
-    ArrayList<Piece> pecas = new ArrayList<>();
+    ArrayList<Piece> pieces = new ArrayList<>();
     char cor;
     Clock relogio;
     public boolean emCheque;
@@ -27,8 +27,8 @@ public class Player {
 	return cor;
     }
 
-    public Jogada NovaJogada(Piece pecaMovida, Piece peca_capturada, Board board){
-        Jogada jogada = new Jogada(pecaMovida, peca_capturada);
+    public Jogada NovaJogada(Piece pieceMovida, Piece piece_capturada, Board board){
+        Jogada jogada = new Jogada(pieceMovida, piece_capturada);
         jogada.ValidarJogada(board);
         return jogada;
     }
