@@ -15,12 +15,11 @@ public abstract class Piece{
 
     public final int SIZE = 8;
 
-    public char id;
-    public float position;
-    public Pair boardPosition;
-    public ArrayList<Pair> moviments = new ArrayList<>();
+    private char id;
+    private Pair boardPosition;
+    private ArrayList<Pair> moviments = new ArrayList<>();
 
-    public Sprite sprite;
+    private Sprite sprite;
 
     public Piece(int x, int y, char id)
     {
@@ -28,11 +27,16 @@ public abstract class Piece{
         this.id = id;
     }
 
+    public abstract ArrayList<Pair> ValidMoviments(Board Board, boolean testingCheck);
 
-    public abstract ArrayList<Pair> ValidMoviments(Board Board, boolean emCheque);
+
 
     public ArrayList<Pair> GetMoviments(){
 	return moviments;
+    }
+
+    public void SetMoviments(ArrayList<Pair> newMoviments){
+	this.moviments = newMoviments;
     }
 
     public Pair GetBoardPosition(){
@@ -43,6 +47,27 @@ public abstract class Piece{
 	return id;
     }
 
+    public char GetColorPiece(){
+
+	if(this instanceof Blank){
+	    return '_';
+	}
+	if(Character.isLowerCase(this.GetPieceId())){
+	    return 'b';
+	}
+	return 'w';
+
+    }
+
+    public void SetSprite(Sprite sprite){
+	this.sprite = sprite;
+    }
+
+    public void MovePiece(Move move){
+        this.boardPosition = move.capturedPiece.GetBoardPosition();
+    }
+
+    /* Add the moviment to the movs list only if this moviment doesn't lead to a check */
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
@@ -52,41 +77,18 @@ public abstract class Piece{
 	} else {
 	    movs.add(moviment);
 	}
+
     }
 
-    public void MovePiece(Move move)
-    {
-        this.boardPosition = move.capturedPiece.GetBoardPosition();
-    }
-
-    public char GetColorPiece(){
-	if(this instanceof Blank){
-	    return '_';
-	}
-	if(Character.isLowerCase(this.id)){
-	    return 'b';
-	}
-	return 'w';
-    }
-
-    public void print_moviments_validos()
-    {
-        // this.ValidMoviments(board); //
-        for (Pair p : moviments) {
-           System.out.println(p);
-        }
-    }
-
-    public void DrawPiece(int xInicial, int yInicial)
-    {
+    public void DrawPiece(int xInitial, int yInitial){
         if (sprite != null)
-            sprite.DrawSpritePro(GetBoardPosition().x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
-                                GetBoardPosition().y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
+            sprite.DrawSpritePro(GetBoardPosition().x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInitial,
+                                GetBoardPosition().y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInitial);
     }
 
     @Override
     public String toString() {
-        return this.id + " " + this.GetBoardPosition();
+        return this.GetPieceId() + " " + this.GetBoardPosition();
     }
 
 }

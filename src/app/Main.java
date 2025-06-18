@@ -117,21 +117,21 @@ public class Main
                         //         && destinoPiece instanceof Blank) {
 
                         //     int dir = (destino.x > movedPiece.GetBoardPosition().x) ? 1 : -1;
-                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), movedPiece.GetBoardPosition().y);
-                        //     Rook torre = (Rook) tab.GetPieceInPosition(torrePos);
-                        //     Move roque = new Move(movedPiece, torre);
+                        //     Pair rookPos = new Pair((dir == 1 ? 7 : 0), movedPiece.GetBoardPosition().y);
+                        //     Rook rook = (Rook) tab.GetPieceInPosition(rookPos);
+                        //     Move roque = new Move(movedPiece, rook);
 
                         //     // if (roque.ValidarRoque(tab)) {
-                        //     //     // mover rei
+                        //     //     // mover king
                         //     //     tab.UpdateBoard(new Move(movedPiece, new Blank(destino.x, destino.y)));
                         //     //     movedPiece.MovePiece(new Move(movedPiece, new Blank(destino.x, destino.y)));
                         //     //     ((King) movedPiece).jaMovido = true;
 
-                        //     //     // mover torre
-                        //     //     Pair torreDestino = new Pair(destino.x - dir, destino.y);
-                        //     //     tab.UpdateBoard(new Move(torre, new Blank(torreDestino.x, torreDestino.y)));
-                        //     //     torre.MovePiece(new Move(torre, new Blank(torreDestino.x, torreDestino.y)));
-                        //     //     torre.jaMovido = true;
+                        //     //     // mover rook
+                        //     //     Pair rookDestino = new Pair(destino.x - dir, destino.y);
+                        //     //     tab.UpdateBoard(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
+                        //     //     rook.MovePiece(new Move(rook, new Blank(rookDestino.x, rookDestino.y)));
+                        //     //     rook.jaMovido = true;
                         //     //     jogo.ProximoTurno();
                         //     // }
 

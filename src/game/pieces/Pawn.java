@@ -16,21 +16,15 @@ public class Pawn extends Piece {
 
     public boolean jaMovido = false;
 
-    private static Texture peaoTexture = LoadTexture("res/pieces/peao.png");
+    private static Texture pawnTexture = LoadTexture("res/pieces/pawn.png");
 
     public Pawn(int x, int y, char id){
         super(x, y, id);
-        if (GetColorPiece() == 'w')
-            sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
-        else
-            sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
-    }
 
-    public Piece Promover(){
-        char novo_id;
-        if (Character.isLowerCase(this.id)) novo_id = 'd';
-        else novo_id = 'D';
-        return new Queen(this.GetBoardPosition().x, this.GetBoardPosition().y, novo_id);
+	if (GetColorPiece() == 'w')
+	    this.SetSprite(new Sprite(pawnTexture, 2, 0, 0, 0, WHITE, 2));
+        else
+	    this.SetSprite(new Sprite(pawnTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
@@ -51,7 +45,7 @@ public class Pawn extends Piece {
 	Pair cima_duplo = this.GetBoardPosition().add(new Pair(0, direcao * 2));
 
         // diagonais superiores
-        Pair superior_direita = this.GetBoardPosition().add(new Pair(+ 1, direcao * 1));
+        Pair superior_dikingta = this.GetBoardPosition().add(new Pair(+ 1, direcao * 1));
         Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- 1, direcao * 1));
 
 
@@ -66,8 +60,8 @@ public class Pawn extends Piece {
 
 	    }
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(superior_direita)) && cor != board.GetPieceInPosition(superior_direita).GetColorPiece()){
-	    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
+        if(superior_dikingta.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(superior_dikingta)) && cor != board.GetPieceInPosition(superior_dikingta).GetColorPiece()){
+	    this.CheckMoviment(board, newMovimentos, superior_dikingta, testingCheck);
 	}
 
         if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (board.IsTherePieceInPosition(superior_esquerda)) && cor != board.GetPieceInPosition(superior_esquerda).GetColorPiece()){
@@ -75,7 +69,7 @@ public class Pawn extends Piece {
 	}
 
 	if(testingCheck){
-	    moviments = newMovimentos;
+	    this.SetMoviments(newMovimentos);
 	}
 
         return newMovimentos;

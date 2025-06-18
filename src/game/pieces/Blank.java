@@ -16,7 +16,7 @@ public class Blank extends Piece{
 
     @Override
     public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
-        return moviments;
+        return this.GetMoviments();
     }
 
 }

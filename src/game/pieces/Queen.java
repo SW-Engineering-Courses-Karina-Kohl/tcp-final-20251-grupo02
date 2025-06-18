@@ -13,14 +13,15 @@ import gui.Sprite;
 
 public class Queen extends Piece {
 
-	private static Texture rainhaTexture = LoadTexture("res/pieces/rainha.png");
+    private static Texture queenTexture = LoadTexture("res/pieces/queen.png");
+
     public Queen(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'w')
-            sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
+	if (GetColorPiece() == 'w')
+	    this.SetSprite(new Sprite(queenTexture, 2, 0, 0, 0, WHITE, 2));
         else
-            sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
+	    this.SetSprite(new Sprite(queenTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
@@ -31,25 +32,25 @@ public class Queen extends Piece {
 
 	boolean pieceCima = false;
 	boolean pieceBaixo = false;
-	boolean pieceDireita = false;
+	boolean pieceDikingta = false;
 	boolean pieceEsquerda = false;
-	boolean pieceSuperiorDireita = false;
+	boolean pieceSuperiorDikingta = false;
 	boolean pieceSuperiorEsquerda = false;
-	boolean pieceInferiorDireita = false;
+	boolean pieceInferiorDikingta = false;
 	boolean pieceInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
             Pair cima = this.GetBoardPosition().add(new Pair(0, - i));
             Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
-            Pair direita = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair dikingta = this.GetBoardPosition().add(new Pair(+ i, 0));
             Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
 
             // diagonais
-            Pair superior_direita = this.GetBoardPosition().add(new Pair(+ i, - i));
+            Pair superior_dikingta = this.GetBoardPosition().add(new Pair(+ i, - i));
             Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.GetBoardPosition().add(new Pair(+ i, + i));
+            Pair inferior_dikingta = this.GetBoardPosition().add(new Pair(+ i, + i));
             Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- i, + i));
 
 
@@ -72,12 +73,12 @@ public class Queen extends Piece {
 		}
 	    }
 
-	    if(!pieceDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(direita)){
-		    pieceDireita = true;
+	    if(!pieceDikingta && dikingta.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(dikingta)){
+		    pieceDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, direita, testingCheck);
+		if(cor != board.GetPieceInPosition(dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
 		}
 	    }
 
@@ -90,13 +91,13 @@ public class Queen extends Piece {
 		}
 	    }
 
-            if(!pieceSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceSuperiorDikingta && superior_dikingta.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(superior_direita)){
-		    pieceSuperiorDireita = true;
+                if(board.IsTherePieceInPosition(superior_dikingta)){
+		    pieceSuperiorDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(superior_direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
+		if(cor != board.GetPieceInPosition(superior_dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, superior_dikingta, testingCheck);
 		}
 	    }
 
@@ -110,13 +111,13 @@ public class Queen extends Piece {
 		}
 	    }
 
-            if(!pieceInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceInferiorDikingta && inferior_dikingta.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(inferior_direita)){
-		    pieceInferiorDireita = true;
+                if(board.IsTherePieceInPosition(inferior_dikingta)){
+		    pieceInferiorDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(inferior_direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, inferior_direita, testingCheck);
+		if(cor != board.GetPieceInPosition(inferior_dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, inferior_dikingta, testingCheck);
 		}
 	    }
 
@@ -132,7 +133,7 @@ public class Queen extends Piece {
         }
 
 	if(testingCheck){
-	    moviments = newMovimentos;
+	    this.SetMoviments(newMovimentos);
 	}
 
         return newMovimentos;

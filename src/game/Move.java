@@ -19,15 +19,15 @@ public class Move {
         if (!(movedPiece instanceof King && capturedPiece instanceof Rook))
             return false;
 
-        King rei = (King) movedPiece;
-        Rook torre = (Rook) capturedPiece;
+        King king = (King) movedPiece;
+        Rook rook = (Rook) capturedPiece;
 
         // ambos não devem ter movido
-        if (rei.jaMovido || torre.jaMovido)
+        if (king.jaMovido || rook.jaMovido)
             return false;
 
-        Pair posKing = rei.GetBoardPosition();
-        Pair posRook = torre.GetBoardPosition();
+        Pair posKing = king.GetBoardPosition();
+        Pair posRook = rook.GetBoardPosition();
 
         if (posKing.y != posRook.y)
             return false;
@@ -43,7 +43,7 @@ public class Move {
         }
 
 
-        char moverColor = rei.GetColorPiece();
+        char moverColor = king.GetColorPiece();
         char oponenteColor = moverColor == 'w' ? 'b' : 'w';
 
         Pair[] posicoes = new Pair[] {
@@ -124,10 +124,10 @@ public class Move {
         for(int x = 0; x < 8; x++) {
             Piece p = board.GetPieceInPosition(x,0);
             if (p instanceof Pawn && p.GetColorPiece() == 'w') {
-                //promove para rainha
-                Queen dama = new Queen(x, 0, 'w');
+                //promove para queen
+                Queen queen = new Queen(x, 0, 'w');
                 board.UpdateBoard(
-                    new Move(p, dama)
+                    new Move(p, queen)
                 );
                 promoveu = true;
             }
@@ -136,10 +136,10 @@ public class Move {
         for(int x = 0; x < 8; x++) {
             Piece p = board.GetPieceInPosition(x,7);
             if (p instanceof Pawn && p.GetColorPiece() == 'b') {
-                //promove para rainha
-                Queen dama = new Queen(x, 7, 'b');
+                //promove para queen
+                Queen queen = new Queen(x, 7, 'b');
                 board.UpdateBoard(
-                    new Move(p, dama)
+                    new Move(p, queen)
                 );
                 promoveu = true;
             }

@@ -15,15 +15,15 @@ import game.Move;
 public class Rook extends Piece {
 
     public boolean jaMovido = false;
-	private static Texture torreTexture = LoadTexture("res/pieces/torre.png");
+    private static Texture rookTexture = LoadTexture("res/pieces/rook.png");
 
     public Rook(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'w')
-            sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
+	if (GetColorPiece() == 'w')
+	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 0, WHITE, 2));
         else
-            sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
+	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
@@ -34,14 +34,14 @@ public class Rook extends Piece {
 
 	boolean pieceCima = false;
 	boolean pieceBaixo = false;
-	boolean pieceDireita = false;
+	boolean pieceDikingta = false;
 	boolean pieceEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
             Pair cima = this.GetBoardPosition().add(new Pair(0, - i));
             Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
-            Pair direita = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair dikingta = this.GetBoardPosition().add(new Pair(+ i, 0));
             Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
 
 	    if(!pieceCima && cima.IsPieceInsideBoard(0, SIZE)){
@@ -62,12 +62,12 @@ public class Rook extends Piece {
 		}
 	    }
 
-	    if(!pieceDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(board.IsTherePieceInPosition(direita)){
-		    pieceDireita = true;
+	    if(!pieceDikingta && dikingta.IsPieceInsideBoard(0, SIZE)){
+                if(board.IsTherePieceInPosition(dikingta)){
+		    pieceDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, direita, testingCheck);
+		if(cor != board.GetPieceInPosition(dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, dikingta, testingCheck);
 		}
 	    }
 
@@ -83,7 +83,7 @@ public class Rook extends Piece {
         }
 
 	if(testingCheck){
-	    moviments = newMovimentos;
+	    this.SetMoviments(newMovimentos);
 	}
 
         return newMovimentos;

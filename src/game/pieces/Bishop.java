@@ -13,14 +13,15 @@ import gui.Sprite;
 
 public class Bishop extends Piece {
 
-	private static Texture bispoTexture = LoadTexture("res/pieces/bispo.png");
+    private static Texture bishopTexture = LoadTexture("res/pieces/bishop.png");
+
     public Bishop(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'w')
-            sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
+	if (GetColorPiece() == 'w')
+	    this.SetSprite(new Sprite(bishopTexture, 2, 0, 0, 0, WHITE, 2));
         else
-            sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
+	    this.SetSprite(new Sprite(bishopTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
@@ -30,26 +31,26 @@ public class Bishop extends Piece {
 
 	char cor = this.GetColorPiece();
 
-	boolean pieceSuperiorDireita = false;
+	boolean pieceSuperiorDikingta = false;
 	boolean pieceSuperiorEsquerda = false;
-	boolean pieceInferiorDireita = false;
+	boolean pieceInferiorDikingta = false;
 	boolean pieceInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
-            Pair superior_direita = this.GetBoardPosition().add(new Pair(+ i, - i));
+            Pair superior_dikingta = this.GetBoardPosition().add(new Pair(+ i, - i));
             Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.GetBoardPosition().add(new Pair(+ i, + i));
+            Pair inferior_dikingta = this.GetBoardPosition().add(new Pair(+ i, + i));
             Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- i, + i));
 
-            if(!pieceSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceSuperiorDikingta && superior_dikingta.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(superior_direita)){
-		    pieceSuperiorDireita = true;
+                if(board.IsTherePieceInPosition(superior_dikingta)){
+		    pieceSuperiorDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(superior_direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
+		if(cor != board.GetPieceInPosition(superior_dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, superior_dikingta, testingCheck);
 		}
 	    }
 
@@ -63,13 +64,13 @@ public class Bishop extends Piece {
 		}
 	    }
 
-            if(!pieceInferiorDireita && inferior_direita.IsPieceInsideBoard(0, SIZE)){
+            if(!pieceInferiorDikingta && inferior_dikingta.IsPieceInsideBoard(0, SIZE)){
 
-                if(board.IsTherePieceInPosition(inferior_direita)){
-		    pieceInferiorDireita = true;
+                if(board.IsTherePieceInPosition(inferior_dikingta)){
+		    pieceInferiorDikingta = true;
 		}
-		if(cor != board.GetPieceInPosition(inferior_direita).GetColorPiece()){
-		    this.CheckMoviment(board, newMovimentos, inferior_direita, testingCheck);
+		if(cor != board.GetPieceInPosition(inferior_dikingta).GetColorPiece()){
+		    this.CheckMoviment(board, newMovimentos, inferior_dikingta, testingCheck);
 		}
 	    }
 
@@ -87,7 +88,7 @@ public class Bishop extends Piece {
 
 
 	if(testingCheck){
-	    moviments = newMovimentos;
+	    this.SetMoviments(newMovimentos);
 	}
 
         return newMovimentos;

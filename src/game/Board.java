@@ -163,7 +163,7 @@ public class Board
 
 	/* Theres a need for a special treatment for the king */
 	if(movedPiece instanceof King){
-	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.id))){
+	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.GetPieceId()))){
 		return true;
 	    }
 	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(cor))){
@@ -174,9 +174,9 @@ public class Board
 
 
     /* Check if the king passed as argument is currently in check */
-    public boolean CheckCheck(King rei){
+    public boolean CheckCheck(King king){
 
-	char corKing = rei.GetColorPiece();
+	char corKing = king.GetColorPiece();
 
 	// For each piece in the board board
 	for(int i = 0; i < SIZE; i++){
@@ -187,7 +187,7 @@ public class Board
 		if(piece.GetColorPiece() != corKing){
 
 		    for (Pair movePostion : piece.ValidMoviments(this, false)){
-			if(rei.GetBoardPosition().IsEqualsTo(movePostion)){
+			if(king.GetBoardPosition().IsEqualsTo(movePostion)){
 			    return true;
 			}
 		    }
