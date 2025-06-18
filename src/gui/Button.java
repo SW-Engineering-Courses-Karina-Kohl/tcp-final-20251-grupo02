@@ -33,7 +33,7 @@ public class Button
         if (CheckCollisionPointRec(GetMousePosition(), hitbox.GetOurRectangle())) 
         {
             isMouseOn = true;
-            sprite.SetOurColor(COR_CIMA.GetOurColor());
+            sprite.SetOurColor(COR_CIMA.GetColor());
         }
         else
         {

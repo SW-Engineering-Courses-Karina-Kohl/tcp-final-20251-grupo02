@@ -69,7 +69,7 @@ public class Main
         while (!WindowShouldClose() && rodandoMatch[0]) {
             BeginDrawing();
 
-            ClearBackground(new OurColor(52, 54, 71, 255).GetOurColor());
+            ClearBackground(new OurColor(52, 54, 71, 255).GetColor());
             // DrawFPS(20, 20);
 
             emissor.EmitirParicula();

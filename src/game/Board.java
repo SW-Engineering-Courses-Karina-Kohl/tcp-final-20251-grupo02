@@ -251,7 +251,7 @@ public class Board
                 if ((i + j) % 2 == 1){
                     squareColor = new OurColor(38, 41, 66, 255);
 		}
-                DrawRectangle(xInitial + j * 16 * scale, yInitial + i * 16 * scale, 16 * scale, 16 *scale, squareColor.GetOurColor());
+                DrawRectangle(xInitial + j * 16 * scale, yInitial + i * 16 * scale, 16 * scale, 16 *scale, squareColor.GetColor());
             }
         }
     }
@@ -259,43 +259,36 @@ public class Board
 
     public void DrawPieces(int xInitial, int yInitial)
     {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
                 board[i][j].DrawPiece(xInitial, yInitial);
+	    }
+	}
     }
 
-    public void DrawValidMoviments(ArrayList<Pair> movimentos, int xInitial, int yInitial, int scale)
+    /* Show visually in the board the valid moves of the piece */
+    public void DrawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale)
     {
-        for (int i = 0; i < movimentos.size(); i++)
+        for (int i = 0; i < moviments.size(); i++)
         {
-            //Mudando a sprite
             Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale);
-            if (mousePosition.x == movimentos.get(i).x && mousePosition.y == movimentos.get(i).y)
-            {
+
+            if (mousePosition.x == moviments.get(i).x && mousePosition.y == moviments.get(i).y){
                 miraVerdeSprite.SetImagemAtual(0);
                 miraVermelhaSprite.SetImagemAtual(0);
-            }
-            else
-            {
+            } else {
                 miraVerdeSprite.SetImagemAtual(1);
                 miraVermelhaSprite.SetImagemAtual(1);
             }
 
-            if (this.GetPieceInPosition(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
-            {
-                /*DrawRectangle(movimentos.get(i).x * 16 * scale + xInitial,
-                movimentos.get(i).y * 16 * scale + yInitial, 16 * scale, 16 * scale, GREEN);*/
-                miraVerdeSprite.DrawSpritePro(movimentos.get(i).x * 16 * scale + xInitial + miraVerdeSprite.GetWidth() / 2,
-                movimentos.get(i).y * 16 * scale + yInitial + miraVerdeSprite.GetHeight() / 2);
+            if (this.GetPieceInPosition(moviments.get(i)) instanceof Blank ){
+                miraVerdeSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + miraVerdeSprite.GetWidth() / 2,
+					      moviments.get(i).y * 16 * scale + yInitial + miraVerdeSprite.GetHeight() / 2);
+            } else {
+		miraVermelhaSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + miraVermelhaSprite.GetWidth() / 2,
+						 moviments.get(i).y * 16 * scale + yInitial + miraVermelhaSprite.GetHeight() / 2);
             }
 
-            else
-            {
-                /*DrawRectangle(movimentos.get(i).x * 16 * scale + xInitial,
-                movimentos.get(i).y * 16 * scale + yInitial, 16 * scale, 16 * scale, RED);*/
-                miraVermelhaSprite.DrawSpritePro(movimentos.get(i).x * 16 * scale + xInitial + miraVermelhaSprite.GetWidth() / 2,
-                movimentos.get(i).y * 16 * scale + yInitial + miraVermelhaSprite.GetHeight() / 2);
-            }
         }
     }
 

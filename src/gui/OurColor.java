@@ -18,7 +18,7 @@ public class OurColor
         cor = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
     }
 
-    public Color GetOurColor()
+    public Color GetColor()
     {
         return cor;
     }

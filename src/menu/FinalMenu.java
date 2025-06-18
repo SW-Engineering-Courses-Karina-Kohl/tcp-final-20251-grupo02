@@ -95,7 +95,7 @@ public class FinalMenu
         vencedorLargura = MeasureTextEx(fonte, vencedorTexto, tamanhoFonte, espacoFonte);
         DrawTextEx(fonte, vencedorTexto,
         new Vector2().x(centroTela - vencedorLargura.x() / 2).y(21), tamanhoFonte, espacoFonte,
-        new OurColor(157, 204, 102, 255).GetOurColor());
+        new OurColor(157, 204, 102, 255).GetColor());
 
 
         //informacoes do tempo

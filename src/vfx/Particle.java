@@ -51,7 +51,7 @@ public class Particle
 
         this.cor = cor;
 
-        sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetOurColor(), 1);
+        sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetColor(), 1);
     }
 
     public void atualizaParticle()
