@@ -11,13 +11,13 @@ import com.raylib.Raylib.Texture;
 
 import gui.Sprite;
 
-public class Bispo extends Peca {
+public class Bishop extends Piece {
 
 	private static Texture bispoTexture = LoadTexture("res/pecas/bispo.png");
-    public Bispo(int x, int y, char id){
+    public Bishop(int x, int y, char id){
         super(x, y, id);
 
-        if (GetCorPeca() == 'b')
+        if (GetCorPiece() == 'b')
             sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -28,7 +28,7 @@ public class Bispo extends Peca {
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
-	char cor = this.GetCorPeca();
+	char cor = this.GetCorPiece();
 
 	boolean pecaSuperiorDireita = false;
 	boolean pecaSuperiorEsquerda = false;
@@ -48,7 +48,7 @@ public class Bispo extends Peca {
                 if(tabuleiro.PosicaoOcupada(superior_direita)){
 		    pecaSuperiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
@@ -58,7 +58,7 @@ public class Bispo extends Peca {
                 if(tabuleiro.PosicaoOcupada(superior_esquerda)){
 		    pecaSuperiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
@@ -68,7 +68,7 @@ public class Bispo extends Peca {
                 if(tabuleiro.PosicaoOcupada(inferior_direita)){
 		    pecaInferiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
@@ -78,7 +78,7 @@ public class Bispo extends Peca {
                 if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
 		    pecaInferiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }

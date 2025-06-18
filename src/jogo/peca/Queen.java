@@ -11,13 +11,13 @@ import com.raylib.Raylib.Texture;
 
 import gui.Sprite;
 
-public class Dama extends Peca {
+public class Queen extends Piece {
 
 	private static Texture rainhaTexture = LoadTexture("res/pecas/rainha.png");
-    public Dama(int x, int y, char id){
+    public Queen(int x, int y, char id){
         super(x, y, id);
 
-        if (GetCorPeca() == 'b')
+        if (GetCorPiece() == 'b')
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
@@ -27,7 +27,7 @@ public class Dama extends Peca {
     public ArrayList<Pair> MovimentosValidos(Tabuleiro tabuleiro, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetCorPeca();
+	char cor = this.GetCorPiece();
 
 	boolean pecaCima = false;
 	boolean pecaBaixo = false;
@@ -58,7 +58,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(cima)){
 		    pecaCima = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(cima).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(cima).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, cima, testingCheck);
 		}
 	    }
@@ -67,7 +67,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(baixo)){
 		    pecaBaixo = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(baixo).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(baixo).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, baixo, testingCheck);
 		}
 	    }
@@ -76,7 +76,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(direita)){
 		    pecaDireita = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(direita).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(direita).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, direita, testingCheck);
 		}
 	    }
@@ -85,7 +85,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(esquerda)){
 		    pecaEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(esquerda).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(esquerda).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, esquerda, testingCheck);
 		}
 	    }
@@ -95,7 +95,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(superior_direita)){
 		    pecaSuperiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 		}
 	    }
@@ -105,7 +105,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(superior_esquerda)){
 		    pecaSuperiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 		}
 	    }
@@ -115,7 +115,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(inferior_direita)){
 		    pecaInferiorDireita = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(inferior_direita).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_direita).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_direita, testingCheck);
 		}
 	    }
@@ -125,7 +125,7 @@ public class Dama extends Peca {
                 if(tabuleiro.PosicaoOcupada(inferior_esquerda)){
 		    pecaInferiorEsquerda = true;
 		}
-		if(cor != tabuleiro.GetPecaNaPosicao(inferior_esquerda).GetCorPeca()){
+		if(cor != tabuleiro.GetPieceNaPosicao(inferior_esquerda).GetCorPiece()){
 		    this.CheckMoviment(tabuleiro, newMovimentos, inferior_esquerda, testingCheck);
 		}
 	    }

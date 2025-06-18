@@ -11,7 +11,7 @@ import com.raylib.Raylib.Texture;
 
 import gui.*;
 
-public abstract class Peca{
+public abstract class Piece{
 
     public final int SIZE = 8;
     public float posicao;
@@ -20,7 +20,7 @@ public abstract class Peca{
 
     public Sprite sprite;
 
-    public Peca(int x, int y, char id)
+    public Piece(int x, int y, char id)
     {
         this.posicaoTabuleiro = new Pair(x, y);
         this.identificador = id;
@@ -39,7 +39,7 @@ public abstract class Peca{
     public void CheckMoviment(Tabuleiro tabuleiro, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
-	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetCorPeca(), moviment)){
+	    if(!tabuleiro.MoveLeadsToCheck(this, this.GetCorPiece(), moviment)){
 		movs.add(moviment);
 	    }
 	} else {
@@ -52,12 +52,12 @@ public abstract class Peca{
         this.posicaoTabuleiro = jogada.peca_capturada.posicaoTabuleiro;
     }
 
-    public void DestruirPeca()
+    public void DestruirPiece()
     {
 
     }
 
-    public char GetCorPeca(){
+    public char GetCorPiece(){
 	if(this instanceof Blank){
 	    return '_';
 	}
@@ -75,7 +75,7 @@ public abstract class Peca{
         }
     }
 
-    public void DrawPeca(int xInicial, int yInicial)
+    public void DrawPiece(int xInicial, int yInicial)
     {
         if (sprite != null)
             sprite.DrawSpritePro(posicaoTabuleiro.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,

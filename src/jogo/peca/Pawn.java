@@ -12,25 +12,25 @@ import com.raylib.Raylib.Texture;
 import gui.Sprite;
 import jogo.Jogada;
 
-public class Peao extends Peca {
+public class Pawn extends Piece {
 
     public boolean jaMovido = false;
 
     private static Texture peaoTexture = LoadTexture("res/pecas/peao.png");
 
-    public Peao(int x, int y, char id){
+    public Pawn(int x, int y, char id){
         super(x, y, id);
-        if (GetCorPeca() == 'b')
+        if (GetCorPiece() == 'b')
             sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
-    public Peca Promover(){
+    public Piece Promover(){
         char novo_id;
         if (Character.isLowerCase(this.identificador)) novo_id = 'd';
         else novo_id = 'D';
-        return new Dama(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y, novo_id);
+        return new Queen(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y, novo_id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Peao extends Peca {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
 	int direcao = -1;
-	char cor = this.GetCorPeca();
+	char cor = this.GetCorPiece();
 	if(cor == 'b'){
 	    direcao = -1;
 	} else {
@@ -66,11 +66,11 @@ public class Peao extends Peca {
 
 	    }
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPecaNaPosicao(superior_direita).GetCorPeca()){
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_direita)) && cor != tabuleiro.GetPieceNaPosicao(superior_direita).GetCorPiece()){
 	    this.CheckMoviment(tabuleiro, newMovimentos, superior_direita, testingCheck);
 	}
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPecaNaPosicao(superior_esquerda).GetCorPeca()){
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (tabuleiro.PosicaoOcupada(superior_esquerda)) && cor != tabuleiro.GetPieceNaPosicao(superior_esquerda).GetCorPiece()){
 	    this.CheckMoviment(tabuleiro, newMovimentos, superior_esquerda, testingCheck);
 	}
 

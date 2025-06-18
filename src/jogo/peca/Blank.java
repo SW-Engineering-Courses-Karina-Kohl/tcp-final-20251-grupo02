@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import misc.Pair;
 
-public class Blank extends Peca{
+public class Blank extends Piece{
 
     public Blank(int x, int y){
         super(x, y, '_');

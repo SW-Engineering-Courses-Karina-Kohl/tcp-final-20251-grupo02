@@ -12,12 +12,12 @@ import com.raylib.Raylib.Texture;
 import gui.Sprite;
 import jogo.Jogada;
 
-public class Torre extends Piece {
+public class Rook extends Piece {
 
     public boolean jaMovido = false;
 	private static Texture torreTexture = LoadTexture("res/pecas/torre.png");
 
-    public Torre(int x, int y, char id){
+    public Rook(int x, int y, char id){
         super(x, y, id);
 
         if (GetCorPiece() == 'b')
