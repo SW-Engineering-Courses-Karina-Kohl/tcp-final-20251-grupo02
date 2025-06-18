@@ -33,7 +33,7 @@ public class Board
 
     /* board[y][x] = Piece(x, y) */
     private void InitializePiece(Piece piece){
-        this.board[piece.boardPosition.y][piece.boardPosition.x] = piece;
+        this.board[piece.GetBoardPosition().y][piece.GetBoardPosition().x] = piece;
     }
 
     /* Class contructor: Creates a board in the view of the white pieces */
@@ -136,10 +136,10 @@ public class Board
     public void UpdateBoard(Move move){
 
         Piece movedPiece = move.movedPiece;
-        Pair finalPosition = move.capturedPiece.boardPosition;
+        Pair finalPosition = move.capturedPiece.GetBoardPosition();
 
 	// Turns null (blank) the piece previous position
-	this.SetPieceInPosition(movedPiece.boardPosition, new Blank(movedPiece.boardPosition));
+	this.SetPieceInPosition(movedPiece.GetBoardPosition(), new Blank(movedPiece.GetBoardPosition()));
 	// And moves the piece
 	this.SetPieceInPosition(finalPosition, movedPiece);
     }
@@ -187,7 +187,7 @@ public class Board
 		if(piece.GetColorPiece() != corKing){
 
 		    for (Pair movePostion : piece.ValidMoviments(this, false)){
-			if(rei.boardPosition.IsEqualsTo(movePostion)){
+			if(rei.GetBoardPosition().IsEqualsTo(movePostion)){
 			    return true;
 			}
 		    }

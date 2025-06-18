@@ -38,11 +38,11 @@ public class Rook extends Piece {
 	boolean pieceEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.boardPosition.add(new Pair(0, - i));
-            Pair baixo = this.boardPosition.add(new Pair(0, + i));
+            Pair cima = this.GetBoardPosition().add(new Pair(0, - i));
+            Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
-            Pair direita = this.boardPosition.add(new Pair(+ i, 0));
-            Pair esquerda = this.boardPosition.add(new Pair(- i, 0));
+            Pair direita = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
 
 	    if(!pieceCima && cima.IsPieceInsideBoard(0, SIZE)){
                 if(board.IsTherePieceInPosition(cima)){

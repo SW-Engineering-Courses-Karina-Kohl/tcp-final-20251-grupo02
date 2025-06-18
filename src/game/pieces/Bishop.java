@@ -37,11 +37,11 @@ public class Bishop extends Piece {
 
         for(int i = 1; i < SIZE; i++) {
             // diagonais
-            Pair superior_direita = this.boardPosition.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.boardPosition.add(new Pair(- i, - i));
+            Pair superior_direita = this.GetBoardPosition().add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.boardPosition.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.boardPosition.add(new Pair(- i, + i));
+            Pair inferior_direita = this.GetBoardPosition().add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- i, + i));
 
             if(!pieceSuperiorDireita && superior_direita.IsPieceInsideBoard(0, SIZE)){
 

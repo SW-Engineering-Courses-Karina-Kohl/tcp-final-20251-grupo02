@@ -112,12 +112,12 @@ public class Main
 
                         // // Verificação do Roque
                         // if (movedPiece instanceof King
-                        //         && destino.y == movedPiece.boardPosition.y
-                        //         && Math.abs(destino.x - movedPiece.boardPosition.x) == 2
+                        //         && destino.y == movedPiece.GetBoardPosition().y
+                        //         && Math.abs(destino.x - movedPiece.GetBoardPosition().x) == 2
                         //         && destinoPiece instanceof Blank) {
 
-                        //     int dir = (destino.x > movedPiece.boardPosition.x) ? 1 : -1;
-                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), movedPiece.boardPosition.y);
+                        //     int dir = (destino.x > movedPiece.GetBoardPosition().x) ? 1 : -1;
+                        //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), movedPiece.GetBoardPosition().y);
                         //     Rook torre = (Rook) tab.GetPieceInPosition(torrePos);
                         //     Move roque = new Move(movedPiece, torre);
 
@@ -171,7 +171,7 @@ public class Main
                         jogo.ProximoTurno();
                          if (move.ValidarPromocaoPawn(tab)) {
 
-                            Pair positionPeao = movedPiece.boardPosition;
+                            Pair positionPeao = movedPiece.GetBoardPosition();
                             char cor = movedPiece.GetColorPiece();
                             //[T]orre  [C]avalo  [B]ispo  [D]ama"
                             Scanner scanner = new Scanner(System.in);

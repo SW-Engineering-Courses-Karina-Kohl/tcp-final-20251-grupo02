@@ -31,20 +31,20 @@ public class Knight extends Piece {
 	char cor = this.GetColorPiece();
 
         // L pra cima direita esquerda
-        Pair cima_direita = this.boardPosition.add(new Pair(+ 1, - 2));
-        Pair cima_esquerda = this.boardPosition.add(new Pair(- 1, - 2));
+        Pair cima_direita = this.GetBoardPosition().add(new Pair(+ 1, - 2));
+        Pair cima_esquerda = this.GetBoardPosition().add(new Pair(- 1, - 2));
 
         // L pra baixo direita esquerda
-        Pair baixo_direita = this.boardPosition.add(new Pair(+ 1, + 2));
-        Pair baixo_esquerda = this.boardPosition.add(new Pair(- 1, + 2));
+        Pair baixo_direita = this.GetBoardPosition().add(new Pair(+ 1, + 2));
+        Pair baixo_esquerda = this.GetBoardPosition().add(new Pair(- 1, + 2));
 
         // L pra direita cima baixo
-        Pair direita_cima = this.boardPosition.add(new Pair(+ 2, - 1));
-        Pair direita_baixo = this.boardPosition.add(new Pair(+ 2, + 1));
+        Pair direita_cima = this.GetBoardPosition().add(new Pair(+ 2, - 1));
+        Pair direita_baixo = this.GetBoardPosition().add(new Pair(+ 2, + 1));
 
         // L pra esquerda cima baixo
-        Pair esquerda_cima = this.boardPosition.add(new Pair(- 2, - 1));
-        Pair esquerda_baixo = this.boardPosition.add(new Pair(- 2, + 1));
+        Pair esquerda_cima = this.GetBoardPosition().add(new Pair(- 2, - 1));
+        Pair esquerda_baixo = this.GetBoardPosition().add(new Pair(- 2, + 1));
 
         if(cima_direita.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(cima_direita).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, cima_direita, testingCheck);

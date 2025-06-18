@@ -42,18 +42,18 @@ public class King extends Piece{
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char cor = this.GetColorPiece();
 
-        Pair cima = this.boardPosition.add(new Pair(0, - 1));
-        Pair baixo = this.boardPosition.add(new Pair(0, + 1));
+        Pair cima = this.GetBoardPosition().add(new Pair(0, - 1));
+        Pair baixo = this.GetBoardPosition().add(new Pair(0, + 1));
 
-        Pair direita = this.boardPosition.add(new Pair(+ 1, 0));
-        Pair esquerda = this.boardPosition.add(new Pair(- 1, 0));
+        Pair direita = this.GetBoardPosition().add(new Pair(+ 1, 0));
+        Pair esquerda = this.GetBoardPosition().add(new Pair(- 1, 0));
 
         // diagonais
-        Pair superior_direita = this.boardPosition.add(new Pair(+ 1, - 1));
-        Pair superior_esquerda = this.boardPosition.add(new Pair(- 1, - 1));
+        Pair superior_direita = this.GetBoardPosition().add(new Pair(+ 1, - 1));
+        Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- 1, - 1));
 
-        Pair inferior_direita = this.boardPosition.add(new Pair(+ 1, + 1));
-        Pair inferior_esquerda = this.boardPosition.add(new Pair(- 1, + 1));
+        Pair inferior_direita = this.GetBoardPosition().add(new Pair(+ 1, + 1));
+        Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- 1, + 1));
 
         if(cima.IsPieceInsideBoard(0, SIZE) && cor != board.GetPieceInPosition(cima).GetColorPiece())
 	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);

@@ -35,6 +35,10 @@ public abstract class Piece{
 	return moviments;
     }
 
+    public Pair GetBoardPosition(){
+	return boardPosition;
+    }
+
     public char GetPieceId(){
 	return id;
     }
@@ -52,7 +56,7 @@ public abstract class Piece{
 
     public void MovePiece(Move move)
     {
-        this.boardPosition = move.capturedPiece.boardPosition;
+        this.boardPosition = move.capturedPiece.GetBoardPosition();
     }
 
     public char GetColorPiece(){
@@ -76,13 +80,13 @@ public abstract class Piece{
     public void DrawPiece(int xInicial, int yInicial)
     {
         if (sprite != null)
-            sprite.DrawSpritePro(boardPosition.x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
-                                boardPosition.y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
+            sprite.DrawSpritePro(GetBoardPosition().x * sprite.GetWidth() + (sprite.GetWidth() / 2) + xInicial,
+                                GetBoardPosition().y * sprite.GetHeight() + (sprite.GetHeight() / 2) + yInicial);
     }
 
     @Override
     public String toString() {
-        return this.id + " " + this.boardPosition;
+        return this.id + " " + this.GetBoardPosition();
     }
 
 }

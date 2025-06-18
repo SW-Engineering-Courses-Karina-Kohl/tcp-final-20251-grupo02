@@ -39,18 +39,18 @@ public class Queen extends Piece {
 	boolean pieceInferiorEsquerda = false;
 
         for(int i = 1; i < SIZE; i++) {
-            Pair cima = this.boardPosition.add(new Pair(0, - i));
-            Pair baixo = this.boardPosition.add(new Pair(0, + i));
+            Pair cima = this.GetBoardPosition().add(new Pair(0, - i));
+            Pair baixo = this.GetBoardPosition().add(new Pair(0, + i));
 
-            Pair direita = this.boardPosition.add(new Pair(+ i, 0));
-            Pair esquerda = this.boardPosition.add(new Pair(- i, 0));
+            Pair direita = this.GetBoardPosition().add(new Pair(+ i, 0));
+            Pair esquerda = this.GetBoardPosition().add(new Pair(- i, 0));
 
             // diagonais
-            Pair superior_direita = this.boardPosition.add(new Pair(+ i, - i));
-            Pair superior_esquerda = this.boardPosition.add(new Pair(- i, - i));
+            Pair superior_direita = this.GetBoardPosition().add(new Pair(+ i, - i));
+            Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- i, - i));
 
-            Pair inferior_direita = this.boardPosition.add(new Pair(+ i, + i));
-            Pair inferior_esquerda = this.boardPosition.add(new Pair(- i, + i));
+            Pair inferior_direita = this.GetBoardPosition().add(new Pair(+ i, + i));
+            Pair inferior_esquerda = this.GetBoardPosition().add(new Pair(- i, + i));
 
 
 

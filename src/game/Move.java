@@ -26,8 +26,8 @@ public class Move {
         if (rei.jaMovido || torre.jaMovido)
             return false;
 
-        Pair posKing = rei.boardPosition;
-        Pair posRook = torre.boardPosition;
+        Pair posKing = rei.GetBoardPosition();
+        Pair posRook = torre.GetBoardPosition();
 
         if (posKing.y != posRook.y)
             return false;
@@ -79,7 +79,7 @@ public class Move {
     public boolean ValidarMove(Board board){
 
 	for (Pair p : this.movedPiece.GetMoviments()) {
-	    if(p.x == this.capturedPiece.boardPosition.x && p.y == this.capturedPiece.boardPosition.y){
+	    if(p.x == this.capturedPiece.GetBoardPosition().x && p.y == this.capturedPiece.GetBoardPosition().y){
 		return true;
 	    }
         }
@@ -88,17 +88,17 @@ public class Move {
     }
 
     private boolean IsTherePieceInBetween(Board board){
-        // +1 if capturedPiece.boardPosition > movedPiece.boardPosition
-        //  0 if capturedPiece.boardPosition == movedPiece.boardPosition
-        // -1 if capturedPiece.boardPosition < movedPiece.boardPosition
+        // +1 if capturedPiece.GetBoardPosition() > movedPiece.GetBoardPosition()
+        //  0 if capturedPiece.GetBoardPosition() == movedPiece.GetBoardPosition()
+        // -1 if capturedPiece.GetBoardPosition() < movedPiece.GetBoardPosition()
 
-        int dx = Integer.compare(this.capturedPiece.boardPosition.x, this.movedPiece.boardPosition.x);
-        int dy = Integer.compare(this.capturedPiece.boardPosition.y, this.movedPiece.boardPosition.y);
+        int dx = Integer.compare(this.capturedPiece.GetBoardPosition().x, this.movedPiece.GetBoardPosition().x);
+        int dy = Integer.compare(this.capturedPiece.GetBoardPosition().y, this.movedPiece.GetBoardPosition().y);
 
-        int x = movedPiece.boardPosition.x + dx;
-        int y = movedPiece.boardPosition.y + dy;
+        int x = movedPiece.GetBoardPosition().x + dx;
+        int y = movedPiece.GetBoardPosition().y + dy;
 
-        while (! this.capturedPiece.boardPosition.IsEqualsTo(new Pair(x, y)) ) {
+        while (! this.capturedPiece.GetBoardPosition().IsEqualsTo(new Pair(x, y)) ) {
             if (!(board.GetPieceInPosition(x, y) instanceof Blank)) {
                 return true;
             }

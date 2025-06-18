@@ -30,7 +30,7 @@ public class Pawn extends Piece {
         char novo_id;
         if (Character.isLowerCase(this.id)) novo_id = 'd';
         else novo_id = 'D';
-        return new Queen(this.boardPosition.x, this.boardPosition.y, novo_id);
+        return new Queen(this.GetBoardPosition().x, this.GetBoardPosition().y, novo_id);
     }
 
     @Override
@@ -47,12 +47,12 @@ public class Pawn extends Piece {
 	}
 
 
-	Pair cima = this.boardPosition.add(new Pair(0, direcao * 1));
-	Pair cima_duplo = this.boardPosition.add(new Pair(0, direcao * 2));
+	Pair cima = this.GetBoardPosition().add(new Pair(0, direcao * 1));
+	Pair cima_duplo = this.GetBoardPosition().add(new Pair(0, direcao * 2));
 
         // diagonais superiores
-        Pair superior_direita = this.boardPosition.add(new Pair(+ 1, direcao * 1));
-        Pair superior_esquerda = this.boardPosition.add(new Pair(- 1, direcao * 1));
+        Pair superior_direita = this.GetBoardPosition().add(new Pair(+ 1, direcao * 1));
+        Pair superior_esquerda = this.GetBoardPosition().add(new Pair(- 1, direcao * 1));
 
 
 
