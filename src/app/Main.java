@@ -19,7 +19,7 @@ import com.raylib.Raylib.Vector2;
 public class Main
 {
 
-    final static int LARGURA = 640 ;
+    final static int LARGURA = 640;
     final static int ALTURA = 360;
 
     final static int XINICIAL = 192;
@@ -169,8 +169,36 @@ public class Main
 				jogo.GetPlayerPreto().emCheque = false;
 			    }
 
-                            jogo.ProximoTurno();
-                        // if (jogada.ValidarPromocaoPawn(tab)) {} falta a implementação do iuri
+                        jogo.ProximoTurno();
+                         if (jogada.ValidarPromocaoPawn(tab)) {
+
+                            Pair posicaoPeao = pieceMovida.posicaoBoard;
+                            char cor = pieceMovida.GetOurColorPiece();
+                            //[T]orre  [C]avalo  [B]ispo  [D]ama"
+                            Scanner scanner = new Scanner(System.in);
+                            char escolha = Character.toUpperCase(scanner.next().charAt(0));
+
+                            Piece promocao = null;
+                            switch (escolha) {
+                                case 'T':
+                                    char id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Rook(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'B':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Bishop(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'C':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Knight(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                                case 'D':
+                                    id = jogada.idPromocao(cor, 'T');
+                                    promocao = new Queen(posicaoPeao.x, posicaoPeao.y, id);
+                                    break;
+                            }
+                            tab.SetPieceNaPosicao(posicaoPeao.x, posicaoPeao.y, promocao);
+                         }
                         }
 
                         clicks = 0;
