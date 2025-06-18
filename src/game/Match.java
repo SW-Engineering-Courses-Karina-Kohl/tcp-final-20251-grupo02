@@ -1,8 +1,8 @@
-package jogo;
+package game;
 
-import jogo.pieces.Queen;
-import jogo.pieces.Pawn;
-import jogo.pieces.Piece;
+import game.pieces.Queen;
+import game.pieces.Pawn;
+import game.pieces.Piece;
 
 public class Match {
 

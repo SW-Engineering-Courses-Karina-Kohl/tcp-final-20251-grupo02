@@ -1,6 +1,6 @@
-package jogo.pieces;
-import jogo.Jogada;
-import jogo.Board;
+package game.pieces;
+import game.Jogada;
+import game.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;

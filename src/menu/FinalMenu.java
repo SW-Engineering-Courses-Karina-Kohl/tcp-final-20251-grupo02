@@ -10,7 +10,7 @@ import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
 import gui.*;
-import jogo.*;
+import game.*;
 
 public class FinalMenu
 {

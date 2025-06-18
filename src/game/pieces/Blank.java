@@ -1,5 +1,5 @@
-package jogo.pieces;
-import jogo.Board;
+package game.pieces;
+import game.Board;
 import java.util.ArrayList;
 
 import misc.Pair;

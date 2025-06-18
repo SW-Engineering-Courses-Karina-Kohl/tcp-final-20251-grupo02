@@ -1,4 +1,4 @@
-package jogo;
+package game;
 import static com.raylib.Colors.GREEN;
 import static com.raylib.Colors.RED;
 import static com.raylib.Colors.WHITE;
@@ -15,7 +15,7 @@ import com.raylib.Raylib.Texture;
 
 import gui.OurColor;
 import gui.Sprite;
-import jogo.pieces.*;
+import game.pieces.*;
 import misc.Pair;
 
 public class Board

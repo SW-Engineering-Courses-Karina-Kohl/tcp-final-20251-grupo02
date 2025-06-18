@@ -1,5 +1,5 @@
-package jogo.pieces;
-import jogo.Board;
+package game.pieces;
+import game.Board;
 import misc.Pair;
 
 import static com.raylib.Colors.WHITE;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.raylib.Raylib.Texture;
 
 import gui.Sprite;
-import jogo.Jogada;
+import game.Jogada;
 
 public class Rook extends Piece {
 

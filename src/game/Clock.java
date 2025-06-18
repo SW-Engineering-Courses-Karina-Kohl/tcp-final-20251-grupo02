@@ -1,4 +1,4 @@
-package jogo;
+package game;
 public class Clock {
     private int tempo;                 // em segundos
     private volatile boolean ativo;    // garanta visibilidade entre threads

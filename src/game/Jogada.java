@@ -1,5 +1,5 @@
-package jogo;
-import jogo.pieces.*;
+package game;
+import game.pieces.*;
 import misc.Pair;
 
 public class Jogada {

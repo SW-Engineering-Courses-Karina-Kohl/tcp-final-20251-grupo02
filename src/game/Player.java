@@ -1,5 +1,5 @@
-package jogo;
-import jogo.pieces.Piece;
+package game;
+import game.pieces.Piece;
 import java.util.ArrayList;
 
 public class Player {

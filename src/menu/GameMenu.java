@@ -13,7 +13,7 @@ import com.raylib.Raylib.Vector2;
 import gui.Button;
 import gui.OurColor;
 import gui.Sprite;
-import jogo.Match;
+import game.Match;
 
 public class GameMenu
 {
