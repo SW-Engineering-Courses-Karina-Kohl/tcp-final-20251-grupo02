@@ -10,7 +10,7 @@ import com.raylib.Raylib.Texture;
 import gui.*;
 
 
-public class OpcoesMenu
+public class OptionsMenu
 {
 
     //Texto de cima
@@ -44,7 +44,7 @@ public class OpcoesMenu
 
     private Font fonte;
 
-    public OpcoesMenu(int larguraTela, Font fonte)
+    public OptionsMenu(int larguraTela, Font fonte)
     {
         this.larguraTela = larguraTela;
         centroTela = larguraTela / 2;
@@ -72,7 +72,7 @@ public class OpcoesMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaOpcoesMenu(boolean[] paginas)
+    public void LogicaOptionsMenu(boolean[] paginas)
     {
         if (paginas[1] == true)
         {   

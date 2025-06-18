@@ -59,7 +59,7 @@ public class FinalMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaFinalMenu(boolean[] paginas, Match match, OpcoesMenu opcoesMenu, boolean[] vencedor, boolean[] rodandoJogo)
+    public void LogicaFinalMenu(boolean[] paginas, Match match, OptionsMenu opcoesMenu, boolean[] vencedor, boolean[] rodandoJogo)
     {
         if (paginas[3] == true)
         {
@@ -82,7 +82,7 @@ public class FinalMenu
 
 
     //Desenhando os textos
-    public void DrawTextosFinal(Match match, OpcoesMenu opcoesMenu, boolean[] vencedor)
+    public void DrawTextosFinal(Match match, OptionsMenu opcoesMenu, boolean[] vencedor)
     {
 
         if (vencedor[0])

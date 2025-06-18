@@ -55,7 +55,7 @@ public class Main
         boolean criarMatch = false;
 
         MainMenu mainMenu = new MainMenu(LARGURA);
-        OpcoesMenu opcoesMenu = new OpcoesMenu(LARGURA, pixelFont);
+        OptionsMenu opcoesMenu = new OptionsMenu(LARGURA, pixelFont);
         FinalMenu finalMenu = new FinalMenu(LARGURA, pixelFont);
         GameMenu jogoMenu = new GameMenu();
 
@@ -75,7 +75,7 @@ public class Main
             emissor.EmitirParicula();
 
             criarMatch = mainMenu.LogicaMainMenu(paginas, rodandoMatch);
-            opcoesMenu.LogicaOpcoesMenu(paginas);
+            opcoesMenu.LogicaOptionsMenu(paginas);
             finalMenu.LogicaFinalMenu(paginas, jogo, opcoesMenu, vencedor, rodandoMatch);
 
             if (paginas[2] == true)
