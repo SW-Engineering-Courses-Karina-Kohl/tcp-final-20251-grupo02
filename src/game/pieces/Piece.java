@@ -39,7 +39,7 @@ public abstract class Piece{
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){
-	    if(!board.MoveLeadsToCheck(this, this.GetOurColorPiece(), moviment)){
+	    if(!board.MoveLeadsToCheck(this, this.GetColorPiece(), moviment)){
 		movs.add(moviment);
 	    }
 	} else {
@@ -57,7 +57,7 @@ public abstract class Piece{
 
     }
 
-    public char GetOurColorPiece(){
+    public char GetColorPiece(){
 	if(this instanceof Blank){
 	    return '_';
 	}

@@ -23,23 +23,20 @@ public class Board
 
     private int PiecesOnBoard = 32;
     private static final int SIZE = 8;
+    private Piece[][] board = new Piece[SIZE][SIZE];
 
-    // Loading images
-    // This will be a problem in the future if we want to instanciate the board again
     private static Texture miraVerdeTexture = LoadTexture("res/vfx/mira_verde.png");
     private static Texture miraVermelhaTexture = LoadTexture("res/vfx/mira_vermelha.png");
     private Sprite miraVerdeSprite;
     private Sprite miraVermelhaSprite;
-
-    // board[y][x] = Piece(x, y)
-    private Piece[][] board = new Piece[SIZE][SIZE];
+    // This will be a problem in the future if we want to instanciate the board again
 
     // board[y][x] = Piece(x, y)
     private void InitializePiece(Piece piece){
         this.board[piece.posicaoBoard.y][piece.posicaoBoard.x] = piece;
     }
 
-    // Creates a board in the view of the white pieces
+    /* Class contructor: Creates a board in the view of the white pieces */
     public Board()
     {
         // white pieces (uppercase id)
@@ -64,7 +61,7 @@ public class Board
         this.InitializePiece(new King(4,7,'R'));
         this.InitializePiece(new Queen(3,7, 'D'));
 
-        // pieces pretas (id minúsculo)
+        // black pieces (lowercase id)
         this.InitializePiece(new Pawn(0, 1, 'p'));
         this.InitializePiece(new Pawn(1, 1, 'p'));
         this.InitializePiece(new Pawn(2, 1, 'p'));
@@ -99,34 +96,36 @@ public class Board
         miraVermelhaSprite = new Sprite(miraVermelhaTexture, 2, 0, 0, 1, WHITE, 2);
     }
 
+
+    // ------------ Methods ---------------
+
     public Piece[][] GetBoard(){
 	return this.board;
     }
 
-    // checa qual peça está na posicao (x,y)
-    public Piece GetPieceNaPosicao(int x, int y){
+    public Piece GetPieceInPosition(int x, int y){
         return this.board[y][x];
     }
 
-    public Piece GetPieceNaPosicao(Pair p){
+    public Piece GetPieceInPosition(Pair p){
 	return this.board[p.y][p.x];
     }
 
-    public void SetPieceNaPosicao(int x, int y, Piece piece){
+    public void SetPieceNaPosition(int x, int y, Piece piece){
         board[y][x] = piece;
     }
 
-    public void GetPieceNaPosicao(Pair p, Piece piece){
+    public void SetPieceInPosition(Pair p, Piece piece){
 	board[p.y][p.x] = piece;
     }
 
-    public boolean PosicaoOcupada(int x, int y){
+    public boolean PositionOcupada(int x, int y){
         if (this.board[y][x] != null)
             return true;
         return false;
     }
 
-    public boolean PosicaoOcupada(Pair p){
+    public boolean PositionOcupada(Pair p){
         if (this.board[p.y][p.x] instanceof Blank)
             return false;
         return true;
@@ -151,11 +150,11 @@ public class Board
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		simulacao.SetPieceNaPosicao(i, j, this.GetPieceNaPosicao(i, j));
+		simulacao.SetPieceNaPosition(i, j, this.GetPieceInPosition(i, j));
 	    }
 	}
 
-	Piece pieceCapturada = simulacao.GetPieceNaPosicao(mov);
+	Piece pieceCapturada = simulacao.GetPieceInPosition(mov);
 
 	Jogada jogadaSimulada = new Jogada(pieceMovida, pieceCapturada);
 	simulacao.MudancaNoBoard(jogadaSimulada);
@@ -169,7 +168,7 @@ public class Board
 		System.out.println("Leva a check");
 		return true;
 	    }
-	} else if(simulacao.CheckCheck(simulacao.GetKingOurColor(cor))){
+	} else if(simulacao.CheckCheck(simulacao.GetKingColor(cor))){
 	    System.out.println("Leva a check");
 	    return true;
 	}
@@ -178,16 +177,16 @@ public class Board
 
     public boolean CheckCheck(King rei){
 
-	char corKing = rei.GetOurColorPiece();
+	char corKing = rei.GetColorPiece();
 
 	// Para cada peça no board
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
 
-		Piece pieceVerificada =  this.GetPieceNaPosicao(i, j);
+		Piece pieceVerificada =  this.GetPieceInPosition(i, j);
 
 		// Se for inimiga
-		if(pieceVerificada.GetOurColorPiece() != corKing){
+		if(pieceVerificada.GetColorPiece() != corKing){
 
 		    // Se os movimentos possíveis capturam o rei
 		    for (Pair mov : pieceVerificada.MovimentosValidos(this, false)){
@@ -203,12 +202,12 @@ public class Board
 	return false;
     }
 
-    public King GetKingOurColor(char cor){
+    public King GetKingColor(char cor){
 
 	for(int i = 0; i < SIZE; i++){
 	    for(int j = 0; j < SIZE; j++){
-		Piece pieceVerificada = this.GetPieceNaPosicao(i, j);
-		if(pieceVerificada instanceof King && cor == pieceVerificada.GetOurColorPiece()){
+		Piece pieceVerificada = this.GetPieceInPosition(i, j);
+		if(pieceVerificada instanceof King && cor == pieceVerificada.GetColorPiece()){
 		    return (King) pieceVerificada;
 		}
 	    }
@@ -248,25 +247,25 @@ public class Board
 
     public void DrawGrid(int xInicial, int yInicial, int escala)
     {
-        int contadorAlteraOurColor = 0;
+        int contadorAlteraColor = 0;
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
-                OurColor quadradoOurColor = new OurColor(250, 245, 240, 255);
-                if (contadorAlteraOurColor % 2 == 1)
-                    quadradoOurColor = new OurColor(38, 41, 66, 255);
-                contadorAlteraOurColor++;
-                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoOurColor.GetOurColor());
+                OurColor quadradoColor = new OurColor(250, 245, 240, 255);
+                if (contadorAlteraColor % 2 == 1)
+                    quadradoColor = new OurColor(38, 41, 66, 255);
+                contadorAlteraColor++;
+                DrawRectangle(xInicial + j * 16 * escala, yInicial + i * 16 * escala, 16 * escala, 16 *escala, quadradoColor.GetOurColor());
             }
-            contadorAlteraOurColor++;
+            contadorAlteraColor++;
         }
     }
 
     public Pair GetMousePositionOnBoard(int xInicial, int yInicial, int escala)
     {
-        int linha = (int)((GetMouseY() - yInicial) / (16 * escala));
-        int coluna = (int)((GetMouseX() - xInicial) / (16 * escala));
+        int linha = (GetMouseY() - yInicial) / (16 * escala);
+        int coluna = (GetMouseX() - xInicial) / (16 * escala);
 
         Pair posicao = new Pair(coluna, linha);
 
@@ -315,7 +314,7 @@ public class Board
                 miraVermelhaSprite.SetImagemAtual(1);
             }
 
-            if (this.GetPieceNaPosicao(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
+            if (this.GetPieceInPosition(movimentos.get(i).x, movimentos.get(i).y) instanceof Blank )
             {
                 /*DrawRectangle(movimentos.get(i).x * 16 * escala + xInicial,
                 movimentos.get(i).y * 16 * escala + yInicial, 16 * escala, 16 * escala, GREEN);*/

@@ -8,8 +8,8 @@ public class Jogada {
     public Piece piece_capturada;
     //Player jogador;
 
-    // pieceMovida = tab.getPieceNaPosicao(x,y)
-    // piece_capturada = tab.getPieceNaPosicao(x,y)
+    // pieceMovida = tab.getPieceNaPosition(x,y)
+    // piece_capturada = tab.getPieceNaPosition(x,y)
     public Jogada(Piece pieceMovida, Piece piece_capturada){
         this.pieceMovida = pieceMovida;
         this.piece_capturada = piece_capturada;
@@ -37,14 +37,14 @@ public class Jogada {
         // verificar casas entre King e Rook
         int x = posKing.x + dir;
         while (x != posRook.x) {
-            if (!(board.GetPieceNaPosicao(x, posKing.y) instanceof Blank))
+            if (!(board.GetPieceInPosition(x, posKing.y) instanceof Blank))
                 return false;
             x += dir;
         }
 
 
-        char moverOurColor = rei.GetOurColorPiece();
-        char oponenteOurColor = moverOurColor == 'b' ? 'p' : 'b';
+        char moverColor = rei.GetColorPiece();
+        char oponenteColor = moverColor == 'b' ? 'p' : 'b';
 
         Pair[] posicoes = new Pair[] {
             posKing,
@@ -52,7 +52,7 @@ public class Jogada {
             new Pair(posKing.x + 2*dir, posKing.y)
         };
         for (Pair p : posicoes) {
-            if (isAtacado(board, p, oponenteOurColor))
+            if (isAtacado(board, p, oponenteColor))
                 return false;
         }
 
@@ -60,11 +60,11 @@ public class Jogada {
     }
 
     // verifica se uma casa está atacada por alguma peça da cor atacante, se houver, não há roque
-    private boolean isAtacado(Board board, Pair alvo, char atacanteOurColor) {
+    private boolean isAtacado(Board board, Pair alvo, char atacanteColor) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                Piece p = board.GetPieceNaPosicao(x, y);
-                if (p.GetOurColorPiece() != atacanteOurColor)
+                Piece p = board.GetPieceInPosition(x, y);
+                if (p.GetColorPiece() != atacanteColor)
                     continue;
                 for (Pair mv : p.GetMovimentos()) {
                     if (mv.equals(alvo))
@@ -99,7 +99,7 @@ public class Jogada {
         int y = pieceMovida.posicaoBoard.y + dy;
 
         while (! this.piece_capturada.posicaoBoard.equals(new Pair(x, y)) ) {
-            if (!(board.GetPieceNaPosicao(x, y) instanceof Blank)) {
+            if (!(board.GetPieceInPosition(x, y) instanceof Blank)) {
                 return true;
             }
 
@@ -122,8 +122,8 @@ public class Jogada {
         boolean promoveu = false;
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
-            Piece p = board.GetPieceNaPosicao(x,0);
-            if (p instanceof Pawn && p.GetOurColorPiece() == 'b') {
+            Piece p = board.GetPieceInPosition(x,0);
+            if (p instanceof Pawn && p.GetColorPiece() == 'b') {
                 //promove para rainha
                 Queen dama = new Queen(x, 0, 'b');
                 board.MudancaNoBoard(
@@ -134,8 +134,8 @@ public class Jogada {
         }
         //verificação para as pretas
         for(int x = 0; x < 8; x++) {
-            Piece p = board.GetPieceNaPosicao(x,7);
-            if (p instanceof Pawn && p.GetOurColorPiece() == 'p') {
+            Piece p = board.GetPieceInPosition(x,7);
+            if (p instanceof Pawn && p.GetColorPiece() == 'p') {
                 //promove para rainha
                 Queen dama = new Queen(x, 7, 'p');
                 board.MudancaNoBoard(

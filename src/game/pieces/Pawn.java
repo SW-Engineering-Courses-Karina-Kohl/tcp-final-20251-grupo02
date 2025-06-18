@@ -20,7 +20,7 @@ public class Pawn extends Piece {
 
     public Pawn(int x, int y, char id){
         super(x, y, id);
-        if (GetOurColorPiece() == 'b')
+        if (GetColorPiece() == 'b')
             sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -39,7 +39,7 @@ public class Pawn extends Piece {
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
 	int direcao = -1;
-	char cor = this.GetOurColorPiece();
+	char cor = this.GetColorPiece();
 	if(cor == 'b'){
 	    direcao = -1;
 	} else {
@@ -56,21 +56,21 @@ public class Pawn extends Piece {
 
 
 
-        if(cima.IsPieceInsideBoard(0, SIZE) && !(board.PosicaoOcupada(cima))){
+        if(cima.IsPieceInsideBoard(0, SIZE) && !(board.PositionOcupada(cima))){
 	    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
 	}
 
 
-	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(board.PosicaoOcupada(cima_duplo))){
+	    if(cima_duplo.IsPieceInsideBoard(0, SIZE) && !this.jaMovido && !(board.PositionOcupada(cima_duplo))){
 		this.CheckMoviment(board, newMovimentos, cima_duplo, testingCheck);
 
 	    }
 
-        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (board.PosicaoOcupada(superior_direita)) && cor != board.GetPieceNaPosicao(superior_direita).GetOurColorPiece()){
+        if(superior_direita.IsPieceInsideBoard(0, SIZE) && (board.PositionOcupada(superior_direita)) && cor != board.GetPieceInPosition(superior_direita).GetColorPiece()){
 	    this.CheckMoviment(board, newMovimentos, superior_direita, testingCheck);
 	}
 
-        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (board.PosicaoOcupada(superior_esquerda)) && cor != board.GetPieceNaPosicao(superior_esquerda).GetOurColorPiece()){
+        if(superior_esquerda.IsPieceInsideBoard(0, SIZE) && (board.PositionOcupada(superior_esquerda)) && cor != board.GetPieceInPosition(superior_esquerda).GetColorPiece()){
 	    this.CheckMoviment(board, newMovimentos, superior_esquerda, testingCheck);
 	}
 

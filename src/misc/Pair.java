@@ -12,7 +12,7 @@ public class Pair{
 
     public Pair add(Pair other) {
 	    return new Pair(this.x + other.x, this.y + other.y);
-    }    
+    }
 
     @Override
     public String toString() {
@@ -24,7 +24,6 @@ public class Pair{
             (this.x < sup && this.y < sup));
     }
 
-    @Override
     public boolean equals(Object obj){
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;

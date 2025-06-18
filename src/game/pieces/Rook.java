@@ -20,7 +20,7 @@ public class Rook extends Piece {
     public Rook(int x, int y, char id){
         super(x, y, id);
 
-        if (GetOurColorPiece() == 'b')
+        if (GetColorPiece() == 'b')
             sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
@@ -30,7 +30,7 @@ public class Rook extends Piece {
     public ArrayList<Pair> MovimentosValidos(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char cor = this.GetOurColorPiece();
+	char cor = this.GetColorPiece();
 
 	boolean pieceCima = false;
 	boolean pieceBaixo = false;
@@ -45,37 +45,37 @@ public class Rook extends Piece {
             Pair esquerda = this.posicaoBoard.add(new Pair(- i, 0));
 
 	    if(!pieceCima && cima.IsPieceInsideBoard(0, SIZE)){
-                if(board.PosicaoOcupada(cima)){
+                if(board.PositionOcupada(cima)){
 		    pieceCima = true;
 		}
-		if(cor != board.GetPieceNaPosicao(cima).GetOurColorPiece()){
+		if(cor != board.GetPieceInPosition(cima).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, cima, testingCheck);
 		}
 	    }
 
 	    if(!pieceBaixo && baixo.IsPieceInsideBoard(0, SIZE)){
-                if(board.PosicaoOcupada(baixo)){
+                if(board.PositionOcupada(baixo)){
 		    pieceBaixo = true;
 		}
-		if(cor != board.GetPieceNaPosicao(baixo).GetOurColorPiece()){
+		if(cor != board.GetPieceInPosition(baixo).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, baixo, testingCheck);
 		}
 	    }
 
 	    if(!pieceDireita && direita.IsPieceInsideBoard(0, SIZE)){
-                if(board.PosicaoOcupada(direita)){
+                if(board.PositionOcupada(direita)){
 		    pieceDireita = true;
 		}
-		if(cor != board.GetPieceNaPosicao(direita).GetOurColorPiece()){
+		if(cor != board.GetPieceInPosition(direita).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, direita, testingCheck);
 		}
 	    }
 
 	    if(!pieceEsquerda && esquerda.IsPieceInsideBoard(0, SIZE)){
-                if(board.PosicaoOcupada(esquerda)){
+                if(board.PositionOcupada(esquerda)){
 		    pieceEsquerda = true;
 		}
-		if(cor != board.GetPieceNaPosicao(esquerda).GetOurColorPiece()){
+		if(cor != board.GetPieceInPosition(esquerda).GetColorPiece()){
 		    this.CheckMoviment(board, newMovimentos, esquerda, testingCheck);
 		}
 	    }

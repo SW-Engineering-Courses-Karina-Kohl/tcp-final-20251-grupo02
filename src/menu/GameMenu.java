@@ -60,7 +60,7 @@ public class GameMenu
                 paginas[2] = false;
                 paginas[3] = true;
 
-                if (match.GetPlayerTurnoAtual().GetOurColorPlayer() == 'b')
+                if (match.GetPlayerTurnoAtual().GetColorPlayer() == 'b')
                     vencedor[2] = true;
                 else
                     vencedor[1] = true;

@@ -100,14 +100,14 @@ public class Main
                 if (tab.MouseClikedOnBoard(XINICIAL, YINICIAL, ESCALA)) {
                     Pair pos = tab.GetMousePositionOnBoard(XINICIAL, YINICIAL, ESCALA);
                     if (clicks == 0) {
-                        pieceMovida = tab.GetPieceNaPosicao(pos.x, pos.y);
+                        pieceMovida = tab.GetPieceInPosition(pos.x, pos.y);
 			pieceMovida.MovimentosValidos(tab, false);
 			pieceMovida.MovimentosValidos(tab, true);
                         clicks = 1;
 
                     } else if (clicks == 1) {
                         Pair destino = pos;
-                        Piece destinoPiece = tab.GetPieceNaPosicao(destino);
+                        Piece destinoPiece = tab.GetPieceInPosition(destino);
 			System.out.println("Dentro do click 1");
 
                         // // Verificação do Roque
@@ -118,7 +118,7 @@ public class Main
 
                         //     int dir = (destino.x > pieceMovida.posicaoBoard.x) ? 1 : -1;
                         //     Pair torrePos = new Pair((dir == 1 ? 7 : 0), pieceMovida.posicaoBoard.y);
-                        //     Rook torre = (Rook) tab.GetPieceNaPosicao(torrePos);
+                        //     Rook torre = (Rook) tab.GetPieceInPosition(torrePos);
                         //     Jogada roque = new Jogada(pieceMovida, torre);
 
                         //     // if (roque.ValidarRoque(tab)) {
@@ -153,7 +153,7 @@ public class Main
                                 ((Rook) pieceMovida).jaMovido = true;
                             }
 
-			    if(tab.CheckCheck(tab.GetKingOurColor('b'))){
+			    if(tab.CheckCheck(tab.GetKingColor('b'))){
 				jogo.GetPlayerBranco().emCheque = true;
 				System.out.println("Brancas em cheque");
 			    } else {
@@ -161,7 +161,7 @@ public class Main
 				jogo.GetPlayerBranco().emCheque = false;
 			    }
 
-			    if (tab.CheckCheck(tab.GetKingOurColor('p'))){
+			    if (tab.CheckCheck(tab.GetKingColor('p'))){
 				jogo.GetPlayerPreto().emCheque = true;
 				System.out.println("Pretas em cheque");
 			    } else {
@@ -173,7 +173,7 @@ public class Main
                          if (jogada.ValidarPromocaoPawn(tab)) {
 
                             Pair posicaoPeao = pieceMovida.posicaoBoard;
-                            char cor = pieceMovida.GetOurColorPiece();
+                            char cor = pieceMovida.GetColorPiece();
                             //[T]orre  [C]avalo  [B]ispo  [D]ama"
                             Scanner scanner = new Scanner(System.in);
                             char escolha = Character.toUpperCase(scanner.next().charAt(0));
@@ -197,7 +197,7 @@ public class Main
                                     promocao = new Queen(posicaoPeao.x, posicaoPeao.y, id);
                                     break;
                             }
-                            tab.SetPieceNaPosicao(posicaoPeao.x, posicaoPeao.y, promocao);
+                            tab.SetPieceNaPosition(posicaoPeao.x, posicaoPeao.y, promocao);
                          }
                         }
 
@@ -206,7 +206,7 @@ public class Main
                 }
 
                 // valida turno
-                if (pieceMovida.GetOurColorPiece() != jogo.GetPlayerTurnoAtual().GetOurColorPlayer()) {
+                if (pieceMovida.GetColorPiece() != jogo.GetPlayerTurnoAtual().GetColorPlayer()) {
                     pieceMovida = new Blank(0, 0);
                     clicks = 0;
                 }
