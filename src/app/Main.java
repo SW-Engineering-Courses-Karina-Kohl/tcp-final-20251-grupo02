@@ -57,7 +57,7 @@ public class Main
         MainMenu mainMenu = new MainMenu(LARGURA);
         OpcoesMenu opcoesMenu = new OpcoesMenu(LARGURA, pixelFont);
         FinalMenu finalMenu = new FinalMenu(LARGURA, pixelFont);
-        JogoMenu jogoMenu = new JogoMenu();
+        GameMenu jogoMenu = new GameMenu();
 
         //0 = empate; 1 = branco; 2 = preto;
         boolean[] vencedor = new boolean[3];
@@ -80,7 +80,7 @@ public class Main
 
             if (paginas[2] == true)
             {
-                jogoMenu.LogicaJogoMenu(paginas, jogo, vencedor);
+                jogoMenu.LogicaGameMenu(paginas, jogo, vencedor);
                 //Criando o jogo novo
                 if (criarMatch == true)
                 {

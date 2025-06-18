@@ -15,7 +15,7 @@ import gui.Cor;
 import gui.Sprite;
 import jogo.Match;
 
-public class JogoMenu
+public class GameMenu
 {
     //Botao sugerir empate
     private static Texture empateTexture = LoadTexture("res/botoes/empate.png");
@@ -28,7 +28,7 @@ public class JogoMenu
     private Botao desistirBotao;
 
 
-    public JogoMenu()
+    public GameMenu()
     {
 
         empateBotao = new Botao(26 + (int) empateSprite.GetWidth() / 2, 180 + (int) empateSprite.GetHeight() / 2, empateSprite);
@@ -37,7 +37,7 @@ public class JogoMenu
     }
 
     //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaJogoMenu(boolean[] paginas, Match match, boolean[] vencedor)
+    public void LogicaGameMenu(boolean[] paginas, Match match, boolean[] vencedor)
     {
         if (paginas[2] == true)
         {
