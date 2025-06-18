@@ -8,7 +8,7 @@ import com.raylib.Raylib.Texture;
 
 import gui.Cor;
 
-public class EmissorParticulaFundo 
+public class BackgroundParticlesEmitter 
 {
     private static Texture imagem = LoadTexture("res/vfx/particula3.png");
     private int minX;
@@ -24,9 +24,9 @@ public class EmissorParticulaFundo
     private int alturaTela;
     private int margem;
 
-    private ArrayList <Particula> listaParticulas = new ArrayList <Particula>();
+    private ArrayList <Particle> listaParticles = new ArrayList <Particle>();
 
-    public EmissorParticulaFundo(int larguraTela, int alturaTela, int margem)
+    public BackgroundParticlesEmitter(int larguraTela, int alturaTela, int margem)
     {
         this.alturaTela = alturaTela;
         this.larguraTela = larguraTela;
@@ -43,9 +43,9 @@ public class EmissorParticulaFundo
 
         for (int i = 0; i < 10; i++)
         {
-            Particula particula = new Particula(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
+            Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
             , minVelocidade, maxVelocidade, 100, 100, false, 0, new Cor(255, 255, 255, 255));
-            listaParticulas.add(particula);
+            listaParticles.add(particula);
         }
 
         
@@ -53,17 +53,17 @@ public class EmissorParticulaFundo
 
     public void EmitirParicula()
     {
-        if (listaParticulas.size() > 0)
+        if (listaParticles.size() > 0)
         {
-            for (int i = 0; i < listaParticulas.size(); i++)
+            for (int i = 0; i < listaParticles.size(); i++)
             {
-                listaParticulas.get(i).atualizaParticula();
-                if (listaParticulas.get(i).GetY() <  -10)
+                listaParticles.get(i).atualizaParticle();
+                if (listaParticles.get(i).GetY() <  -10)
                 {
-                    Particula particula = new Particula(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
+                    Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direcao, direcao, false, 0, 0, minEscala, maxEscala
                     , minVelocidade, maxVelocidade, 100, 100, false, 0, new Cor(255, 255, 255, 255));
                     
-                    listaParticulas.set(i, particula);
+                    listaParticles.set(i, particula);
                 }
             }
         }

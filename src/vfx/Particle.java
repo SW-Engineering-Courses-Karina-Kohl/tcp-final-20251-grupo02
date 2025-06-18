@@ -7,7 +7,7 @@ import com.raylib.Raylib.Texture;
 
 import gui.*;
 
-public class Particula 
+public class Particle 
 {
     private Sprite sprite;
     private int x;
@@ -26,7 +26,7 @@ public class Particula
     private float velocidadeX;
     private float velocidadeY;
 
-    public Particula(Texture imagem, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotaciona,
+    public Particle(Texture imagem, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotaciona,
     float minVelocidadeRotacao, float maxVelocidadeRotacao, int minEscala, int maxEscala, float minVelocidade, float maxVelocidade,
     int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, Cor cor)
     {
@@ -54,7 +54,7 @@ public class Particula
         sprite = new Sprite(imagem, escala, angulo, 0, 0, cor.GetCor(), 1);
     }
 
-    public void atualizaParticula()
+    public void atualizaParticle()
     {
         // Andando
         x += velocidadeX;

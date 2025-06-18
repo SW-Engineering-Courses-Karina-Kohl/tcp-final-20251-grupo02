@@ -39,7 +39,7 @@ public class Main
         Piece pecaMovida = new Blank(0, 0);
 	ArrayList<Pair> movimentosClicado = new ArrayList<>();
 
-        EmissorParticulaFundo emissor = new EmissorParticulaFundo(LARGURA, ALTURA, MARGEM_PARTICULA);
+        BackgroundParticlesEmitter emissor = new BackgroundParticlesEmitter(LARGURA, ALTURA, MARGEM_PARTICULA);
         Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
         //A array de paginas funciona da seguinte maneira
