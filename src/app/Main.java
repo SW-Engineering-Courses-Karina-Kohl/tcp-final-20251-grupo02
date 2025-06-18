@@ -37,13 +37,13 @@ public class Main
 
         int clicks = 0;
         Piece movedPiece = new Blank(0, 0);
-	ArrayList<Pair> movimentosClicado = new ArrayList<>();
+	ArrayList<Pair> movimentsClicado = new ArrayList<>();
 
         BackgroundParticlesEmitter emissor = new BackgroundParticlesEmitter(LARGURA, ALTURA, MARGEM_PARTICULA);
         Font pixelFont = LoadFont("res/fonts/Pixellari.ttf");
 
         //A array de paginas funciona da seguinte maneira
-        //Cada posicao representa uma pagina, sendo um valor bool, falando se a tela esta ativa ou nao
+        //Cada position representa uma pagina, sendo um valor bool, falando se a tela esta ativa ou nao
         //Ou seja, normalmente averá apenas uma pagina ativa por vez
 
         //A ordem eh a seguinte:
@@ -124,13 +124,13 @@ public class Main
                         //     // if (roque.ValidarRoque(tab)) {
                         //     //     // mover rei
                         //     //     tab.UpdateBoard(new Move(movedPiece, new Blank(destino.x, destino.y)));
-                        //     //     movedPiece.Mover(new Move(movedPiece, new Blank(destino.x, destino.y)));
+                        //     //     movedPiece.MovePiece(new Move(movedPiece, new Blank(destino.x, destino.y)));
                         //     //     ((King) movedPiece).jaMovido = true;
 
                         //     //     // mover torre
                         //     //     Pair torreDestino = new Pair(destino.x - dir, destino.y);
                         //     //     tab.UpdateBoard(new Move(torre, new Blank(torreDestino.x, torreDestino.y)));
-                        //     //     torre.Mover(new Move(torre, new Blank(torreDestino.x, torreDestino.y)));
+                        //     //     torre.MovePiece(new Move(torre, new Blank(torreDestino.x, torreDestino.y)));
                         //     //     torre.jaMovido = true;
                         //     //     jogo.ProximoTurno();
                         //     // }
@@ -143,8 +143,7 @@ public class Main
                         Move move = new Move(movedPiece, destinoPiece);
                         if (move.ValidarMove(tab)) {
                             tab.UpdateBoard(move);
-                            move.movedPiece.Mover(move);
-                            move.capturedPiece.DestruirPiece();
+                            move.movedPiece.MovePiece(move);
 
                             if (movedPiece instanceof King) {
                                 ((King) movedPiece).jaMovido = true;
@@ -153,7 +152,7 @@ public class Main
                                 ((Rook) movedPiece).jaMovido = true;
                             }
 
-			    if(tab.CheckCheck(tab.GetKingColor('b'))){
+			    if(tab.CheckCheck(tab.GetKingColor('w'))){
 				jogo.GetPlayerBranco().emCheque = true;
 				System.out.println("Brancas em cheque");
 			    } else {
@@ -161,7 +160,7 @@ public class Main
 				jogo.GetPlayerBranco().emCheque = false;
 			    }
 
-			    if (tab.CheckCheck(tab.GetKingColor('p'))){
+			    if (tab.CheckCheck(tab.GetKingColor('b'))){
 				jogo.GetPlayerPreto().emCheque = true;
 				System.out.println("Pretas em cheque");
 			    } else {
@@ -172,7 +171,7 @@ public class Main
                         jogo.ProximoTurno();
                          if (move.ValidarPromocaoPawn(tab)) {
 
-                            Pair posicaoPeao = movedPiece.boardPosition;
+                            Pair positionPeao = movedPiece.boardPosition;
                             char cor = movedPiece.GetColorPiece();
                             //[T]orre  [C]avalo  [B]ispo  [D]ama"
                             Scanner scanner = new Scanner(System.in);
@@ -182,22 +181,22 @@ public class Main
                             switch (escolha) {
                                 case 'T':
                                     char id = move.idPromocao(cor, 'T');
-                                    promocao = new Rook(posicaoPeao.x, posicaoPeao.y, id);
+                                    promocao = new Rook(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'B':
                                     id = move.idPromocao(cor, 'T');
-                                    promocao = new Bishop(posicaoPeao.x, posicaoPeao.y, id);
+                                    promocao = new Bishop(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'C':
                                     id = move.idPromocao(cor, 'T');
-                                    promocao = new Knight(posicaoPeao.x, posicaoPeao.y, id);
+                                    promocao = new Knight(positionPeao.x, positionPeao.y, id);
                                     break;
                                 case 'D':
                                     id = move.idPromocao(cor, 'T');
-                                    promocao = new Queen(posicaoPeao.x, posicaoPeao.y, id);
+                                    promocao = new Queen(positionPeao.x, positionPeao.y, id);
                                     break;
                             }
-                            tab.SetPieceInPosition(posicaoPeao.x, posicaoPeao.y, promocao);
+                            tab.SetPieceInPosition(positionPeao.x, positionPeao.y, promocao);
                          }
                         }
 
@@ -216,7 +215,7 @@ public class Main
                 tab.DrawPieces(XINICIAL, YINICIAL);
 
                 if (clicks == 1){
-		    tab.DrawValidMoviments(movedPiece.GetMovimentos(), XINICIAL, YINICIAL, ESCALA);
+		    tab.DrawValidMoviments(movedPiece.GetMoviments(), XINICIAL, YINICIAL, ESCALA);
 		}
 
 

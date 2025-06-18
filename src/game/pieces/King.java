@@ -20,7 +20,7 @@ public class King extends Piece{
     public King(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(reiTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
@@ -29,7 +29,7 @@ public class King extends Piece{
     public King(Pair p, char id){
         super(p.x, p.y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(reiTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(reiTexture, 2, 0, 0, 1, WHITE, 2);
@@ -81,15 +81,15 @@ public class King extends Piece{
 
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;
     }
 
     @Override
-    public void Mover(Move move){
-        super.Mover(move);
+    public void MovePiece(Move move){
+        super.MovePiece(move);
         this.jaMovido = true;
     }
 

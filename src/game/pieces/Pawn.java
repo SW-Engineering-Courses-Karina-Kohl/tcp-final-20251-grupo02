@@ -20,7 +20,7 @@ public class Pawn extends Piece {
 
     public Pawn(int x, int y, char id){
         super(x, y, id);
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(peaoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(peaoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -28,7 +28,7 @@ public class Pawn extends Piece {
 
     public Piece Promover(){
         char novo_id;
-        if (Character.isLowerCase(this.identificador)) novo_id = 'd';
+        if (Character.isLowerCase(this.id)) novo_id = 'd';
         else novo_id = 'D';
         return new Queen(this.boardPosition.x, this.boardPosition.y, novo_id);
     }
@@ -40,7 +40,7 @@ public class Pawn extends Piece {
 
 	int direcao = -1;
 	char cor = this.GetColorPiece();
-	if(cor == 'b'){
+	if(cor == 'w'){
 	    direcao = -1;
 	} else {
 	    direcao = 1;
@@ -75,15 +75,15 @@ public class Pawn extends Piece {
 	}
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;
     }
 
     @Override
-    public void Mover(Move move){
-        super.Mover(move);
+    public void MovePiece(Move move){
+        super.MovePiece(move);
         this.jaMovido = true;
     }
 

@@ -20,7 +20,7 @@ public class Rook extends Piece {
     public Rook(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(torreTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(torreTexture, 2, 0, 0, 1, WHITE, 2);
@@ -83,15 +83,15 @@ public class Rook extends Piece {
         }
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;
     }
 
     @Override
-    public void Mover(Move move){
-        super.Mover(move);
+    public void MovePiece(Move move){
+        super.MovePiece(move);
         this.jaMovido = true;
     }
 

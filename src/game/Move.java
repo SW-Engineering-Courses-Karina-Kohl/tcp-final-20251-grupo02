@@ -44,7 +44,7 @@ public class Move {
 
 
         char moverColor = rei.GetColorPiece();
-        char oponenteColor = moverColor == 'b' ? 'p' : 'b';
+        char oponenteColor = moverColor == 'w' ? 'b' : 'w';
 
         Pair[] posicoes = new Pair[] {
             posKing,
@@ -66,7 +66,7 @@ public class Move {
                 Piece p = board.GetPieceInPosition(x, y);
                 if (p.GetColorPiece() != atacanteColor)
                     continue;
-                for (Pair mv : p.GetMovimentos()) {
+                for (Pair mv : p.GetMoviments()) {
                     if (mv.IsEqualsTo(alvo))
                         return true;
                 }
@@ -78,7 +78,7 @@ public class Move {
     // valida se a move pode ser feita e muda o board
     public boolean ValidarMove(Board board){
 
-	for (Pair p : this.movedPiece.GetMovimentos()) {
+	for (Pair p : this.movedPiece.GetMoviments()) {
 	    if(p.x == this.capturedPiece.boardPosition.x && p.y == this.capturedPiece.boardPosition.y){
 		return true;
 	    }
@@ -123,9 +123,9 @@ public class Move {
         //verificação para as brancas
         for(int x = 0; x < 8; x++) {
             Piece p = board.GetPieceInPosition(x,0);
-            if (p instanceof Pawn && p.GetColorPiece() == 'b') {
+            if (p instanceof Pawn && p.GetColorPiece() == 'w') {
                 //promove para rainha
-                Queen dama = new Queen(x, 0, 'b');
+                Queen dama = new Queen(x, 0, 'w');
                 board.UpdateBoard(
                     new Move(p, dama)
                 );
@@ -135,9 +135,9 @@ public class Move {
         //verificação para as pretas
         for(int x = 0; x < 8; x++) {
             Piece p = board.GetPieceInPosition(x,7);
-            if (p instanceof Pawn && p.GetColorPiece() == 'p') {
+            if (p instanceof Pawn && p.GetColorPiece() == 'b') {
                 //promove para rainha
-                Queen dama = new Queen(x, 7, 'p');
+                Queen dama = new Queen(x, 7, 'b');
                 board.UpdateBoard(
                     new Move(p, dama)
                 );
@@ -149,7 +149,7 @@ public class Move {
     }
 
     public char idPromocao(char cor, char tipoMaiusculo) {
-	if (cor == 'b') {
+	if (cor == 'w') {
 	    // jogador branco: usa letra maiúscula
 	    return tipoMaiusculo;
 	} else {

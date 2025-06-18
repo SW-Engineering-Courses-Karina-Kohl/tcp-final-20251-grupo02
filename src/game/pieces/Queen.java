@@ -17,7 +17,7 @@ public class Queen extends Piece {
     public Queen(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(rainhaTexture, 2, 0, 0, 1, WHITE, 2);
@@ -132,7 +132,7 @@ public class Queen extends Piece {
         }
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;

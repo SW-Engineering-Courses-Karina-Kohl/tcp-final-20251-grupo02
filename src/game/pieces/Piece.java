@@ -14,30 +14,29 @@ import gui.*;
 public abstract class Piece{
 
     public final int SIZE = 8;
-    public float posicao;
+
+    public char id;
+    public float position;
     public Pair boardPosition;
-    public char identificador;
+    public ArrayList<Pair> moviments = new ArrayList<>();
 
     public Sprite sprite;
 
     public Piece(int x, int y, char id)
     {
         this.boardPosition = new Pair(x, y);
-        this.identificador = id;
+        this.id = id;
     }
 
-    public ArrayList<Pair> movimentos = new ArrayList<>();
 
-    // retorna todos os movimentos que uma peça pode
-    // se movimentar, independente se a casa está ocupada ou não
     public abstract ArrayList<Pair> ValidMoviments(Board Board, boolean emCheque);
 
-    public ArrayList<Pair> GetMovimentos(){
-	return movimentos;
+    public ArrayList<Pair> GetMoviments(){
+	return moviments;
     }
 
     public char GetPieceId(){
-	return identificador;
+	return id;
     }
 
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
@@ -51,30 +50,25 @@ public abstract class Piece{
 	}
     }
 
-    public void Mover(Move move)
+    public void MovePiece(Move move)
     {
         this.boardPosition = move.capturedPiece.boardPosition;
-    }
-
-    public void DestruirPiece()
-    {
-
     }
 
     public char GetColorPiece(){
 	if(this instanceof Blank){
 	    return '_';
 	}
-	if(Character.isLowerCase(this.identificador)){
-	    return 'p';
+	if(Character.isLowerCase(this.id)){
+	    return 'b';
 	}
-	return 'b';
+	return 'w';
     }
 
-    public void print_movimentos_validos()
+    public void print_moviments_validos()
     {
         // this.ValidMoviments(board); //
-        for (Pair p : movimentos) {
+        for (Pair p : moviments) {
            System.out.println(p);
         }
     }
@@ -88,7 +82,7 @@ public abstract class Piece{
 
     @Override
     public String toString() {
-        return this.identificador + " " + this.boardPosition;
+        return this.id + " " + this.boardPosition;
     }
 
 }

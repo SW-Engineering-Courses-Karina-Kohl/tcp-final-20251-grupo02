@@ -18,7 +18,7 @@ public class Knight extends Piece {
     public Knight(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(cavaloTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(cavaloTexture, 2, 0, 0, 1, WHITE, 2);
@@ -71,7 +71,7 @@ public class Knight extends Piece {
 	    this.CheckMoviment(board, newMovimentos, esquerda_baixo, testingCheck);
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;

@@ -17,7 +17,7 @@ public class Bishop extends Piece {
     public Bishop(int x, int y, char id){
         super(x, y, id);
 
-        if (GetColorPiece() == 'b')
+        if (GetColorPiece() == 'w')
             sprite = new Sprite(bispoTexture, 2, 0, 0, 0, WHITE, 2);
         else
             sprite = new Sprite(bispoTexture, 2, 0, 0, 1, WHITE, 2);
@@ -87,7 +87,7 @@ public class Bishop extends Piece {
 
 
 	if(testingCheck){
-	    movimentos = newMovimentos;
+	    moviments = newMovimentos;
 	}
 
         return newMovimentos;

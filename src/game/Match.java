@@ -21,8 +21,8 @@ public class Match {
 
     public void NovoMatch(int tempoInicial){
         this.board = new Board();
-        this.jogador_branco = new Player('b', tempoInicial);
-        this.jogador_preto = new Player('p',tempoInicial);
+        this.jogador_branco = new Player('w', tempoInicial);
+        this.jogador_preto = new Player('b',tempoInicial);
         this.jogador_turno_atual = jogador_branco;
 
         this.jogador_turno_atual.GetClock().IniciarClock();

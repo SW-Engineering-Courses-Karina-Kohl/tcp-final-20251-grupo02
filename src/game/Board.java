@@ -163,7 +163,7 @@ public class Board
 
 	/* Theres a need for a special treatment for the king */
 	if(movedPiece instanceof King){
-	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.identificador))){
+	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.id))){
 		return true;
 	    }
 	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(cor))){
