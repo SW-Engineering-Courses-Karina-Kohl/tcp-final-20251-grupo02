@@ -104,9 +104,9 @@ public class Main{
 			Pair pos = board.GetMousePositionOnBoard(INITIALX, INITIALY, SCALE);
 
 			if (clicks == 0) {
-			    if(board.GetPieceInPosition(pos).GetPieceColor() == match.GetCurrentTurnPlayer().GetColorPlayer()){
+			    if(board.GetPieceInPosition(pos).findPieceColor() == match.GetCurrentTurnPlayer().GetColorPlayer()){
 				movedPiece = board.GetPieceInPosition(pos);
-				movedPiece.ValidMoviments(board, true);
+				movedPiece.validMovements(board, true);
 				clicks = 1;
 			    }
 			} else if (clicks == 1) {
@@ -119,7 +119,7 @@ public class Main{
 			    if(move.ValidateMove(board)){
 
 				board.UpdateBoard(move);
-				move.GetMovedPiece().MovePiece(move);
+				move.GetMovedPiece().movePiece(move);
 
 				if(movedPiece instanceof King) {
 				    ((King) movedPiece).hasMoved = true;
@@ -145,9 +145,9 @@ public class Main{
 
 			    } else {
 				// changes the piece if the players clicks on one of the same color
-				if(destinePiece.GetPieceColor() == movedPiece.GetPieceColor()){
+				if(destinePiece.findPieceColor() == movedPiece.findPieceColor()){
 				    movedPiece = board.GetPieceInPosition(pos);
-				    movedPiece.ValidMoviments(board, true);
+				    movedPiece.validMovements(board, true);
 				} else {
 				    movedPiece = new Blank(0,  0);
 				    clicks = 0;
@@ -159,7 +159,7 @@ public class Main{
 		    if (IsMouseButtonPressed(1)) clicks = 0;
 
 		    if (clicks == 1){
-			board.DrawValidMoviments(movedPiece.GetMoviments(), INITIALX, INITIALY, SCALE);
+			board.DrawValidMoviments(movedPiece.getMovements(), INITIALX, INITIALY, SCALE);
 		    }
 
 		    board.DrawPieces(INITIALX, INITIALY);

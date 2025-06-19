@@ -29,8 +29,8 @@ public class Move {
     /* Return if a move is valid */
     public boolean ValidateMove(Board board){
 
-	for (Pair p : this.GetMovedPiece().GetMoviments()) {
-	    if(p.x == this.GetCapturedPiece().GetBoardPosition().x && p.y == this.GetCapturedPiece().GetBoardPosition().y){
+	for (Pair p : this.GetMovedPiece().getMovements()) {
+	    if(p.x == this.GetCapturedPiece().getBoardPosition().x && p.y == this.GetCapturedPiece().getBoardPosition().y){
 		return true;
 	    }
         }
@@ -41,8 +41,8 @@ public class Move {
     public void CheckPawnPromotion(Board board){
 
 	int promotionTile = 0;
-	char pawnColor = this.movedPiece.GetPieceColor();
-	Pair pawnPosition = this.movedPiece.GetBoardPosition();
+	char pawnColor = this.movedPiece.findPieceColor();
+	Pair pawnPosition = this.movedPiece.getBoardPosition();
 
 	if(pawnColor == 'w'){
 	    promotionTile = 0;

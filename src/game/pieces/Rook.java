@@ -28,17 +28,17 @@ public class Rook extends Piece {
     }
 
     private void LoadSprite(){
-	if (GetPieceColor() == 'w')
-	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 0, WHITE, 2));
+	if (findPieceColor() == 'w')
+	    this.setSprite(new Sprite(rookTexture, 2, 0, 0, 0, WHITE, 2));
         else
-	    this.SetSprite(new Sprite(rookTexture, 2, 0, 0, 1, WHITE, 2));
+	    this.setSprite(new Sprite(rookTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
-    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
+    public ArrayList<Pair> validMovements(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
-	char color = this.GetPieceColor();
+	char color = this.findPieceColor();
 
 	boolean pieceUp = false;
 	boolean pieceDown = false;
@@ -47,18 +47,18 @@ public class Rook extends Piece {
 
         for(int i = 1; i < SIZE; i++) {
 
-            Pair up = this.GetBoardPosition().add(new Pair(0, - i));
-            Pair down = this.GetBoardPosition().add(new Pair(0, + i));
+            Pair up = this.getBoardPosition().add(new Pair(0, - i));
+            Pair down = this.getBoardPosition().add(new Pair(0, + i));
 
-            Pair right = this.GetBoardPosition().add(new Pair(+ i, 0));
-            Pair left = this.GetBoardPosition().add(new Pair(- i, 0));
+            Pair right = this.getBoardPosition().add(new Pair(+ i, 0));
+            Pair left = this.getBoardPosition().add(new Pair(- i, 0));
 
 	    if(!pieceUp && up.IsPieceInsideBoard(0, SIZE)){
                 if(board.IsTherePieceInPosition(up)){
 		    pieceUp = true;
 		}
-		if(color != board.GetPieceInPosition(up).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, up, testingCheck);
+		if(color != board.GetPieceInPosition(up).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, up, testingCheck);
 		}
 	    }
 
@@ -66,8 +66,8 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(down)){
 		    pieceDown = true;
 		}
-		if(color != board.GetPieceInPosition(down).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, down, testingCheck);
+		if(color != board.GetPieceInPosition(down).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, down, testingCheck);
 		}
 	    }
 
@@ -75,8 +75,8 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(right)){
 		    pieceRight = true;
 		}
-		if(color != board.GetPieceInPosition(right).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, right, testingCheck);
+		if(color != board.GetPieceInPosition(right).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, right, testingCheck);
 		}
 	    }
 
@@ -84,22 +84,22 @@ public class Rook extends Piece {
                 if(board.IsTherePieceInPosition(left)){
 		    pieceLeft = true;
 		}
-		if(color != board.GetPieceInPosition(left).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, left, testingCheck);
+		if(color != board.GetPieceInPosition(left).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, left, testingCheck);
 		}
 	    }
         }
 
 	if(testingCheck){
-	    this.SetMoviments(newMovimentos);
+	    this.setMovements(newMovimentos);
 	}
 
         return newMovimentos;
     }
 
     @Override
-    public void MovePiece(Move move){
-        super.MovePiece(move);
+    public void movePiece(Move move){
+        super.movePiece(move);
         this.hasMoved = true;
     }
 

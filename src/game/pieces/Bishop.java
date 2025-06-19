@@ -26,18 +26,18 @@ public class Bishop extends Piece {
     }
 
     private void LoadSprite(){
-	if (GetPieceColor() == 'w')
-	    this.SetSprite(new Sprite(bishopTexture, 2, 0, 0, 0, WHITE, 2));
+	if (findPieceColor() == 'w')
+	    this.setSprite(new Sprite(bishopTexture, 2, 0, 0, 0, WHITE, 2));
         else
-	    this.SetSprite(new Sprite(bishopTexture, 2, 0, 0, 1, WHITE, 2));
+	    this.setSprite(new Sprite(bishopTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
     @Override
-    public ArrayList<Pair> ValidMoviments(Board board, boolean testingCheck){
+    public ArrayList<Pair> validMovements(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
-	char color = this.GetPieceColor();
+	char color = this.findPieceColor();
 
 	boolean pieceUpperRight = false;
 	boolean pieceUpperLeft = false;
@@ -46,18 +46,18 @@ public class Bishop extends Piece {
 
         for(int i = 1; i < SIZE; i++) {
 
-            Pair upperRight = this.GetBoardPosition().add(new Pair(+ i, - i));
-            Pair upperLeft = this.GetBoardPosition().add(new Pair(- i, - i));
-            Pair lowerRight = this.GetBoardPosition().add(new Pair(+ i, + i));
-            Pair lowerLeft = this.GetBoardPosition().add(new Pair(- i, + i));
+            Pair upperRight = this.getBoardPosition().add(new Pair(+ i, - i));
+            Pair upperLeft = this.getBoardPosition().add(new Pair(- i, - i));
+            Pair lowerRight = this.getBoardPosition().add(new Pair(+ i, + i));
+            Pair lowerLeft = this.getBoardPosition().add(new Pair(- i, + i));
 
             if(!pieceUpperRight && upperRight.IsPieceInsideBoard(0, SIZE)){
 
                 if(board.IsTherePieceInPosition(upperRight)){
 		    pieceUpperRight = true;
 		}
-		if(color != board.GetPieceInPosition(upperRight).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, upperRight, testingCheck);
+		if(color != board.GetPieceInPosition(upperRight).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, upperRight, testingCheck);
 		}
 	    }
 
@@ -66,8 +66,8 @@ public class Bishop extends Piece {
                 if(board.IsTherePieceInPosition(upperLeft)){
 		    pieceUpperLeft = true;
 		}
-		if(color != board.GetPieceInPosition(upperLeft).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, upperLeft, testingCheck);
+		if(color != board.GetPieceInPosition(upperLeft).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
 		}
 	    }
 
@@ -76,8 +76,8 @@ public class Bishop extends Piece {
                 if(board.IsTherePieceInPosition(lowerRight)){
 		    pieceLowerRight = true;
 		}
-		if(color != board.GetPieceInPosition(lowerRight).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, lowerRight, testingCheck);
+		if(color != board.GetPieceInPosition(lowerRight).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, lowerRight, testingCheck);
 		}
 	    }
 
@@ -86,14 +86,14 @@ public class Bishop extends Piece {
                 if(board.IsTherePieceInPosition(lowerLeft)){
 		    pieceLowerLeft = true;
 		}
-		if(color != board.GetPieceInPosition(lowerLeft).GetPieceColor()){
-		    this.CheckMoviment(board, newMovimentos, lowerLeft, testingCheck);
+		if(color != board.GetPieceInPosition(lowerLeft).findPieceColor()){
+		    this.checkMovement(board, newMovimentos, lowerLeft, testingCheck);
 		}
 	    }
         }
 
 	if(testingCheck){
-	    this.SetMoviments(newMovimentos);
+	    this.setMovements(newMovimentos);
 	}
 
         return newMovimentos;

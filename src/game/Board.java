@@ -33,7 +33,7 @@ public class Board
 
     /* board[y][x] = Piece(x, y) */
     private void InitializePiece(Piece piece){
-        this.board[piece.GetBoardPosition().y][piece.GetBoardPosition().x] = piece;
+        this.board[piece.getBoardPosition().y][piece.getBoardPosition().x] = piece;
     }
 
     /* Class contructor: Creates a board in the view of the white pieces */
@@ -136,10 +136,10 @@ public class Board
     public void UpdateBoard(Move move){
 
         Piece movedPiece = move.GetMovedPiece();
-        Pair finalPosition = move.GetCapturedPiece().GetBoardPosition();
+        Pair finalPosition = move.GetCapturedPiece().getBoardPosition();
 
 	// Turns null (blank) the piece previous position
-	this.SetPieceInPosition(movedPiece.GetBoardPosition(), new Blank(movedPiece.GetBoardPosition()));
+	this.SetPieceInPosition(movedPiece.getBoardPosition(), new Blank(movedPiece.getBoardPosition()));
 	// And moves the piece
 	this.SetPieceInPosition(finalPosition, movedPiece);
     }
@@ -163,7 +163,7 @@ public class Board
 
 	/* Theres a need for a special treatment for the king */
 	if(movedPiece instanceof King){
-	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.GetPieceId()))){
+	    if(simulationBoard.CheckCheck(new King(movePosition, movedPiece.getPieceID()))){
 		return true;
 	    }
 	} else if(simulationBoard.CheckCheck(simulationBoard.GetKingColor(color))){
@@ -176,7 +176,7 @@ public class Board
     /* Check if the king passed as argument is currently in check */
     public boolean CheckCheck(King king){
 
-	char colorKing = king.GetPieceColor();
+	char colorKing = king.findPieceColor();
 
 	// For each piece in the board board
 	for(int i = 0; i < SIZE; i++){
@@ -184,10 +184,10 @@ public class Board
 
 		Piece piece =  this.GetPieceInPosition(i, j);
 
-		if(piece.GetPieceColor() != colorKing){
+		if(piece.findPieceColor() != colorKing){
 
-		    for (Pair movePostion : piece.ValidMoviments(this, false)){
-			if(king.GetBoardPosition().IsEqualsTo(movePostion)){
+		    for (Pair movePostion : piece.validMovements(this, false)){
+			if(king.getBoardPosition().IsEqualsTo(movePostion)){
 			    return true;
 			}
 		    }
@@ -208,7 +208,7 @@ public class Board
 
 		Piece piece = this.GetPieceInPosition(i, j);
 
-		if(piece instanceof King && color == piece.GetPieceColor()){
+		if(piece instanceof King && color == piece.findPieceColor()){
 		    return (King) piece;
 		}
 
@@ -262,7 +262,7 @@ public class Board
 
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++){
-                board[i][j].DrawPiece(xInitial, yInitial);
+                board[i][j].drawPiece(xInitial, yInitial);
 	    }
 	}
 
@@ -301,7 +301,7 @@ public class Board
         for(int i = 0; i < SIZE; i ++){
 	        string = string.concat(i + 1 + " ");
             for(int j = 0; j < SIZE; j++)
-                string = string.concat(board[i][j].GetPieceId() + " ");
+                string = string.concat(board[i][j].getPieceID() + " ");
             string = string.concat("\n");
         }
         return string;
