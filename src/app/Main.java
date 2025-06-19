@@ -104,7 +104,7 @@ public class Main{
 			Pair pos = board.GetMousePositionOnBoard(INITIALX, INITIALY, SCALE);
 
 			if (clicks == 0) {
-			    if(board.GetPieceInPosition(pos).findPieceColor() == match.GetCurrentTurnPlayer().GetColorPlayer()){
+			    if(board.GetPieceInPosition(pos).findPieceColor() == match.GetCurrentTurnPlayer().getColor()){
 				movedPiece = board.GetPieceInPosition(pos);
 				movedPiece.validMovements(board, true);
 				clicks = 1;
@@ -132,8 +132,8 @@ public class Main{
 				}
 
 				// Verify if the players are in check
-				match.GetWhitePlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('w')));
-				match.GetBlackPlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('b')));
+				match.GetWhitePlayer().setCheckStatus(board.CheckCheck(board.GetKingColor('w')));
+				match.GetBlackPlayer().setCheckStatus(board.CheckCheck(board.GetKingColor('b')));
 
 				if (move.GetMovedPiece() instanceof Pawn) {
 				    move.CheckPawnPromotion(board);
@@ -163,8 +163,8 @@ public class Main{
 		    }
 
 		    board.DrawPieces(INITIALX, INITIALY);
-		    DrawTextEx(pixelFont, match.GetWhitePlayer().GetClock().formatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
-		    DrawTextEx(pixelFont, match.GetBlackPlayer().GetClock().formatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
+		    DrawTextEx(pixelFont, match.GetWhitePlayer().getClock().formatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
+		    DrawTextEx(pixelFont, match.GetBlackPlayer().getClock().formatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
 		}
 	    EndDrawing();
 	}

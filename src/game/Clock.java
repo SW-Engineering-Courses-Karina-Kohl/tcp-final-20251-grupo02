@@ -37,6 +37,7 @@ public class Clock {
     }
 
     public void stopClock() {
+        // ATTENTION: the clock does not stop immediatelly due to how the threads work - it may take up to one second for it to stop
         active = false;
     }
 

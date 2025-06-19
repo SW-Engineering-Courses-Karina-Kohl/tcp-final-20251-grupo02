@@ -92,12 +92,12 @@ public class FinalMenu{
 
 
         // player info
-        int timeDiffWhite = optionsMenu.ConvertToSeconds() - match.GetWhitePlayer().GetClock().getTime();
-        int timeDiffBlack = optionsMenu.ConvertToSeconds() - match.GetBlackPlayer().GetClock().getTime();
+        int timeDiffWhite = optionsMenu.ConvertToSeconds() - match.GetWhitePlayer().getClock().getTime();
+        int timeDiffBlack = optionsMenu.ConvertToSeconds() - match.GetBlackPlayer().getClock().getTime();
         int finalTime = timeDiffWhite + timeDiffBlack;
         textDuration = String.format("TEMPO TOTAL: %02d:%02d", finalTime / 60, finalTime % 60);
-        whitePlayerText = "TEMPO BRANCO: " + match.GetWhitePlayer().GetClock().formatTime();
-        blackPlayerText = "TEMPO PRETO: " + match.GetBlackPlayer().GetClock().formatTime();
+        whitePlayerText = "TEMPO BRANCO: " + match.GetWhitePlayer().getClock().formatTime();
+        blackPlayerText = "TEMPO PRETO: " + match.GetBlackPlayer().getClock().formatTime();
 
         widthDuration = MeasureTextEx(font, textDuration, fontSize, fontSpace);
         whitePlayerWidth = MeasureTextEx(font, whitePlayerText, fontSize, fontSpace);
