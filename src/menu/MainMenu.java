@@ -5,6 +5,7 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Texture;
 
 import gui.*;
@@ -41,24 +42,24 @@ public class MainMenu{
     }
 
     // Do the menu logic and draws it
-    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning, Transition transition){
+    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning, Transition transition, Camera2D camera2d){
 
         boolean startNewMatch = false;
         if (pages[0] == true){
 
             // Creating a new game
-            if (newGameButton.MouseClick() && !transition.GetActivated()){
+            if (newGameButton.MouseClick(camera2d) && !transition.GetActivated()){
                 startNewMatch = true;
                 transition.CallTransition(0, 2);
             }
 
             // Going to options menu
-            if (optionsButton.MouseClick() && !transition.GetActivated()){
+            if (optionsButton.MouseClick(camera2d) && !transition.GetActivated()){
                 transition.CallTransition(0, 1);
             }
 
             // Exiting
-            if (exitButton.MouseClick()){
+            if (exitButton.MouseClick(camera2d)){
                 isGameRunning[0] = false;
             }
 

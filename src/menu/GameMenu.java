@@ -2,6 +2,10 @@ package menu;
 
 import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.*;
+
+import com.raylib.Raylib.Camera2D;
+import com.raylib.Raylib.Texture;
+
 import gui.*;
 import vfx.Transition;
 import game.Match;
@@ -25,11 +29,11 @@ public class GameMenu{
     }
 
     // Do the menu logic and draws it
-    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner, Transition transition){
+    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner, Transition transition, Camera2D camera2d){
 
         if (pages[2] == true){
 
-            if (tieButton.MouseClick() && !transition.GetActivated()){
+            if (tieButton.MouseClick(camera2d) && !transition.GetActivated()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
                 transition.CallTransition(2, 3);
@@ -37,7 +41,7 @@ public class GameMenu{
                 winner[0] = true;
             }
 
-            if (surrenderButton.MouseClick() && !transition.GetActivated()){
+            if (surrenderButton.MouseClick(camera2d) && !transition.GetActivated()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
                 transition.CallTransition(2, 3);

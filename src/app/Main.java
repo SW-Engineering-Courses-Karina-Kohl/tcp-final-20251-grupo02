@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.Position;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Vector2;
 
@@ -31,10 +32,9 @@ public class Main{
     final static int GAME = 2;
     final static int FINAL = 3;
 
-
     public static void main(String[] args){
 
-        InitWindow(WIDTH, HEIGHT, "Tabuleiro de Combate de Peças");
+        InitWindow(1280, 720, "Tabuleiro de Combate de Peças");
         SetTargetFPS(60);
 
         Match match = new Match(300);
@@ -80,22 +80,27 @@ public class Main{
 		Move movePromotion = new Move(movedPiece, movedPiece);
 		boolean doPromotion = false;
 
+		Vector2 target = new Vector2().x(640/2).y(360/2);
+		Vector2 offset = new Vector2().x(1280 / 2).y(720 / 2);
+		Camera2D camera2d = new Camera2D().target(target).zoom(2).offset(offset).rotation(0);
+
         while (!WindowShouldClose() && isGameRunning[0]){
 
             BeginDrawing();
 			DrawFPS(20, 20);
             ClearBackground(new OurColor(52, 54, 71, 255).GetColor());
+			BeginMode2D(camera2d);
 
             particleEmitter.SendParticle();
 
-            startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning, transition);
+            startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning, transition, camera2d);
 
-            optionsMenu.OptionsMenuLogic(pages, transition);
-            finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition);
+            optionsMenu.OptionsMenuLogic(pages, transition, camera2d);
+            finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition, camera2d);
 
             if (pages[GAME] == true){
 
-		    gameMenu.GameMenuLogic(pages, match, winner, transition);
+		    gameMenu.GameMenuLogic(pages, match, winner, transition, camera2d);
 
 		    // creating new match
 		    if (startNewMatch == true){
@@ -111,9 +116,9 @@ public class Main{
 		    Board board = match.GetBoard();
 		    board.DrawGrid(INITIALX, INITIALY, SCALE);
 
-		    if (board.MouseClikedOnBoard(INITIALX, INITIALY, SCALE)){
+		    if (board.MouseClikedOnBoard(INITIALX, INITIALY, SCALE, camera2d)){
 
-			Pair pos = board.GetMousePositionOnBoard(INITIALX, INITIALY, SCALE);
+			Pair pos = board.GetMousePositionOnBoard(INITIALX, INITIALY, SCALE, camera2d);
 			
 			if (!doPromotion)
 			{
@@ -185,7 +190,7 @@ public class Main{
 		    if (IsMouseButtonPressed(1)) clicks = 0;
 
 		    if (clicks == 1){
-			board.DrawValidMoviments(movedPiece.GetMoviments(), INITIALX, INITIALY, SCALE);
+			board.DrawValidMoviments(movedPiece.GetMoviments(), INITIALX, INITIALY, SCALE, camera2d);
 		    }
 
 		    board.DrawPieces(INITIALX, INITIALY);
@@ -196,7 +201,7 @@ public class Main{
 
 			if (doPromotion)
 			{
-				if (movePromotion.DoPromotion(board))
+				if (movePromotion.DoPromotion(board, camera2d))
 				{
 					flash.CallFlash();
 					doPromotion = false;
@@ -209,6 +214,7 @@ public class Main{
 			System.out.println(promovido);*/
 		transition.UpdateTransition(pages);
 		flash.UpdateFlash();
+		EndMode2D();
 	    EndDrawing();
 	}
 	CloseWindow();

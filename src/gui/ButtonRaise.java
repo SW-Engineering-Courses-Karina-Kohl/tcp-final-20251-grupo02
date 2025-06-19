@@ -4,6 +4,7 @@ import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.DrawRectangle;
 import static com.raylib.Raylib.LoadTexture;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Texture;
 
 public class ButtonRaise 
@@ -35,7 +36,7 @@ public class ButtonRaise
         piecesSprites[3] = new Sprite(bishopTextureP, scale, 0, 0, 0, WHITE, 2);
     }
 
-    public char BotaoPromocaoLogica(char cor)
+    public char BotaoPromocaoLogica(char cor, Camera2D camera2d)
     {
         char novo = '-';
         DrawRectangle(xBegging - (int) raiseSprite.GetWidth() / 2 - 2,  yBegging - (int)raiseSprite.GetHeight() / 2 - 2, 3 * offset + (int) raiseSprite.GetWidth() + 4, (int) raiseSprite.GetHeight() + 4, new OurColor(102, 139, 204, 255).GetColor());
@@ -46,7 +47,7 @@ public class ButtonRaise
             Button buttonRaise = new Button(xBegging + i * offset,yBegging, raiseSprite);
             piecesSprites[i].DrawSpritePro(xBegging + i * offset , yBegging);
 
-            if (buttonRaise.MouseClick())
+            if (buttonRaise.MouseClick(camera2d))
             {
                 if (cor == 'w')
                     novo = whitePieces[i];

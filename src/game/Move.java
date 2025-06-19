@@ -4,6 +4,8 @@ import gui.ButtonRaise;
 import misc.Pair;
 import java.util.Scanner;
 
+import com.raylib.Raylib.Camera2D;
+
 
 public class Move {
 
@@ -70,11 +72,11 @@ public class Move {
 	}
     }
 
-	public boolean DoPromotion(Board board)
+	public boolean DoPromotion(Board board, Camera2D camera2d)
 	{
 		char pawnColor = this.movedPiece.GetPieceColor();
 		Pair pawnPosition = this.movedPiece.GetBoardPosition();
-		char escolha = Character.toUpperCase(buttonRaise.BotaoPromocaoLogica(pawnColor));
+		char escolha = Character.toUpperCase(buttonRaise.BotaoPromocaoLogica(pawnColor, camera2d));
 		if (escolha != '-')
 		{
 			switch (escolha) {

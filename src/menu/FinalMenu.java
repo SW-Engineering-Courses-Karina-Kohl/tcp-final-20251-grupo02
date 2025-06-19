@@ -5,6 +5,7 @@ import static com.raylib.Raylib.*;
 
 import java.util.Vector;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
@@ -56,17 +57,17 @@ public class FinalMenu{
     }
 
     // Do the menu logic and draws it
-    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning, Transition transition){
+    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning, Transition transition, Camera2D camera2d){
 
         if (pages[3] == true){
 
             // Going back to main menu
-            if (mainMenuButton.MouseClick() && !transition.GetActivated()){
+            if (mainMenuButton.MouseClick(camera2d) && !transition.GetActivated()){
                 transition.CallTransition(3, 0);
             }
 
             // Exiting
-            if (exitButton.MouseClick()){
+            if (exitButton.MouseClick(camera2d)){
                 isGameRunning[0] = false;
             }
 

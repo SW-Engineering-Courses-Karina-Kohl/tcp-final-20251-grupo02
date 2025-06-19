@@ -5,6 +5,7 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
@@ -68,26 +69,26 @@ public class OptionsMenu{
     }
 
     // Do the menu logic and draws it
-    public void OptionsMenuLogic(boolean[] pages, Transition transition){
+    public void OptionsMenuLogic(boolean[] pages, Transition transition, Camera2D camera2d){
         if (pages[1] == true){
             optionsSprite.DrawSpritePro(screenCenter, 32);
 
             timeSprite.DrawSpritePro(screenCenter - timeSprite.GetWidth() / 2, 104);
 
             // Going back to main menu
-            if (goBackButton.MouseClick() && !transition.GetActivated()){
+            if (goBackButton.MouseClick(camera2d) && !transition.GetActivated()){
                 transition.CallTransition(1, 0);
             }
 
-            UpdatingTime();
+            UpdatingTime(camera2d);
         }
     }
 
-    private void UpdatingTime(){
-        LoopIndex(0, 6, 0);
-        LoopIndex(0, 9, 1);
-        LoopIndex(0, 5, 2);
-        LoopIndex(0, 9, 3);
+    private void UpdatingTime(Camera2D camera2d){
+        LoopIndex(0, 6, 0, camera2d);
+        LoopIndex(0, 9, 1, camera2d);
+        LoopIndex(0, 5, 2, camera2d);
+        LoopIndex(0, 9, 3, camera2d);
 
         // Max time is one hour
         if (indexNumbers[0] == 6){
@@ -111,9 +112,9 @@ public class OptionsMenu{
             return 0;
     }
 
-    public void LoopIndex(int min, int max, int i){
-        indexNumbers[i] += BoolToInt(upArrowButton[i].MouseClick());
-        indexNumbers[i] -= BoolToInt(downArrowButton[i].MouseClick());
+    public void LoopIndex(int min, int max, int i, Camera2D camera2d){
+        indexNumbers[i] += BoolToInt(upArrowButton[i].MouseClick(camera2d));
+        indexNumbers[i] -= BoolToInt(downArrowButton[i].MouseClick(camera2d));
 
         if (indexNumbers[i] > max){
             indexNumbers[i] = min;

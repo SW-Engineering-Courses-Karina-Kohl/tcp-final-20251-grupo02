@@ -3,15 +3,20 @@ import static com.raylib.Colors.GREEN;
 import static com.raylib.Colors.RED;
 import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.DrawRectangle;
+import static com.raylib.Raylib.GetMousePosition;
 import static com.raylib.Raylib.GetMouseX;
 import static com.raylib.Raylib.GetMouseY;
+import static com.raylib.Raylib.GetScreenToWorld2D;
 import static com.raylib.Raylib.IsMouseButtonPressed;
 import static com.raylib.Raylib.LoadTexture;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Color;
 import com.raylib.Raylib.Texture;
+import com.raylib.Raylib.Vector2;
 
 import gui.OurColor;
 import gui.Sprite;
@@ -220,21 +225,26 @@ public class Board
     }
 
 
-    public Pair GetMousePositionOnBoard(int xInitial, int yInitial, int scale){
+    public Pair GetMousePositionOnBoard(int xInitial, int yInitial, int scale, Camera2D camera2d){
+        int x = (int) GetMousePositionScreen(camera2d).x();
+        int y = (int) GetMousePositionScreen(camera2d).y();
 
-        int line = (GetMouseY() - yInitial) / (16 * scale);
-        int column = (GetMouseX() - xInitial) / (16 * scale);
+        int line = (y - yInitial) / (16 * scale);
+        int column = (x - xInitial) / (16 * scale);
 
         Pair position = new Pair(column, line);
 
         return position;
     }
 
-    public boolean MouseClikedOnBoard(int xInitial, int yInitial, int scale)    {
+    public boolean MouseClikedOnBoard(int xInitial, int yInitial, int scale, Camera2D camera2d)    {
 
         if (IsMouseButtonPressed(0)){
-            if (GetMouseY() >= yInitial && GetMouseY() < yInitial + (16 * scale * 8)){
-                if (GetMouseX() >= xInitial && GetMouseX() < xInitial + (16 * scale * 8)){
+            int x = (int) GetMousePositionScreen(camera2d).x();
+            int y = (int) GetMousePositionScreen(camera2d).y();
+
+            if (y >= yInitial && y < yInitial + (16 * scale * 8)){
+                if (x >= xInitial && x < xInitial + (16 * scale * 8)){
                     return true;
                 }
             }
@@ -247,8 +257,8 @@ public class Board
 
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                //OurColor squareColor = new OurColor(250, 245, 240, 255);
-                OurColor squareColor = new OurColor(200, 200, 200, 255);
+                OurColor squareColor = new OurColor(250, 245, 240, 255);
+                //OurColor squareColor = new OurColor(200, 200, 200, 255);
                 if ((i + j) % 2 == 1){
                     squareColor = new OurColor(38, 41, 66, 255);
 		}
@@ -270,11 +280,11 @@ public class Board
     }
 
     /* Show visually in the board the valid moves of the piece */
-    public void DrawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale){
+    public void DrawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale, Camera2D camera2d){
 
         for (int i = 0; i < moviments.size(); i++){
 
-            Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale);
+            Pair mousePosition = GetMousePositionOnBoard(xInitial, yInitial, scale, camera2d);
 
             if (mousePosition.x == moviments.get(i).x && mousePosition.y == moviments.get(i).y){
                 greenAimSprite.SetCurrentImage(0);
@@ -308,4 +318,8 @@ public class Board
         return string;
     }
 
+    public Vector2 GetMousePositionScreen(Camera2D camera2d)
+    {
+        return GetScreenToWorld2D(GetMousePosition(), camera2d);
+    }
 }
