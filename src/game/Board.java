@@ -247,7 +247,8 @@ public class Board
 
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                OurColor squareColor = new OurColor(250, 245, 240, 255);
+                //OurColor squareColor = new OurColor(250, 245, 240, 255);
+                OurColor squareColor = new OurColor(200, 200, 200, 255);
                 if ((i + j) % 2 == 1){
                     squareColor = new OurColor(38, 41, 66, 255);
 		}
