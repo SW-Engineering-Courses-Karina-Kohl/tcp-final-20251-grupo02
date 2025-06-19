@@ -42,12 +42,12 @@ public class MainMenu{
     // Do the menu logic and draws it
     public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning){
 
-        boolean startNewGame = false;
+        boolean startNewMatch = false;
         if (pages[0] == true){
 
             // Creating a new game
             if (newGameButton.MouseClick()){
-                startNewGame = true;
+                startNewMatch = true;
                 pages[0] = false;
                 pages[2] = true;
             }
@@ -65,7 +65,7 @@ public class MainMenu{
 
             logoSprite.DrawSpritePro(screenCenter, 100);
         }
-        return startNewGame;
+        return startNewMatch;
     }
 
 }

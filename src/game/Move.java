@@ -1,6 +1,8 @@
 package game;
 import game.pieces.*;
 import misc.Pair;
+import java.util.Scanner;
+
 
 public class Move {
 
@@ -36,7 +38,42 @@ public class Move {
 	return false;
     }
 
-    public char PromotionId(char color, char uppercasePieceId) {
+    public void CheckPawnPromotion(Board board){
+
+	int promotionTile = 0;
+	char pawnColor = this.movedPiece.GetPieceColor();
+	Pair pawnPosition = this.movedPiece.GetBoardPosition();
+
+	if(pawnColor == 'w'){
+	    promotionTile = 0;
+	} else {
+	    promotionTile = 7;
+	}
+
+	if(pawnPosition.y == promotionTile){
+
+	    //[T]orre  [C]avalo  [B]ispo  [D]ama"
+	    Scanner scanner = new Scanner(System.in);
+	    char escolha = Character.toUpperCase(scanner.next().charAt(0));
+
+	    switch (escolha) {
+	    case 'T':
+		board.SetPieceInPosition(pawnPosition, new Rook(pawnPosition, this.PromotionId(pawnColor, 'T')));
+		break;
+	    case 'B':
+		board.SetPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.PromotionId(pawnColor, 'B')));
+		break;
+	    case 'C':
+		board.SetPieceInPosition(pawnPosition, new Knight(pawnPosition, this.PromotionId(pawnColor, 'C')));
+		break;
+	    case 'D':
+		board.SetPieceInPosition(pawnPosition, new Queen(pawnPosition, this.PromotionId(pawnColor, 'D')));
+		break;
+	    }
+	}
+    }
+
+    private char PromotionId(char color, char uppercasePieceId) {
 	if (color == 'w') {
 	    return uppercasePieceId;
 	} else {
