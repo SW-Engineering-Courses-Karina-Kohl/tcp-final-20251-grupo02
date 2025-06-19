@@ -13,6 +13,7 @@ import com.raylib.Raylib.Vector2;
 import gui.Button;
 import gui.OurColor;
 import gui.Sprite;
+import vfx.Transition;
 import game.Match;
 
 public class GameMenu{
@@ -34,24 +35,22 @@ public class GameMenu{
     }
 
     // Do the menu logic and draws it
-    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner){
+    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner, Transition transition){
 
         if (pages[2] == true){
 
-            if (tieButton.MouseClick()){
+            if (tieButton.MouseClick() && !transition.GetActivated()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
-                pages[2] = false;
-                pages[3] = true;
+                transition.CallTransition(2, 3);
 
                 winner[0] = true;
             }
 
-            if (surrenderButton.MouseClick()){
+            if (surrenderButton.MouseClick() && !transition.GetActivated()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
-                pages[2] = false;
-                pages[3] = true;
+                transition.CallTransition(2, 3);
 
                 if (match.GetCurrentTurnPlayer().GetColorPlayer() == 'w')
                     winner[2] = true;

@@ -5,9 +5,12 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
+import com.raylib.Raylib.Vector2;
 
 import gui.*;
+import vfx.Transition;
 
 public class OptionsMenu{
 
@@ -65,16 +68,15 @@ public class OptionsMenu{
     }
 
     // Do the menu logic and draws it
-    public void OptionsMenuLogic(boolean[] pages){
+    public void OptionsMenuLogic(boolean[] pages, Transition transition){
         if (pages[1] == true){
             optionsSprite.DrawSpritePro(screenCenter, 32);
 
             timeSprite.DrawSpritePro(screenCenter - timeSprite.GetWidth() / 2, 104);
 
             // Going back to main menu
-            if (goBackButton.MouseClick()){
-                pages[1] = false;
-                pages[0] = true;
+            if (goBackButton.MouseClick() && !transition.GetActivated()){
+                transition.CallTransition(1, 0);
             }
 
             UpdatingTime();

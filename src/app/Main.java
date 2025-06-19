@@ -69,6 +69,9 @@ public class Main{
         boolean[] isGameRunning = new boolean[1];
         isGameRunning[0] = true;
 
+		//Transition
+		Transition transition = new Transition(new OurColor(0, 0, 0, 255), WIDTH, HEIGHT, 10, 0);
+
         while (!WindowShouldClose() && isGameRunning[0]){
 
             BeginDrawing();
@@ -76,14 +79,14 @@ public class Main{
 
             particleEmitter.SendParticle();
 
-            startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning);
+            startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning, transition);
 
-            optionsMenu.OptionsMenuLogic(pages);
-            finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning);
+            optionsMenu.OptionsMenuLogic(pages, transition);
+            finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition);
 
             if (pages[GAME] == true){
 
-		    gameMenu.GameMenuLogic(pages, match, winner);
+		    gameMenu.GameMenuLogic(pages, match, winner, transition);
 
 		    // creating new match
 		    if (startNewMatch == true){
@@ -165,7 +168,9 @@ public class Main{
 		    board.DrawPieces(INITIALX, INITIALY);
 		    DrawTextEx(pixelFont, match.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
 		    DrawTextEx(pixelFont, match.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
+
 		}
+		transition.UpdateTransition(pages);
 	    EndDrawing();
 	}
 	CloseWindow();

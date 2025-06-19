@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.raylib.Raylib.Texture;
 
 import gui.*;
+import vfx.Transition;
 
 
 public class MainMenu{
@@ -40,22 +41,20 @@ public class MainMenu{
     }
 
     // Do the menu logic and draws it
-    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning){
+    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning, Transition transition){
 
         boolean startNewMatch = false;
         if (pages[0] == true){
 
             // Creating a new game
-            if (newGameButton.MouseClick()){
+            if (newGameButton.MouseClick() && !transition.GetActivated()){
                 startNewMatch = true;
-                pages[0] = false;
-                pages[2] = true;
+                transition.CallTransition(0, 2);
             }
 
             // Going to options menu
-            if (optionsButton.MouseClick()){
-                pages[0] = false;
-                pages[1] = true;
+            if (optionsButton.MouseClick() && !transition.GetActivated()){
+                transition.CallTransition(0, 1);
             }
 
             // Exiting

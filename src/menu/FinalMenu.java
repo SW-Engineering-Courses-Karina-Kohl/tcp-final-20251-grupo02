@@ -10,6 +10,7 @@ import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
 import gui.*;
+import vfx.Transition;
 import game.*;
 
 public class FinalMenu{
@@ -55,14 +56,13 @@ public class FinalMenu{
     }
 
     // Do the menu logic and draws it
-    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning){
+    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning, Transition transition){
 
         if (pages[3] == true){
 
             // Going back to main menu
-            if (mainMenuButton.MouseClick()){
-                pages[0] = true;
-                pages[3] = false;
+            if (mainMenuButton.MouseClick() && !transition.GetActivated()){
+                transition.CallTransition(3, 0);
             }
 
             // Exiting
