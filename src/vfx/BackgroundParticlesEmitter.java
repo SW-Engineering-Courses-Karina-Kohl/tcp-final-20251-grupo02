@@ -8,64 +8,56 @@ import com.raylib.Raylib.Texture;
 
 import gui.OurColor;
 
-public class BackgroundParticlesEmitter 
-{
-    private static Texture imagem = LoadTexture("res/vfx/particula3.png");
+public class BackgroundParticlesEmitter{
+
+    private static Texture image = LoadTexture("res/vfx/particula3.png");
     private int minX;
     private int maxX;
     private int minY;
     private int maxY;
     private float direction;
-    private int minEscala;
-    private int maxEscala;
-    private float minVelocidade;
-    private float maxVelocidade;
-    private int larguraTela;
-    private int alturaTela;
-    private int margem;
+    private int minScale;
+    private int maxScale;
+    private float minSpeed;
+    private float maxSpeed;
+    private int margin;
 
-    private ArrayList <Particle> listaParticles = new ArrayList <Particle>();
+    private ArrayList <Particle> particlesList = new ArrayList <Particle>();
 
-    public BackgroundParticlesEmitter(int larguraTela, int alturaTela, int margem)
-    {
-        this.alturaTela = alturaTela;
-        this.larguraTela = larguraTela;
-        this.margem = margem;
-        minX = margem;
-        maxX = larguraTela - margem;
-        minY = alturaTela + 10;
-        maxY = alturaTela * 2;
+    public BackgroundParticlesEmitter(int screenWidth, int screenHeight, int margin){
+
+        this.margin = margin;
+        minX = margin;
+        maxX = screenWidth - margin;
+        minY = screenHeight + 10;
+        maxY = screenHeight * 2;
         direction = 270;
-        minVelocidade = 1f;
-        maxVelocidade = 3f;
-        minEscala = 1;
-        maxEscala = 4;
+        minSpeed = 1f;
+        maxSpeed = 3f;
+        minScale = 1;
+        maxScale = 4;
 
-        for (int i = 0; i < 10; i++)
-        {
-            Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minEscala, maxEscala
-            , minVelocidade, maxVelocidade, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
-            listaParticles.add(particula);
+        for (int i = 0; i < 10; i++){
+            Particle particle = new Particle(image, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minScale, maxScale
+            , minSpeed, maxSpeed, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
+            particlesList.add(particle);
         }
-
-        
     }
 
-    public void EmitirParicula()
-    {
-        if (listaParticles.size() > 0)
-        {
-            for (int i = 0; i < listaParticles.size(); i++)
-            {
-                listaParticles.get(i).atualizaParticle();
-                if (listaParticles.get(i).GetY() <  -10)
-                {
-                    Particle particula = new Particle(imagem, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minEscala, maxEscala
-                    , minVelocidade, maxVelocidade, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
-                    
-                    listaParticles.set(i, particula);
+    public void SendParticle(){
+
+        if (particlesList.size() > 0) {
+            for (int i = 0; i < particlesList.size(); i++){
+
+                particlesList.get(i).UpdateParticle();
+                if (particlesList.get(i).GetY() <  -10){
+                    Particle particle = new Particle(image, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minScale, maxScale,
+						     minSpeed, maxSpeed, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
+
+                    particlesList.set(i, particle);
                 }
             }
         }
     }
+
 }

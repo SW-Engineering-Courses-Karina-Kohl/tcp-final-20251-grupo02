@@ -7,112 +7,90 @@ import com.raylib.Raylib.Rectangle;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
-public class Sprite 
-{
-    private Texture textura;
-    private float escala, angulo;
-    private OurRectangle colorte;
-    private int imagem_velocidade;
-    private int imagem_atual;
-    private int contador = 0;
-    private Color color;
-    private int qtd_imagens;
+public class Sprite{
 
-    public Sprite(Texture textura, float escala, float angulo, int imagem_velocidade, int imagem_atual, Color color, int qtd_imagens)
-    {
-        this.textura = textura;
-        this.escala = escala;
-        this.angulo = angulo;
-        this.imagem_velocidade = imagem_velocidade;
-        this.imagem_atual = imagem_atual;
+    private Texture texture;
+    private float scale, angle;
+    private OurRectangle cut;
+    private int imageSpeed;
+    private int currentImage;
+    private int counter = 0;
+    private Color color;
+    private int imageAmount;
+
+    public Sprite(Texture texture, float scale, float angle, int imageSpeed, int currentImage, Color color, int imageAmount){
+
+        this.texture = texture;
+        this.scale = scale;
+        this.angle = angle;
+        this.imageSpeed = imageSpeed;
+        this.currentImage = currentImage;
         this.color = color;
 
-        //colorte = new Rectangle().x(0).y(0).width(this.textura.width() / qtd_imagens).height(this.textura.height());
-        colorte = new OurRectangle(0, 0, this.textura.width() / qtd_imagens, this.textura.height());
+        cut = new OurRectangle(0, 0, this.texture.width() / imageAmount, this.texture.height());
     }
 
 
-    public void DrawSpritePro(float x, float y)
-    {
-        // Atualizando a sprite
-        // Rodando o timer
-        if (imagem_velocidade != 0)
-        {
-            contador++;
+    public void DrawSpritePro(float x, float y){
 
-            if (contador >= (60 / imagem_velocidade))
-            {
-                // Mudando a imagem
-                imagem_atual = (imagem_atual + 1) % (int)(textura.width() / Math.abs(colorte.GetWidth()));
-                colorte.SetX((float)imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))));
-                contador = 0;
+        // Running the timer
+        if (imageSpeed != 0){
+
+            counter++;
+
+            if (counter >= (60 / imageSpeed)){
+                // Changing the image
+                currentImage = (currentImage + 1) % (int)(texture.width() / Math.abs(cut.GetWidth()));
+                cut.SetX((float)currentImage * (texture.width() / (texture.width() / Math.abs(cut.GetWidth()))));
+                counter = 0;
             }
+        } else {
+            cut.SetX((float) currentImage * (texture.width() / (texture.width() / Math.abs(cut.GetWidth()))));
         }
-        else
-        {
-            colorte.SetX((float) imagem_atual * (float)(textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))));
-        }
-        
 
-        Rectangle rec_sprite = new Rectangle()
-        .x(x)
-        .y(y)
-        .width(GetWidth())
-        .height(GetHeight());
+        Rectangle rec_sprite = new Rectangle() .x(x) .y(y) .width(GetWidth()) .height(GetHeight());
 
         Vector2 pivot = new Vector2()
-        .x((float) (textura.width() / (textura.width() / Math.abs(colorte.GetWidth())) / 2) * escala)
-        .y((float) textura.height() * escala / 2);
-        
-        // Desenhando
-        DrawTexturePro(textura, colorte.GetOurRectangle(), rec_sprite, pivot, angulo, color);
+	    .x((texture.width() / (texture.width() / Math.abs(cut.GetWidth())) / 2) * scale)
+	    .y(texture.height() * scale / 2);
+
+        DrawTexturePro(texture, cut.GetOurRectangle(), rec_sprite, pivot, angle, color);
     }
 
-    public float GetWidth()
-    {
-        return (float) (textura.width() / (textura.width() / Math.abs(colorte.GetWidth()))) * escala;
+    public float GetWidth(){
+        return (texture.width() / (texture.width() / Math.abs(cut.GetWidth()))) * scale;
     }
 
-    public float GetHeight()
-    {
-        return (float) textura.height() * escala;
+    public float GetHeight(){
+        return (float) texture.height() * scale;
     }
 
-    public float GetEscala()
-    {
-        return escala;
+    public float GetScale(){
+        return scale;
     }
 
-    public void SetEscala(float novaEscala)
-    {
-        escala = novaEscala;
+    public void SetScale(float newScale){
+        scale = newScale;
     }
 
     // Calculate linear interpolation between two floats
-    public float Lerp(float inicio, float fim, float quantia)
-    {
-        float resultado = inicio + quantia*(fim - inicio);
-
-        return resultado;
+    public float Lerp(float start, float end, float amount){
+        return start + amount*(end - start);
     }
 
-    public void SetCurrentImage(int novaImagemAtual)
-    {
-        imagem_atual = novaImagemAtual;
+    public void SetCurrentImage(int newCurrentImage){
+        currentImage = newCurrentImage;
     }
 
-    public void SetOurColor(Color novaOurColor)
-    {
-        color = novaOurColor;
+    public void SetColor(Color newColor){
+        color = newColor;
     }
 
-    public void SetAngulo(float novoAngulo)
-    {
-        angulo = novoAngulo;
+    public void SetAngle(float newAngle){
+        angle = newAngle;
     }
 
-    public void IncrementaAngulo(float incrmento)
-    {
-        angulo += incrmento;
+    public void IncrementAngle(float amount){
+        angle += amount;
     }
 }

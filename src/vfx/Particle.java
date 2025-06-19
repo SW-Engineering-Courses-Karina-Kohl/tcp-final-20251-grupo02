@@ -7,91 +7,77 @@ import com.raylib.Raylib.Texture;
 
 import gui.*;
 
-public class Particle 
-{
+public class Particle{
+
     private Sprite sprite;
     private int x;
     private int y;
     private OurColor color;
     private float direction;
-    private float rotacao;
-    private boolean rotaciona;
-    private float velocidadeRotacao;
-    private int escala;
-    private float velocidade;
-    private int vidaMaxima;
-    private int vidaAtual;
-    private boolean gravidade;
-    private float velocidadeGravidade;
-    private float velocidadeX;
-    private float velocidadeY;
+    private float rotation;
+    private boolean rotate;
+    private float rotationSpeed;
+    private int scale;
+    private float speed;
+    private boolean gravity;
+    private float gravitySpeed;
+    private float speedX;
+    private float speedY;
 
-    public Particle(Texture imagem, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotaciona,
-    float minVelocidadeRotacao, float maxVelocidadeRotacao, int minEscala, int maxEscala, float minVelocidade, float maxVelocidade,
-    int minVidaAtual, int maxVidaAtual, boolean gravidade, float velocidadeGravidade, OurColor color)
-    {
-        this.rotaciona = rotaciona;
-        this.gravidade = gravidade;
-        this.velocidadeGravidade = velocidadeGravidade;
+    public Particle(Texture image, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotate,
+    float minSpeedRotation, float maxSpeedRotation, int minScale, int maxScale, float minSpeed, float maxSpeed,
+    int minVidaAtual, int maxVidaAtual, boolean gravity, float gravitySpeed, OurColor color){
+
+        this.rotate = rotate;
+        this.gravity = gravity;
+        this.gravitySpeed = gravitySpeed;
 
         x = getRandomRangeInt(minX, maxX);
         y = getRandomRangeInt(minY, maxY);
-        vidaMaxima = getRandomRangeInt(minVidaAtual, maxVidaAtual);
-        vidaAtual = vidaMaxima;
 
         direction = getRandomRangeFloat(minDirecao, maxDirecao);
-        velocidade = getRandomRangeFloat(minVelocidade, maxVelocidade);
-        escala = getRandomRangeInt(minEscala, maxEscala);
-        velocidadeRotacao = getRandomRangeFloat(minVelocidadeRotacao, maxVelocidadeRotacao);
+        speed = getRandomRangeFloat(minSpeed, maxSpeed);
+        scale = getRandomRangeInt(minScale, maxScale);
+        rotationSpeed = getRandomRangeFloat(minSpeedRotation, maxSpeedRotation);
 
-        //Pegando o angulo
-        float angulo = (float) (direction * Math.PI) / 180; 
-        velocidadeX = velocidade * (float) Math.cos(angulo);
-        velocidadeY = velocidade * (float) Math.sin(angulo);
+	// Getting the angle
+        float angle = (float) (direction * Math.PI) / 180;
+        speedX = speed * (float) Math.cos(angle);
+        speedY = speed * (float) Math.sin(angle);
 
         this.color = color;
-
-        sprite = new Sprite(imagem, escala, angulo, 0, 0, color.GetColor(), 1);
+        sprite = new Sprite(image, scale, angle, 0, 0, color.GetColor(), 1);
     }
 
-    public void atualizaParticle()
-    {
-        // Andando
-        x += velocidadeX;
-        y += velocidadeY;
+    public void UpdateParticle(){
 
-        //Gravidade
-        if (gravidade)
-        {
-            velocidadeY += velocidadeGravidade;
+        x += speedX;
+        y += speedY;
+
+        if(gravity){
+            speedY += gravitySpeed;
         }
 
-        //Rotacionando
-        if (rotaciona)
-        {
-            sprite.IncrementaAngulo(velocidadeRotacao);
+        if(rotate){
+            sprite.IncrementAngle(rotationSpeed);
         }
 
-        //Se desenhando
         sprite.DrawSpritePro(x, y);
     }
 
-    public int getRandomRangeInt(int min, int max)
-    {
+    public int getRandomRangeInt(int min, int max){
         Random random = new Random();
         if (min == max)
             return min;
         return random.nextInt(max - min) + min;
     }
 
-    public float  getRandomRangeFloat(float min, float max)
-    {
+    public float getRandomRangeFloat(float min, float max){
         Random random = new Random();
         return min + random.nextFloat() * (max - min);
     }
 
-    public int GetY()
-    {
+    public int GetY(){
         return y;
     }
 }

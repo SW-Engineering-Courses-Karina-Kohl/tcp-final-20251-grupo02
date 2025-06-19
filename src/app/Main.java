@@ -71,19 +71,19 @@ public class Main
             ClearBackground(new OurColor(52, 54, 71, 255).GetColor());
             // DrawFPS(20, 20);
 
-            emissor.EmitirParicula();
+            emissor.SendParticle();
 
-            criarMatch = mainMenu.LogicaMainMenu(paginas, rodandoMatch);
-            opcoesMenu.LogicaOptionsMenu(paginas);
-            finalMenu.LogicaFinalMenu(paginas, jogo, opcoesMenu, vencedor, rodandoMatch);
+            criarMatch = mainMenu.MainMenuLogic(paginas, rodandoMatch);
+            opcoesMenu.OptionsMenuLogic(paginas);
+            finalMenu.FinalMenuLogic(paginas, jogo, opcoesMenu, vencedor, rodandoMatch);
 
             if (paginas[2] == true)
 		{
-		    jogoMenu.LogicaGameMenu(paginas, jogo, vencedor);
+		    jogoMenu.GameMenuLogic(paginas, jogo, vencedor);
 		    //Criando o jogo novo
 		    if (criarMatch == true)
 			{
-			    jogo = new Match(opcoesMenu.ConverteParaSegundos());
+			    jogo = new Match(opcoesMenu.ConvertToSeconds());
 			    movedPiece = new Blank(0, 0);
 
 			    for (int i = 0; i < 3; i++)

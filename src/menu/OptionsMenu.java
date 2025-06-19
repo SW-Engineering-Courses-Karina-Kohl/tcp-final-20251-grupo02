@@ -9,176 +9,156 @@ import com.raylib.Raylib.Texture;
 
 import gui.*;
 
+public class OptionsMenu{
 
-public class OptionsMenu
-{
+    // upper text
+    private static Texture optionsTexture = LoadTexture("res/ui/opcoes.png");
+    private Sprite optionsSprite = new Sprite(optionsTexture, 1, 0, 0, 0, WHITE, 1);
 
-    //Texto de doubleUp
-    private static Texture opcoesTexture = LoadTexture("res/ui/opcoes.png");
-    private Sprite opcoesSprite = new Sprite(opcoesTexture, 1, 0, 0, 0, WHITE, 1);
-
-    //Texto de time
-    private static Texture timeTexture = LoadTexture("res/ui/time.png");
+    // time text
+    private static Texture timeTexture = LoadTexture("res/ui/tempo.png");
     private Sprite timeSprite = new Sprite(timeTexture, 1, 0, 0, 0, WHITE, 1);
 
-    //Button de voltar
-    private static Texture voltarTexture = LoadTexture("res/botoes/voltar.png");
-    private Sprite voltarSprite = new Sprite(voltarTexture, 1, 0, 0, 0, WHITE, 1);
-    private Button voltarButton;
+    // go back button
+    private static Texture goBackTexture = LoadTexture("res/botoes/sair.png");
+    private Sprite goBackSprite = new Sprite(goBackTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button goBackButton;
 
-    //Botoes de alterar o time
-    private static Texture setaUpTexture = LoadTexture("res/botoes/seta_doubleUp.png");
-    private Sprite setaUpSprite = new Sprite(setaUpTexture, 1, 0, 0, 0, WHITE, 1);
-    private Button[] setaUpButton = new Button[4];
+    // change time button
+    private static Texture upArrowTexture = LoadTexture("res/botoes/seta_cima.png");
+    private Sprite upArrowSprite = new Sprite(upArrowTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button[] upArrowButton = new Button[4];
 
-    private Sprite setaDownSprite = new Sprite(setaUpTexture, 1, 180, 0, 0, WHITE, 1);
-    private Button[] setaDownButton = new Button[4];
+    private Sprite downArrowSprite = new Sprite(upArrowTexture, 1, 180, 0, 0, WHITE, 1);
+    private Button[] downArrowButton = new Button[4];
 
-    private int larguraTela;
-    private int centroTela;
+    private int screenCenter;
 
     private int time = 0;
-    private int[] timeSeparado = new int[4]; 
-    private int[] numeros = new int[10];
-    private int[] indexNumeros = new int[4];
+    private int[] separetedTime = new int[4];
+    private int[] numbers = new int[10];
+    private int[] indexNumbers = new int[4];
 
-    private Font fonte;
+    private Font font;
 
-    public OptionsMenu(int larguraTela, Font fonte)
-    {
-        this.larguraTela = larguraTela;
-        centroTela = larguraTela / 2;
-        this.fonte = fonte;
+    public OptionsMenu(int screenWidth, Font font){
 
-        voltarButton = new Button(centroTela, 320, voltarSprite);
-        for (int i = 0; i < 2; i++)
-        {
-            setaUpButton[i] = new Button(341 + (int) setaUpSprite.GetWidth() / 2 + i * 19,  82 + (int) setaUpSprite.GetHeight() / 2, setaUpSprite);
-            setaDownButton[i] = new Button(341 + (int) setaDownSprite.GetWidth() / 2 + i * 19, 121, setaDownSprite);
+        screenCenter = screenWidth / 2;
+        this.font = font;
+
+        goBackButton = new Button(screenCenter, 320, goBackSprite);
+        for (int i = 0; i < 2; i++){
+            upArrowButton[i] = new Button(341 + (int) upArrowSprite.GetWidth() / 2 + i * 19,  82 + (int) upArrowSprite.GetHeight() / 2, upArrowSprite);
+            downArrowButton[i] = new Button(341 + (int) downArrowSprite.GetWidth() / 2 + i * 19, 121, downArrowSprite);
         }
 
-        for (int i = 2; i < 4; i++)
-        {
-            setaUpButton[i] = new Button(388 + (int) setaUpSprite.GetWidth() / 2 + (i - 2) * 19,  82 + (int) setaUpSprite.GetHeight() / 2, setaUpSprite);
-            setaDownButton[i] = new Button(388 + (int) setaDownSprite.GetWidth() / 2 + (i - 2) * 19, 121, setaDownSprite);
+        for (int i = 2; i < 4; i++){
+            upArrowButton[i] = new Button(388 + (int) upArrowSprite.GetWidth() / 2 + (i - 2) * 19,  82 + (int) upArrowSprite.GetHeight() / 2, upArrowSprite);
+            downArrowButton[i] = new Button(388 + (int) downArrowSprite.GetWidth() / 2 + (i - 2) * 19, 121, downArrowSprite);
         }
 
-        for (int i = 0; i < 10; i++)
-        {
-            numeros[i] = i;
+        for (int i = 0; i < 10; i++){
+            numbers[i] = i;
         }
-        
-        TempoInicial();
+
+        this.InitialTime();
     }
 
-    //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaOptionsMenu(boolean[] paginas)
-    {
-        if (paginas[1] == true)
-        {   
-            opcoesSprite.DrawSpritePro(centroTela, 32);
+    // Do the menu logic and draws it
+    public void OptionsMenuLogic(boolean[] pages){
+        if (pages[1] == true){
+            optionsSprite.DrawSpritePro(screenCenter, 32);
 
-            timeSprite.DrawSpritePro(centroTela - timeSprite.GetWidth() / 2, 104);
+            timeSprite.DrawSpritePro(screenCenter - timeSprite.GetWidth() / 2, 104);
 
-            //Voltando pro menu pricipal
-            if (voltarButton.MouseClick())
-            {
-                paginas[1] = false;
-                paginas[0] = true;
+            // Going back to main menu
+            if (goBackButton.MouseClick()){
+                pages[1] = false;
+                pages[0] = true;
             }
 
-            AlterandoTempo();
+            UpdatingTime();
         }
     }
 
-    public void AlterandoTempo()
-    {  
+    private void UpdatingTime(){
         LoopIndex(0, 6, 0);
         LoopIndex(0, 9, 1);
         LoopIndex(0, 5, 2);
         LoopIndex(0, 9, 3);
 
-        //Limitando em 1h
-        if (indexNumeros[0] == 6)
-        {
-            indexNumeros[0] = 6;
-            indexNumeros[1] = 0;
-            indexNumeros[2] = 0;
-            indexNumeros[3] = 0;
+        // Max time is one hour
+        if (indexNumbers[0] == 6){
+            indexNumbers[0] = 6;
+            indexNumbers[1] = 0;
+            indexNumbers[2] = 0;
+            indexNumbers[3] = 0;
         }
 
-        for (int i = 0; i < 4; i++)
-        {
-            timeSeparado[i] = numeros[indexNumeros[i]];
+        for (int i = 0; i < 4; i++){
+            separetedTime[i] = numbers[indexNumbers[i]];
         }
 
-        DrawTempo();
+        DrawTime();
     }
 
-    public int BoolToInt(boolean bool)
-    {
+    public int BoolToInt(boolean bool){
         if (bool)
             return 1;
         else
             return 0;
     }
 
-    public void LoopIndex(int min, int max, int i)
-    {
-        indexNumeros[i] += BoolToInt(setaUpButton[i].MouseClick());
-        indexNumeros[i] -= BoolToInt(setaDownButton[i].MouseClick());
+    public void LoopIndex(int min, int max, int i){
+        indexNumbers[i] += BoolToInt(upArrowButton[i].MouseClick());
+        indexNumbers[i] -= BoolToInt(downArrowButton[i].MouseClick());
 
-        if (indexNumeros[i] > max)
-        {
-            indexNumeros[i] = min;
+        if (indexNumbers[i] > max){
+            indexNumbers[i] = min;
         }
 
-        if (indexNumeros[i] < min)
-        {
-            indexNumeros[i] = max;
+        if (indexNumbers[i] < min){
+            indexNumbers[i] = max;
         }
     }
 
-    public void DrawTempo()
-    {
-        DrawTextEx(fonte, String.format("%d", timeSeparado[0]),
-        new Vector2().x(centroTela + 18).y(90), 32, 1, WHITE);
+    public void DrawTime(){
+        DrawTextEx(font, String.format("%d", separetedTime[0]),
+        new Vector2().x(screenCenter + 18).y(90), 32, 1, WHITE);
 
-        DrawTextEx(fonte, String.format("%d", timeSeparado[1]),
-        new Vector2().x(centroTela + 18 + 19).y(90), 32, 1, WHITE);
+        DrawTextEx(font, String.format("%d", separetedTime[1]),
+        new Vector2().x(screenCenter + 18 + 19).y(90), 32, 1, WHITE);
 
-        DrawTextEx(fonte, ":",
-        new Vector2().x(centroTela + 18 + 19 * 2).y(90), 32, 1, WHITE);
+        DrawTextEx(font, ":",
+        new Vector2().x(screenCenter + 18 + 19 * 2).y(90), 32, 1, WHITE);
 
-        DrawTextEx(fonte, String.format("%d", timeSeparado[2]),
-        new Vector2().x(centroTela + 18 + 19 * 2 + 9).y(90), 32, 1, WHITE);
+        DrawTextEx(font, String.format("%d", separetedTime[2]),
+        new Vector2().x(screenCenter + 18 + 19 * 2 + 9).y(90), 32, 1, WHITE);
 
-        DrawTextEx(fonte, String.format("%d", timeSeparado[3]),
-        new Vector2().x(centroTela + 18 + 19 * 3 + 9).y(90), 32, 1, WHITE);
+        DrawTextEx(font, String.format("%d", separetedTime[3]),
+        new Vector2().x(screenCenter + 18 + 19 * 3 + 9).y(90), 32, 1, WHITE);
     }
 
-    public int ConverteParaSegundos()
-    {
-        //Minutos
-        time = (timeSeparado[0] * 10 * 60) 
-        + (timeSeparado[1] * 60)
-        + (timeSeparado[2] * 10)
-        + (timeSeparado[3]);
+    public int ConvertToSeconds(){
+        // minutes
+        time = (separetedTime[0] * 10 * 60)
+        + (separetedTime[1] * 60)
+        + (separetedTime[2] * 10)
+        + (separetedTime[3]);
 
         return time;
     }
 
-    public void TempoInicial()
-    {
-        //Colocando um time inicial
-        indexNumeros[0] = 0;
-        indexNumeros[1] = 5;
-        indexNumeros[2] = 0;
-        indexNumeros[3] = 0;
+    public void InitialTime(){
+        // Put a initial time in the screen
+        indexNumbers[0] = 0;
+        indexNumbers[1] = 5;
+        indexNumbers[2] = 0;
+        indexNumbers[3] = 0;
 
         for (int i = 0; i < 4; i++)
         {
-            timeSeparado[i] = numeros[indexNumeros[i]];
+            separetedTime[i] = numbers[indexNumbers[i]];
         }
     }
 }

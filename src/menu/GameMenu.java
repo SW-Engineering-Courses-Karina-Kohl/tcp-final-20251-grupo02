@@ -15,57 +15,49 @@ import gui.OurColor;
 import gui.Sprite;
 import game.Match;
 
-public class GameMenu
-{
-    //Button sugerir empate
-    private static Texture empateTexture = LoadTexture("res/botoes/empate.png");
-    private Sprite empateSprite = new Sprite(empateTexture, 1, 0, 0, 0, WHITE, 1);
-    private Button empateButton;
+public class GameMenu{
 
-    //Button de sair
-    private static Texture desistirTextura = LoadTexture("res/botoes/desistir.png");
-    private Sprite desistirSprite = new Sprite(desistirTextura, 1, 0, 0, 0, WHITE, 1);
-    private Button desistirButton;
+    // tie button
+    private static Texture tieTexture = LoadTexture("res/botoes/empate.png");
+    private Sprite tieSprite = new Sprite(tieTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button tieButton;
+
+    // exit button
+    private static Texture surrenderTexture = LoadTexture("res/botoes/desistir.png");
+    private Sprite surrenderSprite = new Sprite(surrenderTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button surrenderButton;
 
 
-    public GameMenu()
-    {
-
-        empateButton = new Button(26 + (int) empateSprite.GetWidth() / 2, 180 + (int) empateSprite.GetHeight() / 2, empateSprite);
-        desistirButton = new Button(26 + (int) desistirSprite.GetWidth() / 2, 141 + (int) desistirSprite.GetHeight() / 2, desistirSprite);
-
+    public GameMenu(){
+        tieButton = new Button(26 + (int) tieSprite.GetWidth() / 2, 180 + (int) tieSprite.GetHeight() / 2, tieSprite);
+        surrenderButton = new Button(26 + (int) surrenderSprite.GetWidth() / 2, 141 + (int) surrenderSprite.GetHeight() / 2, surrenderSprite);
     }
 
-    //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaGameMenu(boolean[] paginas, Match match, boolean[] vencedor)
-    {
-        if (paginas[2] == true)
-        {
-            //Button de empate
-            if (empateButton.MouseClick())
-            {
+    // Do the menu logic and draws it
+    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner){
+
+        if (pages[2] == true){
+
+            if (tieButton.MouseClick()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
-                paginas[2] = false;
-                paginas[3] = true;
+                pages[2] = false;
+                pages[3] = true;
 
-                vencedor[0] = true;
+                winner[0] = true;
             }
 
-            //Desistindo
-            if (desistirButton.MouseClick())
-            {
+            if (surrenderButton.MouseClick()){
                 match.GetWhitePlayer().GetClock().StopClock();
                 match.GetBlackPlayer().GetClock().StopClock();
-                paginas[2] = false;
-                paginas[3] = true;
+                pages[2] = false;
+                pages[3] = true;
 
                 if (match.GetCurrentTurnPlayer().GetColorPlayer() == 'w')
-                    vencedor[2] = true;
+                    winner[2] = true;
                 else
-                    vencedor[1] = true;
+                    winner[1] = true;
             }
-
         }
     }
 }
