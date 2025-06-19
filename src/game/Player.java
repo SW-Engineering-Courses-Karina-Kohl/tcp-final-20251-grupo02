@@ -1,35 +1,30 @@
 package game;
-import game.pieces.Piece;
-import java.util.ArrayList;
 
 public class Player {
 
     private char color;
-    private Clock relogio;
+    private Clock clock;
     private boolean inCheck;
 
-    public Player(char color, int initialTime){
+    public Player(char color, int initialTime) {
         this.color = color;
-        this.relogio = new Clock(initialTime);
-	this.inCheck = false;
+        this.clock = new Clock(initialTime);
+        this.inCheck = false;
     }
 
-    public boolean IsInCheck(){
-	return inCheck;
+    public char getColor() {
+        return color;
     }
 
-    public void SetCheckStatus(boolean inCheck){
-	this.inCheck = inCheck;
+    public Clock getClock() {
+        return clock;
     }
 
-    public char GetColorPlayer(){
-	return color;
+    public boolean getCheckStatus() {
+        return inCheck;
     }
 
-    public Clock GetClock() {
-        return relogio;
+    public void setCheckStatus(boolean inCheck) {
+        this.inCheck = inCheck;
     }
-
-
-
 }

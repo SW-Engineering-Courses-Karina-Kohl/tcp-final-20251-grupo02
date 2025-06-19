@@ -18,7 +18,7 @@ public class Pair{
 	    return "(" + this.x + ", " + this.y + ")";
     }
 
-    public boolean IsPieceInsideBoard(int inf, int sdoubleUp) {
+    public boolean isPieceInsideBoard(int inf, int sdoubleUp) {
         return ((this.x >= inf && this.y >= inf) &&
             (this.x < sdoubleUp && this.y < sdoubleUp));
     }
