@@ -4,33 +4,26 @@ import java.util.ArrayList;
 
 public class Player {
 
-
-
-    ArrayList<Piece> pieces = new ArrayList<>();
-    char color;
-    Clock relogio;
-    public boolean emCheque;
+    private char color;
+    private Clock relogio;
+    private boolean inCheck;
 
     public Player(char color, int initialTime){
         this.color = color;
         this.relogio = new Clock(initialTime);
-	this.emCheque = false;
-
+	this.inCheck = false;
     }
 
-
     public boolean IsInCheck(){
-	return emCheque;
+	return inCheck;
+    }
+
+    public void SetCheckStatus(boolean inCheck){
+	this.inCheck = inCheck;
     }
 
     public char GetColorPlayer(){
 	return color;
-    }
-
-    public Move NovaMove(Piece movedPiece, Piece capturedPiece, Board board){
-        Move move = new Move(movedPiece, capturedPiece);
-        move.ValidateMove(board);
-        return move;
     }
 
     public Clock GetClock() {

@@ -4,8 +4,8 @@ import misc.Pair;
 
 public class Move {
 
-    public Piece movedPiece;
-    public Piece capturedPiece;
+    private Piece movedPiece;
+    private Piece capturedPiece;
 
     public Move(Piece movedPiece, Piece capturedPiece){
         this.movedPiece = movedPiece;

@@ -1,6 +1,5 @@
 package misc;
 
-// pair da posição das peças
 public class Pair{
     public int x;
     public int y;
@@ -25,10 +24,10 @@ public class Pair{
     }
 
     public boolean IsEqualsTo(Object obj){
+
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Pair other = (Pair) obj;
-        return(this.x == other.x &&
-            this.y == other.y);
+        return(this.x == other.x && this.y == other.y);
     }
 }

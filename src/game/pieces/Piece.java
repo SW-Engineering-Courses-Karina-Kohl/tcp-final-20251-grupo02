@@ -71,7 +71,7 @@ public abstract class Piece{
         this.boardPosition = move.GetCapturedPiece().GetBoardPosition();
     }
 
-    /* Add the moviment to the movs list only if this moviment doesn't lead to a check */
+    /* add the moviment to the movs list only if this moviment doesn't lead to a check */
     public void CheckMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck){
 
 	if(testingCheck){

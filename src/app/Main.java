@@ -125,8 +125,8 @@ public class Main
 				}
 
 				// Verify if the players are in check
-				jogo.GetWhitePlayer().emCheque = tab.CheckCheck(tab.GetKingColor('w'));
-				jogo.GetBlackPlayer().emCheque = tab.CheckCheck(tab.GetKingColor('b'));
+				jogo.GetWhitePlayer().SetCheckStatus(tab.CheckCheck(tab.GetKingColor('w')));
+				jogo.GetBlackPlayer().SetCheckStatus(tab.CheckCheck(tab.GetKingColor('b')));
 
 				jogo.NextTurn();
 
