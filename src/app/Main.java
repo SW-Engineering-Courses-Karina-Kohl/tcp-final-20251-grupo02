@@ -56,6 +56,7 @@ public class Main{
 
         // Flag that indicates to start a new match
         boolean startNewMatch = false;
+		boolean keepTrue = false;
 
         MainMenu mainMenu = new MainMenu(WIDTH);
         OptionsMenu optionsMenu = new OptionsMenu(WIDTH, pixelFont);
@@ -93,10 +94,15 @@ public class Main{
 
             particleEmitter.SendParticle();
 
-            startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning, transition, camera2d);
+			startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning, transition, camera2d);
+			if (startNewMatch)
+				keepTrue = true;
+			
+			if (keepTrue)
+				startNewMatch = true;
 
-            optionsMenu.OptionsMenuLogic(pages, transition, camera2d);
-            finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition, camera2d);
+			optionsMenu.OptionsMenuLogic(pages, transition, camera2d);
+			finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition, camera2d);
 
             if (pages[GAME] == true){
 
@@ -110,9 +116,11 @@ public class Main{
 			    for (int i = 0; i < 3; i++){
 				winner[i] = false;
 			    }
+				System.out.println("D");
 			    startNewMatch = false;
+				keepTrue = false;
 			}
-
+			
 		    Board board = match.GetBoard();
 		    board.DrawGrid(INITIALX, INITIALY, SCALE);
 

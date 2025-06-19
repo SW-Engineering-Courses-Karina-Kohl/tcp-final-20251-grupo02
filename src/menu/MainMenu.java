@@ -65,6 +65,7 @@ public class MainMenu{
 
             logoSprite.DrawSpritePro(screenCenter, 100);
         }
+        System.err.println(startNewMatch);
         return startNewMatch;
     }
 
