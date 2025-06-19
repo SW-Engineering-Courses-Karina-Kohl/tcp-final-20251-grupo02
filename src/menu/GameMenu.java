@@ -1,18 +1,8 @@
 package menu;
 
 import static com.raylib.Colors.WHITE;
-import static com.raylib.Raylib.CloseWindow;
-import static com.raylib.Raylib.DrawTextEx;
-import static com.raylib.Raylib.LoadTexture;
-import static com.raylib.Raylib.MeasureTextEx;
-
-import com.raylib.Raylib.Font;
-import com.raylib.Raylib.Texture;
-import com.raylib.Raylib.Vector2;
-
-import gui.Button;
-import gui.OurColor;
-import gui.Sprite;
+import static com.raylib.Raylib.*;
+import gui.*;
 import vfx.Transition;
 import game.Match;
 

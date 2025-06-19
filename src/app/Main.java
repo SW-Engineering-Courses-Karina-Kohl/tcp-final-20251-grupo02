@@ -72,6 +72,9 @@ public class Main{
 		//Transition
 		Transition transition = new Transition(new OurColor(0, 0, 0, 255), WIDTH, HEIGHT, 10, 0);
 
+		//Flash
+		Flash flash = new Flash(new OurColor(255, 255, 255, 255), WIDTH, HEIGHT, 20);
+
         while (!WindowShouldClose() && isGameRunning[0]){
 
             BeginDrawing();
@@ -120,7 +123,10 @@ public class Main{
 			    Move move = new Move(movedPiece, destinePiece);
 
 			    if(move.ValidateMove(board)){
-
+				
+				//Chamando o flash
+				if (destinePiece.GetPieceColor() != '_' && destinePiece.GetPieceColor() != movedPiece.GetPieceColor())
+					flash.CallFlash();
 				board.UpdateBoard(move);
 				move.GetMovedPiece().MovePiece(move);
 
@@ -171,6 +177,7 @@ public class Main{
 
 		}
 		transition.UpdateTransition(pages);
+		flash.UpdateFlash();
 	    EndDrawing();
 	}
 	CloseWindow();
