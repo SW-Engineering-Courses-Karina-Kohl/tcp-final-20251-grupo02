@@ -135,8 +135,8 @@ public class Board
     /* Changes the board based on a move */
     public void UpdateBoard(Move move){
 
-        Piece movedPiece = move.movedPiece;
-        Pair finalPosition = move.capturedPiece.GetBoardPosition();
+        Piece movedPiece = move.GetMovedPiece();
+        Pair finalPosition = move.GetCapturedPiece().GetBoardPosition();
 
 	// Turns null (blank) the piece previous position
 	this.SetPieceInPosition(movedPiece.GetBoardPosition(), new Blank(movedPiece.GetBoardPosition()));

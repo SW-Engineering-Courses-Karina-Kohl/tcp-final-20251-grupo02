@@ -68,7 +68,7 @@ public abstract class Piece{
 
 
     public void MovePiece(Move move){
-        this.boardPosition = move.capturedPiece.GetBoardPosition();
+        this.boardPosition = move.GetCapturedPiece().GetBoardPosition();
     }
 
     /* Add the moviment to the movs list only if this moviment doesn't lead to a check */

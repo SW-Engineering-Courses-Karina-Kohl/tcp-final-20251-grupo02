@@ -115,7 +115,7 @@ public class Main
 			    if (move.ValidateMove(tab)){
 
 				tab.UpdateBoard(move);
-				move.movedPiece.MovePiece(move);
+				move.GetMovedPiece().MovePiece(move);
 
 				if(movedPiece instanceof King) {
 				    ((King) movedPiece).hasMoved = true;
@@ -130,7 +130,7 @@ public class Main
 
 				jogo.NextTurn();
 
-				if (move.movedPiece instanceof Pawn) {
+				if (move.GetMovedPiece() instanceof Pawn) {
 
 				    int promotionTile = 0;
 				    char pawnColor = movedPiece.GetPieceColor();
@@ -149,16 +149,16 @@ public class Main
 					char escolha = Character.toUpperCase(scanner.next().charAt(0));
 					switch (escolha) {
 					case 'T':
-					    tab.SetPieceInPosition(pawnPosition, new Rook(pawnPosition, move.promotionId(pawnColor, 'T')));
+					    tab.SetPieceInPosition(pawnPosition, new Rook(pawnPosition, move.PromotionId(pawnColor, 'T')));
 					    break;
 					case 'B':
-					    tab.SetPieceInPosition(pawnPosition, new Bishop(pawnPosition, move.promotionId(pawnColor, 'B')));
+					    tab.SetPieceInPosition(pawnPosition, new Bishop(pawnPosition, move.PromotionId(pawnColor, 'B')));
 					    break;
 					case 'C':
-					    tab.SetPieceInPosition(pawnPosition, new Knight(pawnPosition, move.promotionId(pawnColor, 'C')));
+					    tab.SetPieceInPosition(pawnPosition, new Knight(pawnPosition, move.PromotionId(pawnColor, 'C')));
 					    break;
 					case 'D':
-					    tab.SetPieceInPosition(pawnPosition, new Queen(pawnPosition, move.promotionId(pawnColor, 'D')));
+					    tab.SetPieceInPosition(pawnPosition, new Queen(pawnPosition, move.PromotionId(pawnColor, 'D')));
 					    break;
 					}
 				    }
