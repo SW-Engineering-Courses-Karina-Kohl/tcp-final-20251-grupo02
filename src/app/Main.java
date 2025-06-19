@@ -74,6 +74,7 @@ public class Main{
 
 		//Flash
 		Flash flash = new Flash(new OurColor(255, 255, 255, 255), WIDTH, HEIGHT, 20);
+		BloodParticlesEmitter bloodParticlesEmitter = new BloodParticlesEmitter();
 
         while (!WindowShouldClose() && isGameRunning[0]){
 
@@ -126,7 +127,13 @@ public class Main{
 				
 				//Chamando o flash
 				if (destinePiece.GetPieceColor() != '_' && destinePiece.GetPieceColor() != movedPiece.GetPieceColor())
+				{
 					flash.CallFlash();
+					OurColor colorBlood = new OurColor(255, 255, 255, 255);
+					if (destinePiece.GetPieceColor() == 'b')
+						colorBlood = new OurColor(0, 0, 0, 255);
+					bloodParticlesEmitter.CreateParticles(INITIALX + pos.x * 16 * SCALE + 16 * SCALE / 2, INITIALY + pos.y * 16 * SCALE + 16 * SCALE / 2, 20, colorBlood);
+				}
 				board.UpdateBoard(move);
 				move.GetMovedPiece().MovePiece(move);
 
@@ -174,6 +181,8 @@ public class Main{
 		    board.DrawPieces(INITIALX, INITIALY);
 		    DrawTextEx(pixelFont, match.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
 		    DrawTextEx(pixelFont, match.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
+
+			bloodParticlesEmitter.UpdateParticles();
 
 		}
 		transition.UpdateTransition(pages);

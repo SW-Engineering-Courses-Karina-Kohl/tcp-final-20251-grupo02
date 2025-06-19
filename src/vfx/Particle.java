@@ -24,9 +24,11 @@ public class Particle{
     private float speedX;
     private float speedY;
 
+    private int life;
+
     public Particle(Texture image, int minX, int maxX, int minY, int maxY, float minDirecao, float maxDirecao, boolean rotate,
     float minSpeedRotation, float maxSpeedRotation, int minScale, int maxScale, float minSpeed, float maxSpeed,
-    int minVidaAtual, int maxVidaAtual, boolean gravity, float gravitySpeed, OurColor color){
+    int minLife, int maxLife, boolean gravity, float gravitySpeed, OurColor color){
 
         this.rotate = rotate;
         this.gravity = gravity;
@@ -47,6 +49,8 @@ public class Particle{
 
         this.color = color;
         sprite = new Sprite(image, scale, angle, 0, 0, color.GetColor(), 1);
+
+        life = getRandomRangeInt(minLife, maxLife);
     }
 
     public void UpdateParticle(){
@@ -60,6 +64,11 @@ public class Particle{
 
         if(rotate){
             sprite.IncrementAngle(rotationSpeed);
+        }
+
+        if (life > 0)
+        {
+            life --;
         }
 
         sprite.DrawSpritePro(x, y);
@@ -79,5 +88,10 @@ public class Particle{
 
     public int GetY(){
         return y;
+    }
+
+    public int GetLife()
+    {
+        return life;
     }
 }
