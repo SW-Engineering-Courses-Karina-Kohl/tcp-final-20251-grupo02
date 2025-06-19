@@ -50,28 +50,28 @@ public class Knight extends Piece {
         Pair leftUp = this.getBoardPosition().add(new Pair(- 2, - 1));
         Pair leftDown = this.getBoardPosition().add(new Pair(- 2, + 1));
 
-        if(upRight.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upRight).findPieceColor())
+        if(upRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upRight).findPieceColor())
 	    this.checkMovement(board, newMovimentos, upRight, testingCheck);
 
-        if(upLeft.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(upLeft).findPieceColor())
+        if(upLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upLeft).findPieceColor())
 	    this.checkMovement(board, newMovimentos, upLeft, testingCheck);
 
-        if(downRight.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(downRight).findPieceColor())
+        if(downRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(downRight).findPieceColor())
 	    this.checkMovement(board, newMovimentos, downRight, testingCheck);
 
-        if(downLeft.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(downLeft).findPieceColor())
+        if(downLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(downLeft).findPieceColor())
 	    this.checkMovement(board, newMovimentos, downLeft, testingCheck);
 
-        if(rightUp.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(rightUp).findPieceColor())
+        if(rightUp.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(rightUp).findPieceColor())
 	    this.checkMovement(board, newMovimentos, rightUp, testingCheck);
 
-        if(rightDown.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(rightDown).findPieceColor())
+        if(rightDown.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(rightDown).findPieceColor())
 	    this.checkMovement(board, newMovimentos, rightDown, testingCheck);
 
-        if(leftUp.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(leftUp).findPieceColor())
+        if(leftUp.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(leftUp).findPieceColor())
 	    this.checkMovement(board, newMovimentos, leftUp, testingCheck);
 
-        if(leftDown.IsPieceInsideBoard(0, SIZE) && color != board.GetPieceInPosition(leftDown).findPieceColor())
+        if(leftDown.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(leftDown).findPieceColor())
 	    this.checkMovement(board, newMovimentos, leftDown, testingCheck);
 
 	if(testingCheck){

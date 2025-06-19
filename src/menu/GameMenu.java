@@ -39,8 +39,8 @@ public class GameMenu{
         if (pages[2] == true){
 
             if (tieButton.MouseClick()){
-                match.GetWhitePlayer().getClock().stopClock();
-                match.GetBlackPlayer().getClock().stopClock();
+                match.getWhitePlayer().getClock().stopClock();
+                match.getBlackPlayer().getClock().stopClock();
                 pages[2] = false;
                 pages[3] = true;
 
@@ -48,12 +48,12 @@ public class GameMenu{
             }
 
             if (surrenderButton.MouseClick()){
-                match.GetWhitePlayer().getClock().stopClock();
-                match.GetBlackPlayer().getClock().stopClock();
+                match.getWhitePlayer().getClock().stopClock();
+                match.getBlackPlayer().getClock().stopClock();
                 pages[2] = false;
                 pages[3] = true;
 
-                if (match.GetCurrentTurnPlayer().getColor() == 'w')
+                if (match.getCurrentTurnPlayer().getColor() == 'w')
                     winner[2] = true;
                 else
                     winner[1] = true;

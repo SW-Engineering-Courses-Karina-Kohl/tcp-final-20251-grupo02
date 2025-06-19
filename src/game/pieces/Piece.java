@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import gui.*;
 
 public abstract class Piece {
-    // TODO: Change SIZE to a more informative name
     public final int SIZE = 8;
     private char id;
     private Pair boardPosition;
@@ -55,7 +54,7 @@ public abstract class Piece {
     }
 
     public void movePiece(Move move) {
-        this.boardPosition = move.GetCapturedPiece().getBoardPosition();
+        this.boardPosition = move.getCapturedPiece().getBoardPosition();
     }
 
     /*
@@ -65,7 +64,7 @@ public abstract class Piece {
     public void checkMovement(Board board, ArrayList<Pair> movs, Pair movement, boolean testingCheck) {
 
         if (testingCheck) {
-            if (!board.MoveLeadsToCheck(this, this.findPieceColor(), movement)) {
+            if (!board.moveLeadsToCheck(this, this.findPieceColor(), movement)) {
                 movs.add(movement);
             }
         } else {

@@ -12,7 +12,7 @@ public class Match {
 
     private Player currentTurnPlayer = whitePlayer;
 
-    public Match(int initialTime){
+    public Match(int initialTime) {
         this.board = new Board();
         this.whitePlayer = new Player('w', initialTime);
         this.blackPlayer = new Player('b', initialTime);
@@ -21,32 +21,31 @@ public class Match {
         this.currentTurnPlayer.getClock().startClock();
     }
 
-
-    public void NextTurn(){
+    public void nextTurn() {
         currentTurnPlayer.getClock().stopClock();
 
-        if (this.currentTurnPlayer == this.whitePlayer){
+        if (this.currentTurnPlayer == this.whitePlayer) {
             this.currentTurnPlayer = this.blackPlayer;
-	} else {
-	    this.currentTurnPlayer = this.whitePlayer;
-	}
+        } else {
+            this.currentTurnPlayer = this.whitePlayer;
+        }
 
         currentTurnPlayer.getClock().startClock();
     }
 
-    public Board GetBoard() {
+    public Board getBoard() {
         return board;
     }
 
-    public Player GetWhitePlayer() {
+    public Player getWhitePlayer() {
         return whitePlayer;
     }
 
-    public Player GetBlackPlayer() {
+    public Player getBlackPlayer() {
         return blackPlayer;
     }
 
-    public Player GetCurrentTurnPlayer() {
+    public Player getCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
 }
