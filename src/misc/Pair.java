@@ -1,6 +1,5 @@
 package misc;
 
-// pair da posição das peças
 public class Pair{
     public int x;
     public int y;
@@ -12,24 +11,23 @@ public class Pair{
 
     public Pair add(Pair other) {
 	    return new Pair(this.x + other.x, this.y + other.y);
-    }    
+    }
 
     @Override
     public String toString() {
 	    return "(" + this.x + ", " + this.y + ")";
     }
 
-    public boolean IsPieceInsideBoard(int inf, int sup) {
+    public boolean IsPieceInsideBoard(int inf, int sdoubleUp) {
         return ((this.x >= inf && this.y >= inf) &&
-            (this.x < sup && this.y < sup));
+            (this.x < sdoubleUp && this.y < sdoubleUp));
     }
 
-    @Override
-    public boolean equals(Object obj){
+    public boolean IsEqualsTo(Object obj){
+
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Pair other = (Pair) obj;
-        return(this.x == other.x &&
-            this.y == other.y);
+        return(this.x == other.x && this.y == other.y);
     }
 }

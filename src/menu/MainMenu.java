@@ -10,69 +10,62 @@ import com.raylib.Raylib.Texture;
 import gui.*;
 
 
-public class MainMenu
-{
+public class MainMenu{
 
     private static Texture logoTexture = LoadTexture("res/ui/logo.png");
     private Sprite logoSprite = new Sprite(logoTexture, 1, 0, 0, 0, WHITE, 1);
 
-    //Botao de novo jogo
-    private static Texture novoJogoTextura = LoadTexture("res/botoes/novo_jogo.png");
-    private Sprite novoJogoSprite = new Sprite(novoJogoTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao novoJogoBotao;
+    // new game button
+    private static Texture newGameTexture = LoadTexture("res/botoes/novo_jogo.png");
+    private Sprite newGameSprite = new Sprite(newGameTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button newGameButton;
 
-    //Botao de opcoes
-    private static Texture opcoesTextura = LoadTexture("res/botoes/opcoes.png");
-    private Sprite opcoesSprite = new Sprite(opcoesTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao opcoesBotao;
+    // options button
+    private static Texture optionsTexture = LoadTexture("res/botoes/opcoes.png");
+    private Sprite optionsSprite = new Sprite(optionsTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button optionsButton;
 
-    //Botao de sair
-    private static Texture sairTextura = LoadTexture("res/botoes/sair.png");
-    private Sprite sairSprite = new Sprite(sairTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao sairBotao;
+    // exit button
+    private static Texture exitTexture = LoadTexture("res/botoes/sair.png");
+    private Sprite exitSprite = new Sprite(exitTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button exitButton;
 
-    private int larguraTela;
-    private int centroTela;
+    private int screenCenter;
 
-    public MainMenu(int larguraTela)
-    {
-        this.larguraTela = larguraTela;
-        centroTela = larguraTela / 2;
-        novoJogoBotao = new Botao(centroTela, 240, novoJogoSprite);
-        opcoesBotao = new Botao(centroTela, 280, opcoesSprite);
-        sairBotao = new Botao(centroTela, 320, sairSprite);
+    public MainMenu(int screenWidth){
+        screenCenter = screenWidth / 2;
+        newGameButton = new Button(screenCenter, 240, newGameSprite);
+        optionsButton = new Button(screenCenter, 280, optionsSprite);
+        exitButton = new Button(screenCenter, 320, exitSprite);
     }
 
-    //Metodo que cuida de toda a logica do menu e desenha ele
-    public boolean LogicaMainMenu(boolean[] paginas, boolean[] rodandoJogo)
-    {
-        boolean criarJogo = false;
-        if (paginas[0] == true)
-        {   
-            //Iniciando um jogo novo
-            if (novoJogoBotao.MouseClick())
-            {
-                criarJogo = true;
-                paginas[0] = false;
-                paginas[2] = true;
+    // Do the menu logic and draws it
+    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning){
+
+        boolean startNewMatch = false;
+        if (pages[0] == true){
+
+            // Creating a new game
+            if (newGameButton.MouseClick()){
+                startNewMatch = true;
+                pages[0] = false;
+                pages[2] = true;
             }
 
-            //Indo pro menu de opcoes
-            if (opcoesBotao.MouseClick())
-            {
-                paginas[0] = false;
-                paginas[1] = true;
+            // Going to options menu
+            if (optionsButton.MouseClick()){
+                pages[0] = false;
+                pages[1] = true;
             }
 
-            //Saindo
-            if (sairBotao.MouseClick())
-            {
-                rodandoJogo[0] = false;
+            // Exiting
+            if (exitButton.MouseClick()){
+                isGameRunning[0] = false;
             }
 
-            logoSprite.DrawSpritePro(centroTela, 100);
+            logoSprite.DrawSpritePro(screenCenter, 100);
         }
-        return criarJogo;
+        return startNewMatch;
     }
-    
+
 }

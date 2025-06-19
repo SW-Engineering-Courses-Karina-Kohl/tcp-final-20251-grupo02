@@ -10,113 +10,106 @@ import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
 import gui.*;
-import jogo.*;
+import game.*;
 
-public class FinalMenu 
-{
+public class FinalMenu{
+
     private static Texture logoTexture = LoadTexture("res/ui/logo.png");
 
-    //Botao de voltar pro comeco
-    private static Texture menuInicialTexture = LoadTexture("res/botoes/menu_inicial.png");
-    private Sprite menuInicialSprite = new Sprite(menuInicialTexture, 1, 0, 0, 0, WHITE, 1);
-    private Botao menuInicialBotao;
+    // Go to main menu button
+    private static Texture mainMenuTexture = LoadTexture("res/botoes/menu_inicial.png");
+    private Sprite mainMenuSprite = new Sprite(mainMenuTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button mainMenuButton;
 
-    //Botao de sair
-    private static Texture sairTextura = LoadTexture("res/botoes/sair.png");
-    private Sprite sairSprite = new Sprite(sairTextura, 1, 0, 0, 0, WHITE, 1);
-    private Botao sairBotao;
+    // exit button
+    private static Texture exitTexture = LoadTexture("res/botoes/sair.png");
+    private Sprite exitSprite = new Sprite(exitTexture, 1, 0, 0, 0, WHITE, 1);
+    private Button exitButton;
 
-    private int larguraTela;
-    private int centroTela;
+    private int screenCenter;
 
-    private Font fonte;
+    private Font font;
 
-    private int tamanhoFonte = 32;
-    private int espacoFonte = 1;
+    private int fontSize = 32;
+    private int fontSpace = 1;
 
-    private String duracaoTexto;
-    private Vector2 duracaoLargura;
+    private String textDuration;
+    private Vector2 widthDuration;
 
-    private String tempoBrancoTexto;
-    private Vector2 tempoBrancoLargura;
+    private String whitePlayerText;
+    private Vector2 whitePlayerWidth;
 
-    private String tempoPretoTexto;
-    private Vector2 tempoPretoLargura;
+    private String blackPlayerText;
+    private Vector2 blackPlayerWidth;
 
-    private String vencedorTexto;
-    private Vector2 vencedorLargura;
+    private String winnerText;
+    private Vector2 winnerWidth;
 
 
-    public FinalMenu(int larguraTela, Font fonte)
-    {
-        this.larguraTela = larguraTela;
-        centroTela = larguraTela / 2;
-        menuInicialBotao = new Botao(centroTela, 280, menuInicialSprite);
-        sairBotao = new Botao(centroTela, 320, sairSprite);
+    public FinalMenu(int screenWidth, Font font){
+        screenCenter = screenWidth / 2;
+        mainMenuButton = new Button(screenCenter, 280, mainMenuSprite);
+        exitButton = new Button(screenCenter, 320, exitSprite);
 
-        this.fonte = fonte;
-
+        this.font = font;
     }
 
-    //Metodo que cuida de toda a logica do menu e desenha ele
-    public void LogicaFinalMenu(boolean[] paginas, Jogo jogo, OpcoesMenu opcoesMenu, boolean[] vencedor, boolean[] rodandoJogo)
-    {
-        if (paginas[3] == true)
-        {   
-            //Voltando pro menu inicial
-            if (menuInicialBotao.MouseClick())
-            {
-                paginas[0] = true;
-                paginas[3] = false;
+    // Do the menu logic and draws it
+    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning){
+
+        if (pages[3] == true){
+
+            // Going back to main menu
+            if (mainMenuButton.MouseClick()){
+                pages[0] = true;
+                pages[3] = false;
             }
 
-            //Saindo
-            if (sairBotao.MouseClick())
-            {
-                rodandoJogo[0] = false;
+            // Exiting
+            if (exitButton.MouseClick()){
+                isGameRunning[0] = false;
             }
 
-            DrawTextosFinal(jogo, opcoesMenu, vencedor);
+            DrawFinalTexts(match, optionsMenu, winner);
         }
     }
 
 
-    //Desenhando os textos
-    public void DrawTextosFinal(Jogo jogo, OpcoesMenu opcoesMenu, boolean[] vencedor)
-    {
+    // Drawing the texts
+    private void DrawFinalTexts(Match match, OptionsMenu optionsMenu, boolean[] winner){
 
-        if (vencedor[0])
-            vencedorTexto = "EMPATE";
-        else if (vencedor[1])
-            vencedorTexto = "BRANCO VENCEU";
-        else if (vencedor[2])
-            vencedorTexto = "PRETO VENCEU";
+        if (winner[0])
+            winnerText = "EMPATE";
+        else if (winner[1])
+            winnerText = "BRANCO VENCEU";
+        else if (winner[2])
+            winnerText = "PRETO VENCEU";
 
-        vencedorLargura = MeasureTextEx(fonte, vencedorTexto, tamanhoFonte, espacoFonte);
-        DrawTextEx(fonte, vencedorTexto, 
-        new Vector2().x(centroTela - vencedorLargura.x() / 2).y(21), tamanhoFonte, espacoFonte, 
-        new Cor(157, 204, 102, 255).GetCor());
+        winnerWidth = MeasureTextEx(font, winnerText, fontSize, fontSpace);
+        DrawTextEx(font, winnerText,
+        new Vector2().x(screenCenter - winnerWidth.x() / 2).y(21), fontSize, fontSpace,
+        new OurColor(157, 204, 102, 255).GetColor());
 
 
-        //informacoes do tempo
-        int tempoDifBranco = opcoesMenu.ConverteParaSegundos() - jogo.GetJogadorBranco().GetRelogio().getTempo();
-        int tempoDifPreto = opcoesMenu.ConverteParaSegundos() - jogo.GetJogadorPreto().GetRelogio().getTempo();
-        int tempoFinal = tempoDifBranco + tempoDifPreto;
-        duracaoTexto = String.format("TEMPO TOTAL: %02d:%02d", tempoFinal / 60, tempoFinal % 60);
-        tempoBrancoTexto = "TEMPO BRANCO: " + jogo.GetJogadorBranco().GetRelogio().formatarTempo();
-        tempoPretoTexto = "TEMPO PRETO: " + jogo.GetJogadorPreto().GetRelogio().formatarTempo();
+        // player info
+        int timeDiffWhite = optionsMenu.ConvertToSeconds() - match.GetWhitePlayer().GetClock().GetTime();
+        int timeDiffBlack = optionsMenu.ConvertToSeconds() - match.GetBlackPlayer().GetClock().GetTime();
+        int finalTime = timeDiffWhite + timeDiffBlack;
+        textDuration = String.format("TEMPO TOTAL: %02d:%02d", finalTime / 60, finalTime % 60);
+        whitePlayerText = "TEMPO BRANCO: " + match.GetWhitePlayer().GetClock().FormatTime();
+        blackPlayerText = "TEMPO PRETO: " + match.GetBlackPlayer().GetClock().FormatTime();
 
-        duracaoLargura = MeasureTextEx(fonte, duracaoTexto, tamanhoFonte, espacoFonte);
-        tempoBrancoLargura = MeasureTextEx(fonte, tempoBrancoTexto, tamanhoFonte, espacoFonte);
-        tempoPretoLargura = MeasureTextEx(fonte, tempoPretoTexto, tamanhoFonte, espacoFonte);
+        widthDuration = MeasureTextEx(font, textDuration, fontSize, fontSpace);
+        whitePlayerWidth = MeasureTextEx(font, whitePlayerText, fontSize, fontSpace);
+        blackPlayerWidth = MeasureTextEx(font, blackPlayerText, fontSize, fontSpace);
 
-        DrawTextEx(fonte, duracaoTexto, 
-        new Vector2().x(centroTela - duracaoLargura.x() / 2).y(98), tamanhoFonte, espacoFonte, WHITE);
+        DrawTextEx(font, textDuration,
+        new Vector2().x(screenCenter - widthDuration.x() / 2).y(98), fontSize, fontSpace, WHITE);
 
-        DrawTextEx(fonte, tempoBrancoTexto, 
-        new Vector2().x(centroTela - tempoBrancoLargura.x() / 2).y(137), tamanhoFonte, espacoFonte, WHITE);
+        DrawTextEx(font, whitePlayerText,
+        new Vector2().x(screenCenter - whitePlayerWidth.x() / 2).y(137), fontSize, fontSpace, WHITE);
 
-        DrawTextEx(fonte, tempoPretoTexto, 
-        new Vector2().x(centroTela - tempoPretoLargura.x() / 2).y(175), tamanhoFonte, espacoFonte, WHITE);
+        DrawTextEx(font, blackPlayerText,
+        new Vector2().x(screenCenter - blackPlayerWidth.x() / 2).y(175), fontSize, fontSpace, WHITE);
     }
 }
