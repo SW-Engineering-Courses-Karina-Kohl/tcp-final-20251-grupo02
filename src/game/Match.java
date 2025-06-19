@@ -18,12 +18,12 @@ public class Match {
         this.blackPlayer = new Player('b', initialTime);
         this.currentTurnPlayer = whitePlayer;
 
-        this.currentTurnPlayer.GetClock().StartClock();
+        this.currentTurnPlayer.GetClock().startClock();
     }
 
 
     public void NextTurn(){
-        currentTurnPlayer.GetClock().StopClock();
+        currentTurnPlayer.GetClock().stopClock();
 
         if (this.currentTurnPlayer == this.whitePlayer){
             this.currentTurnPlayer = this.blackPlayer;
@@ -31,7 +31,7 @@ public class Match {
 	    this.currentTurnPlayer = this.whitePlayer;
 	}
 
-        currentTurnPlayer.GetClock().StartClock();
+        currentTurnPlayer.GetClock().startClock();
     }
 
     public Board GetBoard() {

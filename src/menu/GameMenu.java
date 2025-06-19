@@ -39,8 +39,8 @@ public class GameMenu{
         if (pages[2] == true){
 
             if (tieButton.MouseClick()){
-                match.GetWhitePlayer().GetClock().StopClock();
-                match.GetBlackPlayer().GetClock().StopClock();
+                match.GetWhitePlayer().GetClock().stopClock();
+                match.GetBlackPlayer().GetClock().stopClock();
                 pages[2] = false;
                 pages[3] = true;
 
@@ -48,8 +48,8 @@ public class GameMenu{
             }
 
             if (surrenderButton.MouseClick()){
-                match.GetWhitePlayer().GetClock().StopClock();
-                match.GetBlackPlayer().GetClock().StopClock();
+                match.GetWhitePlayer().GetClock().stopClock();
+                match.GetBlackPlayer().GetClock().stopClock();
                 pages[2] = false;
                 pages[3] = true;
 

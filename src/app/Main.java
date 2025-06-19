@@ -163,8 +163,8 @@ public class Main{
 		    }
 
 		    board.DrawPieces(INITIALX, INITIALY);
-		    DrawTextEx(pixelFont, match.GetWhitePlayer().GetClock().FormatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
-		    DrawTextEx(pixelFont, match.GetBlackPlayer().GetClock().FormatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
+		    DrawTextEx(pixelFont, match.GetWhitePlayer().GetClock().formatTime(), new Vector2().x(527).y(21), 32, 2, WHITE);
+		    DrawTextEx(pixelFont, match.GetBlackPlayer().GetClock().formatTime(), new Vector2().x(527).y(53), 32, 2, BLACK);
 		}
 	    EndDrawing();
 	}
