@@ -76,9 +76,14 @@ public class Main{
 		Flash flash = new Flash(new OurColor(255, 255, 255, 255), WIDTH, HEIGHT, 20);
 		BloodParticlesEmitter bloodParticlesEmitter = new BloodParticlesEmitter();
 
+		//Move para fazer a promocão
+		Move movePromotion = new Move(movedPiece, movedPiece);
+		boolean doPromotion = false;
+
         while (!WindowShouldClose() && isGameRunning[0]){
 
             BeginDrawing();
+			DrawFPS(20, 20);
             ClearBackground(new OurColor(52, 54, 71, 255).GetColor());
 
             particleEmitter.SendParticle();
@@ -109,68 +114,73 @@ public class Main{
 		    if (board.MouseClikedOnBoard(INITIALX, INITIALY, SCALE)){
 
 			Pair pos = board.GetMousePositionOnBoard(INITIALX, INITIALY, SCALE);
+			
+			if (!doPromotion)
+			{
+				if (clicks == 0) {
+					if(board.GetPieceInPosition(pos).GetPieceColor() == match.GetCurrentTurnPlayer().GetColorPlayer()){
+					movedPiece = board.GetPieceInPosition(pos);
+					movedPiece.ValidMoviments(board, true);
+					clicks = 1;
+					}
+				} else if (clicks == 1) {
 
-			if (clicks == 0) {
-			    if(board.GetPieceInPosition(pos).GetPieceColor() == match.GetCurrentTurnPlayer().GetColorPlayer()){
-				movedPiece = board.GetPieceInPosition(pos);
-				movedPiece.ValidMoviments(board, true);
-				clicks = 1;
-			    }
-			} else if (clicks == 1) {
+					Piece destinePiece = board.GetPieceInPosition(pos);
 
-			    Piece destinePiece = board.GetPieceInPosition(pos);
+					// Verificação da move
+					Move move = new Move(movedPiece, destinePiece);
 
-			    // Verificação da move
-			    Move move = new Move(movedPiece, destinePiece);
+					if(move.ValidateMove(board)){
+					
+					//Chamando o flash
+					if (destinePiece.GetPieceColor() != '_' && destinePiece.GetPieceColor() != movedPiece.GetPieceColor())
+					{
+						flash.CallFlash();
+						OurColor colorBlood = new OurColor(255, 255, 255, 255);
+						if (destinePiece.GetPieceColor() == 'b')
+							colorBlood = new OurColor(0, 0, 0, 255);
+						bloodParticlesEmitter.CreateParticles(INITIALX + pos.x * 16 * SCALE + 16 * SCALE / 2, INITIALY + pos.y * 16 * SCALE + 16 * SCALE / 2, 20, colorBlood);
+					}
 
-			    if(move.ValidateMove(board)){
-				
-				//Chamando o flash
-				if (destinePiece.GetPieceColor() != '_' && destinePiece.GetPieceColor() != movedPiece.GetPieceColor())
-				{
-					flash.CallFlash();
-					OurColor colorBlood = new OurColor(255, 255, 255, 255);
-					if (destinePiece.GetPieceColor() == 'b')
-						colorBlood = new OurColor(0, 0, 0, 255);
-					bloodParticlesEmitter.CreateParticles(INITIALX + pos.x * 16 * SCALE + 16 * SCALE / 2, INITIALY + pos.y * 16 * SCALE + 16 * SCALE / 2, 20, colorBlood);
+					board.UpdateBoard(move);
+					move.GetMovedPiece().MovePiece(move);
+
+					if(movedPiece instanceof King) {
+						((King) movedPiece).hasMoved = true;
+					}
+					if(movedPiece instanceof Rook) {
+						((Rook) movedPiece).hasMoved = true;
+					}
+					if(movedPiece instanceof Pawn) {
+						((Pawn) movedPiece).hasMoved = true;
+					}
+
+					// Verify if the players are in check
+					match.GetWhitePlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('w')));
+					match.GetBlackPlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('b')));
+
+					if (move.GetMovedPiece() instanceof Pawn) {
+						doPromotion = move.CheckPawnPromotion(board);
+						movePromotion = move;
+					}
+
+					// end turn
+					match.NextTurn();
+					clicks = 0;
+
+					} else {
+					// changes the piece if the players clicks on one of the same color
+					if(destinePiece.GetPieceColor() == movedPiece.GetPieceColor()){
+						movedPiece = board.GetPieceInPosition(pos);
+						movedPiece.ValidMoviments(board, true);
+					} else {
+						movedPiece = new Blank(0,  0);
+						clicks = 0;
+					}
+					}
 				}
-				board.UpdateBoard(move);
-				move.GetMovedPiece().MovePiece(move);
-
-				if(movedPiece instanceof King) {
-				    ((King) movedPiece).hasMoved = true;
-				}
-				if(movedPiece instanceof Rook) {
-				    ((Rook) movedPiece).hasMoved = true;
-				}
-				if(movedPiece instanceof Pawn) {
-				    ((Pawn) movedPiece).hasMoved = true;
-				}
-
-				// Verify if the players are in check
-				match.GetWhitePlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('w')));
-				match.GetBlackPlayer().SetCheckStatus(board.CheckCheck(board.GetKingColor('b')));
-
-				if (move.GetMovedPiece() instanceof Pawn) {
-				    move.CheckPawnPromotion(board);
-				}
-
-				// end turn
-				match.NextTurn();
-				clicks = 0;
-
-			    } else {
-				// changes the piece if the players clicks on one of the same color
-				if(destinePiece.GetPieceColor() == movedPiece.GetPieceColor()){
-				    movedPiece = board.GetPieceInPosition(pos);
-				    movedPiece.ValidMoviments(board, true);
-				} else {
-				    movedPiece = new Blank(0,  0);
-				    clicks = 0;
-				}
-			    }
 			}
-		    }
+		}
 
 		    if (IsMouseButtonPressed(1)) clicks = 0;
 
@@ -184,7 +194,19 @@ public class Main{
 
 			bloodParticlesEmitter.UpdateParticles();
 
+			if (doPromotion)
+			{
+				if (movePromotion.DoPromotion(board))
+				{
+					flash.CallFlash();
+					doPromotion = false;
+				}
+			}
+
 		}
+		//char promovido = buttonRaise.BotaoPromocaoLogica('b');
+		/*if (promovido != '-')
+			System.out.println(promovido);*/
 		transition.UpdateTransition(pages);
 		flash.UpdateFlash();
 	    EndDrawing();
