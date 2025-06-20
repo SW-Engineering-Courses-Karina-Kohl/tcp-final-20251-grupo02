@@ -296,7 +296,7 @@ public class Board {
 
                 if (piece.findPieceColor() != colorKing) {
 
-                    for (Pair movePostion : piece.validMovements(this, false)) {
+                    for (Pair movePostion : piece.validMoviments(this, false)) {
                         if (king.getBoardPosition().isEqualsTo(movePostion)) {
                             return true;
                         }
@@ -323,7 +323,7 @@ public class Board {
                 Piece piece = this.getPieceInPosition(i, j);
 
                 if (piece.findPieceColor() == color) {
-		    if(!piece.validMovements(this, true).isEmpty()){
+		    if(!piece.validMoviments(this, true).isEmpty()){
 			return false;
 		    }
 		}
@@ -449,7 +449,9 @@ public class Board {
     }
 
     /* Show visually in the board the valid moves of the piece */
-    public void drawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale, Camera2D camera2d) {
+    public void drawValidMoviments(Piece piece, int xInitial, int yInitial, int scale, Camera2D camera2d) {
+
+	ArrayList<Pair> moviments = piece.getMoviments();
 
         for (int i = 0; i < moviments.size(); i++) {
 
@@ -463,7 +465,7 @@ public class Board {
                 redAimSprite.SetCurrentImage(1);
             }
 
-	    if (this.getPieceInPosition(moviments.get(i)).getPieceID() == '-' || !(this.getPieceInPosition(moviments.get(i)) instanceof Blank)) {
+	    if (!(this.getPieceInPosition(moviments.get(i)) instanceof Blank)) {
 		redAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
 					   moviments.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
 	    }
@@ -471,8 +473,14 @@ public class Board {
                 greenAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + greenAimSprite.GetWidth() / 2,
                         moviments.get(i).y * 16 * scale + yInitial + greenAimSprite.GetHeight() / 2);
             }
-
         }
+
+	if(piece instanceof Pawn){
+	    if(((Pawn) piece).hasEnPassant()){
+		redAimSprite.DrawSpritePro(((Pawn) piece).getEnPassantPosition().x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
+					   ((Pawn) piece).getEnPassantPosition().y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
+	    }
+	}
 
     }
 

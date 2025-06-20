@@ -34,7 +34,7 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
 
 		ArrayList<Pair> newMovimentos = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class Bishop extends Piece {
 					pieceUpperRight = true;
 				}
 				if (color != board.getPieceInPosition(upperRight).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+					this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
 				}
 			}
 
@@ -68,7 +68,7 @@ public class Bishop extends Piece {
 					pieceUpperLeft = true;
 				}
 				if (color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+					this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
 				}
 			}
 
@@ -78,7 +78,7 @@ public class Bishop extends Piece {
 					pieceLowerRight = true;
 				}
 				if (color != board.getPieceInPosition(lowerRight).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, lowerRight, testingCheck);
+					this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
 				}
 			}
 
@@ -88,13 +88,13 @@ public class Bishop extends Piece {
 					pieceLowerLeft = true;
 				}
 				if (color != board.getPieceInPosition(lowerLeft).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, lowerLeft, testingCheck);
+					this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
 				}
 			}
 		}
 
 		if (testingCheck) {
-			this.setMovements(newMovimentos);
+			this.setMoviments(newMovimentos);
 		}
 
 		return newMovimentos;

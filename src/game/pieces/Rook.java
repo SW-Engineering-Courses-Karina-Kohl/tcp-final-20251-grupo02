@@ -44,7 +44,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
+    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char color = this.findPieceColor();
@@ -67,7 +67,7 @@ public class Rook extends Piece {
 		    pieceUp = true;
 		}
 		if (color != board.getPieceInPosition(up).findPieceColor()) {
-		    this.checkMovement(board, newMovimentos, up, testingCheck);
+		    this.checkMoviment(board, newMovimentos, up, testingCheck);
 		}
 	    }
 
@@ -76,7 +76,7 @@ public class Rook extends Piece {
 		    pieceDown = true;
 		}
 		if (color != board.getPieceInPosition(down).findPieceColor()) {
-		    this.checkMovement(board, newMovimentos, down, testingCheck);
+		    this.checkMoviment(board, newMovimentos, down, testingCheck);
 		}
 	    }
 
@@ -93,7 +93,7 @@ public class Rook extends Piece {
 		    }
 		}
 		if (color != board.getPieceInPosition(right).findPieceColor()) {
-		    this.checkMovement(board, newMovimentos, right, testingCheck);
+		    this.checkMoviment(board, newMovimentos, right, testingCheck);
 		}
 	    }
 
@@ -110,13 +110,13 @@ public class Rook extends Piece {
 
 		}
 		if (color != board.getPieceInPosition(left).findPieceColor()) {
-		    this.checkMovement(board, newMovimentos, left, testingCheck);
+		    this.checkMoviment(board, newMovimentos, left, testingCheck);
 		}
 	    }
 	}
 
 	if (testingCheck) {
-	    this.setMovements(newMovimentos);
+	    this.setMoviments(newMovimentos);
 	}
 
 	return newMovimentos;

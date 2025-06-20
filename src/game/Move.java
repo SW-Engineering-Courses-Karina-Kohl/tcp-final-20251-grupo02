@@ -71,7 +71,7 @@ public class Move {
     /* Return if a move is valid */
     public boolean validateMove(Board board) {
 
-	for (Pair p : this.getMovedPiece().getMovements()) {
+	for (Pair p : this.getMovedPiece().getMoviments()) {
 	    if (p.isEqualsTo(this.getCapturedPiece().getBoardPosition())){
 		return true;
 	    }

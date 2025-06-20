@@ -16,6 +16,8 @@ import game.Move;
 public class Pawn extends Piece {
 
     private boolean hasMoved = false;
+    private boolean hasEnPassant = false;
+    private Pair enPassantPosition;
 
     private static Texture pawnTexture = LoadTexture("res/pieces/pawn.png");
 
@@ -35,6 +37,14 @@ public class Pawn extends Piece {
 	return hasMoved;
     }
 
+    public boolean hasEnPassant(){
+	return this.hasEnPassant;
+    }
+
+    public Pair getEnPassantPosition(){
+	return this.enPassantPosition;
+    }
+
     public void setHasMoved(boolean moved){
 	this.hasMoved = moved;
     }
@@ -50,9 +60,10 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
+    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
+	this.hasEnPassant = false;
 
 	int direction = this.getMoveDirection();
 	char color = this.findPieceColor();
@@ -66,11 +77,11 @@ public class Pawn extends Piece {
 
 	if (up.isPieceInsideBoard(0, SIZE)){
 	    if(!(board.isTherePieceInPosition(up))) {
-		this.checkMovement(board, newMovimentos, up, testingCheck);
+		this.checkMoviment(board, newMovimentos, up, testingCheck);
 
 		if (!this.hasMoved && doubleUp.isPieceInsideBoard(0, SIZE)){
 		    if(!(board.isTherePieceInPosition(doubleUp))) {
-			this.checkMovement(board, newMovimentos, doubleUp, testingCheck);
+			this.checkMoviment(board, newMovimentos, doubleUp, testingCheck);
 		    }
 		}
 	    }
@@ -78,24 +89,28 @@ public class Pawn extends Piece {
 
 	if (upperRight.isPieceInsideBoard(0, SIZE)){
 	    if(board.isTherePieceInPosition(upperRight) && color != board.getPieceInPosition(upperRight).findPieceColor()) {
-		this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+		this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
 	    }
 	    if(board.checkEnPassant(this, 'r')){
-		this.checkMovement(board, newMovimentos, upperRight, testingCheck, true);
+		this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+		this.hasEnPassant = true;
+		this.enPassantPosition = upperRight;
 	    }
 	}
 
 	if (upperLeft.isPieceInsideBoard(0, SIZE)){
 	    if(board.isTherePieceInPosition(upperLeft) && color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-		this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+		this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
 	    }
 	    if(board.checkEnPassant(this, 'l')){
-		this.checkMovement(board, newMovimentos, upperLeft, testingCheck, true);
+		this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+		this.hasEnPassant = true;
+		this.enPassantPosition = upperLeft;
 	    }
 	}
 
 	if (testingCheck) {
-	    this.setMovements(newMovimentos);
+	    this.setMoviments(newMovimentos);
 	}
 
 	return newMovimentos;
@@ -106,23 +121,4 @@ public class Pawn extends Piece {
 	super.movePiece(move);
 	this.hasMoved = true;
     }
-
-    public void checkMovement(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck, boolean testingEnPassant) {
-
-        if (testingCheck) {
-            if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
-                movs.add(moviment);
-		if(testingEnPassant){
-		    board.setPieceInPosition(moviment, new Blank(moviment, true));
-		}
-            }
-        } else {
-            movs.add(moviment);
-	    if(testingEnPassant){
-		board.setPieceInPosition(moviment, new Blank(moviment, true));
-	    }
-        }
-
-    }
-
 }

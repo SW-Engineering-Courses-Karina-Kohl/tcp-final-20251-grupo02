@@ -17,7 +17,7 @@ public abstract class Piece {
         this.id = id;
     }
 
-    public ArrayList<Pair> getMovements() {
+    public ArrayList<Pair> getMoviments() {
         return moviments;
     }
 
@@ -33,8 +33,8 @@ public abstract class Piece {
         return id;
     }
 
-    public void setMovements(ArrayList<Pair> newMovements) {
-        this.moviments = newMovements;
+    public void setMoviments(ArrayList<Pair> newMoviments) {
+        this.moviments = newMoviments;
     }
 
     public void setSprite(Sprite sprite) {
@@ -46,7 +46,7 @@ public abstract class Piece {
     }
 
 
-    public abstract ArrayList<Pair> validMovements(Board Board, boolean testingCheck);
+    public abstract ArrayList<Pair> validMoviments(Board Board, boolean testingCheck);
 
     public char findPieceColor() {
 
@@ -66,7 +66,7 @@ public abstract class Piece {
      * add the moviment to the movs list only if this moviment doesn't lead to a
      * check
      */
-    public void checkMovement(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck) {
+    public void checkMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck) {
 
         if (testingCheck) {
             if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
