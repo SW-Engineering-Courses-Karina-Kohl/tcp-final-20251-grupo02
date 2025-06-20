@@ -285,7 +285,7 @@ public class Board {
 	    direction = -1;
 	}
 
-	for(int i = king.getBoardPosition().x + direction; i != rook.getBoardPosition().x; i = i + direction){
+	for(int i = king.getBoardPosition().x; i != rook.getBoardPosition().x; i = i + direction){
 	    if(this.moveLeadsToCheck(king, king.findPieceColor(), new Pair(i, king.getBoardPosition().y))){
 		return false;
 	    }

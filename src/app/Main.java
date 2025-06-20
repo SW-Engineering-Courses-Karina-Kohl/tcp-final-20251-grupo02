@@ -133,11 +133,11 @@ public class Main {
 		    if (!doPromotion)
 			{
 			    if (clicks == 0) {
-				if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
+				// if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
 				    movedPiece = board.getPieceInPosition(pos);
 				    movedPiece.validMovements(board, true);
 				    clicks = 1;
-				}
+				    //				}
 			    } else if (clicks == 1) {
 
 				Piece destinePiece = board.getPieceInPosition(pos);

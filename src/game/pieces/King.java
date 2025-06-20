@@ -82,6 +82,45 @@ public class King extends Piece{
 	    this.checkMovement(board, newMovimentos, lowerLeft, testingCheck);
 
 
+	// check castling
+	boolean pieceLeft = false;
+	boolean pieceRight = false;
+
+	for (int i = 1; i < SIZE; i++) {
+
+	    right = this.getBoardPosition().add(new Pair(+i, 0));
+	    left = this.getBoardPosition().add(new Pair(-i, 0));
+
+	    if (!pieceRight && right.isPieceInsideBoard(0, SIZE)) {
+		if (board.isTherePieceInPosition(right)) {
+
+		    pieceRight = true;
+		    Piece piece = board.getPieceInPosition(right);
+
+		    if(piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()){
+			if(board.checkCastling((Rook) piece, this, 'r')){
+			    newMovimentos.add(right);
+			}
+		    }
+		}
+	    }
+
+	    if (!pieceLeft && left.isPieceInsideBoard(0, SIZE)) {
+		if (board.isTherePieceInPosition(left)) {
+
+		    pieceLeft = true;
+		    Piece piece = board.getPieceInPosition(left);
+
+		    if(piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()){
+			if(board.checkCastling((Rook) piece, this, 'l')){
+			    newMovimentos.add(left);
+			}
+		    }
+		}
+	    }
+
+	}
+
 	if(testingCheck){
 	    this.setMovements(newMovimentos);
 	}
