@@ -5,9 +5,13 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Camera2D;
+import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
+import com.raylib.Raylib.Vector2;
 
 import gui.*;
+import vfx.Transition;
 
 public class OptionsMenu{
 
@@ -61,31 +65,30 @@ public class OptionsMenu{
             numbers[i] = i;
         }
 
-        this.InitialTime();
+        this.initialTime();
     }
 
     // Do the menu logic and draws it
-    public void OptionsMenuLogic(boolean[] pages){
+    public void optionsMenuLogic(boolean[] pages, Transition transition, Camera2D camera2d){
         if (pages[1] == true){
             optionsSprite.DrawSpritePro(screenCenter, 32);
 
             timeSprite.DrawSpritePro(screenCenter - timeSprite.GetWidth() / 2, 104);
 
             // Going back to main menu
-            if (goBackButton.MouseClick()){
-                pages[1] = false;
-                pages[0] = true;
+            if (goBackButton.mouseClick(camera2d) && !transition.getActivated()){
+                transition.callTransition(1, 0);
             }
 
-            UpdatingTime();
+            UpdatingTime(camera2d);
         }
     }
 
-    private void UpdatingTime(){
-        LoopIndex(0, 6, 0);
-        LoopIndex(0, 9, 1);
-        LoopIndex(0, 5, 2);
-        LoopIndex(0, 9, 3);
+    private void UpdatingTime(Camera2D camera2d){
+        loopIndex(0, 6, 0, camera2d);
+        loopIndex(0, 9, 1, camera2d);
+        loopIndex(0, 5, 2, camera2d);
+        loopIndex(0, 9, 3, camera2d);
 
         // Max time is one hour
         if (indexNumbers[0] == 6){
@@ -99,19 +102,19 @@ public class OptionsMenu{
             separetedTime[i] = numbers[indexNumbers[i]];
         }
 
-        DrawTime();
+        drawTime();
     }
 
-    public int BoolToInt(boolean bool){
+    public int boolToInt(boolean bool){
         if (bool)
             return 1;
         else
             return 0;
     }
 
-    public void LoopIndex(int min, int max, int i){
-        indexNumbers[i] += BoolToInt(upArrowButton[i].MouseClick());
-        indexNumbers[i] -= BoolToInt(downArrowButton[i].MouseClick());
+    public void loopIndex(int min, int max, int i, Camera2D camera2d){
+        indexNumbers[i] += boolToInt(upArrowButton[i].mouseClick(camera2d));
+        indexNumbers[i] -= boolToInt(downArrowButton[i].mouseClick(camera2d));
 
         if (indexNumbers[i] > max){
             indexNumbers[i] = min;
@@ -122,7 +125,7 @@ public class OptionsMenu{
         }
     }
 
-    public void DrawTime(){
+    public void drawTime(){
         DrawTextEx(font, String.format("%d", separetedTime[0]),
         new Vector2().x(screenCenter + 18).y(90), 32, 1, WHITE);
 
@@ -139,7 +142,7 @@ public class OptionsMenu{
         new Vector2().x(screenCenter + 18 + 19 * 3 + 9).y(90), 32, 1, WHITE);
     }
 
-    public int ConvertToSeconds(){
+    public int convertToSeconds(){
         // minutes
         time = (separetedTime[0] * 10 * 60)
         + (separetedTime[1] * 60)
@@ -149,7 +152,7 @@ public class OptionsMenu{
         return time;
     }
 
-    public void InitialTime(){
+    public void initialTime(){
         // Put a initial time in the screen
         indexNumbers[0] = 0;
         indexNumbers[1] = 5;

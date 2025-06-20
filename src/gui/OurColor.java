@@ -2,6 +2,8 @@ package gui;
 import static com.raylib.Colors.*;
 import static com.raylib.Raylib.*;
 
+import com.raylib.Raylib.Color;
+
 public class OurColor{
 
     private Color color;
@@ -18,19 +20,30 @@ public class OurColor{
         color = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
     }
 
-    public Color GetColor(){
+    public Color getColor(){
         return color;
     }
 
-    public void SetColor(Color color){
+    public void setColor(Color color){
         this.color = color;
     }
 
-    public void SetColor(int r, int g, int b, int a){
+    public void setColor(int r, int g, int b, int a){
         this.r = r;
         this.g = g;
         this.b = b;
         this.a = a;
         color = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
+    }
+
+    public void setAlpha(int a)
+    {
+        this.a = a;
+        color = new Color().r((byte) this.r).g((byte) this.g).b((byte) this.b).a((byte) this.a);
+    }
+
+    public int getAlpha()
+    {
+        return a;
     }
 }

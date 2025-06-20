@@ -39,20 +39,20 @@ public class BackgroundParticlesEmitter{
 
         for (int i = 0; i < 10; i++){
             Particle particle = new Particle(image, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minScale, maxScale
-            , minSpeed, maxSpeed, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
+            , minSpeed, maxSpeed, 100, 100, false, 0,new OurColor(255, 255, 255, 255));
             particlesList.add(particle);
         }
     }
 
-    public void SendParticle(){
+    public void sendParticle(){
 
         if (particlesList.size() > 0) {
             for (int i = 0; i < particlesList.size(); i++){
 
-                particlesList.get(i).UpdateParticle();
-                if (particlesList.get(i).GetY() <  -10){
+                particlesList.get(i).updateParticle();
+                if (particlesList.get(i).getY() <  -10){
                     Particle particle = new Particle(image, minX, maxX, minY, maxY, direction, direction, false, 0, 0, minScale, maxScale,
-						     minSpeed, maxSpeed, 100, 100, false, 0, new OurColor(255, 255, 255, 255));
+						     minSpeed, maxSpeed, 2000, 2000, false, 0, new OurColor(255, 255, 255, 255));
 
                     particlesList.set(i, particle);
                 }

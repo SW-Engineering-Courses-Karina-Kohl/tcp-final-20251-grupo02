@@ -5,11 +5,13 @@ import static com.raylib.Raylib.*;
 
 import java.util.Vector;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
 import gui.*;
+import vfx.Transition;
 import game.*;
 
 public class FinalMenu{
@@ -55,28 +57,27 @@ public class FinalMenu{
     }
 
     // Do the menu logic and draws it
-    public void FinalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning){
+    public void finalMenuLogic(boolean[] pages, Match match, OptionsMenu optionsMenu, boolean[] winner, boolean[] isGameRunning, Transition transition, Camera2D camera2d){
 
         if (pages[3] == true){
 
             // Going back to main menu
-            if (mainMenuButton.MouseClick()){
-                pages[0] = true;
-                pages[3] = false;
+            if (mainMenuButton.mouseClick(camera2d) && !transition.getActivated()){
+                transition.callTransition(3, 0);
             }
 
             // Exiting
-            if (exitButton.MouseClick()){
+            if (exitButton.mouseClick(camera2d)){
                 isGameRunning[0] = false;
             }
 
-            DrawFinalTexts(match, optionsMenu, winner);
+            drawFinalTexts(match, optionsMenu, winner);
         }
     }
 
 
     // Drawing the texts
-    private void DrawFinalTexts(Match match, OptionsMenu optionsMenu, boolean[] winner){
+    private void drawFinalTexts(Match match, OptionsMenu optionsMenu, boolean[] winner){
 
         if (winner[0])
             winnerText = "EMPATE";
@@ -88,12 +89,12 @@ public class FinalMenu{
         winnerWidth = MeasureTextEx(font, winnerText, fontSize, fontSpace);
         DrawTextEx(font, winnerText,
         new Vector2().x(screenCenter - winnerWidth.x() / 2).y(21), fontSize, fontSpace,
-        new OurColor(157, 204, 102, 255).GetColor());
+        new OurColor(157, 204, 102, 255).getColor());
 
 
         // player info
-        int timeDiffWhite = optionsMenu.ConvertToSeconds() - match.getWhitePlayer().getClock().getTime();
-        int timeDiffBlack = optionsMenu.ConvertToSeconds() - match.getBlackPlayer().getClock().getTime();
+        int timeDiffWhite = optionsMenu.convertToSeconds() - match.getWhitePlayer().getClock().getTime();
+        int timeDiffBlack = optionsMenu.convertToSeconds() - match.getBlackPlayer().getClock().getTime();
         int finalTime = timeDiffWhite + timeDiffBlack;
         textDuration = String.format("TEMPO TOTAL: %02d:%02d", finalTime / 60, finalTime % 60);
         whitePlayerText = "TEMPO BRANCO: " + match.getWhitePlayer().getClock().formatTime();
