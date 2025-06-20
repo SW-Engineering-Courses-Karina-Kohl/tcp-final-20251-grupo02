@@ -1,18 +1,13 @@
 package menu;
 
 import static com.raylib.Colors.WHITE;
-import static com.raylib.Raylib.CloseWindow;
-import static com.raylib.Raylib.DrawTextEx;
-import static com.raylib.Raylib.LoadTexture;
-import static com.raylib.Raylib.MeasureTextEx;
+import static com.raylib.Raylib.*;
 
-import com.raylib.Raylib.Font;
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Texture;
-import com.raylib.Raylib.Vector2;
 
-import gui.Button;
-import gui.OurColor;
-import gui.Sprite;
+import gui.*;
+import vfx.Transition;
 import game.Match;
 
 public class GameMenu{
@@ -34,24 +29,22 @@ public class GameMenu{
     }
 
     // Do the menu logic and draws it
-    public void GameMenuLogic(boolean[] pages, Match match, boolean[] winner){
+    public void gameMenuLogic(boolean[] pages, Match match, boolean[] winner, Transition transition, Camera2D camera2d){
 
         if (pages[2] == true){
 
-            if (tieButton.MouseClick()){
+            if (tieButton.mouseClick(camera2d) && !transition.getActivated()){
                 match.getWhitePlayer().getClock().stopClock();
                 match.getBlackPlayer().getClock().stopClock();
-                pages[2] = false;
-                pages[3] = true;
+                transition.callTransition(2, 3);
 
                 winner[0] = true;
             }
 
-            if (surrenderButton.MouseClick()){
+            if (surrenderButton.mouseClick(camera2d) && !transition.getActivated()){
                 match.getWhitePlayer().getClock().stopClock();
                 match.getBlackPlayer().getClock().stopClock();
-                pages[2] = false;
-                pages[3] = true;
+                transition.callTransition(2, 3);
 
                 if (match.getCurrentTurnPlayer().getColor() == 'w')
                     winner[2] = true;

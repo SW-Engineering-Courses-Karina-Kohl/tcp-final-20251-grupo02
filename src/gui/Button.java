@@ -19,12 +19,12 @@ public class Button{
         hitbox = new OurRectangle(this.x - this.sprite.GetWidth() * .5f, this.y - this.sprite.GetHeight() * .5f, this.sprite.GetWidth(), this.sprite.GetHeight());
     }
 
-    public boolean MouseOn(){
+    public boolean mouseOn(Camera2D camera2d){
 
         boolean isMouseOn = false;
-        if (CheckCollisionPointRec(GetMousePosition(), hitbox.GetOurRectangle())){
+        if (CheckCollisionPointRec(GetScreenToWorld2D(GetMousePosition(), camera2d), hitbox.GetOurRectangle())){
             isMouseOn = true;
-            sprite.SetColor(hoverColor.GetColor());
+            sprite.SetColor(hoverColor.getColor());
         } else {
             isMouseOn = false;
             sprite.SetColor(WHITE);
@@ -32,10 +32,10 @@ public class Button{
         return isMouseOn;
     }
 
-    public boolean MouseClick(){
+    public boolean mouseClick(Camera2D camera2d){
 
         boolean click = false;
-        if (MouseOn()){
+        if (mouseOn(camera2d)){
             if (IsMouseButtonReleased(0)){
                 click = true;
             }

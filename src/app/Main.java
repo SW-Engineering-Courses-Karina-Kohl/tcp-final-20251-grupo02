@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.Position;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Font;
 import com.raylib.Raylib.Vector2;
 
@@ -34,7 +35,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		InitWindow(WIDTH, HEIGHT, "Tabuleiro de Combate de Peças");
+		InitWindow(1280, 720, "Tabuleiro de Combate de Peças");
 		SetTargetFPS(60);
 
 		Match match = new Match(300);
@@ -57,6 +58,7 @@ public class Main {
 
 		// Flag that indicates to start a new match
 		boolean startNewMatch = false;
+		boolean keepTrue = false;
 
 		MainMenu mainMenu = new MainMenu(WIDTH);
 		OptionsMenu optionsMenu = new OptionsMenu(WIDTH, pixelFont);
@@ -70,88 +72,122 @@ public class Main {
 		boolean[] isGameRunning = new boolean[1];
 		isGameRunning[0] = true;
 
+		//Transition
+		Transition transition = new Transition(new OurColor(0, 0, 0, 255), WIDTH, HEIGHT, 10, 0);
+
+		//Flash
+		Flash flash = new Flash(new OurColor(255, 255, 255, 255), WIDTH, HEIGHT, 20);
+		BloodParticlesEmitter bloodParticlesEmitter = new BloodParticlesEmitter();
+
+		//Move para fazer a promocão
+		Move movePromotion = new Move(movedPiece, movedPiece);
+		boolean doPromotion = false;
+
+		Vector2 target = new Vector2().x(640/2).y(360/2);
+		Vector2 offset = new Vector2().x(1280 / 2).y(720 / 2);
+		Camera2D camera2d = new Camera2D().target(target).zoom(2).offset(offset).rotation(0);
+	
 		while (!WindowShouldClose() && isGameRunning[0]) {
 
 			BeginDrawing();
-			ClearBackground(new OurColor(52, 54, 71, 255).GetColor());
+			ClearBackground(new OurColor(52, 54, 71, 255).getColor());
+			BeginMode2D(camera2d);
+			particleEmitter.sendParticle();
 
-			particleEmitter.SendParticle();
+			startNewMatch = mainMenu.mainMenuLogic(pages, isGameRunning, transition, camera2d);
+			if (startNewMatch)
+				keepTrue = true;
+			
+			if (keepTrue)
+				startNewMatch = true;
 
-			startNewMatch = mainMenu.MainMenuLogic(pages, isGameRunning);
-
-			optionsMenu.OptionsMenuLogic(pages);
-			finalMenu.FinalMenuLogic(pages, match, optionsMenu, winner, isGameRunning);
+			optionsMenu.optionsMenuLogic(pages, transition, camera2d);
+			finalMenu.finalMenuLogic(pages, match, optionsMenu, winner, isGameRunning, transition, camera2d);
 
 			if (pages[GAME] == true) {
 
-				gameMenu.GameMenuLogic(pages, match, winner);
+				gameMenu.gameMenuLogic(pages, match, winner, transition, camera2d);
+
 
 				// creating new match
-				if (startNewMatch == true) {
-					match = new Match(optionsMenu.ConvertToSeconds());
+				if (startNewMatch == true){
+					match = new Match(optionsMenu.convertToSeconds());
 					movedPiece = new Blank(0, 0);
 
-					for (int i = 0; i < 3; i++) {
-						winner[i] = false;
+					for (int i = 0; i < 3; i++){
+					winner[i] = false;
 					}
 					startNewMatch = false;
+					keepTrue = false;
 				}
 
 				Board board = match.getBoard();
 				board.drawGrid(INITIALX, INITIALY, SCALE);
 
-				if (board.mouseClikedOnBoard(INITIALX, INITIALY, SCALE)) {
+				if (board.mouseClikedOnBoard(INITIALX, INITIALY, SCALE, camera2d)) {
 
-					Pair pos = board.getMousePositionOnBoard(INITIALX, INITIALY, SCALE);
-
-					if (clicks == 0) {
-						if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
-							movedPiece = board.getPieceInPosition(pos);
-							movedPiece.validMovements(board, true);
-							clicks = 1;
-						}
-					} else if (clicks == 1) {
-
-						Piece destinePiece = board.getPieceInPosition(pos);
-
-						// Verificação da move
-						Move move = new Move(movedPiece, destinePiece);
-
-						if (move.validateMove(board)) {
-
-							board.updateBoard(move);
-							move.getMovedPiece().movePiece(move);
-
-							if (movedPiece instanceof King) {
-								((King) movedPiece).hasMoved = true;
-							}
-							if (movedPiece instanceof Rook) {
-								((Rook) movedPiece).hasMoved = true;
-							}
-							if (movedPiece instanceof Pawn) {
-								((Pawn) movedPiece).hasMoved = true;
-							}
-
-							// Verify if the players are in check
-							match.getWhitePlayer().setCheckStatus(board.checkCheck(board.getKingColor('w')));
-							match.getBlackPlayer().setCheckStatus(board.checkCheck(board.getKingColor('b')));
-
-							if (move.getMovedPiece() instanceof Pawn) {
-								move.checkPawnPromotion(board);
-							}
-
-							// end turn
-							match.nextTurn();
-							clicks = 0;
-
-						} else {
-							// changes the piece if the players clicks on one of the same color
-							if (destinePiece.findPieceColor() == movedPiece.findPieceColor()) {
+					Pair pos = board.getMousePositionOnBoard(INITIALX, INITIALY, SCALE, camera2d);
+					if (!doPromotion)
+					{
+						if (clicks == 0) {
+							if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
 								movedPiece = board.getPieceInPosition(pos);
 								movedPiece.validMovements(board, true);
-							} else {
-								movedPiece = new Blank(0, 0);
+								clicks = 1;
+							}
+						} else if (clicks == 1) {
+
+							Piece destinePiece = board.getPieceInPosition(pos);
+
+							// Verificação da move
+							Move move = new Move(movedPiece, destinePiece);
+
+							if (move.validateMove(board)) {
+
+								//Chamando o flash
+								if (destinePiece.findPieceColor() != '_' && destinePiece.findPieceColor() != movedPiece.findPieceColor())
+								{
+									flash.callFlash();
+									OurColor colorBlood = new OurColor(255, 255, 255, 255);
+									if (destinePiece.findPieceColor() == 'b')
+										colorBlood = new OurColor(0, 0, 0, 255);
+									bloodParticlesEmitter.createParticles(INITIALX + pos.x * 16 * SCALE + 16 * SCALE / 2, INITIALY + pos.y * 16 * SCALE + 16 * SCALE / 2, 20, colorBlood);
+								}
+								board.updateBoard(move);
+								move.getMovedPiece().movePiece(move);
+
+								if (movedPiece instanceof King) {
+									((King) movedPiece).hasMoved = true;
+								}
+								if (movedPiece instanceof Rook) {
+									((Rook) movedPiece).hasMoved = true;
+								}
+								if (movedPiece instanceof Pawn) {
+									((Pawn) movedPiece).hasMoved = true;
+								}
+
+								// Verify if the players are in check
+								match.getWhitePlayer().setCheckStatus(board.checkCheck(board.getKingColor('w')));
+								match.getBlackPlayer().setCheckStatus(board.checkCheck(board.getKingColor('b')));
+
+								if (move.getMovedPiece() instanceof Pawn) {
+									doPromotion = move.checkPawnPromotion(board);
+									movePromotion = move;
+								}
+
+								// end turn
+								match.nextTurn();
 								clicks = 0;
+
+							} else {
+								// changes the piece if the players clicks on one of the same color
+								if (destinePiece.findPieceColor() == movedPiece.findPieceColor()) {
+									movedPiece = board.getPieceInPosition(pos);
+									movedPiece.validMovements(board, true);
+								} else {
+									movedPiece = new Blank(0, 0);
+									clicks = 0;
+								}
 							}
 						}
 					}
@@ -161,7 +197,7 @@ public class Main {
 					clicks = 0;
 
 				if (clicks == 1) {
-					board.drawValidMoviments(movedPiece.getMovements(), INITIALX, INITIALY, SCALE);
+					board.drawValidMoviments(movedPiece.getMovements(), INITIALX, INITIALY, SCALE, camera2d);
 				}
 
 				board.drawPieces(INITIALX, INITIALY);
@@ -169,7 +205,19 @@ public class Main {
 						WHITE);
 				DrawTextEx(pixelFont, match.getBlackPlayer().getClock().formatTime(), new Vector2().x(527).y(53), 32, 2,
 						BLACK);
+				bloodParticlesEmitter.updateParticles();
+				if (doPromotion)
+				{
+					if (movePromotion.DoPromotion(board, camera2d))
+					{
+						flash.callFlash();
+						doPromotion = false;
+					}
+				}
 			}
+			transition.updateTransition(pages);
+			flash.updateFlash();
+			EndMode2D();
 			EndDrawing();
 		}
 		CloseWindow();

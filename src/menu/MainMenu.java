@@ -5,9 +5,11 @@ import static com.raylib.Raylib.*;
 
 import java.util.ArrayList;
 
+import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Texture;
 
 import gui.*;
+import vfx.Transition;
 
 
 public class MainMenu{
@@ -40,26 +42,24 @@ public class MainMenu{
     }
 
     // Do the menu logic and draws it
-    public boolean MainMenuLogic(boolean[] pages, boolean[] isGameRunning){
+    public boolean mainMenuLogic(boolean[] pages, boolean[] isGameRunning, Transition transition, Camera2D camera2d){
 
         boolean startNewMatch = false;
         if (pages[0] == true){
 
             // Creating a new game
-            if (newGameButton.MouseClick()){
+            if (newGameButton.mouseClick(camera2d) && !transition.getActivated()){
                 startNewMatch = true;
-                pages[0] = false;
-                pages[2] = true;
+                transition.callTransition(0, 2);
             }
 
             // Going to options menu
-            if (optionsButton.MouseClick()){
-                pages[0] = false;
-                pages[1] = true;
+            if (optionsButton.mouseClick(camera2d) && !transition.getActivated()){
+                transition.callTransition(0, 1);
             }
 
             // Exiting
-            if (exitButton.MouseClick()){
+            if (exitButton.mouseClick(camera2d)){
                 isGameRunning[0] = false;
             }
 

@@ -1,13 +1,17 @@
 package game;
 
 import game.pieces.*;
+import gui.ButtonRaise;
 import misc.Pair;
 import java.util.Scanner;
+
+import com.raylib.Raylib.Camera2D;
 
 public class Move {
 
 	private Piece movedPiece;
 	private Piece capturedPiece;
+	private static ButtonRaise buttonRaise = new ButtonRaise(2);
 
 	public Move(Piece movedPiece, Piece capturedPiece) {
 		this.movedPiece = movedPiece;
@@ -39,7 +43,7 @@ public class Move {
 		return false;
 	}
 
-	public void checkPawnPromotion(Board board) {
+	public boolean checkPawnPromotion(Board board) {
 
 		int promotionTile = 0;
 		char pawnColor = this.movedPiece.findPieceColor();
@@ -53,25 +57,9 @@ public class Move {
 
 		if (pawnPosition.y == promotionTile) {
 
-			// [T]orre [C]avalo [B]ispo [D]ama"
-			Scanner scanner = new Scanner(System.in);
-			char escolha = Character.toUpperCase(scanner.next().charAt(0));
-
-			switch (escolha) {
-				case 'T':
-					board.setPieceInPosition(pawnPosition, new Rook(pawnPosition, this.promotionId(pawnColor, 'T')));
-					break;
-				case 'B':
-					board.setPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.promotionId(pawnColor, 'B')));
-					break;
-				case 'C':
-					board.setPieceInPosition(pawnPosition, new Knight(pawnPosition, this.promotionId(pawnColor, 'C')));
-					break;
-				case 'D':
-					board.setPieceInPosition(pawnPosition, new Queen(pawnPosition, this.promotionId(pawnColor, 'D')));
-					break;
-			}
+			return true;
 		}
+		return false;
 	}
 
 	private char promotionId(char color, char uppercasePieceId) {
@@ -80,5 +68,31 @@ public class Move {
 		} else {
 			return Character.toLowerCase(uppercasePieceId);
 		}
+	}
+
+	public boolean DoPromotion(Board board, Camera2D camera2d)
+	{
+		char pawnColor = this.movedPiece.findPieceColor();
+		Pair pawnPosition = this.movedPiece.getBoardPosition();
+		char escolha = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
+		if (escolha != '-')
+		{
+			switch (escolha) {
+			case 'T':
+			board.setPieceInPosition(pawnPosition, new Rook(pawnPosition, this.promotionId(pawnColor, 'T')));
+			break;
+			case 'B':
+			board.setPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.promotionId(pawnColor, 'B')));
+			break;
+			case 'C':
+			board.setPieceInPosition(pawnPosition, new Knight(pawnPosition, this.promotionId(pawnColor, 'C')));
+			break;
+			case 'D':
+			board.setPieceInPosition(pawnPosition, new Queen(pawnPosition, this.promotionId(pawnColor, 'D')));
+			break;
+			}
+			return true;
+		}
+		return false;
 	}
 }
