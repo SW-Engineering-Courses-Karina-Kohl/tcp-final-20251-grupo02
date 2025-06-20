@@ -135,11 +135,11 @@ public class Main {
 		    if (!doPromotion)
 			{
 			    if (clicks == 0) {
-				// if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
+				if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
 				    movedPiece = board.getPieceInPosition(pos);
 				    movedPiece.validMovements(board, true);
 				    clicks = 1;
-				    //				}
+				}
 			    } else if (clicks == 1) {
 
 				Piece destinePiece = board.getPieceInPosition(pos);
@@ -150,8 +150,9 @@ public class Main {
 
 
 				    Piece movimentOriginalPosition = new Blank(movedPiece.getBoardPosition().x, movedPiece.getBoardPosition().y);
+
 				    //Chamando o flash
-				    if (destinePiece.findPieceColor() != '_' && destinePiece.findPieceColor() != movedPiece.findPieceColor())
+				    if (destinePiece.getPieceID() != '_')
 					{
 					    flash.callFlash();
 					    OurColor colorBlood = new OurColor(255, 255, 255, 255);
