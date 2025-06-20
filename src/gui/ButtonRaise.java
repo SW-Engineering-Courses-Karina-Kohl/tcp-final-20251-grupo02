@@ -23,8 +23,8 @@ public class ButtonRaise
     private int xBegging = 640 / 2 - 190 / 2;
     private int yBegging = 360 / 2 - 40 / 2;
 
-    char[] whitePieces = {'D', 'C', 'T', 'B'};
-    char[] blackPieces = {'d', 'c', 't', 'b'};
+    char[] whitePieces = {'Q', 'H', 'R', 'B'};
+    char[] blackPieces = {'q', 'h', 'r', 'b'};
     private int scale;
 
     public ButtonRaise(int scale)

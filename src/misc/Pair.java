@@ -23,7 +23,7 @@ public class Pair{
             (this.x < sdoubleUp && this.y < sdoubleUp));
     }
 
-    public boolean IsEqualsTo(Object obj){
+    public boolean isEqualsTo(Object obj){
 
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;

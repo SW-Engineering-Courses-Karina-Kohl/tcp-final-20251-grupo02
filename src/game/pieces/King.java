@@ -14,7 +14,7 @@ import game.Move;
 
 public class King extends Piece{
 
-    public boolean hasMoved = false;
+    private boolean hasMoved = false;
     private static Texture kingTexture = LoadTexture("res/pieces/king.png");
 
     public King(int x, int y, char id){
@@ -32,6 +32,14 @@ public class King extends Piece{
 	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 0, WHITE, 2));
         else
 	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 1, WHITE, 2));
+    }
+
+    public boolean hasMoved(){
+	return hasMoved;
+    }
+
+    public void setHasMoved(boolean moved){
+	this.hasMoved = moved;
     }
 
     @Override

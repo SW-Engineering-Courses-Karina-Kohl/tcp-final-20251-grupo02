@@ -25,6 +25,10 @@ public abstract class Piece {
         return boardPosition;
     }
 
+    public void setBoardPosition(Pair p) {
+	boardPosition = p;
+    }
+
     public char getPieceID() {
         return id;
     }
@@ -36,6 +40,11 @@ public abstract class Piece {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+
+    public void movePiece(Move move) {
+        this.boardPosition = move.getCapturedPiece().getBoardPosition();
+    }
+
 
     public abstract ArrayList<Pair> validMovements(Board Board, boolean testingCheck);
 
@@ -51,10 +60,6 @@ public abstract class Piece {
 
         return 'w';
 
-    }
-
-    public void movePiece(Move move) {
-        this.boardPosition = move.getCapturedPiece().getBoardPosition();
     }
 
     /*

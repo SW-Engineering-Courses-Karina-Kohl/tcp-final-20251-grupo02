@@ -26,16 +26,26 @@ public class Move {
 		return capturedPiece;
 	}
 
-	// public boolean ValidateCastling(Board board) {
-	// // Needs to be made
-	// }
+	public boolean isCastiling() {
+
+	    if(this.movedPiece.findPieceColor() == this.capturedPiece.findPieceColor()){
+		if(this.movedPiece instanceof Rook && this.capturedPiece instanceof King){
+		    return true;
+		}
+		if(this.movedPiece instanceof King && this.capturedPiece instanceof Rook){
+		    return true;
+		}
+	    }
+
+		return false;
+
+	}
 
 	/* Return if a move is valid */
 	public boolean validateMove(Board board) {
 
 		for (Pair p : this.getMovedPiece().getMovements()) {
-			if (p.x == this.getCapturedPiece().getBoardPosition().x
-					&& p.y == this.getCapturedPiece().getBoardPosition().y) {
+		    if (p.isEqualsTo(this.getCapturedPiece().getBoardPosition())){
 				return true;
 			}
 		}
@@ -78,17 +88,17 @@ public class Move {
 		if (escolha != '-')
 		{
 			switch (escolha) {
-			case 'T':
-			board.setPieceInPosition(pawnPosition, new Rook(pawnPosition, this.promotionId(pawnColor, 'T')));
+			case 'R':
+			board.setPieceInPosition(pawnPosition, new Rook(pawnPosition, this.promotionId(pawnColor, 'R')));
 			break;
 			case 'B':
 			board.setPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.promotionId(pawnColor, 'B')));
 			break;
-			case 'C':
-			board.setPieceInPosition(pawnPosition, new Knight(pawnPosition, this.promotionId(pawnColor, 'C')));
+			case 'H':
+			board.setPieceInPosition(pawnPosition, new Knight(pawnPosition, this.promotionId(pawnColor, 'H')));
 			break;
-			case 'D':
-			board.setPieceInPosition(pawnPosition, new Queen(pawnPosition, this.promotionId(pawnColor, 'D')));
+			case 'Q':
+			board.setPieceInPosition(pawnPosition, new Queen(pawnPosition, this.promotionId(pawnColor, 'Q')));
 			break;
 			}
 			return true;

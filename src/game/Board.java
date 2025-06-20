@@ -52,17 +52,17 @@ public class Board {
         this.initializePiece(new Pawn(6, 6, 'P'));
         this.initializePiece(new Pawn(7, 6, 'P'));
 
-        this.initializePiece(new Rook(0, 7, 'T'));
-        this.initializePiece(new Rook(7, 7, 'T'));
+        this.initializePiece(new Rook(0, 7, 'R'));
+        this.initializePiece(new Rook(7, 7, 'R'));
 
-        this.initializePiece(new Knight(1, 7, 'C'));
-        this.initializePiece(new Knight(6, 7, 'C'));
+        this.initializePiece(new Knight(1, 7, 'H'));
+        this.initializePiece(new Knight(6, 7, 'H'));
 
         this.initializePiece(new Bishop(2, 7, 'B'));
         this.initializePiece(new Bishop(5, 7, 'B'));
 
-        this.initializePiece(new King(4, 7, 'R'));
-        this.initializePiece(new Queen(3, 7, 'D'));
+        this.initializePiece(new King(4, 7, 'K'));
+        this.initializePiece(new Queen(3, 7, 'Q'));
 
         // black pieces (lowercase id)
         this.initializePiece(new Pawn(0, 1, 'p'));
@@ -74,17 +74,17 @@ public class Board {
         this.initializePiece(new Pawn(6, 1, 'p'));
         this.initializePiece(new Pawn(7, 1, 'p'));
 
-        this.initializePiece(new Rook(0, 0, 't'));
-        this.initializePiece(new Rook(7, 0, 't'));
+        this.initializePiece(new Rook(0, 0, 'r'));
+        this.initializePiece(new Rook(7, 0, 'r'));
 
-        this.initializePiece(new Knight(1, 0, 'c'));
-        this.initializePiece(new Knight(6, 0, 'c'));
+        this.initializePiece(new Knight(1, 0, 'h'));
+        this.initializePiece(new Knight(6, 0, 'h'));
 
         this.initializePiece(new Bishop(2, 0, 'b'));
         this.initializePiece(new Bishop(5, 0, 'b'));
 
-        this.initializePiece(new King(4, 0, 'r'));
-        this.initializePiece(new Queen(3, 0, 'd'));
+        this.initializePiece(new King(4, 0, 'k'));
+        this.initializePiece(new Queen(3, 0, 'q'));
 
         // Blank spaces
         for (int i = 0; i < SIZE; i++) {
@@ -133,16 +133,77 @@ public class Board {
         return true;
     }
 
+    /* Execute the move and change the positions of the pieces */
+    public void executeMove(Move move){
+
+	Piece movedPiece = move.getMovedPiece();
+	Piece capturedPiece = move.getCapturedPiece();
+
+	// Set the pieced as move to prevent special movements after
+	if (movedPiece instanceof King) {
+	    ((King) movedPiece).setHasMoved(true);
+	}
+	if (movedPiece instanceof Rook) {
+	    ((Rook) movedPiece).setHasMoved(true);
+	}
+	if (movedPiece instanceof Pawn) {
+	    ((Pawn) movedPiece).setHasMoved(true);
+	}
+
+	if(move.isCastiling()){
+	    this.executeCastling(movedPiece, capturedPiece);
+	} else {
+	    updateBoard(move);
+	    movedPiece.movePiece(move);
+	}
+
+    }
+
+    private void executeCastling(Piece movedPiece, Piece capturedPiece){
+
+	Rook rook;
+	King king;
+
+	if(movedPiece instanceof King){
+	    king = (King) movedPiece;
+	    rook = (Rook) capturedPiece;
+	} else {
+	    king = (King) capturedPiece;
+	    rook = (Rook) movedPiece;
+	}
+
+	int side = king.getBoardPosition().y;
+	Move kingMove;
+	Move rookMove;
+
+	// left-side rook, queenside castling
+	if(rook.getBoardPosition().x < king.getBoardPosition().x){
+	    kingMove = new Move(king, new Blank(2, side));
+	    rookMove = new Move(rook, new Blank(3, side));
+	} else {
+	    kingMove = new Move(king, new Blank(6, side));
+	    rookMove = new Move(rook, new Blank(5, side));
+	}
+
+	updateBoard(kingMove);
+	updateBoard(rookMove);
+	king.movePiece(kingMove);
+	rook.movePiece(rookMove);
+
+    }
+
     /* Changes the board based on a move */
     public void updateBoard(Move move) {
 
         Piece movedPiece = move.getMovedPiece();
+	Piece capturedPiece = move.getCapturedPiece();
         Pair finalPosition = move.getCapturedPiece().getBoardPosition();
 
         // Turns null (blank) the piece previous position
         this.setPieceInPosition(movedPiece.getBoardPosition(), new Blank(movedPiece.getBoardPosition()));
         // And moves the piece
         this.setPieceInPosition(finalPosition, movedPiece);
+
     }
 
     /*
@@ -166,9 +227,11 @@ public class Board {
 
         /* Theres a need for a special treatment for the king */
         if (movedPiece instanceof King) {
+
             if (simulationBoard.checkCheck(new King(movePosition, movedPiece.getPieceID()))) {
                 return true;
             }
+
         } else if (simulationBoard.checkCheck(simulationBoard.getKingColor(color))) {
             return true;
         }
@@ -189,7 +252,7 @@ public class Board {
                 if (piece.findPieceColor() != colorKing) {
 
                     for (Pair movePostion : piece.validMovements(this, false)) {
-                        if (king.getBoardPosition().IsEqualsTo(movePostion)) {
+                        if (king.getBoardPosition().isEqualsTo(movePostion)) {
                             return true;
                         }
                     }
@@ -201,8 +264,57 @@ public class Board {
         return false;
     }
 
+
+    public boolean checkCheck(char color){
+	King king = getKingColor(color);
+	return this.checkCheck(king);
+    }
+
+    /* Assuming that there no piece beetween the two pieces, can they rook? */
+    public boolean checkCastling(Rook rook, King king, char rookSide){
+
+	if(rook.hasMoved() || king.hasMoved()){
+	    return false;
+	}
+
+	int direction = 0;
+	// rook on the right side of the king
+	if(rookSide == 'r'){
+	    direction = 1;
+	} else {
+	    direction = -1;
+	}
+
+	for(int i = king.getBoardPosition().x + direction; i != rook.getBoardPosition().x; i = i + direction){
+	    if(this.moveLeadsToCheck(king, king.findPieceColor(), new Pair(i, king.getBoardPosition().y))){
+		return false;
+	    }
+	}
+
+	return true;
+
+    }
+
+    public boolean checkCheckmate(char color){
+
+	for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+
+                Piece piece = this.getPieceInPosition(i, j);
+
+                if (piece.findPieceColor() == color) {
+		    if(!piece.validMovements(this, true).isEmpty()){
+			return false;
+		    }
+		}
+	    }
+	}
+
+	return true;
+    }
+
     /* Retunr the position of the king of color "color" */
-    public King getKingColor(char color) {
+    private King getKingColor(char color) {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -216,10 +328,12 @@ public class Board {
             }
         }
 
-        // It will never get here because there is also a king in the board for each
+        // It will never get here because there is always a king in the board for each
         // color
         return null;
     }
+
+
 
     public Pair getMousePositionOnBoard(int xInitial, int yInitial, int scale, Camera2D camera2d){
         int x = (int) getMousePositionScreen(camera2d).x();
