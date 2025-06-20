@@ -39,19 +39,23 @@ public class Pawn extends Piece {
 	this.hasMoved = moved;
     }
 
+    public int getMoveDirection(){
+
+	if (this.findPieceColor() == 'w') {
+	    return -1;
+	} else {
+	    return 1;
+	}
+
+    }
 
     @Override
     public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 
-	int direction = -1;
+	int direction = this.getMoveDirection();
 	char color = this.findPieceColor();
-	if (color == 'w') {
-	    direction = -1;
-	} else {
-	    direction = 1;
-	}
 
 	Pair up = this.getBoardPosition().add(new Pair(0, direction * 1));
 	Pair doubleUp = this.getBoardPosition().add(new Pair(0, direction * 2));
@@ -60,22 +64,34 @@ public class Pawn extends Piece {
 	Pair upperRight = this.getBoardPosition().add(new Pair(+1, direction * 1));
 	Pair upperLeft = this.getBoardPosition().add(new Pair(-1, direction * 1));
 
-	if (up.isPieceInsideBoard(0, SIZE) && !(board.isTherePieceInPosition(up))) {
-	    this.checkMovement(board, newMovimentos, up, testingCheck);
+	if (up.isPieceInsideBoard(0, SIZE)){
+	    if(!(board.isTherePieceInPosition(up))) {
+		this.checkMovement(board, newMovimentos, up, testingCheck);
 
-	    if (!this.hasMoved && doubleUp.isPieceInsideBoard(0, SIZE) && !(board.isTherePieceInPosition(doubleUp))) {
-		this.checkMovement(board, newMovimentos, doubleUp, testingCheck);
+		if (!this.hasMoved && doubleUp.isPieceInsideBoard(0, SIZE)){
+		    if(!(board.isTherePieceInPosition(doubleUp))) {
+			this.checkMovement(board, newMovimentos, doubleUp, testingCheck);
+		    }
+		}
 	    }
 	}
 
-	if (upperRight.isPieceInsideBoard(0, SIZE) && (board.isTherePieceInPosition(upperRight))
-	    && color != board.getPieceInPosition(upperRight).findPieceColor()) {
-	    this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+	if (upperRight.isPieceInsideBoard(0, SIZE)){
+	    if(board.isTherePieceInPosition(upperRight) && color != board.getPieceInPosition(upperRight).findPieceColor()) {
+		this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+	    }
+	    if(board.checkEnPassant(this, 'r')){
+		this.checkMovement(board, newMovimentos, upperRight, testingCheck, true);
+	    }
 	}
 
-	if (upperLeft.isPieceInsideBoard(0, SIZE) && (board.isTherePieceInPosition(upperLeft))
-	    && color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-	    this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+	if (upperLeft.isPieceInsideBoard(0, SIZE)){
+	    if(board.isTherePieceInPosition(upperLeft) && color != board.getPieceInPosition(upperLeft).findPieceColor()) {
+		this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+	    }
+	    if(board.checkEnPassant(this, 'l')){
+		this.checkMovement(board, newMovimentos, upperLeft, testingCheck, true);
+	    }
 	}
 
 	if (testingCheck) {
@@ -89,6 +105,24 @@ public class Pawn extends Piece {
     public void movePiece(Move move) {
 	super.movePiece(move);
 	this.hasMoved = true;
+    }
+
+    public void checkMovement(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck, boolean testingEnPassant) {
+
+        if (testingCheck) {
+            if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
+                movs.add(moviment);
+		if(testingEnPassant){
+		    board.setPieceInPosition(moviment, new Blank(moviment, true));
+		}
+            }
+        } else {
+            movs.add(moviment);
+	    if(testingEnPassant){
+		board.setPieceInPosition(moviment, new Blank(moviment, true));
+	    }
+        }
+
     }
 
 }

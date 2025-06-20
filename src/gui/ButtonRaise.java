@@ -7,9 +7,9 @@ import static com.raylib.Raylib.LoadTexture;
 import com.raylib.Raylib.Camera2D;
 import com.raylib.Raylib.Texture;
 
-public class ButtonRaise 
+public class ButtonRaise
 {
-    //Promocao do peao
+    // Pawn promotion
     private static Texture bishopTextureP = LoadTexture("res/pieces/bishop.png");
     private static Texture queenTextureP = LoadTexture("res/pieces/queen.png");
     private static Texture towerTextureP = LoadTexture("res/pieces/rook.png");

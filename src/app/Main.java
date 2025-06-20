@@ -129,6 +129,8 @@ public class Main {
 
 		if (board.mouseClikedOnBoard(INITIALX, INITIALY, SCALE, camera2d)) {
 
+		    System.out.println(board.toString());
+
 		    Pair pos = board.getMousePositionOnBoard(INITIALX, INITIALY, SCALE, camera2d);
 		    if (!doPromotion)
 			{
@@ -141,12 +143,13 @@ public class Main {
 			    } else if (clicks == 1) {
 
 				Piece destinePiece = board.getPieceInPosition(pos);
-
 				// Verificação da move
 				Move move = new Move(movedPiece, destinePiece);
 
 				if (move.validateMove(board)) {
 
+
+				    Piece movimentOriginalPosition = new Blank(movedPiece.getBoardPosition().x, movedPiece.getBoardPosition().y);
 				    //Chamando o flash
 				    if (destinePiece.findPieceColor() != '_' && destinePiece.findPieceColor() != movedPiece.findPieceColor())
 					{
@@ -159,15 +162,8 @@ public class Main {
 
 				    board.executeMove(move);
 
-				    if (movedPiece instanceof King) {
-					((King) movedPiece).setHasMoved(true);
-				    }
-				    if (movedPiece instanceof Rook) {
-					((Rook) movedPiece).setHasMoved(true);
-				    }
-				    if (movedPiece instanceof Pawn) {
-					((Pawn) movedPiece).setHasMoved(true);
-				    }
+				    // Save last move (used for en passant)
+				    board.setLastMove(new Move(movimentOriginalPosition, movedPiece));
 
 				    // Verify if the players are in check
 				    whitePlayer.setCheckStatus(board.checkCheck('w'));
@@ -199,7 +195,6 @@ public class Main {
 					    transition.callTransition(GAME, FINAL);
 					}
 				    }
-
 
 				} else {
 				    // changes the piece if the players clicks on one of the same color

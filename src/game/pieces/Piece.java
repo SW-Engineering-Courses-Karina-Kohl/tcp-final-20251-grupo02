@@ -9,7 +9,7 @@ public abstract class Piece {
     public final int SIZE = 8;
     private char id;
     private Pair boardPosition;
-    private ArrayList<Pair> movements = new ArrayList<>();
+    private ArrayList<Pair> moviments = new ArrayList<>();
     private Sprite sprite;
 
     public Piece(int x, int y, char id) {
@@ -18,7 +18,7 @@ public abstract class Piece {
     }
 
     public ArrayList<Pair> getMovements() {
-        return movements;
+        return moviments;
     }
 
     public Pair getBoardPosition() {
@@ -34,7 +34,7 @@ public abstract class Piece {
     }
 
     public void setMovements(ArrayList<Pair> newMovements) {
-        this.movements = newMovements;
+        this.moviments = newMovements;
     }
 
     public void setSprite(Sprite sprite) {
@@ -63,17 +63,17 @@ public abstract class Piece {
     }
 
     /*
-     * add the movement to the movs list only if this movement doesn't lead to a
+     * add the moviment to the movs list only if this moviment doesn't lead to a
      * check
      */
-    public void checkMovement(Board board, ArrayList<Pair> movs, Pair movement, boolean testingCheck) {
+    public void checkMovement(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck) {
 
         if (testingCheck) {
-            if (!board.moveLeadsToCheck(this, this.findPieceColor(), movement)) {
-                movs.add(movement);
+            if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
+                movs.add(moviment);
             }
         } else {
-            movs.add(movement);
+            movs.add(moviment);
         }
 
     }
