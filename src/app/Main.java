@@ -89,7 +89,7 @@ public class Main {
 	Vector2 offset = new Vector2().x(1280 / 2).y(720 / 2);
 	Camera2D camera2d = new Camera2D().target(target).zoom(2).offset(offset).rotation(0);
 
-	//Carrendo a musica 
+	//Carrendo a musica
 	Music mainMusic = LoadMusicStream("res/musics/main.mp3");
 	SetMusicVolume(mainMusic, 0.1f);
 	PlayMusicStream(mainMusic);
@@ -100,9 +100,6 @@ public class Main {
 
 	Sound hitSound = LoadSound("res/sfx/snd_hit.mp3");
 	SetSoundVolume(hitSound, .2f);
-
-	boolean whiteInCheck = false;
-	boolean blackInCheck = false;
 
 	while (!WindowShouldClose() && isGameRunning[0]) {
 		UpdateMusicStream(mainMusic);
@@ -202,10 +199,8 @@ public class Main {
 				    board.setLastMove(new Move(movimentOriginalPosition, movedPiece));
 
 				    // Verify if the players are in check
-					whiteInCheck = board.checkCheck('w');
-					blackInCheck = board.checkCheck('b');
-				    whitePlayer.setCheckStatus(whiteInCheck);
-				    blackPlayer.setCheckStatus(blackInCheck);
+				    whitePlayer.setCheckStatus(board.checkCheck('w'));
+				    blackPlayer.setCheckStatus(board.checkCheck('b'));
 
 				    if (move.getMovedPiece() instanceof Pawn) {
 					doPromotion = move.checkPawnPromotion(board);
@@ -255,7 +250,7 @@ public class Main {
 		    board.drawValidMoviments(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
 		}
 
-		board.drawPieces(INITIALX, INITIALY, whiteInCheck, blackInCheck);
+		board.drawPieces(INITIALX, INITIALY, whitePlayer.isInCheck(), blackPlayer.isInCheck());
 		DrawTextEx(pixelFont, whitePlayer.getClock().formatTime(), new Vector2().x(527).y(21), 32, 2,
 			   WHITE);
 		DrawTextEx(pixelFont, blackPlayer.getClock().formatTime(), new Vector2().x(527).y(53), 32, 2,
