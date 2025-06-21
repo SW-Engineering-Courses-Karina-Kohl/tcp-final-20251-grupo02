@@ -41,6 +41,11 @@ public abstract class Piece {
         this.sprite = sprite;
     }
 
+    public void setCurrentImage(int image)
+    {
+        this.sprite.SetCurrentImage(image);
+    }
+
     public void movePiece(Move move) {
         this.boardPosition = move.getCapturedPiece().getBoardPosition();
     }

@@ -36,10 +36,11 @@ public class Main {
     public static void main(String[] args) {
 
 	InitWindow(1280, 720, "Tabuleiro de Combate de Peças");
+	InitAudioDevice();
 	SetTargetFPS(60);
 
 	Match match = new Match(300,true,true);
-
+	
 	int clicks = 0;
 	Piece movedPiece = new Blank(0, 0);
 
@@ -87,7 +88,20 @@ public class Main {
 	Vector2 offset = new Vector2().x(1280 / 2).y(720 / 2);
 	Camera2D camera2d = new Camera2D().target(target).zoom(2).offset(offset).rotation(0);
 
+	//Carrendo a musica
+	Music mainMusic = LoadMusicStream("res/musics/main.mp3");
+	SetMusicVolume(mainMusic, 0.1f);
+	PlayMusicStream(mainMusic);
+
+	//Carregando sfx
+	Sound moveSound = LoadSound("res/sfx/snd_move.wav");
+	SetSoundVolume(moveSound, .2f);
+
+	Sound hitSound = LoadSound("res/sfx/snd_hit.mp3");
+	SetSoundVolume(hitSound, .2f);
+
 	while (!WindowShouldClose() && isGameRunning[0]) {
+		UpdateMusicStream(mainMusic);
 
 	    BeginDrawing();
 	    ClearBackground(new OurColor(52, 54, 71, 255).getColor());
@@ -166,11 +180,16 @@ public class Main {
 				    //Chamando o flash
 				    if (destinePiece.getPieceID() != '_' || (movedPiece instanceof Pawn && destinePiece.getBoardPosition().isEqualsTo(((Pawn) movedPiece).getEnPassantPosition())))
 					{
+						PlaySound(hitSound);
 					    flash.callFlash();
 					    OurColor colorBlood = new OurColor(255, 255, 255, 255);
 					    if (destinePiece.findPieceColor() == 'b')
 						colorBlood = new OurColor(0, 0, 0, 255);
 					    bloodParticlesEmitter.createParticles(INITIALX + pos.x * 16 * SCALE + 16 * SCALE / 2, INITIALY + pos.y * 16 * SCALE + 16 * SCALE / 2, 20, colorBlood);
+					}
+					else
+					{
+						PlaySound(moveSound);
 					}
 
 				    board.executeMove(move);
@@ -230,7 +249,7 @@ public class Main {
 		    board.drawValidMoviments(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
 		}
 
-		board.drawPieces(INITIALX, INITIALY);
+		board.drawPieces(INITIALX, INITIALY, whitePlayer.getCheckStatus(), blackPlayer.getCheckStatus());
 		DrawTextEx(pixelFont, whitePlayer.getClock().formatTime(), new Vector2().x(527).y(21), 32, 2,
 			   WHITE);
 		DrawTextEx(pixelFont, blackPlayer.getClock().formatTime(), new Vector2().x(527).y(53), 32, 2,
@@ -242,6 +261,8 @@ public class Main {
 			    {
 				flash.callFlash();
 				doPromotion = false;
+				whitePlayer.setCheckStatus(board.checkCheck('w'));
+				blackPlayer.setCheckStatus(board.checkCheck('b'));
 			    }
 		    }
 	    }
