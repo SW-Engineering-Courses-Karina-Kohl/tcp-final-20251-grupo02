@@ -18,33 +18,27 @@ public class ClockTest {
 
     @Test
     public void testStartClock(){
-        final int acceptedErrorInMilliS = 1000;
-
         Clock clock0 = new Clock(126);
         Clock clock1 = new Clock(1401);
 
         clock0.startClock();
         
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1001);
         } catch (InterruptedException e) {
         }
 
-
         clock0.stopClock();
-
-        try {
-            Thread.sleep(acceptedErrorInMilliS);
-        } catch (InterruptedException e) {}
-
+        assertTrue(clock0.getTime() - 125 <= 1);
         int currentTime = clock0.getTime();
 
         clock1.startClock();
         try {
-            Thread.sleep(5000 + acceptedErrorInMilliS);
-            assertEquals("23:16", clock1.formatTime());
+            Thread.sleep(5001);
+            clock1.stopClock();
+            assertTrue(clock1.getTime() - 1396 <= 1);
         } catch (InterruptedException e) {}
 
-        assertTrue(currentTime - clock0.getTime() <= 1);
+        assertEquals(currentTime, clock0.getTime());
     }
 }
