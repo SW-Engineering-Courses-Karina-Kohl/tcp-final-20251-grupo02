@@ -7,8 +7,8 @@ public class MatchTest {
     private final int desiredTime = 300;
 
     @Test
-    public void testNewMatch() {
-        Match match = new Match(desiredTime);
+    public void testNewMatchStart() {
+        Match match = new Match(desiredTime, false, true);
 
         assertEquals('w', match.getWhitePlayer().getColor());
         assertEquals('b', match.getBlackPlayer().getColor());
