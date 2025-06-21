@@ -262,6 +262,8 @@ public class Main {
 			    {
 				flash.callFlash();
 				doPromotion = false;
+				whitePlayer.setCheckStatus(board.checkCheck('w'));
+				blackPlayer.setCheckStatus(board.checkCheck('b'));
 			    }
 		    }
 	    }
