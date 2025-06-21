@@ -191,7 +191,7 @@ public class Main {
 				    match.nextTurn();
 				    clicks = 0;
 
-				    if(whitePlayer.isInCheck()){
+				    if(whitePlayer.getCheckStatus()){
 					if(board.checkCheckmate('w')){
 					    winner[2] = true;
 					    whitePlayer.getClock().stopClock();
@@ -200,7 +200,7 @@ public class Main {
 					}
 				    }
 
-				    if(blackPlayer.isInCheck()){
+				    if(blackPlayer.getCheckStatus()){
 					if(board.checkCheckmate('b')){
 					    winner[1] = true;
 					    whitePlayer.getClock().stopClock();

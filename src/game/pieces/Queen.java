@@ -14,7 +14,11 @@ import gui.Sprite;
 
 public class Queen extends Piece {
 
-	private static Texture queenTexture = LoadTexture("res/pieces/queen.png");
+	private static Texture queenTexture;
+
+	public Queen(int x, int y, char id, boolean useUI) {
+		super(x, y, id);
+	}
 
 	public Queen(int x, int y, char id) {
 		super(x, y, id);
@@ -27,6 +31,10 @@ public class Queen extends Piece {
 	}
 
 	private void loadSprite() {
+		if (queenTexture == null) {
+			queenTexture = LoadTexture("res/pieces/queen.png");
+		}
+
 		if (findPieceColor() == 'w')
 			this.setSprite(new Sprite(queenTexture, 2, 0, 0, 0, WHITE, 2));
 		else
@@ -137,7 +145,7 @@ public class Queen extends Piece {
 		}
 
 		if (testingCheck) {
-			this.setMoviments(newMovimentos);
+			this.setMovements(newMovimentos);
 		}
 
 		return newMovimentos;
