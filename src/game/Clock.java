@@ -49,4 +49,8 @@ public class Clock {
         return String.format("%02d:%02d", min, seg);
     }
 
+    public boolean isTimeZero() {
+        return seconds <= 0;
+    }
+
 }
