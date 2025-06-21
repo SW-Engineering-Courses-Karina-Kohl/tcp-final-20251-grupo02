@@ -438,10 +438,29 @@ public class Board {
 
     }
 
-    public void drawPieces(int xInitial, int yInitial) {
+    public void drawPieces(int xInitial, int yInitial, boolean whiteInCheck, boolean blackInCheck) {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
+                //Vendo se os reis estao em check
+                if (board[i][j] instanceof King)
+                {
+                    if (board[i][j].findPieceColor() == 'w')
+                    {
+                        if (whiteInCheck)
+                            board[i][j].setCurrentImage(2);
+                        else
+                            board[i][j].setCurrentImage(0);
+                    }
+                    
+                    if (board[i][j].findPieceColor() == 'b')
+                    {
+                        if (blackInCheck)
+                            board[i][j].setCurrentImage(3);
+                        else
+                            board[i][j].setCurrentImage(1);
+                    }
+                }
                 board[i][j].drawPiece(xInitial, yInitial);
             }
         }
