@@ -1,9 +1,5 @@
 package game;
 
-import game.pieces.Queen;
-import game.pieces.Pawn;
-import game.pieces.Piece;
-
 public class Match {
 
     private Board board;
