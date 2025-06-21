@@ -16,18 +16,16 @@ public class Queen extends Piece {
 
 	private static Texture queenTexture;
 
-	public Queen(int x, int y, char id, boolean useUI) {
+	public Queen(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Queen(int x, int y, char id) {
-		super(x, y, id);
-		this.loadSprite();
-	}
-
-	public Queen(Pair p, char id) {
+	public Queen(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.loadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
 	private void loadSprite() {

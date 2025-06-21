@@ -43,72 +43,26 @@ public class Board {
     }
 
     /* Class contructor: Creates a board in the view of the white pieces */
-    public Board() {
-        // white pieces (doubleUppercase id)
-        this.initializePiece(new Pawn(0, 6, 'P'));
-        this.initializePiece(new Pawn(1, 6, 'P'));
-        this.initializePiece(new Pawn(2, 6, 'P'));
-        this.initializePiece(new Pawn(3, 6, 'P'));
-        this.initializePiece(new Pawn(4, 6, 'P'));
-        this.initializePiece(new Pawn(5, 6, 'P'));
-        this.initializePiece(new Pawn(6, 6, 'P'));
-        this.initializePiece(new Pawn(7, 6, 'P'));
-
-        this.initializePiece(new Rook(0, 7, 'R'));
-        this.initializePiece(new Rook(7, 7, 'R'));
-
-        this.initializePiece(new Knight(1, 7, 'H'));
-        this.initializePiece(new Knight(6, 7, 'H'));
-
-        this.initializePiece(new Bishop(2, 7, 'B'));
-        this.initializePiece(new Bishop(5, 7, 'B'));
-
-        this.initializePiece(new King(4, 7, 'K'));
-        this.initializePiece(new Queen(3, 7, 'Q'));
-
-        // black pieces (lowercase id)
-        this.initializePiece(new Pawn(0, 1, 'p'));
-        this.initializePiece(new Pawn(1, 1, 'p'));
-        this.initializePiece(new Pawn(2, 1, 'p'));
-        this.initializePiece(new Pawn(3, 1, 'p'));
-        this.initializePiece(new Pawn(4, 1, 'p'));
-        this.initializePiece(new Pawn(5, 1, 'p'));
-        this.initializePiece(new Pawn(6, 1, 'p'));
-        this.initializePiece(new Pawn(7, 1, 'p'));
-
-        this.initializePiece(new Rook(0, 0, 'r'));
-        this.initializePiece(new Rook(7, 0, 'r'));
-
-        this.initializePiece(new Knight(1, 0, 'h'));
-        this.initializePiece(new Knight(6, 0, 'h'));
-
-        this.initializePiece(new Bishop(2, 0, 'b'));
-        this.initializePiece(new Bishop(5, 0, 'b'));
-
-        this.initializePiece(new King(4, 0, 'k'));
-        this.initializePiece(new Queen(3, 0, 'q'));
-
-        // Blank spaces
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (this.board[i][j] == null)
-                    this.board[i][j] = new Blank(j, i);
+   
+    public Board(boolean useUI, boolean initPieces) {
+        if (useUI) {
+            // Sprites of the "aims"
+            if (greenAimTexture == null) {
+                greenAimTexture = LoadTexture("res/vfx/mira_verde.png");
             }
+            if (redAimTexture == null) {
+                redAimTexture = LoadTexture("res/vfx/mira_vermelha.png");
+            }
+            greenAimSprite = new Sprite(greenAimTexture, 2, 0, 0, 1, WHITE, 2);
+            redAimSprite = new Sprite(redAimTexture, 2, 0, 0, 1, WHITE, 2);
         }
 
-        // Sprites of the "aims"
-        if (greenAimTexture == null) {
-            greenAimTexture = LoadTexture("res/vfx/mira_verde.png");
+        if (!initPieces) {
+            return;
         }
-        if (redAimTexture == null) {
-            redAimTexture = LoadTexture("res/vfx/mira_vermelha.png");
-        }
-        greenAimSprite = new Sprite(greenAimTexture, 2, 0, 0, 1, WHITE, 2);
-        redAimSprite = new Sprite(redAimTexture, 2, 0, 0, 1, WHITE, 2);
-    }
 
-    public Board(boolean useUI) {
         // white pieces (doubleUppercase id)
+
         this.initializePiece(new Pawn(0, 6, 'P', useUI));
         this.initializePiece(new Pawn(1, 6, 'P', useUI));
         this.initializePiece(new Pawn(2, 6, 'P', useUI));
@@ -317,7 +271,7 @@ public class Board {
      */
     public boolean moveLeadsToCheck(Piece movedPiece, char color, Pair movePosition) {
 
-        Board simulationBoard = new Board();
+        Board simulationBoard = new Board(false, false);
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -333,7 +287,7 @@ public class Board {
         /* Theres a need for a special treatment for the king */
         if (movedPiece instanceof King) {
 
-            if (simulationBoard.checkCheck(new King(movePosition, movedPiece.getPieceID()))) {
+            if (simulationBoard.checkCheck(new King(movePosition, movedPiece.getPieceID(), false))) {
                 return true;
             }
 

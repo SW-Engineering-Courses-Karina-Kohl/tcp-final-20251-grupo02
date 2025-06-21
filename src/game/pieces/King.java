@@ -18,21 +18,19 @@ public class King extends Piece {
 	private boolean hasMoved = false;
 	private static Texture kingTexture;
 
-	public King(int x, int y, char id, boolean useUI) {
+	public King(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public King(int x, int y, char id) {
-		super(x, y, id);
-		this.LoadSprite();
-	}
-
-	public King(Pair p, char id) {
+	public King(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	private void LoadSprite() {
+	private void loadSprite() {
 		if (kingTexture == null) {
 			kingTexture = LoadTexture("res/pieces/king.png");
 		}

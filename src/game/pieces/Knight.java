@@ -16,21 +16,19 @@ public class Knight extends Piece {
 
     private static Texture knightTexture;
 
-    public Knight(int x, int y, char id, boolean useUI) {
-        super(x, y, id);
-    }
+   public Knight(int x, int y, char id, boolean initUI) {
+		super(x, y, id);
+		if(initUI)
+			this.loadSprite();
+	}
 
-    public Knight(int x, int y, char id) {
-        super(x, y, id);
-        this.LoadSprite();
-    }
+    public Knight(Pair p, char id, boolean initUI) {
+		super(p.x, p.y, id);
+		if(initUI)
+			this.loadSprite();
+	}
 
-    public Knight(Pair p, char id) {
-        super(p.x, p.y, id);
-        this.LoadSprite();
-    }
-
-    private void LoadSprite() {
+    private void loadSprite() {
         if (knightTexture == null) {
             knightTexture = LoadTexture("res/pieces/knight.png");
         }

@@ -16,21 +16,19 @@ public class Bishop extends Piece {
 
 	private static Texture bishopTexture;
 
-	public Bishop(int x, int y, char id, boolean useUI) {
+	public Bishop(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Bishop(int x, int y, char id) {
-		super(x, y, id);
-		this.LoadSprite();
-	}
-
-	public Bishop(Pair p, char id) {
+	public Bishop(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	private void LoadSprite() {
+	private void loadSprite() {
 		if(bishopTexture == null){
 			bishopTexture = LoadTexture("res/pieces/bishop.png");
 		}

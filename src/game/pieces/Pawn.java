@@ -21,13 +21,10 @@ public class Pawn extends Piece {
 
 	private static Texture pawnTexture;
 
-	public Pawn(int x, int y, char id, boolean useUI) {
+	public Pawn(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
-	}
-
-	public Pawn(int x, int y, char id) {
-		super(x, y, id);
-		this.loadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
 	private void loadSprite() {

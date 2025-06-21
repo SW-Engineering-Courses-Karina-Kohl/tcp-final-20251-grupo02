@@ -12,8 +12,8 @@ public class Match {
 
     private Player currentTurnPlayer = whitePlayer;
 
-    public Match(int initialTime) {
-        this.board = new Board();
+    public Match(int initialTime, boolean useUI, boolean initPieces) {
+        this.board = new Board(useUI, initPieces);
         this.whitePlayer = new Player('w', initialTime);
         this.blackPlayer = new Player('b', initialTime);
         this.currentTurnPlayer = whitePlayer;

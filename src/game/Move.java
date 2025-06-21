@@ -111,26 +111,38 @@ public class Move {
 		}
 	}
 
-	public boolean DoPromotion(Board board, Camera2D camera2d) {
+	public boolean promote(Board board, Camera2D camera2d, boolean initUI) {
 		char pawnColor = this.movedPiece.findPieceColor();
 		Pair pawnPosition = this.movedPiece.getBoardPosition();
-		if (buttonRaise == null) {
-			buttonRaise = new ButtonRaise(2);
+
+		char escolha;
+		if (initUI) {
+			if (buttonRaise == null) {
+				buttonRaise = new ButtonRaise(2);
+			}
+			escolha = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
+		} else {
+			Scanner scanner = new Scanner(System.in);
+			escolha = scanner.next().charAt(0);
+			scanner.close();
 		}
-		char escolha = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
 		if (escolha != '-') {
 			switch (escolha) {
 				case 'R':
-					board.setPieceInPosition(pawnPosition, new Rook(pawnPosition, this.promotionId(pawnColor, 'R')));
+					board.setPieceInPosition(pawnPosition,
+							new Rook(pawnPosition, this.promotionId(pawnColor, 'R'), true));
 					break;
 				case 'B':
-					board.setPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.promotionId(pawnColor, 'B')));
+					board.setPieceInPosition(pawnPosition,
+							new Bishop(pawnPosition, this.promotionId(pawnColor, 'B'), true));
 					break;
 				case 'H':
-					board.setPieceInPosition(pawnPosition, new Knight(pawnPosition, this.promotionId(pawnColor, 'H')));
+					board.setPieceInPosition(pawnPosition,
+							new Knight(pawnPosition, this.promotionId(pawnColor, 'H'), true));
 					break;
 				case 'Q':
-					board.setPieceInPosition(pawnPosition, new Queen(pawnPosition, this.promotionId(pawnColor, 'Q')));
+					board.setPieceInPosition(pawnPosition,
+							new Queen(pawnPosition, this.promotionId(pawnColor, 'Q'), true));
 					break;
 			}
 			return true;

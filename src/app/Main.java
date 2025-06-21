@@ -38,7 +38,7 @@ public class Main {
 	InitWindow(1280, 720, "Tabuleiro de Combate de Peças");
 	SetTargetFPS(60);
 
-	Match match = new Match(300);
+	Match match = new Match(300,true,true);
 
 	int clicks = 0;
 	Piece movedPiece = new Blank(0, 0);
@@ -112,7 +112,7 @@ public class Main {
 
 		// creating new match
 		if (startNewMatch == true){
-		    match = new Match(optionsMenu.convertToSeconds());
+		    match = new Match(optionsMenu.convertToSeconds(),true,true);
 		    movedPiece = new Blank(0, 0);
 
 		    for (int i = 0; i < 3; i++){
@@ -238,7 +238,7 @@ public class Main {
 		bloodParticlesEmitter.updateParticles();
 		if (doPromotion)
 		    {
-			if (movePromotion.DoPromotion(board, camera2d))
+			if (movePromotion.promote(board, camera2d, true))
 			    {
 				flash.callFlash();
 				doPromotion = false;

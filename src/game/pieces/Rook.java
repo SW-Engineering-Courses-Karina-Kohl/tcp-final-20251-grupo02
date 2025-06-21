@@ -18,18 +18,16 @@ public class Rook extends Piece {
 	private boolean hasMoved = false;
 	private static Texture rookTexture;
 
-	public Rook(int x, int y, char id, boolean useUI) {
+	public Rook(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Rook(int x, int y, char id) {
-		super(x, y, id);
-		this.loadSprite();
-	}
-
-	public Rook(Pair p, char id) {
+	public Rook(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.loadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
 	private void loadSprite() {
