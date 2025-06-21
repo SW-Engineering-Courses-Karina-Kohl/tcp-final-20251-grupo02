@@ -29,9 +29,9 @@ public class King extends Piece{
 
     private void LoadSprite(){
 	if (findPieceColor() == 'w')
-	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 0, WHITE, 2));
+	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 0, WHITE, 4));
         else
-	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 1, WHITE, 2));
+	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 1, WHITE, 4));
     }
 
     public boolean hasMoved(){
@@ -41,6 +41,7 @@ public class King extends Piece{
     public void setHasMoved(boolean moved){
 	this.hasMoved = moved;
     }
+
 
     @Override
     public ArrayList<Pair> validMoviments(Board board, boolean testingCheck){

@@ -11,12 +11,17 @@ public class Button{
     private int y;
     private OurRectangle hitbox;
 
+    private static Sound soundClick = LoadSound("res/sfx/snd_click.wav");
+    
+    
+
     public Button(int x, int y, Sprite sprite){
         this.x = x;
         this.y = y;
         this.sprite = sprite;
 
         hitbox = new OurRectangle(this.x - this.sprite.GetWidth() * .5f, this.y - this.sprite.GetHeight() * .5f, this.sprite.GetWidth(), this.sprite.GetHeight());
+        SetSoundVolume(soundClick, .1f);
     }
 
     public boolean mouseOn(Camera2D camera2d){
@@ -38,6 +43,7 @@ public class Button{
         if (mouseOn(camera2d)){
             if (IsMouseButtonReleased(0)){
                 click = true;
+                PlaySound(soundClick);
             }
         } else {
             click = false;
