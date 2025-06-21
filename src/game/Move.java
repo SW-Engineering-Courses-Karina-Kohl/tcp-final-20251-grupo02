@@ -57,7 +57,7 @@ public class Move {
 		return true;
 	}
 
-	public boolean isCastiling() {
+	public boolean isCastling() {
 
 		if (this.movedPiece.findPieceColor() == this.capturedPiece.findPieceColor()) {
 			if (this.movedPiece instanceof Rook && this.capturedPiece instanceof King) {
@@ -130,19 +130,19 @@ public class Move {
 			switch (escolha) {
 				case 'R':
 					board.setPieceInPosition(pawnPosition,
-							new Rook(pawnPosition, this.promotionId(pawnColor, 'R'), true));
+							new Rook(pawnPosition, this.promotionId(pawnColor, 'R'), initUI));
 					break;
 				case 'B':
 					board.setPieceInPosition(pawnPosition,
-							new Bishop(pawnPosition, this.promotionId(pawnColor, 'B'), true));
+							new Bishop(pawnPosition, this.promotionId(pawnColor, 'B'), initUI));
 					break;
 				case 'H':
 					board.setPieceInPosition(pawnPosition,
-							new Knight(pawnPosition, this.promotionId(pawnColor, 'H'), true));
+							new Knight(pawnPosition, this.promotionId(pawnColor, 'H'), initUI));
 					break;
 				case 'Q':
 					board.setPieceInPosition(pawnPosition,
-							new Queen(pawnPosition, this.promotionId(pawnColor, 'Q'), true));
+							new Queen(pawnPosition, this.promotionId(pawnColor, 'Q'), initUI));
 					break;
 			}
 			return true;

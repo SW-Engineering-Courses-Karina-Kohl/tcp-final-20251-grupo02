@@ -195,7 +195,7 @@ public class Board {
         }
 
         // checking for special moviments
-        if (move.isCastiling()) {
+        if (move.isCastling()) {
             this.executeCastling(movedPiece, capturedPiece);
         } else if (move.isEnPassant(this)) {
             this.executeEnPassant(movedPiece, this.getLastMove().getCapturedPiece());
