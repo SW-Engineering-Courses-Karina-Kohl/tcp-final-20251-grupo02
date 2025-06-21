@@ -46,7 +46,12 @@ public class Move {
 	}
 
 	// If there's not a pawn in the left or right (based on where it was clicked)
-	if(!(board.getPieceInPosition(this.movedPiece.getBoardPosition().add(new Pair(directionX, 0))) instanceof Pawn)){
+	Piece verifiedPiece = board.getPieceInPosition(this.movedPiece.getBoardPosition().add(new Pair(directionX, 0)));
+	if(!(verifiedPiece instanceof Pawn)){
+	    return false;
+	}
+
+	if(board.isTherePieceInPosition(this.movedPiece.getBoardPosition().add(new Pair(directionX, directionY)))){
 	    return false;
 	}
 

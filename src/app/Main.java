@@ -151,7 +151,7 @@ public class Main {
 				    Piece movimentOriginalPosition = new Blank(movedPiece.getBoardPosition().x, movedPiece.getBoardPosition().y);
 
 				    //Chamando o flash
-				    if (destinePiece.getPieceID() != '_')
+				    if (destinePiece.getPieceID() != '_' || (movedPiece instanceof Pawn && destinePiece.getBoardPosition().isEqualsTo(((Pawn) movedPiece).getEnPassantPosition())))
 					{
 					    flash.callFlash();
 					    OurColor colorBlood = new OurColor(255, 255, 255, 255);
