@@ -15,9 +15,18 @@ public class Blank extends Piece {
         super(p.x, p.y, '_');
     }
 
+    public Blank(int x, int y, boolean isForEnPassantHighlight){
+	super(x, y, '-');
+    }
+
+    public Blank(Pair p, boolean isForEnPassantHighlight){
+	super(p.x, p.y, '-');
+    }
+
+
     @Override
-    public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
-        return this.getMovements();
+    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+        return this.getMoviments();
     }
 
 }

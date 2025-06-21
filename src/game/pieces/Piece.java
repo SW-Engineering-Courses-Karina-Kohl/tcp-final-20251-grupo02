@@ -9,7 +9,7 @@ public abstract class Piece {
     public final int SIZE = 8;
     private char id;
     private Pair boardPosition;
-    private ArrayList<Pair> movements = new ArrayList<>();
+    private ArrayList<Pair> moviments = new ArrayList<>();
     private Sprite sprite;
 
     public Piece(int x, int y, char id) {
@@ -17,27 +17,36 @@ public abstract class Piece {
         this.id = id;
     }
 
-    public ArrayList<Pair> getMovements() {
-        return movements;
+    public ArrayList<Pair> getMoviments() {
+        return moviments;
     }
 
     public Pair getBoardPosition() {
         return boardPosition;
     }
 
+    public void setBoardPosition(Pair p) {
+	boardPosition = p;
+    }
+
     public char getPieceID() {
         return id;
     }
 
-    public void setMovements(ArrayList<Pair> newMovements) {
-        this.movements = newMovements;
+    public void setMoviments(ArrayList<Pair> newMoviments) {
+        this.moviments = newMoviments;
     }
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
 
-    public abstract ArrayList<Pair> validMovements(Board Board, boolean testingCheck);
+    public void movePiece(Move move) {
+        this.boardPosition = move.getCapturedPiece().getBoardPosition();
+    }
+
+
+    public abstract ArrayList<Pair> validMoviments(Board Board, boolean testingCheck);
 
     public char findPieceColor() {
 
@@ -53,22 +62,18 @@ public abstract class Piece {
 
     }
 
-    public void movePiece(Move move) {
-        this.boardPosition = move.getCapturedPiece().getBoardPosition();
-    }
-
     /*
-     * add the movement to the movs list only if this movement doesn't lead to a
+     * add the moviment to the movs list only if this moviment doesn't lead to a
      * check
      */
-    public void checkMovement(Board board, ArrayList<Pair> movs, Pair movement, boolean testingCheck) {
+    public void checkMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck) {
 
         if (testingCheck) {
-            if (!board.moveLeadsToCheck(this, this.findPieceColor(), movement)) {
-                movs.add(movement);
+            if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
+                movs.add(moviment);
             }
         } else {
-            movs.add(movement);
+            movs.add(moviment);
         }
 
     }

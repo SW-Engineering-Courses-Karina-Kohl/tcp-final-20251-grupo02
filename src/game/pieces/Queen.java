@@ -34,7 +34,7 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
 
 		ArrayList<Pair> newMovimentos = new ArrayList<>();
 		char color = this.findPieceColor();
@@ -64,7 +64,7 @@ public class Queen extends Piece {
 					pieceUp = true;
 				}
 				if (color != board.getPieceInPosition(doubleUp).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, doubleUp, testingCheck);
+					this.checkMoviment(board, newMovimentos, doubleUp, testingCheck);
 				}
 			}
 
@@ -73,7 +73,7 @@ public class Queen extends Piece {
 					pieceDown = true;
 				}
 				if (color != board.getPieceInPosition(down).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, down, testingCheck);
+					this.checkMoviment(board, newMovimentos, down, testingCheck);
 				}
 			}
 
@@ -82,7 +82,7 @@ public class Queen extends Piece {
 					pieceRight = true;
 				}
 				if (color != board.getPieceInPosition(right).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, right, testingCheck);
+					this.checkMoviment(board, newMovimentos, right, testingCheck);
 				}
 			}
 
@@ -91,7 +91,7 @@ public class Queen extends Piece {
 					pieceLeft = true;
 				}
 				if (color != board.getPieceInPosition(left).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, left, testingCheck);
+					this.checkMoviment(board, newMovimentos, left, testingCheck);
 				}
 			}
 
@@ -101,7 +101,7 @@ public class Queen extends Piece {
 					pieceUpperRight = true;
 				}
 				if (color != board.getPieceInPosition(upperRight).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+					this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
 				}
 			}
 
@@ -111,7 +111,7 @@ public class Queen extends Piece {
 					pieceUpperLeft = true;
 				}
 				if (color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+					this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
 				}
 			}
 
@@ -121,7 +121,7 @@ public class Queen extends Piece {
 					pieceLowerRight = true;
 				}
 				if (color != board.getPieceInPosition(lowerRight).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, lowerRight, testingCheck);
+					this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
 				}
 			}
 
@@ -131,13 +131,13 @@ public class Queen extends Piece {
 					pieceLowerLeft = true;
 				}
 				if (color != board.getPieceInPosition(lowerLeft).findPieceColor()) {
-					this.checkMovement(board, newMovimentos, lowerLeft, testingCheck);
+					this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
 				}
 			}
 		}
 
 		if (testingCheck) {
-			this.setMovements(newMovimentos);
+			this.setMoviments(newMovimentos);
 		}
 
 		return newMovimentos;
