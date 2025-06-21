@@ -17,7 +17,7 @@ public class Clock {
 
     public void startClock() {
         // if it's already active and thread is alive, do nothing
-        if (thread != null && thread.isAlive())
+        if (thread != null && thread.isAlive() && active)
             return;
 
         active = true;
