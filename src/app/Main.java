@@ -127,6 +127,19 @@ public class Main {
 		Player blackPlayer = match.getBlackPlayer();
 		board.drawGrid(INITIALX, INITIALY, SCALE);
 
+		if(whitePlayer.getClock().isTimeZero()) {
+			winner[2] = true;
+			whitePlayer.getClock().stopClock();
+			blackPlayer.getClock().stopClock();
+			transition.callTransition(GAME, FINAL);
+		}
+		if(blackPlayer.getClock().isTimeZero()) {
+			winner[1] = true;
+			whitePlayer.getClock().stopClock();
+			blackPlayer.getClock().stopClock();
+			transition.callTransition(GAME, FINAL);
+		}
+
 		if (board.mouseClikedOnBoard(INITIALX, INITIALY, SCALE, camera2d)) {
 
 		    System.out.println(board.toString());
