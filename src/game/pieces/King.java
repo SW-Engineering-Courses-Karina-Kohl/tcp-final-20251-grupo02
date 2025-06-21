@@ -14,7 +14,7 @@ import game.Move;
 
 public class King extends Piece{
 
-    public boolean hasMoved = false;
+    private boolean hasMoved = false;
     private static Texture kingTexture = LoadTexture("res/pieces/king.png");
 
     public King(int x, int y, char id){
@@ -34,8 +34,16 @@ public class King extends Piece{
 	    this.setSprite(new Sprite(kingTexture, 2, 0, 0, 1, WHITE, 2));
     }
 
+    public boolean hasMoved(){
+	return hasMoved;
+    }
+
+    public void setHasMoved(boolean moved){
+	this.hasMoved = moved;
+    }
+
     @Override
-    public ArrayList<Pair> validMovements(Board board, boolean testingCheck){
+    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck){
 
 	ArrayList<Pair> newMovimentos = new ArrayList<>();
 	char color = this.findPieceColor();
@@ -50,32 +58,71 @@ public class King extends Piece{
         Pair lowerLeft = this.getBoardPosition().add(new Pair(- 1, + 1));
 
         if(up.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(up).findPieceColor())
-	    this.checkMovement(board, newMovimentos, up, testingCheck);
+	    this.checkMoviment(board, newMovimentos, up, testingCheck);
 
         if(down.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(down).findPieceColor())
-	    this.checkMovement(board, newMovimentos, down, testingCheck);
+	    this.checkMoviment(board, newMovimentos, down, testingCheck);
 
         if(right.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(right).findPieceColor())
-	    this.checkMovement(board, newMovimentos, right, testingCheck);
+	    this.checkMoviment(board, newMovimentos, right, testingCheck);
 
         if(left.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(left).findPieceColor())
-	    this.checkMovement(board, newMovimentos, left, testingCheck);
+	    this.checkMoviment(board, newMovimentos, left, testingCheck);
 
         if(upperRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upperRight).findPieceColor())
-	    this.checkMovement(board, newMovimentos, upperRight, testingCheck);
+	    this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
 
         if(upperLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upperLeft).findPieceColor())
-	    this.checkMovement(board, newMovimentos, upperLeft, testingCheck);
+	    this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
 
         if(lowerRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(lowerRight).findPieceColor())
-	    this.checkMovement(board, newMovimentos, lowerRight, testingCheck);
+	    this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
 
         if(lowerLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(lowerLeft).findPieceColor())
-	    this.checkMovement(board, newMovimentos, lowerLeft, testingCheck);
+	    this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
 
+
+	// check castling
+	boolean pieceLeft = false;
+	boolean pieceRight = false;
+
+	for (int i = 1; i < SIZE; i++) {
+
+	    right = this.getBoardPosition().add(new Pair(+i, 0));
+	    left = this.getBoardPosition().add(new Pair(-i, 0));
+
+	    if (!pieceRight && right.isPieceInsideBoard(0, SIZE)) {
+		if (board.isTherePieceInPosition(right)) {
+
+		    pieceRight = true;
+		    Piece piece = board.getPieceInPosition(right);
+
+		    if(piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()){
+			if(board.checkCastling((Rook) piece, this, 'r')){
+			    newMovimentos.add(right);
+			}
+		    }
+		}
+	    }
+
+	    if (!pieceLeft && left.isPieceInsideBoard(0, SIZE)) {
+		if (board.isTherePieceInPosition(left)) {
+
+		    pieceLeft = true;
+		    Piece piece = board.getPieceInPosition(left);
+
+		    if(piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()){
+			if(board.checkCastling((Rook) piece, this, 'l')){
+			    newMovimentos.add(left);
+			}
+		    }
+		}
+	    }
+
+	}
 
 	if(testingCheck){
-	    this.setMovements(newMovimentos);
+	    this.setMoviments(newMovimentos);
 	}
 
         return newMovimentos;

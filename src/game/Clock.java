@@ -17,7 +17,7 @@ public class Clock {
 
     public void startClock() {
         // if it's already active and thread is alive, do nothing
-        if (thread != null && thread.isAlive())
+        if (thread != null && thread.isAlive() && active)
             return;
 
         active = true;
@@ -37,15 +37,20 @@ public class Clock {
     }
 
     public void stopClock() {
-        // ATTENTION: the clock does not stop immediatelly due to how the threads work -
-        // it may take up to one second for it to stop
         active = false;
+        if (thread != null) {
+            thread.interrupt();
+        }
     }
 
     public String formatTime() {
         int min = seconds / 60;
         int seg = seconds % 60;
         return String.format("%02d:%02d", min, seg);
+    }
+
+    public boolean isTimeZero() {
+        return seconds <= 0;
     }
 
 }

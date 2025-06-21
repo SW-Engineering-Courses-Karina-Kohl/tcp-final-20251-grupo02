@@ -35,6 +35,8 @@ public class Board {
     // This will be a problem in the future if we want to instanciate the board
     // again
 
+    private Move lastMove = new Move(new Blank(0, 0), new Blank(0, 0));
+
     /* board[y][x] = Piece(x, y) */
     private void initializePiece(Piece piece) {
         this.board[piece.getBoardPosition().y][piece.getBoardPosition().x] = piece;
@@ -52,17 +54,17 @@ public class Board {
         this.initializePiece(new Pawn(6, 6, 'P'));
         this.initializePiece(new Pawn(7, 6, 'P'));
 
-        this.initializePiece(new Rook(0, 7, 'T'));
-        this.initializePiece(new Rook(7, 7, 'T'));
+        this.initializePiece(new Rook(0, 7, 'R'));
+        this.initializePiece(new Rook(7, 7, 'R'));
 
-        this.initializePiece(new Knight(1, 7, 'C'));
-        this.initializePiece(new Knight(6, 7, 'C'));
+        this.initializePiece(new Knight(1, 7, 'H'));
+        this.initializePiece(new Knight(6, 7, 'H'));
 
         this.initializePiece(new Bishop(2, 7, 'B'));
         this.initializePiece(new Bishop(5, 7, 'B'));
 
-        this.initializePiece(new King(4, 7, 'R'));
-        this.initializePiece(new Queen(3, 7, 'D'));
+        this.initializePiece(new King(4, 7, 'K'));
+        this.initializePiece(new Queen(3, 7, 'Q'));
 
         // black pieces (lowercase id)
         this.initializePiece(new Pawn(0, 1, 'p'));
@@ -74,17 +76,17 @@ public class Board {
         this.initializePiece(new Pawn(6, 1, 'p'));
         this.initializePiece(new Pawn(7, 1, 'p'));
 
-        this.initializePiece(new Rook(0, 0, 't'));
-        this.initializePiece(new Rook(7, 0, 't'));
+        this.initializePiece(new Rook(0, 0, 'r'));
+        this.initializePiece(new Rook(7, 0, 'r'));
 
-        this.initializePiece(new Knight(1, 0, 'c'));
-        this.initializePiece(new Knight(6, 0, 'c'));
+        this.initializePiece(new Knight(1, 0, 'h'));
+        this.initializePiece(new Knight(6, 0, 'h'));
 
         this.initializePiece(new Bishop(2, 0, 'b'));
         this.initializePiece(new Bishop(5, 0, 'b'));
 
-        this.initializePiece(new King(4, 0, 'r'));
-        this.initializePiece(new Queen(3, 0, 'd'));
+        this.initializePiece(new King(4, 0, 'k'));
+        this.initializePiece(new Queen(3, 0, 'q'));
 
         // Blank spaces
         for (int i = 0; i < SIZE; i++) {
@@ -117,6 +119,14 @@ public class Board {
         board[y][x] = piece;
     }
 
+    public void setLastMove(Move move){
+	this.lastMove = move;
+    }
+
+    public Move getLastMove(){
+	return this.lastMove;
+    }
+
     public void setPieceInPosition(Pair p, Piece piece) {
         board[p.y][p.x] = piece;
     }
@@ -133,16 +143,112 @@ public class Board {
         return true;
     }
 
+    /* Retunr the position of the king of color "color" */
+    private King getKingColor(char color) {
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+
+                Piece piece = this.getPieceInPosition(i, j);
+
+                if (piece instanceof King && color == piece.findPieceColor()) {
+                    return (King) piece;
+                }
+
+            }
+        }
+
+        // It will never get here because there is always a king in the board for each
+        // color
+        return null;
+    }
+
+    /* Execute the move and change the positions of the pieces */
+    public void executeMove(Move move){
+
+	Piece movedPiece = move.getMovedPiece();
+	Piece capturedPiece = move.getCapturedPiece();
+
+	// Set the pieced as move to prevent special moviments after
+	if (movedPiece instanceof King) {
+	    ((King) movedPiece).setHasMoved(true);
+	}
+	if (movedPiece instanceof Rook) {
+	    ((Rook) movedPiece).setHasMoved(true);
+	}
+	if (movedPiece instanceof Pawn) {
+	    ((Pawn) movedPiece).setHasMoved(true);
+	}
+
+	// checking for special moviments
+	if(move.isCastiling()){
+	    this.executeCastling(movedPiece, capturedPiece);
+	} else
+	if (move.isEnPassant(this)) {
+	    this.executeEnPassant(movedPiece, this.getLastMove().getCapturedPiece());
+	} else {
+	    updateBoard(move);
+	    movedPiece.movePiece(move);
+	}
+    }
+
+    private void executeCastling(Piece movedPiece, Piece capturedPiece){
+
+	Rook rook;
+	King king;
+
+	if(movedPiece instanceof King){
+	    king = (King) movedPiece;
+	    rook = (Rook) capturedPiece;
+	} else {
+	    king = (King) capturedPiece;
+	    rook = (Rook) movedPiece;
+	}
+
+	int side = king.getBoardPosition().y;
+	Move kingMove;
+	Move rookMove;
+
+	// left-side rook, queenside castling
+	if(rook.getBoardPosition().x < king.getBoardPosition().x){
+	    kingMove = new Move(king, new Blank(2, side));
+	    rookMove = new Move(rook, new Blank(3, side));
+	} else {
+	    kingMove = new Move(king, new Blank(6, side));
+	    rookMove = new Move(rook, new Blank(5, side));
+	}
+
+	updateBoard(kingMove);
+	updateBoard(rookMove);
+	king.movePiece(kingMove);
+	rook.movePiece(rookMove);
+
+    }
+
+    private void executeEnPassant(Piece movedPiece, Piece capturedPiece){
+
+	Move movedPieceMove = new Move(movedPiece, new Blank(capturedPiece.getBoardPosition().add(new Pair(0, ((Pawn) movedPiece).getMoveDirection()))));
+	Move capturedPieceMove = new Move(capturedPiece, new Blank(capturedPiece.getBoardPosition()));
+
+	updateBoard(movedPieceMove);
+	movedPiece.movePiece(movedPieceMove);
+
+	this.setPieceInPosition(capturedPiece.getBoardPosition(), new Blank(0, 0));
+
+    }
+
     /* Changes the board based on a move */
     public void updateBoard(Move move) {
 
         Piece movedPiece = move.getMovedPiece();
+	Piece capturedPiece = move.getCapturedPiece();
         Pair finalPosition = move.getCapturedPiece().getBoardPosition();
 
         // Turns null (blank) the piece previous position
         this.setPieceInPosition(movedPiece.getBoardPosition(), new Blank(movedPiece.getBoardPosition()));
         // And moves the piece
         this.setPieceInPosition(finalPosition, movedPiece);
+
     }
 
     /*
@@ -166,9 +272,11 @@ public class Board {
 
         /* Theres a need for a special treatment for the king */
         if (movedPiece instanceof King) {
+
             if (simulationBoard.checkCheck(new King(movePosition, movedPiece.getPieceID()))) {
                 return true;
             }
+
         } else if (simulationBoard.checkCheck(simulationBoard.getKingColor(color))) {
             return true;
         }
@@ -188,8 +296,8 @@ public class Board {
 
                 if (piece.findPieceColor() != colorKing) {
 
-                    for (Pair movePostion : piece.validMovements(this, false)) {
-                        if (king.getBoardPosition().IsEqualsTo(movePostion)) {
+                    for (Pair movePostion : piece.validMoviments(this, false)) {
+                        if (king.getBoardPosition().isEqualsTo(movePostion)) {
                             return true;
                         }
                     }
@@ -201,24 +309,90 @@ public class Board {
         return false;
     }
 
-    /* Retunr the position of the king of color "color" */
-    public King getKingColor(char color) {
 
-        for (int i = 0; i < SIZE; i++) {
+    public boolean checkCheck(char color){
+	King king = getKingColor(color);
+	return this.checkCheck(king);
+    }
+
+    public boolean checkCheckmate(char color){
+
+	for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
 
                 Piece piece = this.getPieceInPosition(i, j);
 
-                if (piece instanceof King && color == piece.findPieceColor()) {
-                    return (King) piece;
-                }
+                if (piece.findPieceColor() == color) {
+		    if(!piece.validMoviments(this, true).isEmpty()){
+			return false;
+		    }
+		}
+	    }
+	}
 
-            }
-        }
+	return true;
+    }
 
-        // It will never get here because there is also a king in the board for each
-        // color
-        return null;
+    /* Assuming that there no piece beetween the two pieces, can they rook? */
+    public boolean checkCastling(Rook rook, King king, char rookSide){
+
+	if(rook.hasMoved() || king.hasMoved()){
+	    return false;
+	}
+
+	int direction = 0;
+	// rook on the right side of the king
+	if(rookSide == 'r'){
+	    direction = 1;
+	} else {
+	    direction = -1;
+	}
+
+	// Check if the squares between them are being attacked
+	for(int i = king.getBoardPosition().x; i != rook.getBoardPosition().x; i = i + direction){
+	    if(this.moveLeadsToCheck(king, king.findPieceColor(), new Pair(i, king.getBoardPosition().y))){
+		return false;
+	    }
+	}
+
+	return true;
+    }
+
+    /* returns if the en passant can be done for the side passed as argument */
+    public boolean checkEnPassant(Pawn pawn, char side){
+
+	int direction = 0;
+	if(side == 'r'){
+	    direction = 1;
+	} else {
+	    direction = -1;
+	}
+
+	Piece lastMoveOriginalPlace = this.getLastMove().getMovedPiece();
+	Piece lastMoveFinalPlace = this.getLastMove().getCapturedPiece();
+
+
+	// if the last moved piece isn't a pawn, it can't be an en passant
+	if(!(lastMoveFinalPlace instanceof Pawn)){
+	    return false;
+	}
+
+	// if in the last move the moved pawn didn't moved two squares foward, it can't be an en passant
+	if(Math.abs(lastMoveOriginalPlace.getBoardPosition().y - lastMoveFinalPlace.getBoardPosition().y) != 2){
+	    return false;
+	}
+
+	// The moved pawn must be in the same row and side-by-side as our pawn to be an en passant
+	if(lastMoveFinalPlace.getBoardPosition().y != pawn.getBoardPosition().y){
+	    return false;
+	} else {
+	    if(lastMoveFinalPlace.getBoardPosition().x != pawn.getBoardPosition().x + direction){
+		return false;
+	    }
+	}
+
+	return true;
+
     }
 
     public Pair getMousePositionOnBoard(int xInitial, int yInitial, int scale, Camera2D camera2d){
@@ -275,7 +449,9 @@ public class Board {
     }
 
     /* Show visually in the board the valid moves of the piece */
-    public void drawValidMoviments(ArrayList<Pair> moviments, int xInitial, int yInitial, int scale, Camera2D camera2d) {
+    public void drawValidMoviments(Piece piece, int xInitial, int yInitial, int scale, Camera2D camera2d) {
+
+	ArrayList<Pair> moviments = piece.getMoviments();
 
         for (int i = 0; i < moviments.size(); i++) {
 
@@ -289,16 +465,28 @@ public class Board {
                 redAimSprite.SetCurrentImage(1);
             }
 
-            if (this.getPieceInPosition(moviments.get(i)) instanceof Blank) {
+	    if (!(this.getPieceInPosition(moviments.get(i)) instanceof Blank)) {
+		redAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
+					   moviments.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
+	    }
+	    else {
                 greenAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + greenAimSprite.GetWidth() / 2,
                         moviments.get(i).y * 16 * scale + yInitial + greenAimSprite.GetHeight() / 2);
-            } else {
-                redAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
-                        moviments.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
             }
-
         }
 
+	if(piece instanceof Pawn){
+	    if(((Pawn) piece).hasEnPassant()){
+		redAimSprite.DrawSpritePro(((Pawn) piece).getEnPassantPosition().x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
+					   ((Pawn) piece).getEnPassantPosition().y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
+	    }
+	}
+
+    }
+
+
+    public Vector2 getMousePositionScreen(Camera2D camera2d) {
+        return GetScreenToWorld2D(GetMousePosition(), camera2d);
     }
 
     public String toString() {
@@ -311,10 +499,5 @@ public class Board {
             string = string.concat("\n");
         }
         return string;
-    }
-
-    public Vector2 getMousePositionScreen(Camera2D camera2d)
-    {
-        return GetScreenToWorld2D(GetMousePosition(), camera2d);
     }
 }

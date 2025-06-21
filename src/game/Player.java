@@ -20,7 +20,7 @@ public class Player {
         return clock;
     }
 
-    public boolean getCheckStatus() {
+    public boolean isInCheck() {
         return inCheck;
     }
 
