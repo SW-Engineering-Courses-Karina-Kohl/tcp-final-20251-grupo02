@@ -179,7 +179,7 @@ public class Main {
 				    Piece movimentOriginalPosition = new Blank(movedPiece.getBoardPosition().x, movedPiece.getBoardPosition().y);
 
 				    //Chamando o flash
-				    if (destinePiece.getPieceID() != '_' || (movedPiece instanceof Pawn && destinePiece.getBoardPosition().isEqualsTo(((Pawn) movedPiece).getEnPassantPosition())))
+				    if ((destinePiece.getPieceID() != '_' && movedPiece.findPieceColor() != destinePiece.findPieceColor()) || (movedPiece instanceof Pawn && destinePiece.getBoardPosition().isEqualsTo(((Pawn) movedPiece).getEnPassantPosition())))
 					{
 						PlaySound(hitSound);
 					    flash.callFlash();
