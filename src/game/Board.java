@@ -1,12 +1,8 @@
 package game;
 
-import static com.raylib.Colors.GREEN;
-import static com.raylib.Colors.RED;
 import static com.raylib.Colors.WHITE;
 import static com.raylib.Raylib.DrawRectangle;
 import static com.raylib.Raylib.GetMousePosition;
-import static com.raylib.Raylib.GetMouseX;
-import static com.raylib.Raylib.GetMouseY;
 import static com.raylib.Raylib.GetScreenToWorld2D;
 import static com.raylib.Raylib.IsMouseButtonPressed;
 import static com.raylib.Raylib.LoadTexture;
@@ -14,7 +10,6 @@ import static com.raylib.Raylib.LoadTexture;
 import java.util.ArrayList;
 
 import com.raylib.Raylib.Camera2D;
-import com.raylib.Raylib.Color;
 import com.raylib.Raylib.Texture;
 import com.raylib.Raylib.Vector2;
 
@@ -249,7 +244,6 @@ public class Board {
 
         Move movedPieceMove = new Move(movedPiece,
                 new Blank(capturedPiece.getBoardPosition().add(new Pair(0, ((Pawn) movedPiece).getMoveDirection()))));
-        Move capturedPieceMove = new Move(capturedPiece, new Blank(capturedPiece.getBoardPosition()));
 
         updateBoard(movedPieceMove);
         movedPiece.movePiece(movedPieceMove);
@@ -262,7 +256,6 @@ public class Board {
     public void updateBoard(Move move) {
 
         Piece movedPiece = move.getMovedPiece();
-        Piece capturedPiece = move.getCapturedPiece();
         Pair finalPosition = move.getCapturedPiece().getBoardPosition();
 
         // Turns null (blank) the piece previous position
