@@ -12,6 +12,77 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoveTest {
 
     @Test
+    public void testIsEnPassantOK() {
+        Board board = new Board(false, false);
+        Pawn whitePawn = new Pawn(3, 4, 'P', false);
+        Pawn blackPawn = new Pawn(2, 4, 'p', false);
+
+        board.setPieceInPosition(whitePawn.getBoardPosition(), whitePawn);
+        board.setPieceInPosition(blackPawn.getBoardPosition(), blackPawn);
+
+        Move enPassantMove = new Move(blackPawn, board.getPieceInPosition(3, 5));
+        assertTrue(enPassantMove.isEnPassant(board));
+    }
+
+    @Test
+    public void testIsEnPassantNotOK_notPawn() {
+        Board board = new Board(false, false);
+        board.setPieceInPosition(3, 4, new Rook(3, 4, 'R', false));
+        board.setPieceInPosition(2, 4, new Pawn(2, 4, 'p', false));
+        Move move = new Move(board.getPieceInPosition(3, 4), board.getPieceInPosition(3, 5));
+        assertFalse(move.isEnPassant(board));
+    }
+
+    @Test
+    public void testIsEnPassantNotOK_moreThan1Column() {
+        Board board = new Board(false, false);
+        board.setPieceInPosition(3, 4, new Pawn(3, 4, 'P', false));
+        board.setPieceInPosition(2, 4, new Pawn(2, 4, 'p', false));
+        Move move = new Move(board.getPieceInPosition(2, 4), board.getPieceInPosition(4, 5));
+        assertFalse(move.isEnPassant(board));
+    }
+
+    @Test
+    public void testIsEnPassantNotOK_noPawnInDirection() {
+        Board board = new Board(false, false);
+        board.setPieceInPosition(3, 4, new Pawn(3, 4, 'P', false));
+        board.setPieceInPosition(2, 4, new Pawn(2, 4, 'p', false));
+        Move move = new Move(board.getPieceInPosition(2, 4), board.getPieceInPosition(1, 5));
+        assertFalse(move.isEnPassant(board));
+    }
+
+    @Test
+    public void testIsEnPassantNotOK_pieceAlreadyInPosition() {
+        Board board = new Board(false, false);
+        board.setPieceInPosition(3, 4, new Pawn(3, 4, 'P', false));
+        board.setPieceInPosition(2, 4, new Pawn(2, 4, 'p', false));
+        board.setPieceInPosition(3,5, new Pawn(3, 5, 'P', false));
+        Move move = new Move(board.getPieceInPosition(2, 4), board.getPieceInPosition(3, 5));
+        assertFalse(move.isEnPassant(board));
+    }
+
+    @Test
+    public void isCastling() {
+        King whiteKing = new King(4, 7, 'K', false);
+        King blackKing = new King(4, 0, 'k', false);
+        Rook wRook1 = new Rook(0, 7, 'R', false);
+        Rook wRook2 = new Rook(7, 7, 'R', false);
+        Rook bRook1 = new Rook(0, 0, 'r', false);
+        Rook bRook2 = new Rook(7, 0, 'r', false);
+
+        assertTrue(new Move(whiteKing, wRook1).isCastling());
+        assertTrue(new Move(wRook2, whiteKing).isCastling());
+
+        assertTrue(new Move(bRook1, blackKing).isCastling());
+        assertTrue(new Move(blackKing, bRook2).isCastling());
+
+        assertFalse(new Move(bRook1, bRook2).isCastling());
+        assertFalse(new Move(whiteKing, bRook2).isCastling());
+        assertFalse(new Move(whiteKing, blackKing).isCastling());
+
+    }
+
+    @Test
     public void testValidateMoveOK() {
 
         Board board = new Board(false, true);
