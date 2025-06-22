@@ -58,6 +58,13 @@ public class Board {
         }
 
         if (!initPieces) {
+            // Blank spaces
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if (this.board[i][j] == null)
+                        this.board[i][j] = new Blank(j, i);
+                }
+            }
             return;
         }
 
@@ -456,19 +463,16 @@ public class Board {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                //Vendo se os reis estao em check
-                if (board[i][j] instanceof King)
-                {
-                    if (board[i][j].findPieceColor() == 'w')
-                    {
+                // Vendo se os reis estao em check
+                if (board[i][j] instanceof King) {
+                    if (board[i][j].findPieceColor() == 'w') {
                         if (whiteInCheck)
                             board[i][j].setCurrentImage(2);
                         else
                             board[i][j].setCurrentImage(0);
                     }
 
-                    if (board[i][j].findPieceColor() == 'b')
-                    {
+                    if (board[i][j].findPieceColor() == 'b') {
                         if (blackInCheck)
                             board[i][j].setCurrentImage(3);
                         else
