@@ -33,7 +33,7 @@ public abstract class Piece {
         return id;
     }
 
-    public void setMoviments(ArrayList<Pair> newMoviments) {
+    public void setMovements(ArrayList<Pair> newMoviments) {
         this.moviments = newMoviments;
     }
 

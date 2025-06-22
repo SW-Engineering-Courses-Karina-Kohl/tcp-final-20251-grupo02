@@ -14,19 +14,25 @@ import gui.Sprite;
 
 public class Bishop extends Piece {
 
-	private static Texture bishopTexture = LoadTexture("res/pieces/bishop.png");
+	private static Texture bishopTexture;
 
-	public Bishop(int x, int y, char id) {
+	public Bishop(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Bishop(Pair p, char id) {
+	public Bishop(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	private void LoadSprite() {
+	private void loadSprite() {
+		if(bishopTexture == null){
+			bishopTexture = LoadTexture("res/pieces/bishop.png");
+		}
+
 		if (findPieceColor() == 'w')
 			this.setSprite(new Sprite(bishopTexture, 2, 0, 0, 0, WHITE, 2));
 		else
@@ -94,7 +100,7 @@ public class Bishop extends Piece {
 		}
 
 		if (testingCheck) {
-			this.setMoviments(newMovimentos);
+			this.setMovements(newMovimentos);
 		}
 
 		return newMovimentos;
