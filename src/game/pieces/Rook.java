@@ -93,7 +93,9 @@ public class Rook extends Piece {
 					Piece piece = board.getPieceInPosition(right);
 
 					if (piece instanceof King && piece.findPieceColor() == this.findPieceColor()) {
-						if (board.checkCastling(this, (King) piece, 'l')) {
+					     if(!testingCheck){
+						newMovimentos.add(right);
+					     } else if (board.checkCastling(this, (King) piece, 'l')) {
 							newMovimentos.add(right);
 						}
 					}
@@ -109,9 +111,11 @@ public class Rook extends Piece {
 					Piece piece = board.getPieceInPosition(left);
 
 					if (piece instanceof King && piece.findPieceColor() == this.findPieceColor()) {
-						if (board.checkCastling(this, (King) piece, 'r')) {
+					    if(!testingCheck){
+						newMovimentos.add(left);
+					    } else if (board.checkCastling(this, (King) piece, 'r')) {
 							newMovimentos.add(left);
-						}
+					    }
 					}
 
 				}

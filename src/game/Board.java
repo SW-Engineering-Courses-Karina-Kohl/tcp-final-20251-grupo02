@@ -43,7 +43,7 @@ public class Board {
     }
 
     /* Class contructor: Creates a board in the view of the white pieces */
-   
+
     public Board(boolean useUI, boolean initPieces) {
         if (useUI) {
             // Sprites of the "aims"
@@ -466,7 +466,7 @@ public class Board {
                         else
                             board[i][j].setCurrentImage(0);
                     }
-                    
+
                     if (board[i][j].findPieceColor() == 'b')
                     {
                         if (blackInCheck)
