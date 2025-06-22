@@ -14,19 +14,25 @@ import gui.Sprite;
 
 public class Bishop extends Piece {
 
-	private static Texture bishopTexture = LoadTexture("res/pieces/bishop.png");
+	private static Texture bishopTexture;
 
-	public Bishop(int x, int y, char id) {
+	public Bishop(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Bishop(Pair p, char id) {
+	public Bishop(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.LoadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	private void LoadSprite() {
+	private void loadSprite() {
+		if(bishopTexture == null){
+			bishopTexture = LoadTexture("res/pieces/bishop.png");
+		}
+
 		if (findPieceColor() == 'w')
 			this.setSprite(new Sprite(bishopTexture, 2, 0, 0, 0, WHITE, 2));
 		else
@@ -34,9 +40,9 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-		ArrayList<Pair> newMovimentos = new ArrayList<>();
+		ArrayList<Pair> newMovements = new ArrayList<>();
 
 		char color = this.findPieceColor();
 
@@ -58,7 +64,7 @@ public class Bishop extends Piece {
 					pieceUpperRight = true;
 				}
 				if (color != board.getPieceInPosition(upperRight).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+					this.checkMovement(board, newMovements, upperRight, testingCheck);
 				}
 			}
 
@@ -68,7 +74,7 @@ public class Bishop extends Piece {
 					pieceUpperLeft = true;
 				}
 				if (color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+					this.checkMovement(board, newMovements, upperLeft, testingCheck);
 				}
 			}
 
@@ -78,7 +84,7 @@ public class Bishop extends Piece {
 					pieceLowerRight = true;
 				}
 				if (color != board.getPieceInPosition(lowerRight).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
+					this.checkMovement(board, newMovements, lowerRight, testingCheck);
 				}
 			}
 
@@ -88,16 +94,16 @@ public class Bishop extends Piece {
 					pieceLowerLeft = true;
 				}
 				if (color != board.getPieceInPosition(lowerLeft).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
+					this.checkMovement(board, newMovements, lowerLeft, testingCheck);
 				}
 			}
 		}
 
 		if (testingCheck) {
-			this.setMoviments(newMovimentos);
+			this.setMovements(newMovements);
 		}
 
-		return newMovimentos;
+		return newMovements;
 	}
 
 }

@@ -39,9 +39,8 @@ public class Main {
 	InitAudioDevice();
 	SetTargetFPS(60);
 
-
-	Match match = new Match(300);
-
+	Match match = new Match(300,true,true);
+	
 	int clicks = 0;
 	Piece movedPiece = new Blank(0, 0);
 
@@ -127,7 +126,7 @@ public class Main {
 
 		// creating new match
 		if (startNewMatch == true){
-		    match = new Match(optionsMenu.convertToSeconds());
+		    match = new Match(optionsMenu.convertToSeconds(),true,true);
 		    movedPiece = new Blank(0, 0);
 
 		    for (int i = 0; i < 3; i++){
@@ -165,7 +164,7 @@ public class Main {
 			    if (clicks == 0) {
 				if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
 				    movedPiece = board.getPieceInPosition(pos);
-				    movedPiece.validMoviments(board, true);
+				    movedPiece.validMovements(board, true);
 				    clicks = 1;
 				}
 			    } else if (clicks == 1) {
@@ -211,7 +210,7 @@ public class Main {
 				    match.nextTurn();
 				    clicks = 0;
 
-				    if(whitePlayer.isInCheck()){
+				    if(whitePlayer.getCheckStatus()){
 					if(board.checkCheckmate('w')){
 					    winner[2] = true;
 					    whitePlayer.getClock().stopClock();
@@ -220,7 +219,7 @@ public class Main {
 					}
 				    }
 
-				    if(blackPlayer.isInCheck()){
+				    if(blackPlayer.getCheckStatus()){
 					if(board.checkCheckmate('b')){
 					    winner[1] = true;
 					    whitePlayer.getClock().stopClock();
@@ -233,7 +232,7 @@ public class Main {
 				    // changes the piece if the players clicks on one of the same color
 				    if (destinePiece.findPieceColor() == movedPiece.findPieceColor()) {
 					movedPiece = board.getPieceInPosition(pos);
-					movedPiece.validMoviments(board, true);
+					movedPiece.validMovements(board, true);
 				    } else {
 					movedPiece = new Blank(0, 0);
 					clicks = 0;
@@ -247,10 +246,10 @@ public class Main {
 		    clicks = 0;
 
 		if (clicks == 1) {
-		    board.drawValidMoviments(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
+		    board.drawValidMovements(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
 		}
 
-		board.drawPieces(INITIALX, INITIALY, whitePlayer.isInCheck(), blackPlayer.isInCheck());
+		board.drawPieces(INITIALX, INITIALY, whitePlayer.getCheckStatus(), blackPlayer.getCheckStatus());
 		DrawTextEx(pixelFont, whitePlayer.getClock().formatTime(), new Vector2().x(527).y(21), 32, 2,
 			   WHITE);
 		DrawTextEx(pixelFont, blackPlayer.getClock().formatTime(), new Vector2().x(527).y(53), 32, 2,
@@ -258,7 +257,7 @@ public class Main {
 		bloodParticlesEmitter.updateParticles();
 		if (doPromotion)
 		    {
-			if (movePromotion.DoPromotion(board, camera2d))
+			if (movePromotion.promote(board, camera2d, true))
 			    {
 				flash.callFlash();
 				doPromotion = false;

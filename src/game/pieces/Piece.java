@@ -9,7 +9,7 @@ public abstract class Piece {
     public final int SIZE = 8;
     private char id;
     private Pair boardPosition;
-    private ArrayList<Pair> moviments = new ArrayList<>();
+    private ArrayList<Pair> movements = new ArrayList<>();
     private Sprite sprite;
 
     public Piece(int x, int y, char id) {
@@ -17,8 +17,8 @@ public abstract class Piece {
         this.id = id;
     }
 
-    public ArrayList<Pair> getMoviments() {
-        return moviments;
+    public ArrayList<Pair> getMovements() {
+        return movements;
     }
 
     public Pair getBoardPosition() {
@@ -33,8 +33,8 @@ public abstract class Piece {
         return id;
     }
 
-    public void setMoviments(ArrayList<Pair> newMoviments) {
-        this.moviments = newMoviments;
+    public void setMovements(ArrayList<Pair> newMovements) {
+        this.movements = newMovements;
     }
 
     public void setSprite(Sprite sprite) {
@@ -51,7 +51,7 @@ public abstract class Piece {
     }
 
 
-    public abstract ArrayList<Pair> validMoviments(Board Board, boolean testingCheck);
+    public abstract ArrayList<Pair> validMovements(Board Board, boolean testingCheck);
 
     public char findPieceColor() {
 
@@ -71,14 +71,14 @@ public abstract class Piece {
      * add the moviment to the movs list only if this moviment doesn't lead to a
      * check
      */
-    public void checkMoviment(Board board, ArrayList<Pair> movs, Pair moviment, boolean testingCheck) {
+    public void checkMovement(Board board, ArrayList<Pair> movs, Pair movement, boolean testingCheck) {
 
         if (testingCheck) {
-            if (!board.moveLeadsToCheck(this, this.findPieceColor(), moviment)) {
-                movs.add(moviment);
+            if (!board.moveLeadsToCheck(this, this.findPieceColor(), movement)) {
+                movs.add(movement);
             }
         } else {
-            movs.add(moviment);
+            movs.add(movement);
         }
 
     }

@@ -14,19 +14,25 @@ import gui.Sprite;
 
 public class Queen extends Piece {
 
-	private static Texture queenTexture = LoadTexture("res/pieces/queen.png");
+	private static Texture queenTexture;
 
-	public Queen(int x, int y, char id) {
+	public Queen(int x, int y, char id, boolean initUI) {
 		super(x, y, id);
-		this.loadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
-	public Queen(Pair p, char id) {
+	public Queen(Pair p, char id, boolean initUI) {
 		super(p.x, p.y, id);
-		this.loadSprite();
+		if(initUI)
+			this.loadSprite();
 	}
 
 	private void loadSprite() {
+		if (queenTexture == null) {
+			queenTexture = LoadTexture("res/pieces/queen.png");
+		}
+
 		if (findPieceColor() == 'w')
 			this.setSprite(new Sprite(queenTexture, 2, 0, 0, 0, WHITE, 2));
 		else
@@ -34,9 +40,9 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-		ArrayList<Pair> newMovimentos = new ArrayList<>();
+		ArrayList<Pair> newMovements = new ArrayList<>();
 		char color = this.findPieceColor();
 
 		boolean pieceUp = false;
@@ -64,7 +70,7 @@ public class Queen extends Piece {
 					pieceUp = true;
 				}
 				if (color != board.getPieceInPosition(doubleUp).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, doubleUp, testingCheck);
+					this.checkMovement(board, newMovements, doubleUp, testingCheck);
 				}
 			}
 
@@ -73,7 +79,7 @@ public class Queen extends Piece {
 					pieceDown = true;
 				}
 				if (color != board.getPieceInPosition(down).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, down, testingCheck);
+					this.checkMovement(board, newMovements, down, testingCheck);
 				}
 			}
 
@@ -82,7 +88,7 @@ public class Queen extends Piece {
 					pieceRight = true;
 				}
 				if (color != board.getPieceInPosition(right).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, right, testingCheck);
+					this.checkMovement(board, newMovements, right, testingCheck);
 				}
 			}
 
@@ -91,7 +97,7 @@ public class Queen extends Piece {
 					pieceLeft = true;
 				}
 				if (color != board.getPieceInPosition(left).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, left, testingCheck);
+					this.checkMovement(board, newMovements, left, testingCheck);
 				}
 			}
 
@@ -101,7 +107,7 @@ public class Queen extends Piece {
 					pieceUpperRight = true;
 				}
 				if (color != board.getPieceInPosition(upperRight).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+					this.checkMovement(board, newMovements, upperRight, testingCheck);
 				}
 			}
 
@@ -111,7 +117,7 @@ public class Queen extends Piece {
 					pieceUpperLeft = true;
 				}
 				if (color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+					this.checkMovement(board, newMovements, upperLeft, testingCheck);
 				}
 			}
 
@@ -121,7 +127,7 @@ public class Queen extends Piece {
 					pieceLowerRight = true;
 				}
 				if (color != board.getPieceInPosition(lowerRight).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
+					this.checkMovement(board, newMovements, lowerRight, testingCheck);
 				}
 			}
 
@@ -131,16 +137,16 @@ public class Queen extends Piece {
 					pieceLowerLeft = true;
 				}
 				if (color != board.getPieceInPosition(lowerLeft).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
+					this.checkMovement(board, newMovements, lowerLeft, testingCheck);
 				}
 			}
 		}
 
 		if (testingCheck) {
-			this.setMoviments(newMovimentos);
+			this.setMovements(newMovements);
 		}
 
-		return newMovimentos;
+		return newMovements;
 	}
 
 }
