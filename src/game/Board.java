@@ -310,7 +310,7 @@ public class Board {
 
                 if (piece.findPieceColor() != colorKing) {
 
-                    for (Pair movePostion : piece.validMoviments(this, false)) {
+                    for (Pair movePostion : piece.validMovements(this, false)) {
                         if (king.getBoardPosition().isEqualsTo(movePostion)) {
                             return true;
                         }
@@ -336,7 +336,7 @@ public class Board {
                 Piece piece = this.getPieceInPosition(i, j);
 
                 if (piece.findPieceColor() == color) {
-                    if (!piece.validMoviments(this, true).isEmpty()) {
+                    if (!piece.validMovements(this, true).isEmpty()) {
                         return false;
                     }
                 }
@@ -482,15 +482,15 @@ public class Board {
     }
 
     /* Show visually in the board the valid moves of the piece */
-    public void drawValidMoviments(Piece piece, int xInitial, int yInitial, int scale, Camera2D camera2d) {
+    public void drawValidMovements(Piece piece, int xInitial, int yInitial, int scale, Camera2D camera2d) {
 
-        ArrayList<Pair> moviments = piece.getMoviments();
+        ArrayList<Pair> movements = piece.getMovements();
 
-        for (int i = 0; i < moviments.size(); i++) {
+        for (int i = 0; i < movements.size(); i++) {
 
             Pair mousePosition = getMousePositionOnBoard(xInitial, yInitial, scale, camera2d);
 
-            if (mousePosition.x == moviments.get(i).x && mousePosition.y == moviments.get(i).y) {
+            if (mousePosition.x == movements.get(i).x && mousePosition.y == movements.get(i).y) {
                 greenAimSprite.SetCurrentImage(0);
                 redAimSprite.SetCurrentImage(0);
             } else {
@@ -498,12 +498,12 @@ public class Board {
                 redAimSprite.SetCurrentImage(1);
             }
 
-            if (!(this.getPieceInPosition(moviments.get(i)) instanceof Blank)) {
-                redAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
-                        moviments.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
+            if (!(this.getPieceInPosition(movements.get(i)) instanceof Blank)) {
+                redAimSprite.DrawSpritePro(movements.get(i).x * 16 * scale + xInitial + redAimSprite.GetWidth() / 2,
+                        movements.get(i).y * 16 * scale + yInitial + redAimSprite.GetHeight() / 2);
             } else {
-                greenAimSprite.DrawSpritePro(moviments.get(i).x * 16 * scale + xInitial + greenAimSprite.GetWidth() / 2,
-                        moviments.get(i).y * 16 * scale + yInitial + greenAimSprite.GetHeight() / 2);
+                greenAimSprite.DrawSpritePro(movements.get(i).x * 16 * scale + xInitial + greenAimSprite.GetWidth() / 2,
+                        movements.get(i).y * 16 * scale + yInitial + greenAimSprite.GetHeight() / 2);
             }
         }
 

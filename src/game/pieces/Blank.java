@@ -25,8 +25,8 @@ public class Blank extends Piece {
 
 
     @Override
-    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
-        return this.getMoviments();
+    public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
+        return this.getMovements();
     }
 
 }

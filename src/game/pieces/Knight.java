@@ -40,9 +40,9 @@ public class Knight extends Piece {
     }
 
     @Override
-    public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+    public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-        ArrayList<Pair> newMovimentos = new ArrayList<>();
+        ArrayList<Pair> newMovements = new ArrayList<>();
         char color = this.findPieceColor();
 
         Pair upRight = this.getBoardPosition().add(new Pair(+1, -2));
@@ -58,34 +58,34 @@ public class Knight extends Piece {
         Pair leftDown = this.getBoardPosition().add(new Pair(-2, +1));
 
         if (upRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upRight).findPieceColor())
-            this.checkMoviment(board, newMovimentos, upRight, testingCheck);
+            this.checkMovement(board, newMovements, upRight, testingCheck);
 
         if (upLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upLeft).findPieceColor())
-            this.checkMoviment(board, newMovimentos, upLeft, testingCheck);
+            this.checkMovement(board, newMovements, upLeft, testingCheck);
 
         if (downRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(downRight).findPieceColor())
-            this.checkMoviment(board, newMovimentos, downRight, testingCheck);
+            this.checkMovement(board, newMovements, downRight, testingCheck);
 
         if (downLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(downLeft).findPieceColor())
-            this.checkMoviment(board, newMovimentos, downLeft, testingCheck);
+            this.checkMovement(board, newMovements, downLeft, testingCheck);
 
         if (rightUp.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(rightUp).findPieceColor())
-            this.checkMoviment(board, newMovimentos, rightUp, testingCheck);
+            this.checkMovement(board, newMovements, rightUp, testingCheck);
 
         if (rightDown.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(rightDown).findPieceColor())
-            this.checkMoviment(board, newMovimentos, rightDown, testingCheck);
+            this.checkMovement(board, newMovements, rightDown, testingCheck);
 
         if (leftUp.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(leftUp).findPieceColor())
-            this.checkMoviment(board, newMovimentos, leftUp, testingCheck);
+            this.checkMovement(board, newMovements, leftUp, testingCheck);
 
         if (leftDown.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(leftDown).findPieceColor())
-            this.checkMoviment(board, newMovimentos, leftDown, testingCheck);
+            this.checkMovement(board, newMovements, leftDown, testingCheck);
 
         if (testingCheck) {
-            this.setMovements(newMovimentos);
+            this.setMovements(newMovements);
         }
 
-        return newMovimentos;
+        return newMovements;
     }
 
 }

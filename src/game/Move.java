@@ -75,7 +75,7 @@ public class Move {
 	/* Return if a move is valid */
 	public boolean validateMove(Board board) {
 
-		for (Pair p : this.getMovedPiece().getMoviments()) {
+		for (Pair p : this.getMovedPiece().getMovements()) {
 			if (p.isEqualsTo(this.getCapturedPiece().getBoardPosition())) {
 				return true;
 			}
@@ -115,19 +115,19 @@ public class Move {
 		char pawnColor = this.movedPiece.findPieceColor();
 		Pair pawnPosition = this.movedPiece.getBoardPosition();
 
-		char choose;
+		char choice;
 		if (initUI) {
 			if (buttonRaise == null) {
 				buttonRaise = new ButtonRaise(2);
 			}
-			choose = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
+			choice = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
 		} else {
 			Scanner scanner = new Scanner(System.in);
-			choose = scanner.next().charAt(0);
+			choice = scanner.next().charAt(0);
 			scanner.close();
 		}
-		if (choose != '-') {
-			switch (choose) {
+		if (choice != '-') {
+			switch (choice) {
 				case 'R':
 					board.setPieceInPosition(pawnPosition,
 							new Rook(pawnPosition, this.promotionId(pawnColor, 'R'), initUI));

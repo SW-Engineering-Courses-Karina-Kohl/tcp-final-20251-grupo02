@@ -65,9 +65,9 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-		ArrayList<Pair> newMovimentos = new ArrayList<>();
+		ArrayList<Pair> newMovements = new ArrayList<>();
 		this.hasEnPassant = false;
 
 		int direction = this.getMoveDirection();
@@ -82,11 +82,11 @@ public class Pawn extends Piece {
 
 		if (up.isPieceInsideBoard(0, SIZE)) {
 			if (!(board.isTherePieceInPosition(up))) {
-				this.checkMoviment(board, newMovimentos, up, testingCheck);
+				this.checkMovement(board, newMovements, up, testingCheck);
 
 				if (!this.hasMoved && doubleUp.isPieceInsideBoard(0, SIZE)) {
 					if (!(board.isTherePieceInPosition(doubleUp))) {
-						this.checkMoviment(board, newMovimentos, doubleUp, testingCheck);
+						this.checkMovement(board, newMovements, doubleUp, testingCheck);
 					}
 				}
 			}
@@ -95,10 +95,10 @@ public class Pawn extends Piece {
 		if (upperRight.isPieceInsideBoard(0, SIZE)) {
 			if (board.isTherePieceInPosition(upperRight)
 					&& color != board.getPieceInPosition(upperRight).findPieceColor()) {
-				this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+				this.checkMovement(board, newMovements, upperRight, testingCheck);
 			}
 			if (board.checkEnPassant(this, 'r')) {
-				this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+				this.checkMovement(board, newMovements, upperRight, testingCheck);
 				this.hasEnPassant = true;
 				this.enPassantPosition = upperRight;
 			}
@@ -107,20 +107,20 @@ public class Pawn extends Piece {
 		if (upperLeft.isPieceInsideBoard(0, SIZE)) {
 			if (board.isTherePieceInPosition(upperLeft)
 					&& color != board.getPieceInPosition(upperLeft).findPieceColor()) {
-				this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+				this.checkMovement(board, newMovements, upperLeft, testingCheck);
 			}
 			if (board.checkEnPassant(this, 'l')) {
-				this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+				this.checkMovement(board, newMovements, upperLeft, testingCheck);
 				this.hasEnPassant = true;
 				this.enPassantPosition = upperLeft;
 			}
 		}
 
 		if (testingCheck) {
-			this.setMovements(newMovimentos);
+			this.setMovements(newMovements);
 		}
 
-		return newMovimentos;
+		return newMovements;
 	}
 
 	@Override

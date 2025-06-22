@@ -50,9 +50,9 @@ public class Rook extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-		ArrayList<Pair> newMovimentos = new ArrayList<>();
+		ArrayList<Pair> newMovements = new ArrayList<>();
 		char color = this.findPieceColor();
 
 		boolean pieceUp = false;
@@ -73,7 +73,7 @@ public class Rook extends Piece {
 					pieceUp = true;
 				}
 				if (color != board.getPieceInPosition(up).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, up, testingCheck);
+					this.checkMovement(board, newMovements, up, testingCheck);
 				}
 			}
 
@@ -82,7 +82,7 @@ public class Rook extends Piece {
 					pieceDown = true;
 				}
 				if (color != board.getPieceInPosition(down).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, down, testingCheck);
+					this.checkMovement(board, newMovements, down, testingCheck);
 				}
 			}
 
@@ -94,14 +94,14 @@ public class Rook extends Piece {
 
 					if (piece instanceof King && piece.findPieceColor() == this.findPieceColor()) {
 					     if(!testingCheck){
-						newMovimentos.add(right);
+						newMovements.add(right);
 					     } else if (board.checkCastling(this, (King) piece, 'l')) {
-							newMovimentos.add(right);
+							newMovements.add(right);
 						}
 					}
 				}
 				if (color != board.getPieceInPosition(right).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, right, testingCheck);
+					this.checkMovement(board, newMovements, right, testingCheck);
 				}
 			}
 
@@ -112,24 +112,24 @@ public class Rook extends Piece {
 
 					if (piece instanceof King && piece.findPieceColor() == this.findPieceColor()) {
 					    if(!testingCheck){
-						newMovimentos.add(left);
+						newMovements.add(left);
 					    } else if (board.checkCastling(this, (King) piece, 'r')) {
-							newMovimentos.add(left);
+							newMovements.add(left);
 					    }
 					}
 
 				}
 				if (color != board.getPieceInPosition(left).findPieceColor()) {
-					this.checkMoviment(board, newMovimentos, left, testingCheck);
+					this.checkMovement(board, newMovements, left, testingCheck);
 				}
 			}
 		}
 
 		if (testingCheck) {
-			this.setMovements(newMovimentos);
+			this.setMovements(newMovements);
 		}
 
-		return newMovimentos;
+		return newMovements;
 	}
 
 	@Override

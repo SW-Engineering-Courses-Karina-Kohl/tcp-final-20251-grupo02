@@ -50,9 +50,9 @@ public class King extends Piece {
 	}
 
 	@Override
-	public ArrayList<Pair> validMoviments(Board board, boolean testingCheck) {
+	public ArrayList<Pair> validMovements(Board board, boolean testingCheck) {
 
-		ArrayList<Pair> newMovimentos = new ArrayList<>();
+		ArrayList<Pair> newMovements = new ArrayList<>();
 		char color = this.findPieceColor();
 
 		Pair up = this.getBoardPosition().add(new Pair(0, -1));
@@ -65,28 +65,28 @@ public class King extends Piece {
 		Pair lowerLeft = this.getBoardPosition().add(new Pair(-1, +1));
 
 		if (up.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(up).findPieceColor())
-			this.checkMoviment(board, newMovimentos, up, testingCheck);
+			this.checkMovement(board, newMovements, up, testingCheck);
 
 		if (down.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(down).findPieceColor())
-			this.checkMoviment(board, newMovimentos, down, testingCheck);
+			this.checkMovement(board, newMovements, down, testingCheck);
 
 		if (right.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(right).findPieceColor())
-			this.checkMoviment(board, newMovimentos, right, testingCheck);
+			this.checkMovement(board, newMovements, right, testingCheck);
 
 		if (left.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(left).findPieceColor())
-			this.checkMoviment(board, newMovimentos, left, testingCheck);
+			this.checkMovement(board, newMovements, left, testingCheck);
 
 		if (upperRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upperRight).findPieceColor())
-			this.checkMoviment(board, newMovimentos, upperRight, testingCheck);
+			this.checkMovement(board, newMovements, upperRight, testingCheck);
 
 		if (upperLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(upperLeft).findPieceColor())
-			this.checkMoviment(board, newMovimentos, upperLeft, testingCheck);
+			this.checkMovement(board, newMovements, upperLeft, testingCheck);
 
 		if (lowerRight.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(lowerRight).findPieceColor())
-			this.checkMoviment(board, newMovimentos, lowerRight, testingCheck);
+			this.checkMovement(board, newMovements, lowerRight, testingCheck);
 
 		if (lowerLeft.isPieceInsideBoard(0, SIZE) && color != board.getPieceInPosition(lowerLeft).findPieceColor())
-			this.checkMoviment(board, newMovimentos, lowerLeft, testingCheck);
+			this.checkMovement(board, newMovements, lowerLeft, testingCheck);
 
 		// check castling
 		boolean pieceLeft = false;
@@ -105,9 +105,9 @@ public class King extends Piece {
 
 				if (piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()) {
 				    if(!testingCheck){
-					newMovimentos.add(right);
+					newMovements.add(right);
 				    } else if (board.checkCastling((Rook) piece, this, 'r')) {
-					newMovimentos.add(right);
+					newMovements.add(right);
 				    }
 				}
 			    }
@@ -121,9 +121,9 @@ public class King extends Piece {
 
 				if (piece instanceof Rook && piece.findPieceColor() == this.findPieceColor()) {
 				    if(!testingCheck){
-					newMovimentos.add(left);
+					newMovements.add(left);
 				    } else if (board.checkCastling((Rook) piece, this, 'l')) {
-					newMovimentos.add(left);
+					newMovements.add(left);
 				    }
 				}
 			    }
@@ -132,10 +132,10 @@ public class King extends Piece {
 		}
 
 		if (testingCheck) {
-			this.setMovements(newMovimentos);
+			this.setMovements(newMovements);
 		}
 
-		return newMovimentos;
+		return newMovements;
 	}
 
 	@Override

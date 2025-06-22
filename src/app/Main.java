@@ -164,7 +164,7 @@ public class Main {
 			    if (clicks == 0) {
 				if (board.getPieceInPosition(pos).findPieceColor() == match.getCurrentTurnPlayer().getColor()) {
 				    movedPiece = board.getPieceInPosition(pos);
-				    movedPiece.validMoviments(board, true);
+				    movedPiece.validMovements(board, true);
 				    clicks = 1;
 				}
 			    } else if (clicks == 1) {
@@ -232,7 +232,7 @@ public class Main {
 				    // changes the piece if the players clicks on one of the same color
 				    if (destinePiece.findPieceColor() == movedPiece.findPieceColor()) {
 					movedPiece = board.getPieceInPosition(pos);
-					movedPiece.validMoviments(board, true);
+					movedPiece.validMovements(board, true);
 				    } else {
 					movedPiece = new Blank(0, 0);
 					clicks = 0;
@@ -246,7 +246,7 @@ public class Main {
 		    clicks = 0;
 
 		if (clicks == 1) {
-		    board.drawValidMoviments(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
+		    board.drawValidMovements(movedPiece, INITIALX, INITIALY, SCALE, camera2d);
 		}
 
 		board.drawPieces(INITIALX, INITIALY, whitePlayer.getCheckStatus(), blackPlayer.getCheckStatus());
