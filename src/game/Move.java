@@ -115,19 +115,19 @@ public class Move {
 		char pawnColor = this.movedPiece.findPieceColor();
 		Pair pawnPosition = this.movedPiece.getBoardPosition();
 
-		char escolha;
+		char choose;
 		if (initUI) {
 			if (buttonRaise == null) {
 				buttonRaise = new ButtonRaise(2);
 			}
-			escolha = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
+			choose = Character.toUpperCase(buttonRaise.botaoPromocaoLogica(pawnColor, camera2d));
 		} else {
 			Scanner scanner = new Scanner(System.in);
-			escolha = scanner.next().charAt(0);
+			choose = scanner.next().charAt(0);
 			scanner.close();
 		}
-		if (escolha != '-') {
-			switch (escolha) {
+		if (choose != '-') {
+			switch (choose) {
 				case 'R':
 					board.setPieceInPosition(pawnPosition,
 							new Rook(pawnPosition, this.promotionId(pawnColor, 'R'), initUI));
