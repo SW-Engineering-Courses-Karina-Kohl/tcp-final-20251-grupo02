@@ -248,7 +248,7 @@ public class Board {
         updateBoard(movedPieceMove);
         movedPiece.movePiece(movedPieceMove);
 
-        this.setPieceInPosition(capturedPiece.getBoardPosition(), new Blank(0, 0));
+        this.setPieceInPosition(capturedPiece.getBoardPosition(), new Blank(capturedPiece.getBoardPosition()));
 
     }
 
