@@ -15,6 +15,10 @@
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 </p>
+![check](https://github.com/user-attachments/assets/aa096536-c949-40f4-a908-913df962d62c)
+![promocao](https://github.com/user-attachments/assets/c1fde571-cb39-45d7-95f9-38dde0ec913c)
+![enpassant](https://github.com/user-attachments/assets/04bbc996-d517-435f-b565-1c182cea4a7d)
+![menu](https://github.com/user-attachments/assets/8887fd9a-2961-4abc-aa8c-88efa1ed04ba)
 
 
 <p align="center" style="text-align:center;">
