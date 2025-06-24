@@ -1,4 +1,4 @@
-<p align="center" style="text-align:center;">
+![promocao](https://github.com/user-attachments/assets/e79b9c19-ebdb-4d53-b9a2-34fa240dd201)<p align="center" style="text-align:center;">
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
@@ -42,6 +42,9 @@
 
 What is TCP?
 ===
+
+
+
 TCP is an ***free open-source***, object-oriented implementation of the
 traditional Chess, made for our final project for the "INF01120"
 course. This game brings the full experience of playing chess with yout friends side-by-side to your computer.
@@ -53,6 +56,7 @@ https://github.com/user-attachments/assets/b3b70d38-4960-4ab5-a1b0-ba636fdcbb7c
 <br>
 
 ## Installing and Playing TCP
+
 TCP intends to be an beginner-friendly easy-to-play chess game. To starting playing, everything you need to do is clone this repository and build the game with the following commands based on your operation system:
 
 #### Linux:
