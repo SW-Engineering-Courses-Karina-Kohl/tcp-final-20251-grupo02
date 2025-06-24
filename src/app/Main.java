@@ -40,7 +40,7 @@ public class Main {
 	SetTargetFPS(60);
 
 	Match match = new Match(300,true,true);
-	
+
 	int clicks = 0;
 	Piece movedPiece = new Blank(0, 0);
 
@@ -155,8 +155,6 @@ public class Main {
 		}
 
 		if (board.mouseClikedOnBoard(INITIALX, INITIALY, SCALE, camera2d)) {
-
-		    System.out.println(board.toString());
 
 		    Pair pos = board.getMousePositionOnBoard(INITIALX, INITIALY, SCALE, camera2d);
 		    if (!doPromotion)
