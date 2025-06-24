@@ -1,0 +1,6 @@
+bin/
+.vscode/
+raylib.ps1
+testing.txt
+*.class
+*.orig

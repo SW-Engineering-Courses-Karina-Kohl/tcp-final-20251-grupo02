@@ -1,0 +1,33 @@
+16/05/2025
+- Os requisitos não-funcionais estão apontando para o lado correto. Vocês estão certos ao focar em desempenho, usabilidade e confiabilidade. 
+porém, para melhorar, sempre que possível usem métricas objetivas, evitem termos subjetivos como “rápido”, “leve”, “bonito”, “fácil”
+
+- "A aplicação deve ser fluída, não apresentando travamento ou demora para realização de jogadas."
+Está vago. O que significa “fluída”? “Sem demora” é subjetivo. Usem métricas.
+
+Sugestão:
+A aplicação deve responder a qualquer interação do usuário (movimento de peça, clique, etc.) em no máximo 500 milissegundos, garantindo uma experiência contínua sem travamentos.
+
+- "A interface da aplicação deve ser amigável, não dificultando a usabilidade pelo usuário."
+"Amigável" é subjetivo. 
+
+Sugestão:
+A interface da aplicação deve seguir princípios de usabilidade e ser compreendida por ao menos 80% dos usuários em testes com até 5 minutos de uso.
+
+- "A aplicação não deve apresentar falhas lógicas para validação de jogadas ou falhas visuais na representação do tabuleiro."
+É um bom ponto, mas o requisito mistura dois aspectos (lógica e visual). Fica difícil de testar diretamente.
+
+Sugestão:
+A aplicação deve garantir 100% de precisão na validação de jogadas de acordo com as regras definidas, e o tabuleiro deve ser renderizado corretamente em todas as resoluções suportadas.
+
+- "A aplicação deve ser leve, não necessitando de um grande poder computacional para sua execução."
+"Leve" e "grande poder computacional" são vagos. Especifiquem requisitos mínimos de hardware, uso de CPU/memória.
+
+Sugestão:
+A aplicação deve funcionar em dispositivos com pelo menos 2 GB de RAM, utilizando no máximo 50% da CPU durante o uso típico.
+
+- "A aplicação deve validar a jogada rapidamente, levando menos de 2s."
+Quase bom (é mensurável), mas poderia ser mais preciso no contexto (tempo de validação do quê? Em que tipo de jogada?).
+
+Sugestão:
+O tempo de validação de qualquer jogada, desde a entrada do usuário até a resposta visual da aplicação, não deve ultrapassar 2 segundos.
