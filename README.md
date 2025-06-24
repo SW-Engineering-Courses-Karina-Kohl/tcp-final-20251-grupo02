@@ -43,6 +43,8 @@
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 </p>
 
+![promocao](https://github.com/user-attachments/assets/ad71afb0-78a1-4380-919e-df262cbae3d8)
+
 What is TCP?
 ===
 
