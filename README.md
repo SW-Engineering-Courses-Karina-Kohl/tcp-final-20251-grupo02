@@ -1,4 +1,6 @@
-![promocao](https://github.com/user-attachments/assets/e79b9c19-ebdb-4d53-b9a2-34fa240dd201)<p align="center" style="text-align:center;">
+
+
+<p align="center" style="text-align:center;">
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
@@ -15,10 +17,7 @@
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 </p>
-![check](https://github.com/user-attachments/assets/aa096536-c949-40f4-a908-913df962d62c)
-![promocao](https://github.com/user-attachments/assets/c1fde571-cb39-45d7-95f9-38dde0ec913c)
-![enpassant](https://github.com/user-attachments/assets/04bbc996-d517-435f-b565-1c182cea4a7d)
-![menu](https://github.com/user-attachments/assets/8887fd9a-2961-4abc-aa8c-88efa1ed04ba)
+
 
 
 <p align="center" style="text-align:center;">
@@ -48,10 +47,15 @@ What is TCP?
 ===
 
 
-
 TCP is an ***free open-source***, object-oriented implementation of the
 traditional Chess, made for our final project for the "INF01120"
 course. This game brings the full experience of playing chess with yout friends side-by-side to your computer.
+
+
+<p align="center" style="text-align:center;">
+<img alt="TCP logo" src="https://github.com/user-attachments/assets/8887fd9a-2961-4abc-aa8c-88efa1ed04ba" width="800"/>
+</p>
+
 
 <br>
 
@@ -60,6 +64,8 @@ https://github.com/user-attachments/assets/b3b70d38-4960-4ab5-a1b0-ba636fdcbb7c
 <br>
 
 ## Installing and Playing TCP
+
+![enpassant](https://github.com/user-attachments/assets/04bbc996-d517-435f-b565-1c182cea4a7d)
 
 TCP intends to be an beginner-friendly easy-to-play chess game. To starting playing, everything you need to do is clone this repository and build the game with the following commands based on your operation system:
 
@@ -79,6 +85,9 @@ java -cp lib/jaylib-5.5.0-2.jar`;bin app.Main
 ```
 
 ## Supporting on itch.io
+
+![check](https://github.com/user-attachments/assets/aa096536-c949-40f4-a908-913df962d62c)
+
 The game is release on itch.io, you can find it by [cliking here](https://iuri-kali.itch.io/tcp). Feel free to share yout thoughts and feedbacks about the game on the comments.
 
 ## The development team
