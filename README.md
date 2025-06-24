@@ -1,5 +1,3 @@
-
-
 <p align="center" style="text-align:center;">
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
 <img alt="TCP pawn piece" src="./res/pieces/pawn.png" width="50" />
@@ -53,15 +51,9 @@ TCP is an ***free open-source***, object-oriented implementation of the
 traditional Chess, made for our final project for the "INF01120"
 course. This game brings the full experience of playing chess with yout friends side-by-side to your computer.
 
-
-<p align="center" style="text-align:center;">
-<img alt="TCP logo" src="https://github.com/user-attachments/assets/8887fd9a-2961-4abc-aa8c-88efa1ed04ba" width="800"/>
-</p>
-
-
 <br>
 
-https://github.com/user-attachments/assets/b3b70d38-4960-4ab5-a1b0-ba636fdcbb7c
+https://github.com/user-attachments/assets/3603d0c0-3769-4f43-93d9-f6e39685d62b
 
 <br>
 
