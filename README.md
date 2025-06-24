@@ -49,7 +49,7 @@ What is TCP?
 
 TCP is an ***free open-source***, object-oriented implementation of the
 traditional Chess, made for our final project for the "INF01120"
-course. This game brings the full experience of playing chess with yout friends side-by-side to your computer.
+course. This game brings the full experience of playing chess with your friends side-by-side to your computer.
 
 <br>
 
