@@ -1,0 +1,24 @@
+19/06/2025
+
+Vocês estão usando Pascal case para nomes de métodos! A convenção é Camel case!
+
+E por que
+
+//[T]orre  [C]avalo  [B]ispo  [D]ama"
+
+por que não ROOK, BISHOP, KNIGHT, QUEEN?
+
+ switch (escolha) {
+	    case 'T':
+		board.SetPieceInPosition(pawnPosition, new Rook(pawnPosition, this.PromotionId(pawnColor, 'T')));
+		break;
+	    case 'B':
+		board.SetPieceInPosition(pawnPosition, new Bishop(pawnPosition, this.PromotionId(pawnColor, 'B')));
+		break;
+	    case 'C':
+		board.SetPieceInPosition(pawnPosition, new Knight(pawnPosition, this.PromotionId(pawnColor, 'C')));
+		break;
+	    case 'D':
+		board.SetPieceInPosition(pawnPosition, new Queen(pawnPosition, this.PromotionId(pawnColor, 'D')));
+		break;
+	    }
